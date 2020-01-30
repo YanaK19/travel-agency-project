@@ -6,7 +6,7 @@ import cors from "cors";
 import tourRoutes from "./routes/tour";
 import userRoutes from "./routes/user";
 import reviewRoutes from "./routes/review";
-import orderRoutes from "./routes/review";
+import orderRoutes from "./routes/order";
 
 const app = express();
 
