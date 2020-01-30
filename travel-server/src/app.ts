@@ -6,6 +6,7 @@ import cors from "cors";
 import tourRoutes from "./routes/tour";
 import userRoutes from "./routes/user";
 import reviewRoutes from "./routes/review";
+import orderRoutes from "./routes/review";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use(bodyParser.json());
 app.use('/api/tour', tourRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/review', reviewRoutes);
+app.use('/api/order', orderRoutes);
 
 export {app}

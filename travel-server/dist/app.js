@@ -11,6 +11,7 @@ const cors_1 = __importDefault(require("cors"));
 const tour_1 = __importDefault(require("./routes/tour"));
 const user_1 = __importDefault(require("./routes/user"));
 const review_1 = __importDefault(require("./routes/review"));
+const review_2 = __importDefault(require("./routes/review"));
 const app = express_1.default();
 exports.app = app;
 mongoose_1.default.connect(keys_1.keys.mongoURI, { useNewUrlParser: true,
@@ -25,4 +26,5 @@ app.use(body_parser_1.default.json());
 app.use('/api/tour', tour_1.default);
 app.use('/api/user', user_1.default);
 app.use('/api/review', review_1.default);
+app.use('/api/order', review_2.default);
 //# sourceMappingURL=app.js.map

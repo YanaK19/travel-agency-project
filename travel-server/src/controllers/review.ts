@@ -18,13 +18,36 @@ async function create(req:any, res:any) {
     }
 }
 
-async function getAll(req:any, res:any) {
+async function getReviews(req:any, res:any) {
     try {
-        const review = await Review.find()
+        let confirmedFilter: any = {};
+
+        if(req.query.confirmed === "false"){
+            // /review?confirmed=false
+            confirmedFilter.confirmed = false;
+        }
+
+        if(req.query.confirmed === "true"){
+            // /review?confirmed=false
+            confirmedFilter.confirmed = true;
+        }
+
+        const review = await Review.find(confirmedFilter);
         res.status(200).json(review)
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
-export {create, getAll}
+async function remove(req:any, res:any) {
+    try {
+        await Review.deleteOne({_id: req.params.id})
+        res.status(200).json({
+            message: 'Review deleted'
+        })
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {create, getReviews, remove}

@@ -5,7 +5,7 @@ const tourRoutes = express.Router();
 tourRoutes.post('/', create);
 tourRoutes.delete('/:id', remove);
 tourRoutes.put('/:id', update);
-/*tourRoutes.get('/:id', getTourById);*/
+tourRoutes.get('/:id', getTourById);
 tourRoutes.get('/', getFilSortTours);
 
 export default tourRoutes;

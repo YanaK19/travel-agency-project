@@ -1,8 +1,9 @@
 import express from 'express';
-import {create, getAll} from '../controllers/review';
+import {create, getReviews, remove} from '../controllers/review';
 const reviewRoutes = express.Router();
 
 reviewRoutes.post('/', create);
-reviewRoutes.get('/', getAll);
+reviewRoutes.get('/', getReviews);
+reviewRoutes.delete('/:id', remove);
 
 export default reviewRoutes;

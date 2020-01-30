@@ -33,10 +33,19 @@ function create(req, res) {
     });
 }
 exports.create = create;
-function getAll(req, res) {
+function getReviews(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const review = yield Review_1.default.find();
+            let confirmedFilter = {};
+            if (req.query.confirmed === "false") {
+                // /review?confirmed=false
+                confirmedFilter.confirmed = false;
+            }
+            if (req.query.confirmed === "true") {
+                // /review?confirmed=false
+                confirmedFilter.confirmed = true;
+            }
+            const review = yield Review_1.default.find(confirmedFilter);
             res.status(200).json(review);
         }
         catch (e) {
@@ -44,5 +53,19 @@ function getAll(req, res) {
         }
     });
 }
-exports.getAll = getAll;
+exports.getReviews = getReviews;
+function remove(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield Review_1.default.deleteOne({ _id: req.params.id });
+            res.status(200).json({
+                message: 'Review deleted'
+            });
+        }
+        catch (e) {
+            errorHandler_1.default(res, e);
+        }
+    });
+}
+exports.remove = remove;
 //# sourceMappingURL=review.js.map

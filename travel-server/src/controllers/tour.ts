@@ -53,7 +53,7 @@ async function update(req:any, res:any) {
 
 async function getTourById(req:any, res:any) {
     try {
-        const tour = await Tour.find({_id: req.params.id})
+        const tour = await Tour.findById(req.params.id);
         res.status(200).json(tour)
     } catch (e) {
         errorHandler(res, e)
@@ -156,14 +156,18 @@ async function getFilSortTours(req:any, res:any){
             }
 
             if(filters.length){
+                // /tour?sortBy=...&restType=...&discount=...
                 tours = await Tour.find({ $and: filters}).sort(sortParam);
             }else {
+                // /tour?sortBy=...
                 tours = await Tour.find().sort(sortParam);
             }
         }else{
             if(filters.length){
+                // /tour?restType=...&discount=...
                 tours = await Tour.find({ $and: filters});
             }else {
+                // /tour
                 tours = await Tour.find();
             }
         }

@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const review_1 = require("../controllers/review");
 const reviewRoutes = express_1.default.Router();
 reviewRoutes.post('/', review_1.create);
-reviewRoutes.get('/', review_1.getAll);
+reviewRoutes.get('/', review_1.getReviews);
+reviewRoutes.delete('/:id', review_1.remove);
 exports.default = reviewRoutes;
 //# sourceMappingURL=review.js.map

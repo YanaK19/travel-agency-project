@@ -69,7 +69,7 @@ exports.update = update;
 function getTourById(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const tour = yield Tour_1.default.find({ _id: req.params.id });
+            const tour = yield Tour_1.default.findById(req.params.id);
             res.status(200).json(tour);
         }
         catch (e) {
@@ -164,17 +164,21 @@ function getFilSortTours(req, res) {
                     sortParam.cost = -1;
                 }
                 if (filters.length) {
+                    // /tour?sortBy=...&restType=...&discount=...
                     tours = yield Tour_1.default.find({ $and: filters }).sort(sortParam);
                 }
                 else {
+                    // /tour?sortBy=...
                     tours = yield Tour_1.default.find().sort(sortParam);
                 }
             }
             else {
                 if (filters.length) {
+                    // /tour?restType=...&discount=...
                     tours = yield Tour_1.default.find({ $and: filters });
                 }
                 else {
+                    // /tour
                     tours = yield Tour_1.default.find();
                 }
             }
