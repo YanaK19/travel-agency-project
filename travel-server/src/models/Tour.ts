@@ -1,0 +1,38 @@
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema;
+
+const tourSchema = new Schema({
+    title: {type: String},
+    restType: {type: [String]},
+    transportType: {type: String},
+    cost: {type: Number},
+    route: {
+        fromCountry: {type: String},
+        fromTown: {type: String},
+        toCountry: {type: String},
+        toTown: {type: String}
+    },
+    moreInfo: {type: String},
+    images: {
+        type: [String],
+        default: ''
+    },
+    dates: [{
+        dateFrom: {
+            day: {type: Number},
+            month: {type: Number},
+            year: {type: Number}
+        },
+        dateTo: {
+            day: {type: Number},
+            month: {type: Number},
+            year: {type: Number}
+        }
+    }],
+    discount: {type: Number},
+    bookedMax: {type: Number},
+    booked: {type: Number},
+    views: {type: Number}
+});
+
+export default  mongoose.model('tours', tourSchema);

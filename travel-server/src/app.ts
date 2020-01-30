@@ -1,17 +1,28 @@
 import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import {keys} from "./config/keys";
+import cors from "cors";
+import tourRoutes from "./routes/tour";
+import userRoutes from "./routes/user";
+import reviewRoutes from "./routes/review";
+
 const app = express();
 
-app.get('/echo', (req, res) => {
-    if(req.path === '/echo') {
-        res.status(200).json({
-            message: `${req.query.message}`
-        });
-        console.log(req.method, req.path, ` param:${req.query.message}`);
-    }
-});
+mongoose.connect(keys.mongoURI,
+    { useNewUrlParser: true,
+              useCreateIndex: true,
+              useUnifiedTopology: true,
+              useFindAndModify: false })
+    .then(() => console.log('MongoDB connected.'))
+    .catch(error => console.log(error));
 
-app.get('*', (req, res) => {
-    res.json( {message: `page not found`} );
-});
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-export{app}
+app.use('/api/tour', tourRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/review', reviewRoutes);
+
+export {app}
