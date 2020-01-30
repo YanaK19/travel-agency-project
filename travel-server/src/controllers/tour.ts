@@ -143,11 +143,32 @@ async function getFilSortTours(req:any, res:any){
                 }
             }
         }
-       /* console.log(filters)*/
 
-        const tours = await Tour.find({ $and: filters});
-        res.status(200).json(tours)
+        let tours:any;
 
+        if(req.query.sortBy){
+            let sortParam:any = {};
+            if(req.query.sortBy === "views"){
+                sortParam.views = -1;
+            }
+            if(req.query.sortBy === "cost"){
+                sortParam.cost = -1;
+            }
+
+            if(filters.length){
+                tours = await Tour.find({ $and: filters}).sort(sortParam);
+            }else {
+                tours = await Tour.find().sort(sortParam);
+            }
+        }else{
+            if(filters.length){
+                tours = await Tour.find({ $and: filters});
+            }else {
+                tours = await Tour.find();
+            }
+        }
+
+        res.status(200).json(tours);
     } catch (e) {
         errorHandler(res, e)
     }

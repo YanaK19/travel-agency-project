@@ -91,21 +91,6 @@ function getFilSortTours(req, res) {
             for (let paramName in req.query) {
                 if (permFilters.indexOf(paramName) != -1) {
                     if (paramName === "dateFrom" || paramName === "dateTo") {
-                        /*                if(paramName === "restType"){
-                                            filters.push({restType: req.query[paramName]});
-                                        }
-                                        if(paramName === "transportType"){
-                                            filters.push({transportType: req.query[paramName]});
-                                        }
-                                        if(paramName === "fromCounty"){
-                                            filters.push({fromCounty: req.query[paramName]});
-                                        }
-                                        if(paramName === "toCounty"){
-                                            filters.push({toCounty: req.query[paramName]});
-                                        }
-                                        if(paramName === "discount"){
-                                            filters.push({toCounty: req.query[paramName]});
-                                        }*/
                         if (paramName === "dateFrom") {
                             //   /tour?...dateFrom=11.09.2020
                             let [day, month, year] = req.query[paramName].split(".");
@@ -166,12 +151,33 @@ function getFilSortTours(req, res) {
                         let query = {};
                         query[paramName] = req.query[paramName];
                         filters.push(query);
-                        console.log('here', filters);
                     }
                 }
             }
-            /* console.log(filters)*/
-            const tours = yield Tour_1.default.find({ $and: filters });
+            let tours;
+            if (req.query.sortBy) {
+                let sortParam = {};
+                if (req.query.sortBy === "views") {
+                    sortParam.views = -1;
+                }
+                if (req.query.sortBy === "cost") {
+                    sortParam.cost = -1;
+                }
+                if (filters.length) {
+                    tours = yield Tour_1.default.find({ $and: filters }).sort(sortParam);
+                }
+                else {
+                    tours = yield Tour_1.default.find().sort(sortParam);
+                }
+            }
+            else {
+                if (filters.length) {
+                    tours = yield Tour_1.default.find({ $and: filters });
+                }
+                else {
+                    tours = yield Tour_1.default.find();
+                }
+            }
             res.status(200).json(tours);
         }
         catch (e) {
