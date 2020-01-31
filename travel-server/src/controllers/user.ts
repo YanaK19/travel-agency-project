@@ -3,9 +3,14 @@ import errorHandler from '../utils/errorHandler';
 
 async function create(req:any, res:any) {
     const user = new User({
-        b: req.body.b
-
-    })
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name,
+        telephone: req.body.telephone,
+        favouriteTourIds: req.body.favouriteTourIds,
+        bookedTourIds: req.body.bookedTourIds,
+        role: req.body.role
+    });
 
     try {
         await user.save()

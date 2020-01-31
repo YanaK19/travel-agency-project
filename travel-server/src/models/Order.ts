@@ -13,11 +13,13 @@ const orderSchema = new Schema({
     cost: { type: Number},
     peopleNumber: { type: Number},
     date: {
-        type: String
+        day: {type: Number},
+        month: {type: Number},
+        year: {type: Number}
     },
     confirmed: {
         type: Boolean
     }
 });
 
-export default mongoose.model('reviews', orderSchema);
+export default mongoose.model('orders', orderSchema);

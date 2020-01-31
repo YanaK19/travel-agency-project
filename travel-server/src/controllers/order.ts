@@ -6,7 +6,9 @@ async function create(req:any, res:any) {
         userId: req.body.userId,
         tourId:  req.body.tourId,
         cost:  req.body.cost,
-        confirmed:  req.body.confirmed
+        peopleNumber: req.body.peopleNumber,
+        date: req.body.date,
+        confirmed:  req.body.confirmed,
     });
 
     try {
@@ -42,7 +44,7 @@ async function remove(req:any, res:any) {
     try {
         await Order.deleteOne({_id: req.params.id})
         res.status(200).json({
-            message: 'Review deleted'
+            message: 'Order deleted'
         })
     } catch (e) {
         errorHandler(res, e)

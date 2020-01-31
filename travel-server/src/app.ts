@@ -7,6 +7,8 @@ import tourRoutes from "./routes/tour";
 import userRoutes from "./routes/user";
 import reviewRoutes from "./routes/review";
 import orderRoutes from "./routes/order";
+import rangeRoutes from "./routes/range";
+import locationRoutes from "./routes/location";
 
 const app = express();
 
@@ -26,5 +28,7 @@ app.use('/api/tour', tourRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/review', reviewRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/range', rangeRoutes);
+app.use('/api/location', locationRoutes);
 
 export {app}
