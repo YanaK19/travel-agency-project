@@ -136,7 +136,9 @@ async function getFilSortTours(req:any, res:any){
                             }
                         ]});
                 }
-                }else{
+                }else if(paramName === "discount"){
+                    filters.push({discount: {$gt: 0}});
+                } else{
                     let query:any = {};
                     query[paramName] = req.query[paramName];
                     filters.push(query);
@@ -153,6 +155,9 @@ async function getFilSortTours(req:any, res:any){
             }
             if(req.query.sortBy === "cost"){
                 sortParam.cost = -1;
+            }
+            if(req.query.sortBy === "discount"){
+                sortParam.discount = -1;
             }
 
             if(filters.length){

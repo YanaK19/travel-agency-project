@@ -29,7 +29,7 @@ const tourSchema = new Schema({
             year: {type: Number}
         }
     }],
-    discount: {type: Number},
+    discount: {type: Number, default: 0},
     bookedMax: {type: Number},
     booked: {type: Number},
     views: {type: Number}
