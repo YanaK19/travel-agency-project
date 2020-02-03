@@ -20,6 +20,7 @@ async function create(req:any, res:any) {
 }
 
 async function getOrders(req:any, res:any) {
+    console.log(req.user)
     try {
         let confirmedFilter: any = {};
 

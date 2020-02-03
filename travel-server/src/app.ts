@@ -9,6 +9,9 @@ import reviewRoutes from "./routes/review";
 import orderRoutes from "./routes/order";
 import rangeRoutes from "./routes/range";
 import locationRoutes from "./routes/location";
+import passport from "passport";
+import passportUse from "./middleware/passportUse";
+
 
 const app = express();
 
@@ -23,6 +26,9 @@ mongoose.connect(keys.mongoURI,
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(passport.initialize());
+passportUse(passport);
 
 app.use('/api/tour', tourRoutes);
 app.use('/api/user', userRoutes);

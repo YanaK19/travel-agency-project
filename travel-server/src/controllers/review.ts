@@ -1,5 +1,7 @@
 import errorHandler from '../utils/errorHandler';
 import Review from "../models/Review";
+import Range from "../models/Range";
+import Tour from "../models/Tour";
 
 async function create(req:any, res:any) {
     const review = new Review({
@@ -39,6 +41,28 @@ async function getReviews(req:any, res:any) {
     }
 }
 
+async function getReviewById(req:any, res:any) {
+    try {
+        const range = await Range.findById(req.params.id);
+        res.status(200).json(range)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function update(req:any, res:any) {
+    try {
+        const tour = await Tour.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        );
+        res.status(200).json(tour)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function remove(req:any, res:any) {
     try {
         await Review.deleteOne({_id: req.params.id})
@@ -50,4 +74,4 @@ async function remove(req:any, res:any) {
     }
 }
 
-export {create, getReviews, remove}
+export {create, getReviews, remove, getReviewById, update}
