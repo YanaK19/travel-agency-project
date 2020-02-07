@@ -1,0 +1,48 @@
+<p>login-page works!</p>
+
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <td><label for="emailField">Email</label></td>
+      <td>
+        <input id="emailField" type="text" name="email"
+        formControlName="email"
+        [ngClass]="{invalid: loginForm.get('email').invalid && loginForm.get('email').touched}"
+        >
+      </td>
+      <td
+      *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
+      >
+        <p *ngIf="loginForm.get('email').errors['required']">Fill this field</p>
+        <p *ngIf="loginForm.get('email').errors['email']">Enter valid email</p>
+
+      </td>
+    </tr>
+    <tr>
+      <td><label for="passwordField">Password</label></td>
+      <td>
+        <input id="passwordField" type="text" name="password"
+         formControlName="password"
+         [ngClass]="{invalid: loginForm.get('password').invalid && loginForm.get('password').touched}"
+        >
+      </td>
+      <td
+        *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
+      >
+        <p *ngIf="loginForm.get('password').errors['required']">Fill this field</p>
+        <p *ngIf="loginForm.get('password').errors['minlength']">
+          Password length must contain more than {{loginForm.get('password').errors['minlength']['requiredLength']}} symbols
+        </p>
+
+      </td>
+    </tr>
+  </table>
+  <button type='submit'
+[disabled]="loginForm.invalid || loginForm.disabled"
+  >log in</button>
+</form>
+
+
+

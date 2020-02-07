@@ -1,0 +1,76 @@
+<p>register-page works!</p>
+
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <td><label for="emailField">Email</label></td>
+      <td>
+        <input id="emailField" type="text" name="email"
+               formControlName="email"
+               [ngClass]="{invalid: registerForm.get('email').invalid && registerForm.get('email').touched}"
+        >
+      </td>
+      <td
+        *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched"
+      >
+        <p *ngIf="registerForm.get('email').errors['required']">Fill this field</p>
+        <p *ngIf="registerForm.get('email').errors['email']">Enter valid email</p>
+
+      </td>
+    </tr>
+    <tr>
+      <td><label for="passwordField">Password</label></td>
+      <td>
+        <input id="passwordField" type="text" name="password"
+               formControlName="password"
+               [ngClass]="{invalid: registerForm.get('password').invalid && registerForm.get('password').touched}"
+        >
+      </td>
+      <td
+        *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched"
+      >
+        <p *ngIf="registerForm.get('password').errors['required']">Fill this field</p>
+        <p *ngIf="registerForm.get('password').errors['minlength']">
+          Password length must contain more than {{registerForm.get('password').errors['minlength']['requiredLength']}} symbols
+        </p>
+
+      </td>
+    </tr>
+    <tr>
+      <td><label for="nicknameField">Name</label></td>
+      <td>
+        <input id="nicknameField" type="text" name="nickname"
+               formControlName="nickname"
+               [ngClass]="{invalid: registerForm.get('nickname').invalid && registerForm.get('nickname').touched}"
+        >
+      </td>
+      <td
+        *ngIf="registerForm.get('nickname').invalid && registerForm.get('nickname').touched"
+      >
+        <p *ngIf="registerForm.get('nickname').errors['required']">Fill this field</p>
+        <p *ngIf="registerForm.get('nickname').errors['minlength']">
+          Name length must contain more than {{registerForm.get('nickname').errors['minlength']['requiredLength']}} symbols
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="telField">Telephone</label></td>
+      <td>
+        <input id="telField" type="text" name="tel"
+               formControlName="tel"
+               [ngClass]="{invalid: registerForm.get('tel').invalid && registerForm.get('tel').touched}"
+        >
+      </td>
+      <td
+        *ngIf="registerForm.get('tel').invalid && registerForm.get('tel').touched"
+      >
+        <p *ngIf="registerForm.get('tel').errors['required']">Fill this field</p>
+      </td>
+    </tr>
+  </table>
+  <button type='submit'
+[disabled]="registerForm.invalid || registerForm.disabled"
+  >Create account</button>
+</form>
