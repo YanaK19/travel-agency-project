@@ -1,0 +1,59 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.page-content {
+  align-items: center;
+  background: linear-gradient(#0037f2, #001d71);
+  opacity: 0.9;
+  color: white;
+  display: flex;
+  font: 2rem "Poiret One";
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 5em;
+  text-shadow: 0 0 10px #fff;
+  animation: blink 4.8s infinite both;
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 0.2;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
+
+h5,
+p {
+  position: absolute;
+  font-family: monospace;
+}
+
+h5 {
+  top: 10%;
+  font-size: 0.9em;
+
+}
+
+p {
+  font-size: 0.7em;
+  bottom: 10%;
+  width: 50%;
+  text-align: center;
+}
+
+p a {
+  color: cyan;
+}

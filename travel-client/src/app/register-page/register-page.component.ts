@@ -13,7 +13,7 @@ import {Subscription} from "rxjs";
 export class RegisterPageComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   subscr: Subscription;
-
+  resultMessage: any = null;
   constructor(private auth: AuthorizationService, private router: Router) {
   }
 
@@ -50,6 +50,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       (err)=>{
         this.registerForm.enable();
         console.log('errorRegister', err);
+        this.resultMessage = err.error.message;
       }
     );
   }

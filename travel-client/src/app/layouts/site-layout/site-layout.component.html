@@ -1,17 +1,58 @@
-<hr/>
-<p>-------- nav  --------</p>
-----
-<a routerLink="/">home</a>--
-<a routerLink="/top">top</a>--
-<a routerLink="/tours">tours</a>
--------------
-<a routerLink="/login">log in</a>--
-<a routerLink="/register">register</a>
-<hr/>
+<div class="page">
+
+<div class="navigation" data-spy="scroll" data-target="#navResponsive">
+  <nav class="fixed-top navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/">
+      <img src="https://image.flaticon.com/icons/svg/614/614694.svg">
+    </a>
+    <button class="navbar-toggler"
+            type="button" data-toggle="collapse"
+            data-target="#navResponsive">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link">home</a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/top" class="nav-link">top & deals</a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/tours" class="nav-link">tours</a>
+        </li>
+
+        <li class="nav-item" *ngIf="!auth.isAuthenticated(); else elseBlock">
+          <a routerLink="/login" class="nav-link">log in<i class="fa fa-user"></i></a>
+        </li>
+
+        <ng-template #elseBlock>
+        <div class="dropdown">
+          <button type="button" class="navbar btn btn-primary dropdown-toggle mt-1" data-toggle="dropdown">
+            account
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">profile</a>
+            <a class="dropdown-item" href="#" (click)="logout($event)">sign out</a>
+          </div>
+        </div>
+        </ng-template>
+
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+</div>
 
 
-<router-outlet></router-outlet>
 
 
 
-<p>------- footer  -------</p>

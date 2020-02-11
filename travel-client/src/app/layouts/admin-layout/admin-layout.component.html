@@ -1,14 +1,27 @@
-<p>admin-layout works!</p>
 
-<hr/>
-<p>-------- nav  --------</p>
-----
-<a routerLink="/">exit</a>--
-<a routerLink="/admin/statistic">statistic</a>--
-<a routerLink="/admin/orders">orders</a>--
-<a routerLink="/admin/editing">editing</a>--
--------------
-<hr/>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a routerLink="/admin/statistic" class="navbar-brand">Admin</a>
+
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navMenu">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let link of links">
+        <a [routerLink]="[link.url]" class="nav-link">{{link.name}}</a>
+      </li>
+
+      <li class="nav-item" (click)="logout($event)">
+        <a class="nav-link">exit</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
 
 
-<router-outlet></router-outlet>
+<main class="content">
+  <router-outlet></router-outlet>
+</main>
+

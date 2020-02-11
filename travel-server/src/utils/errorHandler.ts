@@ -1,6 +1,7 @@
 export default (res: any, error: any) => {
     res.status(500).json({
         success: false,
-        message: error.message ? error.message : error
+        message: "Internal Server error !"
+        //message: error.message ? error.message : error
     })
 }

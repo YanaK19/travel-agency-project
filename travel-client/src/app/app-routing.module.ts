@@ -12,6 +12,7 @@ import {EditingPageComponent} from "./editing-page/editing-page.component";
 import {AdminLayoutComponent} from "./layouts/admin-layout/admin-layout.component";
 import {OneTourPageComponent} from "./one-tour-page/one-tour-page.component";
 import {AuthorizationGuard} from "./classes/authorization.guard";
+import {InternalServerComponent} from "./error-pages/internal-server/internal-server.component";
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
       {path: 'editing', component: EditingPageComponent}
     ], canActivate: [AuthorizationGuard]
   },
+  { path: 'error500', component: InternalServerComponent },
   {path: '**', redirectTo: '/'}
 ];
 

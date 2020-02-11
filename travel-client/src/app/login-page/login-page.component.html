@@ -1,4 +1,4 @@
-<p>login-page works!</p>
+<!--<p>login-page works!</p>
 
 <form
   [formGroup]="loginForm"
@@ -42,7 +42,134 @@
   <button type='submit'
 [disabled]="loginForm.invalid || loginForm.disabled"
   >log in</button>
-</form>
+
+  <p *ngIf="resultMessage">{{resultMessage}}</p>
+</form>-->
+
+<!--<div class="h-100 w-100 landing">
+  <section>
+
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 form-content">
+          <div class="row info">
+            <div class="col-12">
+            <h3 class="mt-3 mb-2">Lorem ipsum dolor sit.</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Qui, ut.
+            </p>
+            <a href="#">Read more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 login-form">
+          <h1 class="text-center mt-3">Sign In</h1>
+
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <input type="text" id="emailField" formControlName="email"
+                     [ngClass]="{invalid: loginForm.get('email').invalid && loginForm.get('email').touched}"
+                     name="email" class="form-control"
+                     placeholder="Your Email *" value="" />
+              <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
+                <p *ngIf="loginForm.get('email').errors['required']">Fill this field</p>
+                <p *ngIf="loginForm.get('email').errors['email']">Enter valid email</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="password" id="passwordField" formControlName="password"
+                     [ngClass]="{invalid: loginForm.get('password').invalid && loginForm.get('password').touched}"
+                     name="password" class="form-control"
+                     placeholder="Your Password *" value="" />
+              <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
+                <p *ngIf="loginForm.get('password').errors['required']">Fill this field</p>
+                <p *ngIf="loginForm.get('password').errors['minlength']">
+                  Password length must contain more than {{loginForm.get('password').errors['minlength']['requiredLength']}} symbols
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type='submit'
+                      [disabled]="loginForm.invalid || loginForm.disabled"
+              >log in</button>
+            </div>
+            <div class="form-group">
+
+              <a href="#" class="ForgetPwd" value="Login">Already have an account?</a>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>-->
+
+<div class="h-100 w-100 landing">
+  <section>
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-md-6 info-container">
+          <div class="row info p-4">
+            <div class="info-content">
+              <h3 class="mb-3">Lorem ipsum dolor sit.</h3>
+              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Qui, ut.
+              </p>
+              <a href="#">Read more</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 login-container align-self-end">
+          <div class="col-md-6 login-form">
+            <div class="row">
+            <h1 class="text-center mt-3 col-12">Sign In</h1>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <input type="text" id="emailField" formControlName="email"
+                       [ngClass]="{invalid: loginForm.get('email').invalid && loginForm.get('email').touched}"
+                       name="email" class="form-control"
+                       placeholder="Your Email *" value="" />
+                <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
+                  <p *ngIf="loginForm.get('email').errors['required']">Fill this field</p>
+                  <p *ngIf="loginForm.get('email').errors['email']">Enter valid email</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="password" id="passwordField" formControlName="password"
+                       [ngClass]="{invalid: loginForm.get('password').invalid && loginForm.get('password').touched}"
+                       name="password" class="form-control"
+                       placeholder="Your Password *" value="" />
+                <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
+                  <p *ngIf="loginForm.get('password').errors['required']">Fill this field</p>
+                  <p *ngIf="loginForm.get('password').errors['minlength']">
+                    Password length must contain more than {{loginForm.get('password').errors['minlength']['requiredLength']}} symbols
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type='submit'
+                        [disabled]="loginForm.invalid || loginForm.disabled"
+                >log in</button>
+              </div>
+              <div class="form-group">
+
+                <a href="#" class="ForgetPwd" value="Login">Already have an account?</a>
+              </div>
+            </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 
 

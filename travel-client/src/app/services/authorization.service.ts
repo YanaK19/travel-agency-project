@@ -16,6 +16,8 @@ export class AuthorizationService{
     return this.http.post('api/user/login', user)
       .pipe(map((data: any) => {
           localStorage.setItem('token', data.token);
+          console.log( data.user);
+          localStorage.setItem('userData', JSON.stringify(data.user));
           this.setToken(data.token);
 
           return data.user;
@@ -41,8 +43,11 @@ export class AuthorizationService{
   }
 
   isAuthenticated(){
-    return !!this.token;
+    return !!localStorage.getItem('token');
   }
 
-
+  isAdmin(){
+    const role: string = JSON.parse(localStorage.getItem('userData')).role;
+    return role === 'admin';
+  }
 }

@@ -24,24 +24,29 @@ async function create(req:any, res:any) {
 }
 
 async function login(req: any, res: any) {
-    const candidate:any = await User.findOne({email: req.body.email});
+    try {
+        const candidate: any = await User.findOne({email: req.body.email});
 
-    if(candidate){
-        const isPasswordCorrect = bcrypt.compareSync(req.body.password, candidate.password);
+        if (candidate) {
+            const isPasswordCorrect = bcrypt.compareSync(req.body.password, candidate.password);
 
-        if(isPasswordCorrect){
-            const token:string = generateToken(candidate);
-            const user:any = await User.findOne({email: req.body.email}, {password: 0});
-            res.status(200).json({token: `Bearer ${token}`, user});
-        }else{
-            res.status.json({
-                message: 'Wrong password'
+            if (isPasswordCorrect) {
+                const token: string = generateToken(candidate);
+                const user: any = await User.findOne({email: req.body.email}, {password: 0});
+                res.status(200).json({token: `Bearer ${token}`, user});
+            } else {
+                res.status(401).json({
+                    message: 'Wrong password'
+                })
+            }
+
+        } else {
+            res.status(404).json({
+                message: 'User with such email not found'
             })
         }
-
-    }else{
-        res.status(404).json({
-            message: 'User with such email not found'})
+    } catch(e) {
+        errorHandler(res, e)
     }
 }
 
@@ -76,10 +81,10 @@ async function register(req: any, res: any) {
                telephone: req.body.telephone,
                favouriteTourIds: req.body.favouriteTourIds,
                bookedTourIds: req.body.bookedTourIds,
-               role: req.body.role
+               role: "customer"
            };
 
-           res.status(201).json({token: `Bearer ${token}`, customer});
+           res.status(201).json({token: `Bearer ${token}`, user: customer});
         } catch(e) {
             errorHandler(res, e)
         }

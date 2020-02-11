@@ -18,6 +18,8 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
 import { OrdersPageComponent } from './orders-page/orders-page.component';
 import { EditingPageComponent } from './editing-page/editing-page.component';
 import { OneTourPageComponent } from './one-tour-page/one-tour-page.component';
+import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
+import {NavbarDirective} from "./layouts/site-layout/directives/navbar.directive";
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { OneTourPageComponent } from './one-tour-page/one-tour-page.component';
     StatisticPageComponent,
     OrdersPageComponent,
     EditingPageComponent,
-    OneTourPageComponent
+    OneTourPageComponent,
+    InternalServerComponent,
+    NavbarDirective
   ],
   imports: [
     BrowserModule,
