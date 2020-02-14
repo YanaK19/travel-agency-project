@@ -20,6 +20,8 @@ import { EditingPageComponent } from './editing-page/editing-page.component';
 import { OneTourPageComponent } from './one-tour-page/one-tour-page.component';
 import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 import {NavbarDirective} from "./layouts/site-layout/directives/navbar.directive";
+import { LoaderComponent } from './loader/loader.component';
+import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import {NavbarDirective} from "./layouts/site-layout/directives/navbar.directive
     EditingPageComponent,
     OneTourPageComponent,
     InternalServerComponent,
-    NavbarDirective
+    NavbarDirective,
+    LoaderComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

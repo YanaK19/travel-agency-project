@@ -1,4 +1,4 @@
-*,
+/**,
 *::after,
 *::before {
   box-sizing: border-box;
@@ -21,6 +21,25 @@ h1 {
   font-size: 5em;
   text-shadow: 0 0 10px #fff;
   animation: blink 4.8s infinite both;
+}*/
+
+.page-content {
+  background: linear-gradient(#24243e, #302b63);
+  opacity: 0.9;
+  color: white;
+  font: 2rem "Poiret One";
+  height: 100vh;
+}
+
+.container{
+  height: 100vh;
+}
+
+h1 {
+  font-size: 6em;
+  text-shadow: 0 0 10px #fff;
+  animation: blink 4.8s infinite both;
+  margin-bottom: 40px;
 }
 
 @keyframes blink {
@@ -35,25 +54,18 @@ h1 {
   }
 }
 
-h5,
-p {
-  position: absolute;
+.container-content{
+  width: 80%;
   font-family: monospace;
+
+  .content-text{
+    font-size: 0.85em;
+  }
 }
 
-h5 {
-  top: 10%;
-  font-size: 0.9em;
-
+a {
+  color: #dd8fd7;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
-p {
-  font-size: 0.7em;
-  bottom: 10%;
-  width: 50%;
-  text-align: center;
-}
-
-p a {
-  color: cyan;
-}

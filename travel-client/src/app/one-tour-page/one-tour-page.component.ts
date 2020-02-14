@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
+import {Tour} from "../interfaces/tour.interface";
+import {ToursService} from "../services/tours.service";
 
 @Component({
   selector: 'app-one-tour-page',
@@ -8,13 +9,20 @@ import {Subscription} from "rxjs";
   styleUrls: ['./one-tour-page.component.scss']
 })
 export class OneTourPageComponent implements OnInit {
-  id: number;
-  private subscription: Subscription;
-  constructor(private activateRoute: ActivatedRoute) {
-    this.subscription = activateRoute.params.subscribe(params=>this.id=params['id']);
+  id: string;
+  tour: Tour;
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private toursService: ToursService) {
+    this.id = activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit() {
+      this.toursService.getOneTour(this.id).subscribe((data )=>{
+      this.tour = data;
+      console.log(this.tour)
+/*console.log(this.tour, typeof this.tour, this.tour.title);*/
+      });
   }
 
 }

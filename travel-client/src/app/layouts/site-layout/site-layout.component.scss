@@ -61,4 +61,9 @@
   color: #1ebba3;
 }
 
+a:not([href]):not([tabindex]) {
+  color: white;
+}
+
+
 

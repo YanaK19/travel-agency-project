@@ -1,0 +1,63 @@
+.page{
+  background-color: rgba(16, 42, 18, 0.36);
+  padding-top: 80px;
+}
+
+.form1-container{
+  margin-bottom: 30px;
+  background-color: rgba(80, 96, 109, 0.6);
+}
+
+.form1{
+  max-width: 90%;
+  margin: 0 auto;
+
+  .item{
+    height: 85px;
+  }
+
+  .inp-container{
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  input{
+    width: 98%;
+    height: 40px;
+  }
+}
+
+.rest-type{
+  list-style-type: none;
+
+  li{
+    width: 100%;
+  }
+
+  .item{
+    height: 40px;
+    border: 2px solid grey;
+    margin-bottom: 10px;
+  }
+}
+
+.tours-container{
+  background-color: #6b7a84;
+
+  .select1_inner{
+    background-color: #84506c;
+    padding: 9px;
+    margin: 10px;
+  }
+}
+
+.tour{
+  height: 350px;
+  background-color: #9f8554;
+
+  .tour-content{
+    background-color: #6b7a84;
+    height: 98%;
+  }
+}
+

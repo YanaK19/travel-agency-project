@@ -4,6 +4,7 @@ import {AuthorizationService} from "../services/authorization.service";
 import {UserReg} from "../interfaces/userReg.interface";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {ErrorHandlerService} from "../services/error-handler.service";
 
 @Component({
   selector: 'app-register-page',
@@ -13,8 +14,12 @@ import {Subscription} from "rxjs";
 export class RegisterPageComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   subscr: Subscription;
+  subscr2: Subscription;
   resultMessage: any = null;
-  constructor(private auth: AuthorizationService, private router: Router) {
+
+  constructor(private auth: AuthorizationService,
+              private router: Router,
+              private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit() {
@@ -28,7 +33,8 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     if(this.subscr){
-      this.subscr.unsubscribe()
+      this.subscr.unsubscribe();
+      this.subscr2.unsubscribe()
     }
   }
 
@@ -44,8 +50,19 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
 
     this.subscr = this.auth.register(user).subscribe(
       ()=>{
-        return this.router.navigate(['/login'],
-          {queryParams: {registered: true}})
+/*        return this.router.navigate(['/login'],
+          {queryParams: {registered: true}})*/
+
+        this.subscr2 = this.auth.login(user).subscribe(
+          (res) => {
+              const userId: string = res._id;
+              return this.router.navigate(['/account/' + userId]);
+          },
+          (err) => {
+            console.log('err', err.error);
+            this.errorHandler.handleError(err);
+          }
+        );
       },
       (err)=>{
         this.registerForm.enable();
@@ -54,5 +71,4 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       }
     );
   }
-
 }

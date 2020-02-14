@@ -1,1 +1,152 @@
-<p>tours-page works!</p>
+<!--
+
+<div class="page">
+  <div *ngIf="!loading" class="container">
+    <div  class="row mb-2" *ngFor="let tour of tours" (click)="renderOneTourPage(tour._id)">
+      <div class="col tour-container">{{tour.title}}</div>
+      <div class="col tour-container">{{tour.moreInfo}}</div>
+    </div>
+
+  </div>
+</div>
+
+<app-loader *ngIf="loading"></app-loader>
+-->
+
+<div class="page d-flex flex-column">
+  <div class="block1 form1-container">
+    <form class="form1 d-flex flex-column align-items-center">
+      <div class="container inp-container">
+        <div class="row text-center">
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>To</label>
+              <div class="select1_inner">
+               <input type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>From</label>
+              <div class="select1_inner">
+                <input type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>Price limit</label>
+              <div class="select1_inner">
+                <input type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>Start Date:</label>
+              <div class="select1_inner">
+                <input type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>End Date:</label>
+              <div class="select1_inner">
+                <input type="text">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 item col-md-2">
+            <div class="select1_wrapper">
+              <label>Transport</label>
+              <div class="select1_inner">
+                <input type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="filter-btn w-20">search</button>
+
+    </form>
+  </div>
+
+  <div class="block2 container-fluid">
+    <div class="row text-center">
+      <div class="col-md-3 col-sm-4">
+        <h3>Tour type: </h3>
+        <ul class="rest-type container">
+          <li>
+            <div class="item">cruise</div>
+          </li>
+          <li>
+            <div class="item">risk</div>
+          </li>
+          <li>
+            <div class="item">beach</div>
+          </li>
+          <li>
+            <div class="item">child</div>
+          </li>
+          <li>
+            <div class="item">fests</div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-9 col-sm-8">
+        <div class="tours-container mb-4">
+          <form class="form2 container">
+            <div class="row">
+              <div class="select1_wrapper col-md-3 col-sm-12">
+              <label>Sort by:</label>
+              </div>
+
+              <div class="select1_wrapper col-md-3 col-sm-4">
+                <div class="select1_inner">views</div>
+              </div>
+              <div class="select1_wrapper col-md-3 col-sm-4">
+                <div class="select1_inner">cost</div>
+              </div>
+              <div class="select1_wrapper col-md-3 col-sm-4">
+                <div class="select1_inner">discount</div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+          <div class="row">
+            <div class="col-md-6 tour">
+              <div class="tour-content">s</div>
+            </div>
+            <div class="col-md-6 tour">
+              <div class="tour-content">s</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 tour">
+              <div class="tour-content">s</div>
+            </div>
+            <div class="col-md-6 tour">
+              <div class="tour-content">s</div>
+            </div>
+          </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+

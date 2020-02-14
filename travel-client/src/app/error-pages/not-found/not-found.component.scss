@@ -1,0 +1,50 @@
+.page-content {
+  background: linear-gradient(#969792, #434240);
+  opacity: 0.9;
+  color: white;
+  font: 2rem "Poiret One";
+  height: 100vh;
+}
+
+.container{
+  height: 100vh;
+}
+
+h1 {
+  font-size: 6em;
+  text-shadow: 0 0 10px #fff;
+  animation: blink 4.8s infinite both;
+  margin-bottom: 40px;
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 0.2;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}
+
+.container-content{
+  width: 80%;
+  font-family: monospace;
+
+  .content-text{
+    font-size: 0.85em;
+  }
+}
+
+a {
+  color: #000000;
+  font-weight: bold;
+}
+
+span {
+  text-decoration: line-through;
+}
+
+

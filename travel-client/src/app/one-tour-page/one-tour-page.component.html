@@ -1,1 +1,12 @@
-<p>tour-page {{id}}</p>
+<div *ngIf="tour" class="page">
+  <div class="container">
+    <div>info about tour</div>
+    <div class="row mb-2">
+      <div class="col tour-container">{{tour.title}}</div>
+      <div class="col tour-container">{{tour.moreInfo}}</div>
+      <div class="col tour-container">booked: {{tour.booked}}, bookedMax: {{tour.bookedMax}}</div>
+    </div>
+  </div>
+</div>
+
+

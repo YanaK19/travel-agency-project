@@ -1,5 +1,5 @@
 .invalid{
-  background: rgba(139, 41, 22, 0.6);
+  background: rgba(139, 41, 22, 0.2);
 }
 
 section{
@@ -14,86 +14,68 @@ section{
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 350px;
+  height: 380px;
   background-color: rgba(59, 137, 181, 0.7);
   letter-spacing: 1px;
-
 }
-
-/*
-.login-container form{
-  padding: 15%;
-
-}
-
-.form-content{
-  color: #fff;
-
-  .content{
-    margin: 0 auto;
-  }
-
-  a{
-    padding: 10px 20px;
-    color: #fff;
-    background: #ff0057;
-    border-radius: 25px;
-    text-decoration: none;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-  }
-}
-
-.login-form{
-  background: white;
-  height: 400px;
-  top: -15px;
-  position: relative;
-  box-shadow: -20px 0 15px rgba(0, 0, 0, .2);
-
-  h1{
-    color: #262626;
-  }
-
-  input:hover{
-    border: 2px solid #673ab7;
-  }
-
-  button{
-    color: #fff;
-    background: #673ab7;
-    fint-size: 1rem;
-    transition: .5s;
-    border: none;
-    border-radius: 25px;
-    padding: 7px 15px;
-
-    &:hover{
-      background-color: #ff0057;
-      border: none;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .container{
-    top: 40%;
-  }
-
-  .form-content {
-    height: 200px;
-  }
-}*/
 
 .login-container{
   background: white;
-  height: 350px;
+  height: 380px;
 /*  top: -15px;
   position: relative;*/
   box-shadow: -20px 0 15px rgba(0, 0, 0, .2);
 
+  h2{
+    color: #3b434c;
+  }
+
+  button {
+    color: #fff;
+    fint-size: 1rem;
+    transition: .5s;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 15px;
+    margin-top: 10px;
+
+    &:not(:disabled) {
+      background: rgba(59, 137, 181);
+    }
+
+    &:not(:disabled):hover{
+      background-color: #1c9e32;
+      border: none;
+    }
+
+    &:disabled{
+      background-color: rgba(131, 121, 121, 0.5);
+    }
+  }
 }
 
 .info-content{
   color: #fff;
 }
 
+@media (max-width: 768px) {
+  .login-container {
+    box-shadow:  0 -20px 15px rgba(0, 0, 0, .2);
+  }
+
+  .info{
+    display: none;
+  }
+}
+
+.invalid-tltp{
+  font-size: 0.95rem;
+  color: rgba(179, 18, 18, 0.65);
+  font-weight: bold;
+}
+
+.more{
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}

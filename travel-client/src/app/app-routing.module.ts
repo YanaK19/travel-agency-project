@@ -13,6 +13,8 @@ import {AdminLayoutComponent} from "./layouts/admin-layout/admin-layout.componen
 import {OneTourPageComponent} from "./one-tour-page/one-tour-page.component";
 import {AuthorizationGuard} from "./classes/authorization.guard";
 import {InternalServerComponent} from "./error-pages/internal-server/internal-server.component";
+import {NotFoundComponent} from "./error-pages/not-found/not-found.component";
+import {AccountPageComponent} from "./account-page/account-page.component";
 
 
 const routes: Routes = [
@@ -21,9 +23,10 @@ const routes: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'login', component: LoginPageComponent},
       {path: 'register', component: RegisterPageComponent},
+      {path: 'account/:id', component: AccountPageComponent},
       {path: 'top', component: TopPageComponent},
       {path: 'tours', component: ToursPageComponent},
-      {path: 'tour/:id', component: OneTourPageComponent},
+      {path: 'one-tour/:id', component: OneTourPageComponent},
       {path: 'home', component: HomePageComponent}
     ],
   },
@@ -36,7 +39,8 @@ const routes: Routes = [
     ], canActivate: [AuthorizationGuard]
   },
   { path: 'error500', component: InternalServerComponent },
-  {path: '**', redirectTo: '/'}
+  { path: 'error404', component: NotFoundComponent },
+  {path: '**', redirectTo: '/error404'}
 ];
 
 @NgModule({
