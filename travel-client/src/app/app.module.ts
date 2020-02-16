@@ -22,7 +22,7 @@ import { InternalServerComponent } from './error-pages/internal-server/internal-
 import {NavbarDirective} from "./layouts/site-layout/directives/navbar.directive";
 import { LoaderComponent } from './loader/loader.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
-
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +42,9 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
     InternalServerComponent,
     NavbarDirective,
     LoaderComponent,
-    NotFoundComponent
-  ],
+    NotFoundComponent,
+    ContactUsComponent,
+   ],
   imports: [
     BrowserModule,
     FormsModule,

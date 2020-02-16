@@ -39,7 +39,7 @@ export class AuthorizationService{
   }
 
   getToken(){
-    return this.token;
+    return localStorage.getItem('token');
   }
 
   isAuthenticated(){

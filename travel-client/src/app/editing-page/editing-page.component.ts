@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editing-page.component.scss']
 })
 export class EditingPageComponent implements OnInit {
-
+list = [{title: 'info', checked: false}, {title: 'info', checked: false}];
   constructor() { }
 
   ngOnInit() {
+  }
+
+  showCalendar(event){
+
   }
 
 }

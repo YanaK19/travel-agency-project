@@ -1,0 +1,150 @@
+
+.page{
+  color: rgba(0, 0, 0, 0.29);
+}
+
+.title{
+  padding: 11px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.buttons button{
+  margin: 10px;
+  width: 70px;
+  padding: 5px;
+}
+
+.orders-container{
+  input[type=checkbox] {
+    font-size: 30px;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    font-family:fontawesome;
+
+    &:checked{
+      background: #5cb85c;
+    }
+
+    &:checked:after{
+      position: absolute;
+      content: "\F00C";
+      color:#fff;
+      left: 3px;
+      top:0px;
+      font-size:18px;
+    }
+  }
+
+  ul{
+    list-style-type: none;
+  }
+
+  li{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    padding: 15px;
+  }
+}
+
+.form-filters{
+  background-color: rgba(0, 0, 0, 0.26);
+  padding: 18px;
+  border-radius: 10px;
+  margin : 5px;
+
+  .container-submit{
+    margin-top: 20px;
+    text-align: center;
+
+    select{
+      max-width: 200px;
+    }
+  }
+}
+////////
+
+.buttons-edit button{
+  margin: 10px;
+  width: 70px;
+  padding: 5px;
+}
+
+.tours-container{
+  input[type=checkbox] {
+    font-size: 30px;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    font-family:fontawesome;
+
+    &:checked{
+      background: #5cb85c;
+    }
+
+    &:checked:after{
+      position: absolute;
+      content: "\F00C";
+      color:#fff;
+      left: 3px;
+      top:0px;
+      font-size:18px;
+    }
+  }
+
+  ul{
+    list-style-type: none;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  li{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    padding: 15px;
+  }
+}
+
+.btns-view-edit{
+  button{
+    margin: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .btns-view-edit{
+    flex-direction: row !important;
+    justify-content: center;
+    margin-top: 10px;
+
+    button{
+      width: 80px;
+    }
+  }
+}
+
+.btns-menu{
+  position: sticky;
+  top: 0;
+  padding-top: 10px;
+  z-index: 1000;
+
+  background-color: rgba(0, 0, 0, 0.64);
+}

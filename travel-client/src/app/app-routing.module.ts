@@ -15,6 +15,7 @@ import {AuthorizationGuard} from "./classes/authorization.guard";
 import {InternalServerComponent} from "./error-pages/internal-server/internal-server.component";
 import {NotFoundComponent} from "./error-pages/not-found/not-found.component";
 import {AccountPageComponent} from "./account-page/account-page.component";
+import {ContactUsComponent} from "./contact-us/contact-us.component";
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
       {path: 'login', component: LoginPageComponent},
       {path: 'register', component: RegisterPageComponent},
       {path: 'account/:id', component: AccountPageComponent},
-      {path: 'top', component: TopPageComponent},
+      {path: 'contact', component: ContactUsComponent},
       {path: 'tours', component: ToursPageComponent},
       {path: 'one-tour/:id', component: OneTourPageComponent},
       {path: 'home', component: HomePageComponent}

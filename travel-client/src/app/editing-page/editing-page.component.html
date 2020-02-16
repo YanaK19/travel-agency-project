@@ -1,1 +1,106 @@
-<p>editing-page works!</p>
+<div class="page">
+  <div class="filters-block">
+    <div class="title">filters</div>
+
+    <form action="" class="form-filters">
+      <div class="filters container-fluid">
+        <div class="row filters-container">
+          <div class="dates col-md-4 col-sm-6">
+            <div class="dateFrom d-flex flex-column">
+              <label>Date From:</label>
+              <input type="text">
+            </div>
+
+            <div class="dateTo d-flex flex-column">
+              <label>Date to:</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="path col-md-4 col-sm-6">
+            <div class="departure d-flex flex-column">
+              <label>Departure:</label>
+              <input type="text">
+            </div>
+
+            <div class="destination d-flex flex-column">
+              <label>Destination:</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="types col-md-4 col-sm-6">
+            <div class="rest-type d-flex flex-column">
+              <label>Rest type:</label>
+              <input type="text">
+            </div>
+
+            <div class="transport-type d-flex flex-column">
+              <label>Transport type:</label>
+              <input type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-submit">
+        <div class="form-group d-flex">
+          <label for="exampleFormControlSelect1">Sort by: </label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>views</option>
+            <option>cost</option>
+            <option>discount</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="container-submit">
+        <button type="submit" class="filter-btn btn btn-success">filter & sort</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="container-fluid btns-menu">
+    <div class="buttons-edit row justify-content-end align-items-center">
+      <div class="btns-edit">
+        <button type="button" class="confirm btn btn-success">confirm</button>
+        <button type="button" class="delete btn btn-danger">delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tours-container">
+    <ul>
+      <li *ngFor="let item of list; let i = index">
+        <div class="order d-flex">
+          <div class="checkbox-order d-flex flex-column justify-content-center">
+            <input class="mr-3" type="checkbox" [(ngModel)]="item.checked">
+          </div>
+
+          <div class="order-info container-fluid">
+            <div class="row">
+              <div class="info col-md-10 p-2">
+
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="order-id col-md-8">
+                      <div class="val">{{item.title}}</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="btns-view-edit col-md-2 d-flex flex-column">
+                <button type="button" class="edit btn btn-primary">edit</button>
+                <button type="button" class="view btn btn-info">view</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+</div>
