@@ -5,25 +5,18 @@
 
 .form1-container{
   margin-bottom: 30px;
-  background-color: rgba(80, 96, 109, 0.6);
+  margin-top: 40px;
+/*  background-color: rgba(80, 96, 109, 0.6);*/
 }
 
-.form1{
-  max-width: 90%;
-  margin: 0 auto;
-
-  .item{
-    height: 85px;
-  }
-
-  .inp-container{
-    margin-top: 30px;
-    margin-bottom: 5px;
-  }
-
-  input{
-    width: 98%;
-    height: 40px;
+.form1 {
+  .group-path{
+    .input-group-text{
+      width: 43px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 
