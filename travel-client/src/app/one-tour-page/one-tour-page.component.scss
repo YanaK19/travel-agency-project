@@ -1,15 +1,83 @@
 .page{
-  background-color: rgba(103, 19, 35, 0.36);
+/*  background-color: rgba(103, 19, 35, 0.36);*/
   padding-top: 80px;
   min-height: 100vh;
 }
 
-.container{
-
-}
-
+/*
 .tour-container{
   height: 100px;
   background-color: rgba(42, 13, 15, 0.2);
   color: black;
+}*/
+.tour-tabs-info{
+  height: 100px;
+  border-top: 2px solid #1cbbb4;
+}
+
+.tab-content>.active{
+  border: 1px solid grey !important;
+}
+
+.main{
+  .main-content{
+    border: 1px solid rgba(128, 128, 128, 0.15);
+    background-color: rgba(59, 67, 76, 0.09);
+  }
+
+  .tour-tabs-info-item{
+    font-size: 0.9rem;
+    border: 1px solid grey;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon i{
+    font-size: 1.7rem;
+  }
+
+  .inf{
+    margin-left: 15px;
+
+    .content{
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .title{
+      color: rgba(128, 128, 128, 0.6);
+    }
+  }
+
+  .main-subcontent{
+    padding: 20px 30px;
+
+    .more-info{
+      margin-bottom: 35px;
+    }
+  }
+
+  .tour-reviews{
+    margin-top: 35px;
+
+    .section-title{
+      border-bottom: 1px solid rgba(128, 128, 128, 0.6);
+    }
+
+    h4{
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .decoration{
+      width: 50%;
+      text-align: center;
+      height: 3px;
+      background-color: #1cbbb4;
+      margin: 0 auto;
+    }
+  }
 }

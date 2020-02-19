@@ -11,6 +11,9 @@ import {Tour} from "../interfaces/tour.interface";
 export class ToursPageComponent implements OnInit {
   tours: Tour[] = [];
   loading: boolean = false;
+  value: any;
+  enabled: any;
+
 
   constructor(private toursService: ToursService,
               private router: Router) { }

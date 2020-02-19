@@ -24,6 +24,9 @@ import { LoaderComponent } from './loader/loader.component';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    NgxBootstrapSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
