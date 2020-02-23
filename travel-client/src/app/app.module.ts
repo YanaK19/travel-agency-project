@@ -26,6 +26,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
+import { ToursSectionComponent } from './tours-page/tours-section/tours-section.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
     LoaderComponent,
     NotFoundComponent,
     ContactUsComponent,
+    ToursSectionComponent,
    ],
   imports: [
     BrowserModule,

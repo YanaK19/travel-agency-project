@@ -11,7 +11,7 @@ import {ToursService} from "../services/tours.service";
 export class OneTourPageComponent implements OnInit {
   id: string;
   tour: Tour;
-  innerWidth: any;
+  imgActive: string = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private toursService: ToursService) {
@@ -23,14 +23,15 @@ export class OneTourPageComponent implements OnInit {
       this.tour = data;
       console.log(this.tour)
 /*console.log(this.tour, typeof this.tour, this.tour.title);*/
-        this.innerWidth = window.innerWidth;
       });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth);
+  showGallery(event){
+    console.log(event.target);
+    this.imgActive = 'url';
   }
 
+  exitGallery(){
+    this.imgActive = '';
+  }
 }

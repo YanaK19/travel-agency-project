@@ -1,14 +1,73 @@
 
 <div class="page">
-  <div class="profile-header container-fluid max-width mt-5">
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="profile-img">
-          <img src="https://image.flaticon.com/icons/svg/702/702002.svg">
+
+  <div class="profile-header container-fluid max-width">
+    <div class="row row-bgr">
+<!--      <div class="bgr-top"></div>-->
+ <!--     <div class="bgr-bottom"></div>-->
+
+      <div class="col-md-3 profile-image-container">
+        <div class="border-profile-image">
+          <div class="profile-img">
+            <img src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
+          </div>
         </div>
       </div>
-      <div class="col-sm-9">
-        dasd
+      <div class="col-md-9 profile-info-container">
+        <div class="profile-info">
+<!--          <div class="absolute-img6">
+            <img src="../../assets/images/picture6.png" alt="">
+          </div>-->
+
+          <div class="settings">
+            <i class="fas fa-cog"></i>
+          </div>
+          <div class="nick">
+            Canga Roo
+          </div>
+          <div class="header-info container-fluid">
+            <div class="row">
+              <div class="reviews header-info-item col-sm-4">
+                <div class="inner">
+                  <div class="title">Reviews</div>
+                  <div class="num">
+                    1
+                  </div>
+                </div>
+              </div>
+              <div class="subscribers  header-info-item col-sm-4">
+                <div class="inner">
+                  <div class="title">Subscribers</div>
+                  <div class="num">
+                    1
+                  </div>
+                </div>
+              </div>
+              <div class="subscriptions  header-info-item col-sm-4">
+                <div class="inner">
+                  <div class="title">Subscriptions</div>
+                  <div class="num">
+                    1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about">
+            <div class="location">
+              <div class="loc about-item">
+                <strong>Location:</strong>UK, Weales
+              </div>
+            </div>
+            <div class="email">
+              <div class="ema about-item">
+                <strong>Email:</strong> user-1234@mail.ru
+              </div>
+            </div>
+          </div>
+        <!--  <div class="line"></div>-->
+        </div>
       </div>
     </div>
   </div>
@@ -17,32 +76,282 @@
     <div class="row">
 
       <div class="additional col-md-3">
-          <div class="d-flex flex-column">
-            <div class="profile-about">dsad</div>
-            <div class="features">dasdas</div>
+        <div class="d-flex flex-column">
+          <div class="profile-about">
+            <div class="title">
+              About me
+            </div>
+
+            <div class="line"></div>
+            <div class="line-decoration">
+              <div class="line-decoration-inner"></div>
+            </div>
+
+            <div class="about-me-info">
+              <div class="location about-me-info-item">
+                <i class="fas fa-map-marker-alt"></i> <span>Minsk, Belarus</span>
+              </div>
+              <div class="register-since about-me-info-item">
+                <i class="far fa-calendar-alt"></i> <span>In the community since Dec, 2019</span>
+              </div>
+              <div class="about-me-description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Culpa debitis eaque
+                error facere illum ipsa ipsam ratione saepe sunt voluptas.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Culpa debitis eaque
+                error facere illum ipsa ipsam ratione saepe sunt voluptas.
+              </div>
+            </div>
           </div>
+          <div class="features">
+            <div class="title">
+              Share travel tips
+            </div>
+            <div class="line"></div>
+            <div class="line-decoration">
+              <div class="line-decoration-inner"></div>
+            </div>
+            <div class="write">
+              <i class="fas fa-pencil-alt"></i><a>Write a review</a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="additional col-md-9">
         <div class="subnav">
-          <ul class="d-flex justify-content-between">
-            <li>
-              trip journal
-            </li>
-            <li>
-              orders
-            </li>
-            <li>
-              favourite
-            </li>
-            <li>
-              photos
-            </li>
-          </ul>
-        </div>
+          <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab>
+              <ng-template ngbTabTitle>Travel map</ng-template>
+              <ng-template ngbTabContent>
+                <div class="journal tabset-item tabset-item-map">
+<!--
+////////////this block will be shown if user have no orders yet
+                  <div class="have-no-trips">
+                    <div class="have-no-trips-picture">
+                      <img src="../../assets/images/cat-simon.gif" alt="">
+                    </div>
+                    <div class="have-no-trips-text">
+                      <div class="text-title">Ooops...</div>
+                      <div class="text-info">
+                        You have not traveled with us yet. <br>
+                        View <a>our tours</a> and create your own map of adventures.
+                      </div>
+                    </div>
+                  </div>-->
 
-        <div class="main">
-          posts / tours
+                  <div class="user-map-container">
+                    <div class="user-map-title">My travel map</div>
+
+<!--                    <div class="start">
+                      <i class="far fa-star"></i>
+                      <span>start</span>
+                      <i class="far fa-star"></i>
+                    </div>-->
+<!--
+                    <div class="line"></div>
+                    <div class="line-decoration">
+                      <div class="line-decoration-inner"></div>
+                    </div>-->
+
+                  </div>
+                  <div class="user-map">
+                    <div class="items-left">
+                      <div class="item-left container-fluid">
+                        <div class="row">
+                          <div class="item-info col-10">
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-text col-lg-6">
+                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                                <div class="item-info-image col-lg-6">
+                                  <div class="info-image">
+                                    <img src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--
+                      ////-->
+                      <div class="item-left container-fluid">
+                        <div class="row">
+                          <div class="item-info col-10">
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-text col-lg-6">
+                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                                <div class="item-info-image col-lg-6">
+                                  <div class="info-image">
+                                    <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--
+                      ////-->
+
+                    </div>
+                    <div class="line-path"></div>
+
+
+                    <div class="items-right">
+                      <div class="item-right container-fluid">
+                        <div class="row">
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+
+                          <div class="item-info col-10">
+
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-image col-lg-6 col-12">
+                                  <div class="info-image">
+                                    <img src="https://images.unsplash.com/photo-1531219432768-9f540ce91ef3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                                  </div>
+                                </div>
+
+                                <div class="item-info-text col-lg-6 col-12">
+                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+<!--                                  <div class="line"></div>
+                                  <div class="line-decoration">
+                                    <div class="line-decoration-inner"></div>
+                                  </div>-->
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--////-->
+                      <div class="item-right container-fluid">
+                        <div class="row">
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+
+                          <div class="item-info col-10">
+
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-image col-lg-6 col-12">
+                                  <div class="info-image">
+                                    <img src="https://images.unsplash.com/photo-1580903532963-293b44c1211b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjY1MDE0fQ&auto=format&fit=crop&w=1875&q=80" alt="">
+                                  </div>
+                                </div>
+
+                                <div class="item-info-text col-lg-6 col-12">
+                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+<!--                                  <div class="line"></div>
+                                  <div class="line-decoration">
+                                    <div class="line-decoration-inner"></div>
+                                  </div>-->
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ////-->
+                    </div>
+                  </div>
+
+                  <div class="continue">...</div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+            <ngb-tab>
+              <ng-template ngbTabTitle>Orders</ng-template>
+              <ng-template ngbTabContent>
+                <div class="tabset-item tabset-item-orders">
+                  <div class="order-items">
+                    <div class="order-item container-fluid">
+                      <div class="row row-order-item">
+                        <div class="order-item-image col-md-5">
+                          <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                          </div>
+                        </div>
+
+                        <div class="info col-md-7">
+                          <div class="order-item-bar">
+                            <i class="fas fa-ellipsis-v"></i>
+                          </div>
+                          <div class="title">Lorem ipsum dolor sit amet.</div>
+                          <div class="number">Number: 132442442ddfw2323</div>
+                          <div class="price">Price: $122.20</div>
+                          <div class="date">Date: 10/09/2020</div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="order-item container-fluid">
+                      <div class="row row-order-item">
+                        <div class="order-item-image col-md-5">
+                          <div class="img-container">
+                            <img src="https://images.unsplash.com/photo-1482446439224-59276c41a5fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+                          </div>
+                        </div>
+
+                        <div class="info col-md-7">
+                          <div class="order-item-bar">
+                            <i class="fas fa-ellipsis-v"></i>
+                          </div>
+                          <div class="title">Lorem ipsum dolor sit amet.</div>
+                          <div class="number">Number: 132442442ddfw2323</div>
+                          <div class="price">Price: $122.20</div>
+                          <div class="date">Date: 10/09/2020</div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+            <ngb-tab>
+              <ng-template ngbTabTitle>Favourites</ng-template>
+              <ng-template ngbTabContent>
+                <div class="tabset-item">
+                  <tours-section></tours-section>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+          </ngb-tabset>
         </div>
       </div>
 
