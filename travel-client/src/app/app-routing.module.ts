@@ -28,7 +28,7 @@ const routes: Routes = [
       {path: 'contact', component: ContactUsComponent},
       {path: 'tours', component: ToursPageComponent},
       {path: 'one-tour/:id', component: OneTourPageComponent},
-      {path: 'home', component: HomePageComponent}
+      {path: 'home', component: HomePageComponent},
     ],
   },
   {

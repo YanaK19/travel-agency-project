@@ -63,5 +63,12 @@ a:not([href]):not([tabindex]) {
   color: white;
 }
 
+.main-label{
+  span{
+    color: rgb(253, 0, 85);
+    font-weight: bold;
+   /* padding-left: 20px;*/
+  }
+}
 
 
