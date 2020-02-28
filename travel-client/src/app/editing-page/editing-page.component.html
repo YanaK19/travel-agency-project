@@ -1,5 +1,579 @@
 <div class="page">
-  <div class="filters-block">
+
+  <div class="main-title text-center">
+    Tour management
+  </div>
+
+  <div class="management container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-container">
+          <form action="">
+            <div class="form-inner container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+
+                  <div class="dateFrom d-flex flex-column">
+                    <label>Date From:</label>
+                    <div class="form-group dt">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="Start Date"
+                               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button style="background-color: #e9ecef;
+                        width: 44px;
+                        border: 1px solid #ced4da;
+                        color: #495057;"
+                                  class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-sm-6">
+                  <div class="dateTo d-flex flex-column">
+                    <label>Date to:</label>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="End of Date"
+                               name="ddpp" [(ngModel)]="modelmodel" ngbDatepicker #dd="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button style="background-color: #e9ecef;
+                        width: 44px;
+                        border: 1px solid #ced4da;
+                        color: #495057;"
+                                  class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="destination d-flex flex-column">
+                    <label>Departure:</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Departure" aria-label="Recipient's username" aria-describedby="from">
+                      <div class="input-group-append">
+                    <span class="input-group-text" id="from">
+                      <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="destination d-flex flex-column">
+                    <label>Destination:</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Destination" aria-label="Recipient's username" aria-describedby="to">
+                      <div class="input-group-append">
+                    <span class="input-group-text" id="to">
+                      <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="rest-type d-flex flex-column">
+                    <label>Rest type:</label>
+                    <div class="input-group mb-3">
+                      <select class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
+                        <option selected>Transport type</option>
+                        <option value="1">car</option>
+                        <option value="2">plane</option>
+                        <option value="3">ship</option>
+                        <option value="4">train</option>
+                      </select>
+                      <div class="input-group-append">
+                    <span class="input-group-text" id="transport">
+                      <i class="fa fa-bus fa-lg" aria-hidden="true"></i>
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="transport-type d-flex flex-column">
+                    <label>Transport type:</label>
+                    <div class="input-group mb-3">
+                      <select class="custom-select" id="inputGroupSelect03"  aria-describedby="rest">
+                        <option selected>Rest type</option>
+                        <option value="1">Risk</option>
+                        <option value="2">Cruise</option>
+                        <option value="3">Sport</option>
+                        <option value="4">Child</option>
+                      </select>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="rest">
+                          <i class="fas fa-swimmer fa-lg" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="col-sm-6">
+                  <div class="transport-type d-flex flex-column">
+                    <label>SORT BY:</label>
+                    <div class="input-group mb-3">
+                      <select class="custom-select" id="inputGroupSelect05"  aria-describedby="sort">
+                        <option selected>Price</option>
+                        <option value="1">Discount</option>
+                        <option value="2">Views</option>
+                      </select>
+                      <div class="input-group-append">
+                <span class="input-group-text" id="sort">
+                  <i class="fas fa-sort-amount-down"></i>
+                </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="button-sort-filter-container">
+                    <button type="button" class="btn btn-primary">Search & Filter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+
+
+      </div>
+      <div class="col-md-4">
+        <div class="right-container">
+          <div class="find-by-id-container">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Find tour (ID)" aria-label="Search" aria-describedby="button-search">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary search-button" type="button" id="button-search">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="add-container">
+            <button type="button" class="btn btn-success" (click)="onAdd(content)">Add tour <i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line-decoration">
+    <div class="line-decoration-inner"></div>
+  </div>
+
+
+
+  <!--/////////////-->
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Tour Editing <i class="far fa-edit"></i></h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-body-content">
+        <form>
+          <div class="form-group title-container">
+            <label class="input-title">Title:</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="tour.title">
+          </div>
+
+          <div class="form-group date-container">
+            <div class="input-title">Dates:</div>
+
+            <div class="date-from">
+              <label>From:</label>
+              <div class="from-input">
+                <input type="text" class="form-control day" name="date-from-day" [(ngModel)]="tour.dates[0].dateFrom.day">
+                <span>/</span>
+                <input type="text" class="form-control month" name="date-from-month" [(ngModel)]="tour.dates[0].dateFrom.month">
+                <span>/</span>
+                <input type="text" class="form-control year" name="date-from-year" [(ngModel)]="tour.dates[0].dateFrom.year">
+              </div>
+            </div>
+
+            <div class="date-to">
+              <label>To:</label>
+              <div class="to-input">
+                <input type="text" class="form-control day" name="date-to-day" [(ngModel)]="tour.dates[0].dateTo.day">
+                <span>/</span>
+                <input type="text" class="form-control month" name="date-to-month" [(ngModel)]="tour.dates[0].dateTo.month">
+                <span>/</span>
+                <input type="text" class="form-control year" name="date-to-year" [(ngModel)]="tour.dates[0].dateTo.year">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group route-container">
+            <div class="input-title">Departure:</div>
+            <div class="departure-container">
+              <div class="departure-country">
+                <label>Country</label>
+                <input type="text" class="form-control country" name="departure-country-from" [(ngModel)]="tour.route.fromCountry">
+              </div>
+
+              <div class="departure-town">
+                <label>Town</label>
+                <input type="text" class="form-control town" name="departure-town-from" [(ngModel)]="tour.route.fromTown">
+              </div>
+            </div>
+
+            <div class="input-title">Destination:</div>
+            <div class="destination-container">
+              <div class="destination-country">
+                <label>Country</label>
+                <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour.route.toCountry">
+              </div>
+
+              <div class="destination-town">
+                <label>Town</label>
+                <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour.route.toTown">
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group rest-container col-sm-6">
+                <label class="input-title">Rest types:</label>
+                <input type="text" class="form-control" name="rest-type" [(ngModel)]="tour.restType">
+              </div>
+
+              <div class="form-group transport-container col-sm-6">
+                <label class="input-title">Transport type:</label>
+                <input type="text" class="form-control" name="transport-type" [(ngModel)]="tour.transportType">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group more-info-container">
+            <label class="input-title">Info:</label>
+            <textarea type="text" class="form-control" name="more-info" [(ngModel)]="tour.moreInfo"></textarea>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group booked-container col-sm-6">
+                <label class="input-title">Booked:</label>
+                <input type="text" class="form-control" name="booked" [(ngModel)]="tour.booked">
+              </div>
+
+              <div class="form-group max-booked-container col-sm-6">
+                <label class="input-title">Max booked:</label>
+                <input type="text" class="form-control" name="max-booked" [(ngModel)]="tour.bookedMax">
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group discount-container col-sm-6">
+                <label class="input-title">Discount:</label>
+                <input type="text" class="form-control" name="discount" [(ngModel)]="tour.discount">
+              </div>
+
+              <div class="form-group cost-container col-sm-6">
+                <label class="input-title">Cost:</label>
+                <input type="text" class="form-control" name="cost" [(ngModel)]="tour.cost">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-success">OK</button>
+    </div>
+  </ng-template>
+
+<!--  {
+  "route":{"fromCountry":"Russia","fromTown":"Moskov","toCountry":"UK","toTown":"Wales"},
+  "restType":["risk","cruise"],
+  "images":["img","urls"],
+  "discount":10,"_id":"5e32be41c5bec5025c373c7f",
+  "title":"Trip to Russia",
+  "transportType":"bus",
+  "cost":12,
+  "moreInfo":"Cool travel",
+  "dates":[{"dateFrom":{"day":12,"month":9,"year":2020},"dateTo":{"day":17,"month":9,"year":2020}}],
+  "bookedMax":50,
+  "booked":10,
+  "views":20000
+  }-->
+
+  <div class="tours-container container">
+    <div class="row">
+      <div class="col-lg-6 tours-col">
+        <div class="tour-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="edit" (click)="openModal(content)">
+                <i class="fas fa-edit"></i>
+              </button>
+
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-title">
+                    Japaneeese Boat Trip
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 right-col">
+                <div class="dates-info">
+                  <div class="date-from"><strong>Date From:</strong> 11/11/1111</div>
+                  <div class="date-to"><strong>Date To:</strong> 11/11/1111</div>
+                </div>
+
+                <div class="location-info">
+                  <div class="location-from"><strong>Departure:</strong> Italy, Venice</div>
+                  <div class="location-to"><strong>Destination:</strong> Belarus, Minsk</div>
+                </div>
+
+                <div class="transport-info">
+                  <div class="transport"><strong>Transport:</strong> Bus</div>
+                </div>
+
+                <div class="rest-info">
+                  <div class="rest">
+                    <div class="rest-title">Rest Type:</div>
+                    <div class="rest-name risk">risk</div>
+                    <div class="rest-name cruise">cruise</div>
+                  </div>
+                </div>
+
+                <div class="statistic-info">
+                  <div class="viewed"><i class="far fa-eye"></i> 121</div>
+                  <div class="booked"><i class="fas fa-ticket-alt"></i> 9/55</div>
+                </div>
+
+                <div class="cost-info">
+                  <div class="discount"><strong>Discount:</strong> 10%</div>
+                  <div class="cost">$150</div>
+                </div>
+
+<!--                <div class="order-confirm">
+                  <strong>Confirmed: </strong>
+                  <i style="color:green" class="fas fa-check"></i>
+                </div>-->
+<!--                <div class="cost">
+                  <div class="cost-inner">$1200</div>
+                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 tours-col">
+        <div class="tour-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="edit" (click)="openModal(content)">
+                <i class="fas fa-edit"></i>
+              </button>
+
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-title">
+                    Japaneeese Boat Trip
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 right-col">
+                <div class="dates-info">
+                  <div class="date-from"><strong>Date From:</strong> 11/11/1111</div>
+                  <div class="date-to"><strong>Date To:</strong> 11/11/1111</div>
+                </div>
+
+                <div class="location-info">
+                  <div class="location-from"><strong>Departure:</strong> Italy, Venice</div>
+                  <div class="location-to"><strong>Destination:</strong> Belarus, Minsk</div>
+                </div>
+
+                <div class="transport-info">
+                  <div class="transport"><strong>Transport:</strong> Bus</div>
+                </div>
+
+                <div class="rest-info">
+                  <div class="rest">
+                    <div class="rest-title">Rest Type:</div>
+                    <div class="rest-name risk">risk</div>
+                    <div class="rest-name cruise">cruise</div>
+                  </div>
+                </div>
+
+                <div class="statistic-info">
+                  <div class="viewed"><i class="far fa-eye"></i> 121</div>
+                  <div class="booked"><i class="fas fa-ticket-alt"></i> 9/55</div>
+                </div>
+
+                <div class="cost-info">
+                  <div class="discount"><strong>Discount:</strong> 10%</div>
+                  <div class="cost">$150</div>
+                </div>
+
+                <!--                <div class="order-confirm">
+                                  <strong>Confirmed: </strong>
+                                  <i style="color:green" class="fas fa-check"></i>
+                                </div>-->
+                <!--                <div class="cost">
+                                  <div class="cost-inner">$1200</div>
+                                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 tours-col">
+        <div class="tour-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="edit" (click)="openModal(content)">
+                <i class="fas fa-edit"></i>
+              </button>
+
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-title">
+                    Japaneeese Boat Trip
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 right-col">
+                <div class="dates-info">
+                  <div class="date-from"><strong>Date From:</strong> 11/11/1111</div>
+                  <div class="date-to"><strong>Date To:</strong> 11/11/1111</div>
+                </div>
+
+                <div class="location-info">
+                  <div class="location-from"><strong>Departure:</strong> Italy, Venice</div>
+                  <div class="location-to"><strong>Destination:</strong> Belarus, Minsk</div>
+                </div>
+
+                <div class="transport-info">
+                  <div class="transport"><strong>Transport:</strong> Bus</div>
+                </div>
+
+                <div class="rest-info">
+                  <div class="rest">
+                    <div class="rest-title">Rest Type:</div>
+                    <div class="rest-name risk">risk</div>
+                    <div class="rest-name cruise">cruise</div>
+                  </div>
+                </div>
+
+                <div class="statistic-info">
+                  <div class="viewed"><i class="far fa-eye"></i> 121</div>
+                  <div class="booked"><i class="fas fa-ticket-alt"></i> 9/55</div>
+                </div>
+
+                <div class="cost-info">
+                  <div class="discount"><strong>Discount:</strong> 10%</div>
+                  <div class="cost">$150</div>
+                </div>
+
+                <!--                <div class="order-confirm">
+                                  <strong>Confirmed: </strong>
+                                  <i style="color:green" class="fas fa-check"></i>
+                                </div>-->
+                <!--                <div class="cost">
+                                  <div class="cost-inner">$1200</div>
+                                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!--///////////////////-->
+
+<!--  <div class="filters-block">
     <div class="title">filters</div>
 
     <form action="" class="form-filters">
@@ -100,7 +674,7 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div>-->
 
 
 </div>

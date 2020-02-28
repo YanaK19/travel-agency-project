@@ -1,28 +1,267 @@
 <div class="page">
-  <div class="info container-fluid">
-    <div class="title text-center">
+    <div class="main-title text-center">
       Order management
     </div>
-  </div>
-  <div class="container-fluid btns-menu">
-    <div class="buttons-edit row justify-content-between align-items-center">
-      <div class="confirm-filter-container d-flex">
-        <span>Unconfirmed: </span>
-        <input type="checkbox" class="confirm-filter" [ngModel]="filter" (ngModelChange)="onFilterChange($event)">
+
+
+  <div class="search-filter-container container">
+    <div class="row">
+      <div class="filter-container col-md-6">
+        <div class="confirm-filter-container d-flex">
+            <div class="checkbox-label">Unconfirmed</div>
+            <div class="input-checkbox-wrapper">
+              <input type="checkbox" class="confirm-filter" [ngModel]="filter" (ngModelChange)="onFilterChange($event)">
+            </div>
+        </div>
       </div>
-      <div class="btns-edit">
-        <button type="button" class="confirm btn btn-success" (click)="onConfirm()">confirm</button>
-        <button type="button" class="delete btn btn-danger">delete</button>
+
+      <div class="search-container col-md-6">
+        <form action="">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Find order (ID)" aria-label="Search" aria-describedby="button-search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary search-button" type="button" id="button-search">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-</div>
+    </div>
   </div>
+  <div class="line-decoration">
+    <div class="line-decoration-inner"></div>
+  </div>
+
+
+  <div class="orders-container container">
+    <div class="row">
+      <div class="col-lg-6 orders-col">
+        <div class="order-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-description">
+                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
+                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 right-col">
+                <div class="primary-info">
+                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
+                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
+                  <div class="user-number"><strong>Number:</strong> 2</div>
+                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
+                </div>
+                <div class="order-confirm">
+                  <strong>Confirmed: </strong>
+                  <i style="color:green" class="fas fa-check"></i>
+                </div>
+                <div class="cost">
+                  <div class="cost-inner">$1200</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 orders-col">
+        <div class="order-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-description">
+                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
+                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 right-col">
+                <div class="primary-info">
+                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
+                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
+                  <div class="user-number"><strong>Number:</strong> 2</div>
+                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
+                </div>
+                <div class="order-confirm">
+                  <strong>Confirmed: </strong>
+                  <i style="color:green" class="fas fa-check"></i>
+                </div>
+                <div class="cost">
+                  <div class="cost-inner">$1200</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 orders-col">
+        <div class="order-container">
+          <div class="number-buttons">
+            <div class="number">
+              №123abc11
+            </div>
+            <div class="buttons">
+              <button type="button" class="confirm" (click)="onConfirm()">
+                <i class="fas fa-check"></i>
+              </button>
+
+              <button type="button" class="delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="order-info-container container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-image">
+                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                  </div>
+                  <div class="tour-description">
+                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
+                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 right-col">
+                <div class="primary-info">
+                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
+                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
+                  <div class="user-number"><strong>Number:</strong> 2</div>
+                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
+                </div>
+                <div class="order-confirm">
+                  <strong>Confirmed: </strong>
+                  <i style="color:green" class="fas fa-check"></i>
+                </div>
+                <div class="cost">
+                  <div class="cost-inner">$1200</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!--
+
 
   <div class="orders-container">
     <div class="backdrop" #bd></div>
 
     <ul>
       <li *ngFor="let item of list; let i = index">
-        <div class="order d-flex">
+        <div class="checkbox-number-container">
+          <div class="edit">
+            <i class="fas fa-edit"></i>
+          </div>
+          <div class="checkbox-order d-flex flex-column justify-content-center">
+            <input class="mr-3" type="checkbox" [(ngModel)]="item.checked">
+          </div>
+          <div class="number">№ 1234567eeee44</div>
+        </div>
+
+        <div class="order-info-container">
+            <div class="order-info-container container-fluid">
+              <div class="row">
+                <div class="user-info-container col-md-4 col-12">
+                <div class="item-title">Tour info</div>
+                  <div class="item-content">
+                    <div class="item-image">
+                      <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                    </div>
+                    <div class="item-info">
+                      <div class="name"><strong>Title:</strong> Milk Shake</div>
+                      <div class="email"><strong>ID:</strong>123sdsd123</div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="user-info-container col-md-4 col-12">
+                <div class="item-title">User info</div>
+                <div class="item-content">
+                  <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1562246229-37b3aca47e18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
+                  </div>
+                  <div class="item-info">
+                    <div class="name"><strong>Name:</strong> Milk Shake</div>
+                    <div class="email"><strong>Email:</strong> milk@mail.ru</div>
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-md-4">
+                  <div class="cost r-item">
+                    <div class="item-title">people number</div>
+                    2
+                  </div>
+
+                  <div class="cost r-item">
+                    <div class="item-title">cost</div>
+                    $200
+                  </div>
+
+                  <div class="cost r-item">
+                    <div class="item-title">date</div>
+                    11/11/2020
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          <div class="isconfirmed">
+            confirmed
+          </div>
+        </div>
+&lt;!&ndash;        <div class="order d-flex">
 
               <div class="checkbox-order d-flex flex-column justify-content-center">
                 <input class="mr-3" type="checkbox" [(ngModel)]="item.checked">
@@ -34,7 +273,7 @@
 
                       <div class="container-fluid">
                         <div class="row">
-                          <div class="order-id col-md-8">
+&lt;!&ndash;                          <div class="order-id col-md-8">
                             <div class="subtitle">Order id:</div>
                             <div class="val">{{item._id}}</div>
                           </div>
@@ -48,7 +287,8 @@
                             <div *ngIf="item.confirmed">
                               <div class="subtitle conf">confirmed</div>
                             </div>
-                          </div>
+                          </div>&ndash;&gt;
+                          <div class="order-number">№ 123123yh3123</div>
                         </div>
                       </div>
 
@@ -60,8 +300,7 @@
                   </div>
 
               </div>
-
-        </div>
+        </div>&ndash;&gt;
       </li>
     </ul>
   </div>
@@ -69,7 +308,7 @@
   <ng-container #vc></ng-container>
 
   <ng-template #modal_1>
-    <!-- Modal -->
+    &lt;!&ndash; Modal &ndash;&gt;
     <div class="modal open" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document" >
         <div class="modal-content">
@@ -90,6 +329,8 @@
       </div>
     </div>
 
-  </ng-template>
+  </ng-template>-->
+
+
 
 </div>
