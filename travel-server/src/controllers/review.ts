@@ -8,8 +8,10 @@ async function create(req:any, res:any) {
         title: req.body.title,
         info:  req.body.info,
         img:  req.body.img,
+        date: req.body.date,
         confirmed:  req.body.confirmed,
-        userId:  req.body.userId
+        userId:  req.body.userId,
+        tourId: req.body.tourId
     });
 
     try {
@@ -22,20 +24,33 @@ async function create(req:any, res:any) {
 
 async function getReviews(req:any, res:any) {
     try {
-        let confirmedFilter: any = {};
+        let filters: any = [];
+        for (let paramName in req.query) {
+            if(paramName === "userId"){
+                filters.push({userId: req.query[paramName]});
+            }
+            if(paramName === "tourId") {
+                filters.push({tourId: req.query[paramName]});
+            }
+            if(req.query.confirmed === "false"){
+                // /review?confirmed=false
+                filters.push({confirmed: false});
+            }
 
-        if(req.query.confirmed === "false"){
-            // /review?confirmed=false
-            confirmedFilter.confirmed = false;
+            if(req.query.confirmed === "true"){
+                // /review?confirmed=false
+                filters.push({confirmed: true});
+            }
         }
 
-        if(req.query.confirmed === "true"){
-            // /review?confirmed=false
-            confirmedFilter.confirmed = true;
+        let reviews;
+        if(filters.length) {
+            reviews = await Review.find({ $and: filters});
+        }else {
+            reviews = await Review.find();
         }
 
-        const review = await Review.find(confirmedFilter);
-        res.status(200).json(review)
+        res.status(200).json(reviews)
     } catch (e) {
         errorHandler(res, e)
     }

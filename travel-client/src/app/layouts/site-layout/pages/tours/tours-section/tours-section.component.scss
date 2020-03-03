@@ -78,6 +78,14 @@
     text-transform: uppercase;
   }
 
+  @media (max-width: 992px) {
+    .additional-rest-type span {
+      padding: 4px;
+      margin-left: 5px;
+      font-size: 0.8rem;
+    }
+  }
+
   .additional-statistic {
     margin-right: 10px;
 
@@ -96,7 +104,7 @@
   padding: 10px;
   margin: 50px;
   overflow: hidden;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .read-more:hover {

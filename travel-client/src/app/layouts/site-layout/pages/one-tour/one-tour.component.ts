@@ -1,9 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {ToursService} from '../../../../services/tours.service';
 import {TourDates} from '../../../../interfaces/tour/tourDates.interface';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
+import {Review} from '../../../../interfaces/review/review.interface';
+import {ReviewService} from '../../../../services/review.service';
+
+import {UserData} from '../../../../interfaces/user/userData.interface';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-one-tour-page',
@@ -14,10 +19,15 @@ export class OneTourComponent implements OnInit {
   loading = false;
   id: string;
   tour: Tour;
+  reviews: Review[];
+  users: UserData[] = [];
   imgActive = '';
 
   constructor(private activatedRoute: ActivatedRoute,
-              private toursService: ToursService) {
+              private router: Router,
+              private toursService: ToursService,
+              private reviewService: ReviewService,
+              private userService: UserService) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
@@ -26,9 +36,28 @@ export class OneTourComponent implements OnInit {
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
       this.sortActualDates();
-      this.loading = false;
       console.log(this.tour);
       /*console.log(this.tour, typeof this.tour, this.tour.title);*/
+
+      this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
+        this.reviews = reviews;
+        if (reviews.length) {
+        this.reviews.sort((a, b) => -this.compareDates(a.date, b.date));
+        console.log(this.reviews);
+        this.reviews.forEach((review, index) => {
+          this.userService.getUserById(review.userId).subscribe(user => {
+              this.users.push(user);
+              if (index === this.reviews.length - 1) {
+                this.loading = false;
+              }
+            }
+          );
+        });
+        } else {
+          this.loading = false;
+        }
+        console.log("here")
+      });
     });
   }
 
@@ -50,12 +79,10 @@ export class OneTourComponent implements OnInit {
     };
 
     this.tour.dates = this.tour.dates.filter((date) => {
-      console.log(date.dateTo, currDate);
       return this.compareDates(date.dateTo, currDate) === 1;
     });
 
     this.tour.dates.sort((a, b) => this.compareDates(a.dateTo, b.dateTo));
-    console.log(this.tour.dates);
   }
 
   compareDates(a: TourDate, b: TourDate) {
@@ -67,5 +94,9 @@ export class OneTourComponent implements OnInit {
     } else {
         return 1;
     }
+  }
+
+  renderProfilePage(user: UserData) {
+    this.router.navigate(['/account', user._id]);
   }
 }

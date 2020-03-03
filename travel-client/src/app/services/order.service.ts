@@ -5,7 +5,7 @@ import {Order} from '../interfaces/order/order.interface';
 import {AuthorizationService} from './authorization.service';
 
 @Injectable({providedIn: 'root'})
-export  class OrderService {
+export class OrderService {
   constructor(private http: HttpClient,
               private auth: AuthorizationService) {
   }

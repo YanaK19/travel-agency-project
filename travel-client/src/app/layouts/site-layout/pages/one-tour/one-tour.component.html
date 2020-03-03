@@ -95,7 +95,7 @@
                     <div class="tour-tabs-info-item reviews col-sm-3">
                       <div class="icon"><i class="fas fa-comments"></i></div>
                       <div class="inf">
-                        <div class="content">Reviews</div>
+                        <div class="content">{{reviews.length}} reviews</div>
                         <div class="title">statistic</div>
                       </div>
                     </div>
@@ -105,25 +105,14 @@
               <!--  //// end tab tours info ///-->
                 <div class="main-subcontent">
                   <div class="more-info">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Ab architecto beatae deserunt dolor dolores dolorum eos illum
-                    impedit incidunt ipsam iusto magni molestias natus nesciunt nihil
-                    nostrum, obcaecati possimus quasi quis reprehenderit saepe sed sunt
-                    totam unde ut vel veniam? Animi, culpa debitis eligendi fugiat itaqu
-                    odit quo repellat temporibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Ab architecto beatae deserunt dolor dolores dolorum eos illum
-                    impedit incidunt ipsam iusto magni molestias natus nesciunt nihil
-                    nostrum, obcaecati possimus quasi quis reprehenderit saepe sed sunt
-                    totam unde ut vel veniam? Animi, culpa debitis eligendi fugiat itaqu
-                    odit quo repellat temporibus.
+                    {{tour.moreInfo}}
                   </div>
                   <div class="table-tour-info container-fluid">
                     <div class="row">
-                      <div class="col-sm-7"><strong>DEPARTURE/RETURN LOCATION</strong></div>
+                      <div class="col-sm-7"><strong>DEPARTURE/DESTINATION</strong></div>
                       <div class="col-sm-5">
-                        <span style="border: none; padding: 2px;">{{tour.route.toCountry}}, {{tour.route.toTown}} /</span>
-                        <span style="border: none; padding: 2px;">{{tour.route.fromCountry}}, {{tour.route.fromTown}}</span>
+                        <span style="border: none; padding: 2px;">{{tour.route.fromCountry}}, {{tour.route.fromTown}} /</span>
+                        <span style="border: none; padding: 2px;">{{tour.route.toCountry}}, {{tour.route.toTown}}</span>
                       </div>
 
                       <div class="col-sm-7"><strong>DURATION</strong></div>
@@ -209,44 +198,28 @@
           <div class="decoration"></div>
 
           <div class="section-comments-number">
-            <i class="far fa-comment-dots"></i> <span>2 comments</span>
+            <i class="far fa-comment-dots"></i> <span>{{reviews.length}} comments</span>
           </div>
 
-          <div class="user-review container-fluid">
+          <div class="user-review container-fluid" *ngFor="let review of reviews; let indx = index;">
             <div class="row">
               <div class="user-photo col-sm-3">
-                <div class="photo"></div>
-                <div class="nick">Lala Lama</div>
+                <div class="photo" (click)="renderProfilePage(users[indx])"></div>
+                <div class="nick">{{users[indx].name}}</div>
               </div>
               <div class="user-comment col-sm-9">
-                <div class="date">11/12/2020</div>
+                <div class="date">
+                  <span *ngIf="review.date.day < 10">0</span>{{review.date.day}}/
+                  <span *ngIf="review.date.month < 10">0</span>{{review.date.month}}/
+                  {{review.date.year}}
+                </div>
                 <div class="user-comment-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at debitis dolorem
-                  ea esse facilis fuga, illum iusto laboriosam modi molestias,
-                  officia, perferendis provident repellat saepe sit unde velit vitae?
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at debitis dolorem
-                  ea esse facilis fuga, illum iusto laboriosam modi molestias,
-                  officia, perferendis provident repellat saepe sit unde velit vitae?
+                  {{review.info}}
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="user-review container-fluid">
-            <div class="row">
-              <div class="user-photo col-sm-3">
-                <div class="photo"></div>
-                <div class="nick">Kroco Dile</div>
-              </div>
-              <div class="user-comment col-sm-9">
-                <div class="date">09/09/2020</div>
-                <div class="user-comment-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at debitis dolorem
-                  ea esse facilis fuga, illum iusto laboriosam modi molestias,
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="tour-leave-review">

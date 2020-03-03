@@ -3,6 +3,7 @@ import errorHandler from '../utils/errorHandler';
 import generateToken from "../utils/generateToken";
 import {keys} from "../config/keys";
 import bcrypt from "bcryptjs"
+import Range from '../models/Range';
 
 async function create(req:any, res:any) {
     const user = new User({
@@ -91,5 +92,14 @@ async function register(req: any, res: any) {
     }
 }
 
+async function getUserById(req:any, res:any) {
+    try {
+        const user: any = await User.findById(req.params.id, {password: 0});
+        res.status(200).json(user);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
-export {create, login, register}
+
+export {create, login, register, getUserById}

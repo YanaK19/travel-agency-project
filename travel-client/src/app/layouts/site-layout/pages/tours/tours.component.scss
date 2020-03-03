@@ -219,6 +219,14 @@ input {
   width: 100%;
 }
 
+.slide1-content {
+  .content img {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+  }
+}
+
 .slide2-content {
   title {
     padding: 3px;
@@ -243,7 +251,8 @@ input {
   }
 }
 
-.carousel-control-next, .carousel-control-prev {
+.carousel-control-next,
+.carousel-control-prev {
   height: 10%;
   align-items: flex-end;
   margin-bottom: 15px;
