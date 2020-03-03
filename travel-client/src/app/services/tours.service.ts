@@ -1,10 +1,9 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Tour} from "../interfaces/tour.interface";
-import {Router} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Tour} from '../interfaces/tour/tour.interface';
 
-@Injectable({providedIn: "root"})
+@Injectable({providedIn: 'root'})
 export class ToursService {
   constructor(private http: HttpClient) {
   }

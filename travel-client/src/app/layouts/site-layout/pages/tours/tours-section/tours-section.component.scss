@@ -1,0 +1,106 @@
+
+.tour-item {
+  position: relative;
+  height: 350px;
+  min-height: 350px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  .tour-item_image img {
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.info {
+  position: absolute;
+  height: 150px;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  background-color: rgba(28, 187, 180, 0.76);
+  color: #fff;
+  transition: 0.5s;
+}
+
+.tour-item:hover .info {
+  height: 100%;
+}
+
+.location-date-price {
+  border-bottom: 1px solid #fff;
+}
+
+.location-date {
+  margin-left: 10px;
+  float: left;
+  padding: 5px;
+}
+
+.location {
+  text-align: start;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.date {
+  text-align: start;
+}
+
+.price {
+  margin-right: 10px;
+  margin-top: 5px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.additional {
+  height: 49px;
+  align-items: center;
+
+  .additional-rest-type {
+    display: flex;
+  }
+
+  .additional-rest-type span {
+    background: #df084a;
+    margin-left: 10px;
+    padding: 8px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+  }
+
+  .additional-statistic {
+    margin-right: 10px;
+
+    .additional-review {
+      margin-left: 10px;
+    }
+  }
+
+  border-bottom: 1px solid #fff;
+}
+
+.read-more {
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 10px;
+  margin: 50px;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.read-more:hover {
+  margin-top: 40px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.22);
+}

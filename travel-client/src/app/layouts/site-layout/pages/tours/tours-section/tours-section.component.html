@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let tour of toursList">
+      <div class="tour-item">
+        <div class="tour-item_image">
+          <img [src]="tour.images[0]" alt="">
+        </div>
+        <div class="info">
+          <div class="location-date-price d-flex
+                   justify-content-between">
+            <div class="location-date d-flex flex-column justify-content-start">
+              <div class="location">{{tour.route.toCountry}}, {{tour.route.toTown}}</div>
+              <div class="date">
+                {{tour.dates[0].dateFrom.month | date:'MMM'}}
+                {{tour.dates[0].dateFrom.day}},
+                {{tour.dates[0].dateFrom.year}}
+              </div>
+            </div>
+            <div class="price">${{tour.cost}}</div>
+          </div>
+          <div class="additional d-flex justify-content-between">
+            <div class="additional-rest-type">
+              <span *ngFor="let type of tour.restType" mr-1>{{type}}</span>
+            </div>
+            <div class="additional-statistic d-flex">
+              <div class="additional-likes"><i class="fa fa-heart"></i> {{tour.views}}</div>
+              <div class="additional-review"><i class="fa fa-comment-o"></i> 10</div>
+            </div>
+          </div>
+          <button class="read-more" (click)="renderTourPage(tour._id)">READ MORE</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

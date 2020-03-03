@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthorizationService} from "../../services/authorization.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {AuthorizationService} from '../../services/authorization.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-site-layout',
@@ -8,26 +8,25 @@ import {Router} from "@angular/router";
   styleUrls: ['./site-layout.component.scss']
 })
 export class SiteLayoutComponent implements OnInit {
-  userId:string = '';
+  userId = '';
 
   constructor(private auth: AuthorizationService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
-    if(this.auth.isAuthenticated()) {
+    if (this.auth.isAuthenticated()) {
       this.userId = JSON.parse(localStorage.getItem('userData'))._id;
-      console.log(this.userId)
+      console.log(this.userId);
     }
   }
 
-  logout(event: Event){
+  logout(event: Event) {
     event.preventDefault();
     this.auth.logout();
-    this.router.navigate(['/home']);
   }
 
-  gotoAccountPage(){
+  gotoAccountPage() {
     this.router.navigate(['/account/' + this.userId]);
   }
-
 }

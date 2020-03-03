@@ -1,52 +1,45 @@
-import {Injectable} from "@angular/core";
-import {User} from "../interfaces/user.interface";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {map, tap} from "rxjs/operators";
-import {UserReg} from "../interfaces/userReg.interface";
+import {Injectable} from '@angular/core';
+import {UserLogin} from '../interfaces/user/userLogin.interface';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {UserRegister} from '../interfaces/user/userRegister.interface';
+import {Router} from '@angular/router';
 
-@Injectable({providedIn: "root"})
-export class AuthorizationService{
-  private token = null;
-
-  constructor(private http: HttpClient){
+@Injectable({providedIn: 'root'})
+export class AuthorizationService {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(user: User): Observable<any> {
+  login(user: UserLogin): Observable<any> {
     return this.http.post('api/user/login', user)
       .pipe(map((data: any) => {
           localStorage.setItem('token', data.token);
-          console.log( data.user);
+          console.log(data.user);
           localStorage.setItem('userData', JSON.stringify(data.user));
-          this.setToken(data.token);
-
           return data.user;
         })
-      )
+      );
   }
 
-  logout(){
-    this.setToken(null);
+  logout() {
     localStorage.clear();
+    this.router.navigate(['/home']);
   }
 
-  register(user: UserReg): Observable<any>{
-      return this.http.post('/api/user/register', user)
+  register(user: UserRegister): Observable<any> {
+    return this.http.post('/api/user/register', user);
   }
 
-  setToken(token: string){
-    this.token = token;
-  }
-
-  getToken(){
+  getToken() {
     return localStorage.getItem('token');
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     return !!localStorage.getItem('token');
   }
 
-  isAdmin(){
+  isAdmin() {
     const role: string = JSON.parse(localStorage.getItem('userData')).role;
     return role === 'admin';
   }

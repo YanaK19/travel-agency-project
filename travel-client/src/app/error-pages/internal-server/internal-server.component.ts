@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ErrorHandlerService} from "../../services/error-handler.service";
+import {ErrorHandlerService} from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-internal-server',
@@ -7,7 +7,7 @@ import {ErrorHandlerService} from "../../services/error-handler.service";
   styleUrls: ['./internal-server.component.scss']
 })
 export class InternalServerComponent implements OnInit {
-  public errorMessage: string = "500 SERVER ERROR, CONTACT ADMINISTRATOR!!!!";
+  public errorMessage = '500 SERVER ERROR, CONTACT ADMINISTRATOR!!!!';
 
   constructor(private errorHandler: ErrorHandlerService) { }
 

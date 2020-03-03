@@ -9,7 +9,7 @@ how the token is extracted
 from the request or verified:
  */
 const options = {
-    //returns the encoded JWT string or null
+    // returns the encoded JWT string or null
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     // verifying the token's signature
     // (REQUIRED because secretOrKeyProvider is provided)
