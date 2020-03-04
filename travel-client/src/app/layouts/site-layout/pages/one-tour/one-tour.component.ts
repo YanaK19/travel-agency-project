@@ -16,7 +16,6 @@ import {UserService} from '../../../../services/user.service';
   styleUrls: ['./one-tour.component.scss']
 })
 export class OneTourComponent implements OnInit {
-  loading = false;
   id: string;
   tour: Tour;
   reviews: Review[];
@@ -32,37 +31,36 @@ export class OneTourComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
       this.sortActualDates();
       console.log(this.tour);
-      /*console.log(this.tour, typeof this.tour, this.tour.title);*/
+    });
 
-      this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
-        this.reviews = reviews;
-        if (reviews.length) {
+    this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
+      this.reviews = reviews;
+      if (reviews.length) {
         this.reviews.sort((a, b) => -this.compareDates(a.date, b.date));
         console.log(this.reviews);
         this.reviews.forEach((review, index) => {
           this.userService.getUserById(review.userId).subscribe(user => {
               this.users.push(user);
-              if (index === this.reviews.length - 1) {
-                this.loading = false;
-              }
             }
           );
         });
-        } else {
-          this.loading = false;
-        }
-        console.log("here")
-      });
+      }
     });
   }
 
+  isLoaded() {
+    if (this.tour && this.reviews && this.users.length === this.reviews.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   showGallery(event) {
-    console.log(event.target);
     this.imgActive = 'url';
   }
 
@@ -81,7 +79,6 @@ export class OneTourComponent implements OnInit {
     this.tour.dates = this.tour.dates.filter((date) => {
       return this.compareDates(date.dateTo, currDate) === 1;
     });
-
     this.tour.dates.sort((a, b) => this.compareDates(a.dateTo, b.dateTo));
   }
 

@@ -105,7 +105,7 @@
   </div>
 </div>-->
 
-<div class="page">
+<div class="page" *ngIf="isLoaded()">
 <div class="video-container">
   <video preload="auto" autoplay type="video/mp4" src="../../../../../assets/video/sea.mp4" loop></video>
 </div>
@@ -220,141 +220,13 @@
       <h2 class="text-center">Top 10 tours</h2>
     </div>
     <div class="reviews-container">
-      <div class="box a">
-<!--        <div class="profile"></div>-->
+      <div class="box" [ngClass]="topToursClasses[indx]" *ngFor="let tour of topTours; let indx = index" (click)="renderTourPage(tour._id)">
         <div class="imgBox">
-          <img src="https://images.pexels.com/photos/1963081/pexels-photo-1963081.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
+          <img [src]="tour.images[0]">
         </div>
         <div class="details">
           <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-      <div class="box b">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.unsplash.com/photo-1508166785545-c2dd4c113c66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box c">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/3269498/pexels-photo-3269498.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box d">
-        <div class="profile"></div>
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/1666073/pexels-photo-1666073.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box e">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.unsplash.com/photo-1512588966017-9add7f6bee7c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box f">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-         <img src="https://images.pexels.com/photos/1231365/pexels-photo-1231365.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box g">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/2744596/pexels-photo-2744596.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box h">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/2479633/pexels-photo-2479633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box i">
-<!--        <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/1313814/pexels-photo-1313814.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
-          </div>
-        </div>
-      </div>
-
-      <div class="box j">
-   <!--     <div class="profile"></div>-->
-        <div class="imgBox">
-          <img src="https://images.pexels.com/photos/2415435/pexels-photo-2415435.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>Very interesting advernture</h2>
-<!--            <p>Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Qui, veritatis?</p>-->
+            <h2>{{tour.title}}</h2>
           </div>
         </div>
       </div>
@@ -362,23 +234,24 @@
   </div>
 
   <div class="container-fluid discount-block">
+    <div class="discount-block_image">
+      <img [src]="discoutTour.images[0]" alt="">
+    </div>
     <div class="row">
       <div class="col-sm-6 offset-sm-6">
         <div class="discount-info">
           <div class="discount-title">
-            25% OFF
+            {{discoutTour.discount}}% OFF
           </div>
           <div class="tour-title">
-            Russia, Moscow tour
+           {{discoutTour.route.toCountry}}, {{discoutTour.route.toTown}} tour
           </div>
           <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Culpa debitis doloremque earum
-            fuga ipsam laudantium modi nam quam qui quisquam?
+            {{discoutTour.moreInfo}}
           </div>
 
           <div class="read-more">
-            <button class="btn-more">
+            <button class="btn-more" (click)="renderTourPage(discoutTour._id)">
               <span>read more</span>
             </button>
           </div>
@@ -520,51 +393,19 @@
     </div>
     <div class="container-fluid container-comments">
       <div class="row">
-        <div class="col-lg-4 comments-item">
+
+        <div class="col-lg-4 comments-item" *ngFor="let review3 of reviews3; let indx = index;">
           <div class="item-inner">
               <div class="imgBox">
                 <img src="https://images.unsplash.com/photo-1528914457842-1af67b57139d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
               </div>
-              <p>Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit.
-                Accusamus, consequuntur error exercitationem illum maxime nesciunt nihil possimus quae quas repudiandae unde vel veritatis vitae! Aspernatur labore
-                possimus quaerat veniam vitae!
-              </p>
-              <h4>Travel to London<br>
-              <span>Green Field</span>
+              <p>{{review3.info}}</p>
+              <h4>{{review3.title}}<br>
+              <span>{{users[indx].name}}</span>
               </h4>
           </div>
         </div>
-        <div class="col-lg-4 comments-item">
-          <div class="item-inner">
-            <div class="imgBox">
-              <img src="https://images.unsplash.com/photo-1518157542428-1be9739022f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="">
-            </div>
-            <p>Lorem ipsum dolor sit amet,
-              consectetur adipisicing elit.
-              Accusamus, consequuntur error exercitationem illum maxime nesciunt nihil possimus quae quas repudiandae unde vel veritatis vitae! Aspernatur labore
-              possimus quaerat veniam vitae!
-            </p>
-            <h4>Travel to London<br>
-              <span>Green Field</span>
-            </h4>
-          </div>
-        </div>
-        <div class="col-lg-4 comments-item">
-          <div class="item-inner">
-            <div class="imgBox">
-              <img src="https://images.unsplash.com/photo-1562004760-aceed7bb0fe3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="">
-            </div>
-            <p>Lorem ipsum dolor sit amet,
-              consectetur adipisicing elit.
-              Accusamus, consequuntur error exercitationem illum maxime nesciunt nihil possimus quae quas repudiandae unde vel veritatis vitae! Aspernatur labore
-              possimus quaerat veniam vitae!
-            </p>
-            <h4>Travel to London<br>
-              <span>Green Field</span>
-            </h4>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>

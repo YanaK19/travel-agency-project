@@ -12,4 +12,8 @@ export class ReviewService {
   getReviewsByTourId(tourId: string): Observable<Review[]> {
     return this.http.get<Review[]>('api/review?confirmed=true&tourId=' + tourId);
   }
+
+  getLimitReviews(limitReviews): Observable<Review[]> {
+    return this.http.get<Review[]>('api/review?confirmed=true&limit=' + limitReviews);
+  }
 }

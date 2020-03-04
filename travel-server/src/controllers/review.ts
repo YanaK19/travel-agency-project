@@ -23,6 +23,8 @@ async function create(req:any, res:any) {
 }
 
 async function getReviews(req:any, res:any) {
+    let limitReviews = 0;
+
     try {
         let filters: any = [];
         for (let paramName in req.query) {
@@ -31,6 +33,9 @@ async function getReviews(req:any, res:any) {
             }
             if(paramName === "tourId") {
                 filters.push({tourId: req.query[paramName]});
+            }
+            if(paramName === "limit") {
+                limitReviews = +req.query[paramName];
             }
             if(req.query.confirmed === "false"){
                 // /review?confirmed=false
@@ -45,9 +50,18 @@ async function getReviews(req:any, res:any) {
 
         let reviews;
         if(filters.length) {
-            reviews = await Review.find({ $and: filters});
+            if(limitReviews) {
+                reviews = await Review.find({ $and: filters}).sort({"date.year": -1, "date.month": -1, "date.day": -1}).limit(limitReviews);
+            } else {
+                reviews = await Review.find({ $and: filters}).sort({"date.year": -1, "date.month": -1, "date.day": -1});
+            }
+
         }else {
-            reviews = await Review.find();
+            if(limitReviews) {
+                reviews = await Review.find().sort({"date.year": -1, "date.month": -1, "date.day": -1}).limit(limitReviews);
+            } else{
+                reviews = await Review.find().sort({"date.year": -1, "date.month": -1, "date.day": -1});
+            }
         }
 
         res.status(200).json(reviews)
@@ -90,3 +104,4 @@ async function remove(req:any, res:any) {
 }
 
 export {create, getReviews, remove, getReviewById, update}
+
