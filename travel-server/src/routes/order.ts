@@ -8,7 +8,7 @@ import isAdmin from "../middleware/isAdmin";
 
 
 orderRoutes.post('/', create);
-orderRoutes.get('/', authenticateJwt, isAdmin, getOrders);
+orderRoutes.get('/', getOrders);
 orderRoutes.delete('/:id', authenticateJwt, isAdmin, remove);
 
 export default orderRoutes;

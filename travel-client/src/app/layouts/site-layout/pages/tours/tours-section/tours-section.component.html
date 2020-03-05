@@ -23,8 +23,7 @@
               <span *ngFor="let type of tour.restType" mr-1>{{type}}</span>
             </div>
             <div class="additional-statistic d-flex">
-              <div class="additional-likes"><i class="fa fa-heart"></i> {{tour.views}}</div>
-              <div class="additional-review"><i class="fa fa-comment-o"></i> 10</div>
+              <div class="additional-likes"><i class="fas fa-eye"></i> {{tour.views}}</div>
             </div>
           </div>
           <button class="read-more" (click)="renderTourPage(tour._id)">READ MORE</button>

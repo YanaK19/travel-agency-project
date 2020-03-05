@@ -9,12 +9,20 @@ export class ToursService {
   constructor(private http: HttpClient) {
   }
 
-  getTours(): Observable<Tour[]> {
-    return this.http.get<Tour[]>('api/tour');
+  getTours(params?: string): Observable<Tour[]> {
+    if (params) {
+      return this.http.get<Tour[]>('api/tour' + params);
+    } else {
+      return this.http.get<Tour[]>('api/tour');
+    }
   }
 
   getOneTour(id: string): Observable<Tour> {
     return this.http.get<Tour>('api/tour/' + id);
+  }
+
+  getToursByRestType(type: string): Observable<Tour[]> {
+      return this.http.get<Tour[]>('api/tour?restType=' + type);
   }
 
   getTop10Tours(): Observable<Tour[]> {

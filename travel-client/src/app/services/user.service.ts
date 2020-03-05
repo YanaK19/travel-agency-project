@@ -10,4 +10,8 @@ export class UserService {
   getUserById(userId: string): Observable<UserData> {
     return this.http.get<UserData>('api/user/' + userId);
   }
+
+  getUserData() {
+    return JSON.parse(localStorage.getItem('userData'));
+  }
 }

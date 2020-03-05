@@ -14,15 +14,35 @@
 -->
 
 <div class="page d-flex flex-column">
+  <div class="container-fluid block0">
+    <div class="row">
+      <div class="col-md-7 block0_left">
+        <div class="block0_title">
+          Filter & sort tours
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="block0_right">
+          <div class="block0_subtitle">How to search?</div>
+          <div class="block0_text">
+            Fill in the fields you want. It is not necessary to fill them all.
+            You can also set the sorting of tours.
+            Click on the button to search.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="block1 form1-container">
-    <form class="form1 d-flex flex-column align-items-center">
+    <form class="form1 d-flex flex-column align-items-center" [formGroup]="filterForm">
       <div class="container inp-container text-center mb-4">
         <div class="row">
           <div class="group-path col-md-4 container-fluid">
             <div class="row">
               <div class="col-12">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Departure" aria-label="Recipient's username" aria-describedby="from">
+                  <input type="text" formControlName="fromCountry" class="form-control" placeholder="Departure coutry" aria-label="Recipient's username" aria-describedby="from">
                   <div class="input-group-append">
                     <span class="input-group-text w-43px" id="from">
                       <i class="fa fa-home fa-lg" aria-hidden="true"></i>
@@ -32,7 +52,7 @@
               </div>
               <div class="col-12">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Destination" aria-label="Recipient's username" aria-describedby="to">
+                  <input type="text" formControlName="toCountry" class="form-control" placeholder="Destination country" aria-label="Recipient's username" aria-describedby="to">
                   <div class="input-group-append">
                     <span class="input-group-text" id="to">
                       <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
@@ -48,8 +68,8 @@
               <div class="col-12">
                 <div class="form-group dt">
                   <div class="input-group">
-                    <input class="form-control" placeholder="Start Date"
-                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <input formControlName="dateFrom" class="form-control" placeholder="Start Date"
+                           name="dp" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
                       <button style="background-color: #e9ecef;
                         width: 44px;
@@ -64,8 +84,8 @@
               <div class="col-12 dt">
                 <div class="form-group">
                   <div class="input-group">
-                    <input class="form-control" placeholder="End of Date"
-                           name="ddpp" [(ngModel)]="modelmodel" ngbDatepicker #dd="ngbDatepicker">
+                    <input  formControlName="dateTo" class="form-control" placeholder="End of Date"
+                           name="ddpp" ngbDatepicker #dd="ngbDatepicker">
                     <div class="input-group-append">
                       <button style="background-color: #e9ecef;
                         width: 44px;
@@ -83,12 +103,9 @@
             <div class="row">
               <div class="col-12">
                 <div class="input-group mb-3">
-                <select class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
-                  <option selected>Transport type</option>
-                  <option value="1">car</option>
-                  <option value="2">plane</option>
-                  <option value="3">ship</option>
-                  <option value="4">train</option>
+                <select *ngIf="rangeTransports" formControlName="transportType" class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
+                  <option value=""></option>
+                  <option *ngFor="let transport of rangeTransports.types" [value]="transport">{{transport}}</option>
                 </select>
                 <div class="input-group-append">
                     <span class="input-group-text" id="transport">
@@ -99,14 +116,16 @@
               </div>
 
               <div class="col-12">
-
+                <button class="btn-search" (click)="Search()">
+                  <span>
+                    <i class="fas fa-search pr-1"></i> search
+                  </span>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <button class="btn btn-success"><i class="fas fa-search pr-1"></i> search</button>
     </form>
   </div>
 
@@ -116,7 +135,8 @@
         <div class="sort-container">
           <div class="form-group">
             <label for="exampleFormControlSelect1">Sort by:</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="exampleFormControlSelect1" #selectSort>
+              <option></option>
               <option>view</option>
               <option>cost</option>
               <option>discount</option>
@@ -127,22 +147,10 @@
         <div class="rest-filter-container">
           <label>Categories: </label>
 
-          <div class="rf">
+          <div class="rf" *ngIf="rangeTourTypes">
             <ul class="rest-type container">
-              <li>
-                <a href="#" data-text="cruise">cruise</a>
-              </li>
-              <li>
-                <a href="#" data-text="risk">risk</a>
-              </li>
-              <li>
-                <a href="#" data-text="beach">beach</a>
-              </li>
-              <li>
-                <a href="#" data-text="child">child</a>
-              </li>
-              <li>
-                <a href="#" data-text="fests">fests</a>
+              <li *ngFor="let type of rangeTourTypes.types" (click)="getToursByRest(type.toLowerCase())">
+                <div class="li_inner">{{type}}</div>
               </li>
             </ul>
           </div>
@@ -215,6 +223,7 @@
 
       <div class="col-md-9 col-sm-8 block3">
         <section>
+          <div *ngIf="!tours.length && !loading" class="no-suitable">No suitable tours...</div>
           <app-loader *ngIf="loading"></app-loader>
           <app-tours-section *ngIf="!loading" [toursList]="tours"></app-tours-section>
         </section>

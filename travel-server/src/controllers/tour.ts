@@ -64,7 +64,7 @@ async function getFilSortTours(req:any, res:any){
    //req.query - object
     try{
         const permFilters: string[] = ["restType", "transportType",
-                                       "fromCounty", "toCountry",
+                                       "fromCountry", "toCountry",
                                        "dateFrom", "dateTo",
                                        "discount"
                                       ];
@@ -138,6 +138,10 @@ async function getFilSortTours(req:any, res:any){
                 }
                 }else if(paramName === "discount"){
                     filters.push({discount: {$gt: 0}});
+                } else if (paramName === "toCountry"){
+                    filters.push({'route.toCountry': req.query[paramName]})
+                } else if (paramName === "fromCountry"){
+                    filters.push({'route.fromCountry': req.query[paramName]})
                 } else{
                     let query:any = {};
                     query[paramName] = req.query[paramName];
@@ -147,7 +151,6 @@ async function getFilSortTours(req:any, res:any){
         }
 
         let tours:any;
-
         if(req.query.sortBy){
             let sortParam:any = {};
             if(req.query.sortBy === "views"){

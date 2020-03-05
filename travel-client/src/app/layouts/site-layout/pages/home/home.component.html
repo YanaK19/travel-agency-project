@@ -1,111 +1,4 @@
-<!--<div class="landing">
-  <div class="home-wrap">
-    <div class="home-inner"></div>
-  </div>
-</div>
-
-<div class="caption text-center" id="main">
-  <h1>Tours</h1>
-  <h3>find tour</h3>
-  <input type="text">
-</div>
-
-<div id="about">
-  <div class="jumbotron">
-    <div class="narrow"></div>
-
-      <div class="col-12">
-        <h3 class="heading">info</h3>
-        <div class="heading-underline"></div>
-      </div>
-
-    <div class="row text-center">
-      <div class="col-md-4 mt-4">
-        <div class="about1">
-          <img src="https://image.flaticon.com/icons/svg/2331/2331709.svg">
-          <h3 class="mt-2">Competitive pricing</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, nesciunt?
-          </p>
-        </div>
-      </div>
-
-      <div class="col-md-4 mt-4">
-        <div class="about2">
-          <img src="https://image.flaticon.com/icons/svg/921/921490.svg">
-          <h3 class="mt-2">Wordwide coverage</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, nesciunt?
-          </p>
-        </div>
-      </div>
-
-      <div class="col-md-4 mt-4">
-        <div class="about3">
-          <img src="https://image.flaticon.com/icons/svg/1599/1599811.svg">
-          <h3 class="mt-2">24/7 support service</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, nesciunt?
-          </p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<div id="discount" class="w-100" style="height: 300px; background-color: rgba(50,108,46,0.44);">
-  <h3>todays'top deals</h3>
-</div>
-
-<div id="top" class="w-100" style="height: 300px; background-color: rgba(25,64,108,0.44);">
-  <h3>popular destinations</h3>
-</div>
-
-<div id="registration" class="w-100" style="height: 300px; background-color: rgba(118,88,84,0.44);">
-  <h3>not a member yet?</h3>
-  <h5>Join us! Trip.com members can access savings of up to 50%
-    and earn Trip Coins while booking.</h5>
-  <button class="btn btn-warning">sign in</button>
-  <button class="btn btn-success">register</button>
-</div>
-
-<div id="reviews">
-  <div class="jumbotron">
-  <div class="col-12 text-center">
-    <h3 class="heading">our happy clients</h3>
-  </div>
-
-    <div class="row text-center">
-      <div class="col-md-6 mt-4">
-        <div class="review">
-          <img src="https://image.flaticon.com/icons/svg/1055/1055673.svg" style="width: 60px;">
-          <h5 class="mt-2">Competitive pricing</h5>
-          <blockquote>
-            <i class="fa fa-quote-left"></i>
-            Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Est, nesciunt?
-          </blockquote>
-        </div>
-      </div>
-
-      <div class="col-md-6 mt-4">
-        <div class="review">
-          <img src="https://image.flaticon.com/icons/svg/1055/1055673.svg" style="width: 60px;">
-          <h5 class="mt-2">Competitive pricing</h5>
-          <blockquote>
-            <i class="fa fa-quote-left"></i>
-            Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Est, nesciunt?
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
-
-<div class="page" *ngIf="isLoaded()">
+<div class="page">
 <div class="video-container">
   <video preload="auto" autoplay type="video/mp4" src="../../../../../assets/video/sea.mp4" loop></video>
 </div>
@@ -130,11 +23,15 @@
              <div class="wrapper-subtitle">Hey, what country would you like to visit?</div>
             </div>
 
-            <form action="">
+            <div class="custom-tooltip" *ngIf="!countryExist">No tours to such country!</div>
+
+            <form (ngSubmit)="renderToursPageByCountry(countryInput.value)">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="COUNTRY NAME" aria-label="country" aria-describedby="button-addon2">
+                <input type="text" [ngbTypeahead]="search" class="form-control input-country" placeholder="COUNTRY NAME"
+                       aria-label="country" aria-describedby="button-addon2" #countryInput
+                >
                 <div class="input-group-append btn-container">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
                     <div id="s-circle"></div>
                     <span></span>
                   </button>
@@ -147,7 +44,7 @@
           <div class="register-wrapper">
             <div class="register-wrapper-title wrapper-title">JOIN US</div>
             <div class="wrapper-subtitle">Publish reviews and create your own travel map.</div>
-            <button class="btn-reg">
+            <button class="btn-reg" (click)="renderRegisterPage()">
               <span>Sign UP</span>
             </button>
           </div>
@@ -156,7 +53,7 @@
     </div>
   </div>
 
-  <div class="about-container">
+  <div class="about-container" *ngIf="isLoaded()">
     <div class="about-title">Why we are the best?</div>
     <div class="decoration"></div>
     <div class="about-container-inner container">
@@ -215,7 +112,7 @@
 
 <!--  //////////// top 10 ////////////-->
 
-  <div class="container-fluid block-views">
+  <div class="container-fluid block-views" *ngIf="isLoaded()">
     <div class="title-views">
       <h2 class="text-center">Top 10 tours</h2>
     </div>
@@ -233,7 +130,7 @@
     </div>
   </div>
 
-  <div class="container-fluid discount-block">
+  <div class="container-fluid discount-block" *ngIf="isLoaded()">
     <div class="discount-block_image">
       <img [src]="discoutTour.images[0]" alt="">
     </div>
@@ -279,7 +176,7 @@
               <div class="slide-container-inner container-fluid">
                 <div class="row">
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="sport" (click)="renderToursPageByRest('sport')">
                       <div class="type-icon">
                         <i class="fas fa-futbol"></i>
                       </div>
@@ -288,29 +185,29 @@
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="excursions" (click)="renderToursPageByRest('excursions')">
                       <div class="type-icon">
-                        <i class="fas fa-shoe-prints"></i>
+                        <i class="fas fa-address-card"></i>
                       </div>
-                      <div class="type-name">Walking</div>
+                      <div class="type-name">excursions</div>
                     </div>
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="children" (click)="renderToursPageByRest('children')">
                       <div class="type-icon">
-                        <i class="fas fa-elephant"></i>
+                        <i class="fas fa-child"></i>
                       </div>
-                      <div class="type-name">Wildlife</div>
+                      <div class="type-name">children</div>
                     </div>
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="exotic" (click)="renderToursPageByRest('exotic')">
                       <div class="type-icon">
-                        <i class="fas fa-parachute-box"></i>
+                        <i class="fas fa-campground"></i>
                       </div>
-                      <div class="type-name">Air rides</div>
+                      <div class="type-name">exotic</div>
                     </div>
                   </div>
 
@@ -325,40 +222,40 @@
               <div class="slide-container-inner container-fluid">
                 <div class="row">
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="festivals" (click)="renderToursPageByRest('festivals')">
                       <div class="type-icon">
-                        <i class="fas fa-ship"></i>
+                        <i class="fas fa-glass-cheers"></i>
                       </div>
-                      <div class="type-name">Cruises</div>
+                      <div class="type-name">festivals</div>
                     </div>
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="education" (click)="renderToursPageByRest('education')">
                       <div class="type-icon">
-                        <i class="fas fa-hiking"></i>
+                        <i class="fas fa-graduation-cap"></i>
                       </div>
-                      <div class="type-name">Hiking</div>
+                      <div class="type-name">education</div>
                     </div>
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
+                    <div class="col-inner" id="shop" (click)="renderToursPageByRest('shop')">
                       <div class="type-icon">
                         <i class="fas fa-store"></i>
                       </div>
-                      <div class="type-name">Shopping</div>
+                      <div class="type-name">shop</div>
                     </div>
                   </div>
 
                   <div class="col-sm-3 col-6 col-container">
-                    <div class="col-inner">
-                      <div class="type-icon">
-                        <i class="fas fa-umbrella-beach"></i>
-                      </div>
-                      <div class="type-name">Beach</div>
+                  <div class="col-inner" id="beach" (click)="renderToursPageByRest('beach')">
+                    <div class="type-icon">
+                      <i class="fas fa-umbrella-beach"></i>
                     </div>
+                    <div class="type-name">beach</div>
                   </div>
+                </div>
 
                 </div>
               </div>
@@ -387,7 +284,7 @@
     <div class="magic">scroll magic</div>
   </div>-->
 
-  <div class="comments-block">
+  <div class="comments-block" *ngIf="isLoaded()">
     <div class="comments-title">
       tour reviews
     </div>
@@ -429,51 +326,3 @@
 </div>
 
 
-<div class="footer">
-  <div class="container-fluid">
-    <div class="row">
-
-      <div class="col-sm-6 footer-item">
-        <div class="question">
-          Have any questions?
-        </div>
-        <div class="question-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>Belarus, Minsk</span>
-        </div>
-        <div class="question-item">
-          <i class="fas fa-phone-alt"></i>
-          <span>+379 88 25 125</span>
-        </div>
-        <div class="question-item">
-          <i class="fas fa-envelope"></i>
-          <span>trip-helper@mail.ru</span>
-        </div>
-        <div class="question-item">
-          <div class="faq-question">
-            Maybe somebody have already asked this question. <br>
-            See <strong>FAQ</strong> page. Hope, it will help you
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 footer-item">
-        <div class="label">T<span>H</span></div>
-        <div class="slogan">
-          All your concerns are included in our WORK!</div>
-        <div class="socials">
-          <ul>
-            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href=""><i class="fab fa-vk"></i></a></li>
-            <li><a href=""><i class="fab fa-twitter"></i></a></li>
-            <li><a href=""><i class="fab fa-pinterest-p"></i></a></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="line"></div>
-  <div class="company">@ <span class="light">Trip Helper</span>, 2020. Made with care by <span class="light">SS</span></div>
-</div>

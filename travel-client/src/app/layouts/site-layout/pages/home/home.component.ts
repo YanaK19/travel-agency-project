@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import * as AOS from 'aos';
 import {ReviewService} from '../../../../services/review.service';
 import {Review} from '../../../../interfaces/review/review.interface';
@@ -7,11 +7,14 @@ import {UserData} from '../../../../interfaces/user/userData.interface';
 import {ToursService} from '../../../../services/tours.service';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {Router} from '@angular/router';
+import {LocationService} from '../../../../services/location.service';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   topTours: Tour[];
@@ -19,10 +22,13 @@ export class HomeComponent implements OnInit {
   topToursClasses: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
   reviews3: Review[];
   users: UserData[] = [];
+  countries: string[] = [];
+  countryExist: boolean = true;
 
   constructor(private toursService: ToursService,
               private reviewService: ReviewService,
               private userService: UserService,
+              private locationService: LocationService,
               private router: Router) { }
 
   ngOnInit() {
@@ -34,7 +40,7 @@ export class HomeComponent implements OnInit {
 
     this.reviewService.getLimitReviews(3).subscribe(reviews => {
       this.reviews3 = reviews;
-      console.log(this.reviews3)
+      console.log(this.reviews3);
       this.reviews3.forEach((review, index) => {
         this.userService.getUserById(review.userId).subscribe((user: UserData) => {
             this.users.push(user);
@@ -46,10 +52,14 @@ export class HomeComponent implements OnInit {
     this.toursService.getBiggestDiscountTour().subscribe(tour => {
       this.discoutTour = tour;
     });
+
+    this.locationService.getContries().subscribe(countries => {
+      this.countries = countries;
+    });
   }
 
   isLoaded() {
-    if (this.topTours && this.reviews3 && this.discoutTour && this.users.length === this.reviews3.length) {
+    if (this.topTours && this.reviews3 && this.discoutTour && this.users.length === 3) {
       return true;
     } else {
       return false;
@@ -59,4 +69,39 @@ export class HomeComponent implements OnInit {
   renderTourPage(tourId: string) {
     this.router.navigate(['/one-tour', tourId]);
   }
+
+  renderRegisterPage() {
+    this.router.navigate(['/register']);
+  }
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.countries.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
+
+  renderToursPageByCountry(country: string) {
+    let isExist: boolean = false;
+
+    this.countries.forEach((countryDB, index) => {
+      if (countryDB.toLowerCase() === country.toLowerCase()) {
+        console.log(countryDB);
+        isExist = true;
+        this.countryExist = true;
+        this.router.navigate(['/tours'], {queryParams: {country: countryDB}});
+      }
+    });
+
+    if (!isExist) {
+      this.countryExist = false;
+      console.log('no such country');
+    }
+  }
+
+  renderToursPageByRest(restType: string) {
+    this.router.navigate(['/tours'], {queryParams: {rest: restType}});
+  }
 }
+

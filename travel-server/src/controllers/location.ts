@@ -25,7 +25,7 @@ async function getLocationById(req:any, res:any) {
     }
 }
 
-async function isExist(req:any, res:any) {
+/*async function isExist(req:any, res:any) {
     let country:string = req.query.country;
     let town:string = req.query.town;
 console.log(country, town, {country, town})
@@ -36,6 +36,16 @@ console.log(country, town, {country, town})
     } catch (e) {
         errorHandler(res, e)
     }
+}*/
+
+
+async function getLocations(req:any, res:any) {
+    try {
+        const locations = await Location.find();
+        res.status(200).json(locations)
+    } catch (e) {
+        errorHandler(res, e)
+    }
 }
 
-export {create, getLocationById, isExist}
+export {create, getLocationById/*, isExist*/, getLocations}
