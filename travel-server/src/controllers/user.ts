@@ -1,9 +1,24 @@
 import User from "../models/User";
 import errorHandler from '../utils/errorHandler';
 import generateToken from "../utils/generateToken";
-import {keys} from "../config/keys";
 import bcrypt from "bcryptjs"
-import Range from '../models/Range';
+
+async function update(req:any, res:any) {
+    try {
+/*        const user = await User.findOne({_id: req.user._id});*/
+        const user = await User.findOneAndUpdate(
+            {_id: req.user._id},
+            {$set: req.body},
+            {new: true}
+        );
+
+        const customer: any = await User.findById(req.user._id, {password: 0});
+
+        res.status(200).json(user)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
 async function create(req:any, res:any) {
     const user = new User({
@@ -12,7 +27,6 @@ async function create(req:any, res:any) {
         name: req.body.name,
         telephone: req.body.telephone,
         favouriteTourIds: req.body.favouriteTourIds,
-        bookedTourIds: req.body.bookedTourIds,
         role: req.body.role
     });
 
@@ -66,8 +80,6 @@ async function register(req: any, res: any) {
             password: bcrypt.hashSync(password, salt),
             name: req.body.name,
             telephone: req.body.telephone,
-            favouriteTourIds: req.body.favouriteTourIds,
-            bookedTourIds: req.body.bookedTourIds,
             role: req.body.role
         });
 
@@ -80,8 +92,6 @@ async function register(req: any, res: any) {
                email: req.body.email,
                name: req.body.name,
                telephone: req.body.telephone,
-               favouriteTourIds: req.body.favouriteTourIds,
-               bookedTourIds: req.body.bookedTourIds,
                role: "customer"
            };
 
@@ -102,4 +112,4 @@ async function getUserById(req:any, res:any) {
 }
 
 
-export {create, login, register, getUserById}
+export {create, login, register, getUserById, update}

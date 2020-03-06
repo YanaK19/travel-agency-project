@@ -18,14 +18,20 @@ const userSchema = new Schema({
     telephone: {
         type: String
     },
-    favouriteTourIds: {
+    languages: [String],
+    location: {
+        country: {type: String, default: ''},
+        town: {type: String, default: ''}
+    },
+    about: {type: String, default: ''},
+    subscriptions: [{
+        ref: 'users',
+        type: Schema.Types.ObjectId
+    }],
+    favouriteTourIds: [{
         ref: 'tours',
         type: Schema.Types.ObjectId
-    },
-    bookedTourIds: {
-        ref: 'tours',
-        type: Schema.Types.ObjectId
-    },
+    }],
     role: {
         type: String,
         default: 'customer'

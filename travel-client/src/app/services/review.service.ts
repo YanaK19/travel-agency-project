@@ -13,6 +13,10 @@ export class ReviewService {
     return this.http.get<Review[]>('api/review?confirmed=true&tourId=' + tourId);
   }
 
+  getReviewsByUserId(userId: string): Observable<Review[]> {
+    return this.http.get<Review[]>('api/review?confirmed=true&userId=' + userId);
+  }
+
   getLimitReviews(quantity: number): Observable<Review[]> {
     return this.http.get<Review[]>('api/review?confirmed=true&limit=' + quantity);
   }

@@ -1,10 +1,10 @@
 
 <div class="page">
 
-  <div class="profile-header container-fluid max-width">
+<!--  <div class="profile-header container-fluid max-width">
     <div class="row row-bgr">
-<!--      <div class="bgr-top"></div>-->
- <!--     <div class="bgr-bottom"></div>-->
+&lt;!&ndash;      <div class="bgr-top"></div>&ndash;&gt;
+ &lt;!&ndash;     <div class="bgr-bottom"></div>&ndash;&gt;
 
       <div class="col-md-3 profile-image-container">
         <div class="border-profile-image">
@@ -15,71 +15,92 @@
       </div>
       <div class="col-md-9 profile-info-container">
         <div class="profile-info">
-<!--          <div class="absolute-img6">
+&lt;!&ndash;          <div class="absolute-img6">
             <img src="../../assets/images/picture6.png" alt="">
-          </div>-->
+          </div>&ndash;&gt;
 
-          <div class="settings">
-            <i class="fas fa-cog"></i>
-          </div>
           <div class="nick">
             Canga Roo
           </div>
           <div class="header-info container-fluid">
             <div class="row">
               <div class="reviews header-info-item col-sm-4">
-                <div class="inner">
-                  <div class="title">Reviews</div>
-                  <div class="num">
-                    1
-                  </div>
-                </div>
+                 <div class="reviews_inner">
+                   <div class="inner_title">reviews</div>
+                   <div class="inner_number">2</div>
+                 </div>
               </div>
               <div class="subscribers  header-info-item col-sm-4">
-                <div class="inner">
-                  <div class="title">Subscribers</div>
-                  <div class="num">
-                    1
-                  </div>
-                </div>
+               <div class="subscribers_inner">
+                 <div class="inner_title">subscribers</div>
+                 <div class="inner_number">12</div>
+               </div>
               </div>
               <div class="subscriptions  header-info-item col-sm-4">
-                <div class="inner">
-                  <div class="title">Subscriptions</div>
-                  <div class="num">
-                    1
-                  </div>
+                <div class="subscriptions_inner">
+                  <div class="inner_title">subscriptions</div>
+                  <div class="inner_number">10</div>
                 </div>
               </div>
             </div>
           </div>
-
+&lt;!&ndash;
           <div class="about">
-            <div class="location">
-              <div class="loc about-item">
-                <strong>Location:</strong>UK, Weales
+            <div class="about_title">About me:</div>
+            <div class="about_info">
+              <div class="info-email about-item">
+                <i class="fas fa-envelope"></i> dsfsfas@MAIL.RU
+              </div>
+              <div class="info_languages about-item">
+                <i class="fas fa-comments"></i> rewrwr, rewrwr ,rewrwer
+              </div>
+              <div class="info_more about-item">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto enim minima nesciunt porro quod tempora totam vel? A expedita itaque laboriosam. Ab ea, eveniet incidunt minima non recusandae rem tenetur?
               </div>
             </div>
-            <div class="email">
-              <div class="ema about-item">
-                <strong>Email:</strong> user-1234@mail.ru
-              </div>
-            </div>
-          </div>
-        <!--  <div class="line"></div>-->
+          </div>&ndash;&gt;
+        &lt;!&ndash;  <div class="line"></div>&ndash;&gt;
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
+
+  <!--/////////////////////////-->
 
   <div class="profile-block container-fluid max-width">
     <div class="row">
 
       <div class="additional col-md-3">
         <div class="d-flex flex-column">
+          <div class="profile-icon">
+            <img class="d-block" src="https://lh3.googleusercontent.com/proxy/gdLLks1AirKuizJDrsRMH7FBtudN_4jS8ERSqcFF0pqporwSAlpDhvpak8aPd-YyGp_spkeATnH-Oim1QmoThvCxkmW1C-c">
+          </div>
+
+          <div class="reviews additional_item">
+            <div class="additional_item-title" *ngIf="reviewsData.length">Reviews: {{reviewsData.length}}</div>
+            <div class="additional_item-title" *ngIf="!reviewsData.length">Reviews: 0</div>
+          </div>
+          <div class="subscriptions additional_item" (click)="toggle()">
+            <div class="additional_item-title">Subscriptions: {{subscribtionsData.length}}</div>
+
+            <div *ngIf="toggler && subscribtionsData.length">
+
+              <div *ngFor="let subscribtionData of subscribtionsData" class="additional_item-content">
+                  <div class="user-icon">
+                    <img src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                  </div>
+                  <div class="user-name">{{subscribtionData.name}}</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="subscribers additional_item">
+            <div class="additional_item-title">Subscribers: 5</div>
+          </div>
+
           <div class="profile-about">
             <div class="title">
-              About me
+              About me <!--<i class="fas fa-user-edit edit-icon"></i>-->
             </div>
 
             <div class="line"></div>
@@ -89,11 +110,15 @@
 
             <div class="about-me-info">
               <div class="location about-me-info-item">
-                <i class="fas fa-map-marker-alt"></i> <span>Minsk, Belarus</span>
+                <i class="fas fa-home"></i> <span>Minsk, Belarus</span>
               </div>
-              <div class="register-since about-me-info-item">
-                <i class="far fa-calendar-alt"></i> <span>In the community since Dec, 2019</span>
+              <div class="languages about-me-info-item">
+                <i class="fas fa-comments"></i> <span>Russian, English</span>
               </div>
+              <div class="email about-me-info-item">
+                <i class="fas fa-envelope"></i> <span>croco@mail.ru</span>
+              </div>
+
               <div class="about-me-description">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Culpa debitis eaque

@@ -18,5 +18,14 @@ export class OrderService {
 
     return this.http.get<Order[]>('/api/order', httpOptions );
   }
+
+  getOrdersByUserId(userId): Observable<Order[]> {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.get<Order[]>('/api/order?userId=' + userId, httpOptions );
+  }
 }
 
