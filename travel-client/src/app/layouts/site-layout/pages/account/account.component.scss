@@ -525,7 +525,7 @@ $color_lightSea: #1cbbb4;
 
     .branch-container {
       height: 200px;
-      padding: 0px;
+      padding: 0;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -582,7 +582,6 @@ $color_lightSea: #1cbbb4;
     border-radius: 50%;
     border: 2px solid #fff;
 
-
     img {
       width: 100%;
       height: 100%;
@@ -603,7 +602,6 @@ $color_lightSea: #1cbbb4;
 
   .item-left {
     .item-info-text {
-      padding: 0;
       text-align: end;
       align-items: flex-end;
     }
@@ -615,7 +613,6 @@ $color_lightSea: #1cbbb4;
 
   .item-right {
     .item-info-text {
-      padding: 0;
       text-align: start;
       align-items: flex-start;
     }
@@ -628,7 +625,7 @@ $color_lightSea: #1cbbb4;
   }
 
   .trip-date {
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.69);
   }
 
@@ -863,12 +860,8 @@ $color_lightSea: #1cbbb4;
   padding: 10px 20px;
   background: #fff;
   margin-bottom: 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-transform: uppercase;
-
-  .additional_item-title {
-    margin-bottom: 10px;
-  }
 }
 
 .about-me-info-item {
@@ -907,5 +900,38 @@ $color_lightSea: #1cbbb4;
     display: flex;
     align-items: center;
     padding-left: 10px;
+  }
+}
+
+.no-orders,
+.no-favourites,
+.no-tours {
+  height: 76vh;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.additional_user-name {
+  text-align: center;
+  color: rgba(9, 9, 121, 0.82);
+
+  .additional_item-title {
+    margin-bottom: 0 !important;
+    font-size: 1.7rem;
+  }
+}
+
+.user-subscribe {
+  background: rgba(9, 9, 121, 0.69);
+  color: #fff;
+  text-align: center;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgba(9, 9, 121, 0.95);
+    cursor: pointer;
   }
 }

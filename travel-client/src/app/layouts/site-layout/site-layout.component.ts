@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorizationService} from '../../services/authorization.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -11,7 +12,8 @@ export class SiteLayoutComponent implements OnInit {
   userId = '';
 
   constructor(private auth: AuthorizationService,
-              private router: Router) {
+              private router: Router,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -27,6 +29,6 @@ export class SiteLayoutComponent implements OnInit {
   }
 
   gotoAccountPage() {
-    this.router.navigate(['/account/' + this.userId]);
+    this.router.navigate(['/account/' + this.userService.getUserData()._id]);
   }
 }

@@ -1,72 +1,5 @@
 
 <div class="page">
-
-<!--  <div class="profile-header container-fluid max-width">
-    <div class="row row-bgr">
-&lt;!&ndash;      <div class="bgr-top"></div>&ndash;&gt;
- &lt;!&ndash;     <div class="bgr-bottom"></div>&ndash;&gt;
-
-      <div class="col-md-3 profile-image-container">
-        <div class="border-profile-image">
-          <div class="profile-img">
-            <img src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
-          </div>
-        </div>
-      </div>
-      <div class="col-md-9 profile-info-container">
-        <div class="profile-info">
-&lt;!&ndash;          <div class="absolute-img6">
-            <img src="../../assets/images/picture6.png" alt="">
-          </div>&ndash;&gt;
-
-          <div class="nick">
-            Canga Roo
-          </div>
-          <div class="header-info container-fluid">
-            <div class="row">
-              <div class="reviews header-info-item col-sm-4">
-                 <div class="reviews_inner">
-                   <div class="inner_title">reviews</div>
-                   <div class="inner_number">2</div>
-                 </div>
-              </div>
-              <div class="subscribers  header-info-item col-sm-4">
-               <div class="subscribers_inner">
-                 <div class="inner_title">subscribers</div>
-                 <div class="inner_number">12</div>
-               </div>
-              </div>
-              <div class="subscriptions  header-info-item col-sm-4">
-                <div class="subscriptions_inner">
-                  <div class="inner_title">subscriptions</div>
-                  <div class="inner_number">10</div>
-                </div>
-              </div>
-            </div>
-          </div>
-&lt;!&ndash;
-          <div class="about">
-            <div class="about_title">About me:</div>
-            <div class="about_info">
-              <div class="info-email about-item">
-                <i class="fas fa-envelope"></i> dsfsfas@MAIL.RU
-              </div>
-              <div class="info_languages about-item">
-                <i class="fas fa-comments"></i> rewrwr, rewrwr ,rewrwer
-              </div>
-              <div class="info_more about-item">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto enim minima nesciunt porro quod tempora totam vel? A expedita itaque laboriosam. Ab ea, eveniet incidunt minima non recusandae rem tenetur?
-              </div>
-            </div>
-          </div>&ndash;&gt;
-        &lt;!&ndash;  <div class="line"></div>&ndash;&gt;
-        </div>
-      </div>
-    </div>
-  </div>-->
-
-  <!--/////////////////////////-->
-
   <div class="profile-block container-fluid max-width">
     <div class="row">
 
@@ -76,16 +9,24 @@
             <img class="d-block" src="https://lh3.googleusercontent.com/proxy/gdLLks1AirKuizJDrsRMH7FBtudN_4jS8ERSqcFF0pqporwSAlpDhvpak8aPd-YyGp_spkeATnH-Oim1QmoThvCxkmW1C-c">
           </div>
 
+          <div *ngIf="userData" class="additional_user-name additional_item">
+            <div class="additional_item-title">{{userData.name}}</div>
+          </div>
+
+          <div *ngIf="!isMyAccount" class="user-subscribe additional_item">
+            <div class="additional_item-title">Subscribe</div>
+          </div>
+
           <div class="reviews additional_item">
             <div class="additional_item-title" *ngIf="reviewsData.length">Reviews: {{reviewsData.length}}</div>
             <div class="additional_item-title" *ngIf="!reviewsData.length">Reviews: 0</div>
           </div>
-          <div class="subscriptions additional_item" (click)="toggle()">
-            <div class="additional_item-title">Subscriptions: {{subscribtionsData.length}}</div>
+          <div class="subscriptions additional_item">
+            <div class="additional_item-title" (click)="toggle()">Subscriptions: {{subscribtionsData.length}}</div>
 
             <div *ngIf="toggler && subscribtionsData.length">
 
-              <div *ngFor="let subscribtionData of subscribtionsData" class="additional_item-content">
+              <div *ngFor="let subscribtionData of subscribtionsData" (click)="renderUserAccountPage(subscribtionData)" class="additional_item-content">
                   <div class="user-icon">
                     <img src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
                   </div>
@@ -93,9 +34,6 @@
               </div>
 
             </div>
-          </div>
-          <div class="subscribers additional_item">
-            <div class="additional_item-title">Subscribers: 5</div>
           </div>
 
           <div class="profile-about">
@@ -108,24 +46,19 @@
               <div class="line-decoration-inner"></div>
             </div>
 
-            <div class="about-me-info">
-              <div class="location about-me-info-item">
-                <i class="fas fa-home"></i> <span>Minsk, Belarus</span>
+            <div *ngIf="userData" class="about-me-info">
+              <div *ngIf="userData.location.country" class="location about-me-info-item">
+                <i class="fas fa-home"></i> <span>{{userData.location.country}}, {{userData.location.town}}</span>
               </div>
-              <div class="languages about-me-info-item">
-                <i class="fas fa-comments"></i> <span>Russian, English</span>
+              <div *ngIf="userData.languages.length" class="languages about-me-info-item">
+                <i class="fas fa-comments"></i> <span>{{userData.languages}}</span>
               </div>
               <div class="email about-me-info-item">
-                <i class="fas fa-envelope"></i> <span>croco@mail.ru</span>
+                <i class="fas fa-envelope"></i> <span>{{userData.email}}</span>
               </div>
 
               <div class="about-me-description">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Culpa debitis eaque
-                error facere illum ipsa ipsam ratione saepe sunt voluptas.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Culpa debitis eaque
-                error facere illum ipsa ipsam ratione saepe sunt voluptas.
+                {{userData.about}}
               </div>
             </div>
           </div>
@@ -150,9 +83,79 @@
             <ngb-tab>
               <ng-template ngbTabTitle>Travel map</ng-template>
               <ng-template ngbTabContent>
-                <div class="journal tabset-item tabset-item-map">
-<!--
-////////////this block will be shown if user have no orders yet
+                <div *ngIf="orderedToursData.length" class="journal tabset-item tabset-item-map">
+                  <div class="user-map-container">
+                    <div class="user-map-title">My travel map</div>
+                  </div>
+                  <div  class="user-map">
+
+                    <div *ngFor="let tourLeft of orderedToursLeft" class="items-left">
+                      <div class="item-left container-fluid">
+                        <div class="row">
+                          <div class="item-info col-10">
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-text col-lg-6">
+                                  <div class="trip-name">{{tourLeft.title}}</div>
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                                <div class="item-info-image col-lg-6">
+                                  <div class="info-image">
+                                    <img [src]="tourLeft.images[0]" alt="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div *ngIf="!orderedToursLeft.length" class="items-left"></div>
+                    <div class="line-path"></div>
+
+                    <div class="items-right">
+
+                      <div *ngFor="let tourRight of orderedToursRight" class="item-right container-fluid">
+                        <div class="row">
+                          <div class="branch-container col-2">
+                            <div class="branch"></div>
+                          </div>
+                          <div class="item-info col-10">
+                            <div class="container-fluid info-container-fl">
+                              <div class="row">
+                                <div class="item-info-image col-lg-6 col-12">
+                                  <div class="info-image">
+                                    <img  [src]="tourRight.images[0]">
+                                  </div>
+                                </div>
+
+                                <div class="item-info-text col-lg-6 col-12">
+                                  <div class="trip-name">{{tourRight.title}}</div>
+                                  <div class="trip-date">12/12/2020</div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="continue">...</div>
+                </div>
+
+                <div class="no-tours" *ngIf="!ordersData.length && isMyAccount">
                   <div class="have-no-trips">
                     <div class="have-no-trips-picture">
                       <img src="../../assets/images/cat-simon.gif" alt="">
@@ -164,214 +167,60 @@
                         View <a>our tours</a> and create your own map of adventures.
                       </div>
                     </div>
-                  </div>-->
-
-                  <div class="user-map-container">
-                    <div class="user-map-title">My travel map</div>
-
-<!--                    <div class="start">
-                      <i class="far fa-star"></i>
-                      <span>start</span>
-                      <i class="far fa-star"></i>
-                    </div>-->
-<!--
-                    <div class="line"></div>
-                    <div class="line-decoration">
-                      <div class="line-decoration-inner"></div>
-                    </div>-->
-
                   </div>
-                  <div class="user-map">
-                    <div class="items-left">
-                      <div class="item-left container-fluid">
-                        <div class="row">
-                          <div class="item-info col-10">
-                            <div class="container-fluid info-container-fl">
-                              <div class="row">
-                                <div class="item-info-text col-lg-6">
-                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                                  <div class="trip-date">12/12/2020</div>
-                                </div>
+                </div>
 
-                                <div class="item-info-image col-lg-6">
-                                  <div class="info-image">
-                                    <img src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="branch-container col-2">
-                            <div class="branch"></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--
-                      ////-->
-                      <div class="item-left container-fluid">
-                        <div class="row">
-                          <div class="item-info col-10">
-                            <div class="container-fluid info-container-fl">
-                              <div class="row">
-                                <div class="item-info-text col-lg-6">
-                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-                                  <div class="trip-date">12/12/2020</div>
-                                </div>
-
-                                <div class="item-info-image col-lg-6">
-                                  <div class="info-image">
-                                    <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="branch-container col-2">
-                            <div class="branch"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--
-                      ////-->
-
-                    </div>
-                    <div class="line-path"></div>
-
-
-                    <div class="items-right">
-                      <div class="item-right container-fluid">
-                        <div class="row">
-                          <div class="branch-container col-2">
-                            <div class="branch"></div>
-                          </div>
-
-                          <div class="item-info col-10">
-
-                            <div class="container-fluid info-container-fl">
-                              <div class="row">
-                                <div class="item-info-image col-lg-6 col-12">
-                                  <div class="info-image">
-                                    <img src="https://images.unsplash.com/photo-1531219432768-9f540ce91ef3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
-                                  </div>
-                                </div>
-
-                                <div class="item-info-text col-lg-6 col-12">
-                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-<!--                                  <div class="line"></div>
-                                  <div class="line-decoration">
-                                    <div class="line-decoration-inner"></div>
-                                  </div>-->
-                                  <div class="trip-date">12/12/2020</div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--////-->
-                      <div class="item-right container-fluid">
-                        <div class="row">
-                          <div class="branch-container col-2">
-                            <div class="branch"></div>
-                          </div>
-
-                          <div class="item-info col-10">
-
-                            <div class="container-fluid info-container-fl">
-                              <div class="row">
-                                <div class="item-info-image col-lg-6 col-12">
-                                  <div class="info-image">
-                                    <img src="https://images.unsplash.com/photo-1580903532963-293b44c1211b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjY1MDE0fQ&auto=format&fit=crop&w=1875&q=80" alt="">
-                                  </div>
-                                </div>
-
-                                <div class="item-info-text col-lg-6 col-12">
-                                  <div class="trip-name">Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
-<!--                                  <div class="line"></div>
-                                  <div class="line-decoration">
-                                    <div class="line-decoration-inner"></div>
-                                  </div>-->
-                                  <div class="trip-date">12/12/2020</div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ////-->
-                    </div>
-                  </div>
-
-                  <div class="continue">...</div>
+                <div class="no-orders" *ngIf="!ordersData.length">
+                  No ordered tours yet
                 </div>
               </ng-template>
             </ngb-tab>
 
+            <ng-container *ngIf="isMyAccount">
             <ngb-tab>
               <ng-template ngbTabTitle>Orders</ng-template>
               <ng-template ngbTabContent>
-                <div class="tabset-item tabset-item-orders">
+                <div *ngIf="ordersData.length" class="tabset-item tabset-item-orders">
                   <div class="order-items">
-                    <div class="order-item container-fluid">
+
+                    <div *ngFor="let tour of orderedToursData; let i = index;" class="order-item container-fluid">
                       <div class="row row-order-item">
                         <div class="order-item-image col-md-5">
                           <div class="img-container">
-                            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                            <img [src]="tour.images[0]" alt="">
                           </div>
                         </div>
-
                         <div class="info col-md-7">
                           <div class="order-item-bar">
                             <i class="fas fa-ellipsis-v"></i>
                           </div>
-                          <div class="title">Lorem ipsum dolor sit amet.</div>
-                          <div class="number">Number: 132442442ddfw2323</div>
-                          <div class="price">Price: $122.20</div>
-                          <div class="date">Date: 10/09/2020</div>
+                          <div class="title">{{tour.title}}</div>
+                          <div class="number">Number: {{tour._id}}</div>
+                          <div class="price">Price: ${{ordersData[i].cost}}</div>
+                          <div class="date">Date: <span *ngIf="ordersData[i].date.day < 10">0</span>{{ordersData[i].date.day}}/<span *ngIf="ordersData[i].date.month < 10">0</span>{{ordersData[i].date.month}}/{{ordersData[i].date.year}}</div>
                         </div>
                       </div>
-
                     </div>
 
-                    <div class="order-item container-fluid">
-                      <div class="row row-order-item">
-                        <div class="order-item-image col-md-5">
-                          <div class="img-container">
-                            <img src="https://images.unsplash.com/photo-1482446439224-59276c41a5fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
-                          </div>
-                        </div>
-
-                        <div class="info col-md-7">
-                          <div class="order-item-bar">
-                            <i class="fas fa-ellipsis-v"></i>
-                          </div>
-                          <div class="title">Lorem ipsum dolor sit amet.</div>
-                          <div class="number">Number: 132442442ddfw2323</div>
-                          <div class="price">Price: $122.20</div>
-                          <div class="date">Date: 10/09/2020</div>
-                        </div>
-                      </div>
-
-                    </div>
                   </div>
+                </div>
+
+                <div class="no-orders" *ngIf="!ordersData.length">
+                  No ordered tours yet
                 </div>
               </ng-template>
             </ngb-tab>
+            </ng-container>
 
             <ngb-tab>
               <ng-template ngbTabTitle>Favourites</ng-template>
               <ng-template ngbTabContent>
-                <div class="tabset-item">
+<!--                <div class="tabset-item">
                   <app-tours-section></app-tours-section>
+                </div>-->
+
+                <div class="no-favourites">
+                  No favourites tours
                 </div>
               </ng-template>
             </ngb-tab>
