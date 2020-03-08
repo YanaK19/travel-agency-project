@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   orderedToursLeft = [];
   orderedToursRight = [];
   iter = 1;
+  alreadySubscribed = false;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -53,6 +54,13 @@ export class AccountComponent implements OnInit, OnDestroy {
           this.userData = data;
           console.log('not my account');
           this.isMyAccount = false;
+
+          user.subscriptions.forEach(subscription => {
+            if (subscription == this.userData._id) {
+              this.alreadySubscribed = true;
+            }
+          });
+
           this.loadPageData();
         }));
       }
@@ -107,5 +115,19 @@ export class AccountComponent implements OnInit, OnDestroy {
   renderUserAccountPage(userAccount) {
     console.log(userAccount)
     this.router.navigate(['/account/' + userAccount._id]);
+  }
+
+  addAccountToMySubscriptions() {
+    this.userService.addAccountToSubscriptions(this.userData._id).subscribe(updatedUser => {
+      console.log(updatedUser)
+    });
+    this.alreadySubscribed = true;
+  }
+
+  deleteAccountFromMySubscriptions() {
+    this.userService.deleteAccountFromSubscriptions(this.userData._id).subscribe(updatedUser => {
+      console.log(updatedUser);
+      this.alreadySubscribed = false;
+    });
   }
 }

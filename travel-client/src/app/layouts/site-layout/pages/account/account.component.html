@@ -13,8 +13,11 @@
             <div class="additional_item-title">{{userData.name}}</div>
           </div>
 
-          <div *ngIf="!isMyAccount" class="user-subscribe additional_item">
+          <div *ngIf="!isMyAccount && !alreadySubscribed && userData" (click)="addAccountToMySubscriptions()" class="user-subscribe additional_item">
             <div class="additional_item-title">Subscribe</div>
+          </div>
+          <div *ngIf="!isMyAccount && alreadySubscribed" (click)="deleteAccountFromMySubscriptions()" class="user-unsubscribe additional_item">
+            <div class="additional_item-title">Unsubscribe</div>
           </div>
 
           <div class="reviews additional_item">

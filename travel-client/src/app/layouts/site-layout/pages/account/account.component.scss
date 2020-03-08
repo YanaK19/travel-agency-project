@@ -935,3 +935,15 @@ $color_lightSea: #1cbbb4;
     cursor: pointer;
   }
 }
+
+.user-unsubscribe {
+  background: rgba(230, 7, 7, 0.69);
+  color: #fff;
+  text-align: center;
+  transition: 0.5s;
+
+  &:hover {
+    background: rgba(230, 7, 7, 0.95);
+    cursor: pointer;
+  }
+}
