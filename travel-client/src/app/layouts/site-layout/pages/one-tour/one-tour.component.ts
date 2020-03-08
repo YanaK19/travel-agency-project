@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {ToursService} from '../../../../services/tours.service';
-import {TourDates} from '../../../../interfaces/tour/tourDates.interface';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 import {Review} from '../../../../interfaces/review/review.interface';
 import {ReviewService} from '../../../../services/review.service';
 
 import {UserData} from '../../../../interfaces/user/userData.interface';
 import {UserService} from '../../../../services/user.service';
+import {DateHandlerService} from '../../../../services/date-handler.service';
 
 @Component({
   selector: 'app-one-tour-page',
@@ -26,21 +26,22 @@ export class OneTourComponent implements OnInit {
               private router: Router,
               private toursService: ToursService,
               private reviewService: ReviewService,
-              private userService: UserService) {
+              private userService: UserService,
+              private dateService: DateHandlerService) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
   ngOnInit() {
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
-      this.sortActualDates();
+      this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
       console.log(this.tour);
     });
 
     this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
       this.reviews = reviews;
       if (reviews.length) {
-        this.reviews.sort((a, b) => -this.compareDates(a.date, b.date));
+        this.reviews.sort((a, b) => -this.dateService.compareDates(a.date, b.date));
         console.log(this.reviews);
         this.reviews.forEach((review, index) => {
           this.userService.getUserById(review.userId).subscribe(user => {
@@ -68,7 +69,7 @@ export class OneTourComponent implements OnInit {
     this.imgActive = '';
   }
 
-  sortActualDates() {
+/*  sortActualDates() {
     const today = new Date();
     const currDate: TourDate = {
         day: today.getDate(),
@@ -77,12 +78,12 @@ export class OneTourComponent implements OnInit {
     };
 
     this.tour.dates = this.tour.dates.filter((date) => {
-      return this.compareDates(date.dateTo, currDate) === 1;
+      return this.dateService.compareDates(date.dateTo, currDate) === 1;
     });
-    this.tour.dates.sort((a, b) => this.compareDates(a.dateTo, b.dateTo));
-  }
+    this.tour.dates.sort((a, b) => this.dateService.compareDates(a.dateTo, b.dateTo));
+  }*/
 
-  compareDates(a: TourDate, b: TourDate) {
+/*  compareDates(a: TourDate, b: TourDate) {
       if ((a.year < b.year) ||
           (a.month < b.month && a.year === b.year) ||
           (a.day < b.day && a.month === b.month && a.year === b.year)
@@ -91,7 +92,7 @@ export class OneTourComponent implements OnInit {
     } else {
         return 1;
     }
-  }
+  }*/
 
   renderProfilePage(user: UserData) {
     this.router.navigate(['/account', user._id]);

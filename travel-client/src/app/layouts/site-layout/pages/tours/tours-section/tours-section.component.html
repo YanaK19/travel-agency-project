@@ -11,8 +11,8 @@
             <div class="location-date d-flex flex-column justify-content-start">
               <div class="location">{{tour.route.toCountry}}, {{tour.route.toTown}}</div>
               <div class="date">
-                {{tour.dates[0].dateFrom.month | date:'MMM'}}
-                {{tour.dates[0].dateFrom.day}},
+                {{tour.dates[0].dateFrom.day  | number: '2.0'}}/
+                {{tour.dates[0].dateFrom.month  | number: '2.0'}}/
                 {{tour.dates[0].dateFrom.year}}
               </div>
             </div>

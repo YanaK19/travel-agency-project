@@ -6,7 +6,7 @@
       <div class="additional col-md-3">
         <div class="d-flex flex-column">
           <div class="profile-icon">
-            <img class="d-block" src="https://lh3.googleusercontent.com/proxy/gdLLks1AirKuizJDrsRMH7FBtudN_4jS8ERSqcFF0pqporwSAlpDhvpak8aPd-YyGp_spkeATnH-Oim1QmoThvCxkmW1C-c">
+            <img class="d-block" src="../../../../../assets/images/default-account-img.png">
           </div>
 
           <div *ngIf="userData" class="additional_user-name additional_item">
@@ -197,7 +197,7 @@
                           <div class="title">{{tour.title}}</div>
                           <div class="number">Number: {{tour._id}}</div>
                           <div class="price">Price: ${{ordersData[i].cost}}</div>
-                          <div class="date">Date: <span *ngIf="ordersData[i].date.day < 10">0</span>{{ordersData[i].date.day}}/<span *ngIf="ordersData[i].date.month < 10">0</span>{{ordersData[i].date.month}}/{{ordersData[i].date.year}}</div>
+                          <div class="date">Date: {{ordersData[i].date.day | number: '2.0'}}/{{ordersData[i].date.month | number: '2.0'}}/{{ordersData[i].date.year}}</div>
                         </div>
                       </div>
                     </div>

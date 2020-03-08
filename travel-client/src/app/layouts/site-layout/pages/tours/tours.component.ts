@@ -4,6 +4,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {FormControl, FormGroup} from '@angular/forms';
 import {RangeService} from '../../../../services/range.service';
+import {DateHandlerService} from '../../../../services/date-handler.service';
+import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 
 @Component({
   selector: 'app-tours-page',
@@ -20,11 +22,13 @@ export class ToursComponent implements OnInit {
   rangeTourTypes: any;
   @ViewChild('selectSort', {static: false})
   selectSort: ElementRef;
+  dateFromFilter: TourDate;
 
   constructor(private toursService: ToursService,
               private rangeService: RangeService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private dateService: DateHandlerService) { }
 
   ngOnInit() {
     this.filterForm = new FormGroup({
@@ -70,12 +74,17 @@ export class ToursComponent implements OnInit {
     let params = '?';
     for (let filter in this.filterForm.value) {
       if (this.filterForm.value[filter]) {
+        console.log(this.filterForm.value[filter])
         if (filter === 'dateFrom' || filter === 'dateTo') {
           params += filter + '=' + this.filterForm.value[filter].day + '.' +
                                  + this.filterForm.value[filter].month + '.' +
                                  + this.filterForm.value[filter].year + '&';
         } else {
           params += filter + '=' + this.filterForm.value[filter] + '&';
+        }
+
+        if (filter === 'dateFrom') {
+          this.dateFromFilter = this.filterForm.value[filter];
         }
       }
     }
@@ -104,6 +113,26 @@ export class ToursComponent implements OnInit {
 
   getToursByParams(params) {
     this.toursService.getTours(params).subscribe(tours => {
+      // if any tours was founded (if not -> tours = [])
+      if (tours.length) {
+        // if user has inputed filter dateFrom
+        if (this.dateFromFilter) {
+          tours = tours.map(tour => {
+            tour.dates = this.dateService.sortDatesAfterDateFrom(tour.dates, this.dateFromFilter);
+            return tour;
+          });
+        } else {
+          // filter tour.dates(after current date) and sort these dates
+          tours = tours.map(tour => {
+            tour.dates = this.dateService.sortActualDates(tour.dates);
+            return tour;
+          });
+
+          //filter tours(delete tour from tours if tour.dates = [] after filter actual dates)
+          tours = tours.filter(tour => tour.dates.length);
+        }
+      }
+
       this.tours = tours;
     });
   }

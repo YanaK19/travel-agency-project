@@ -119,12 +119,12 @@
                       <div class="col-sm-5">
                         <select class="custom-select" id="inputGroupSelect01">
                           <option selected>
-                            <span *ngIf="tour.dates[0].dateFrom.day < 10">0</span>{{tour.dates[0].dateFrom.day}}/<span *ngIf="tour.dates[0].dateFrom.month < 10">0</span>{{tour.dates[0].dateFrom.month}}/{{tour.dates[0].dateFrom.year}},
-                            <span *ngIf="tour.dates[0].dateTo.day < 10">0</span>{{tour.dates[0].dateTo.day}}/<span *ngIf="tour.dates[0].dateTo.month < 10">0</span>{{tour.dates[0].dateTo.month}}/{{tour.dates[0].dateTo.year}}
+                            {{tour.dates[0].dateFrom.day  | number: '2.0'}}/{{tour.dates[0].dateFrom.month | number: '2.0'}}/{{tour.dates[0].dateFrom.year}},
+                            {{tour.dates[0].dateTo.day | number: '2.0'}}/{{tour.dates[0].dateTo.month | number: '2.0'}}/{{tour.dates[0].dateTo.year}}
                           </option>
                           <option *ngFor="let date of tour.dates | slice:1; let indx = index;">
-                            <span *ngIf="date.dateFrom.day < 10">0</span>{{date.dateFrom.day}}/<span *ngIf="date.dateFrom.month < 10">0</span>{{date.dateFrom.month}}/{{date.dateFrom.year}},
-                            <span *ngIf="date.dateFrom.day < 10">0</span>{{date.dateFrom.day}}/<span *ngIf="date.dateFrom.month < 10">0</span>{{date.dateFrom.month}}/{{date.dateFrom.year}}
+                            {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}},
+                            {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}}
                           </option>
                         </select>
                       </div>
@@ -209,8 +209,8 @@
               </div>
               <div class="user-comment col-sm-9">
                 <div class="date">
-                  <span *ngIf="review.date.day < 10">0</span>{{review.date.day}}/
-                  <span *ngIf="review.date.month < 10">0</span>{{review.date.month}}/
+                  {{review.date.day | number: '2.0'}}/
+                  {{review.date.month | number: '2.0'}}/
                   {{review.date.year}}
                 </div>
                 <div class="user-comment-text">
