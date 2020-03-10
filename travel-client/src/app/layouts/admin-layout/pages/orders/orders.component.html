@@ -3,6 +3,21 @@
       Order management
     </div>
 
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Delete order</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="deleteOrder(modal)">Delete</button>
+    </div>
+  </ng-template>
 
   <div class="search-filter-container container">
     <div class="row">
@@ -16,11 +31,11 @@
       </div>
 
       <div class="search-container col-md-6">
-        <form action="">
+        <form (ngSubmit)="findOrderById(idInput.value)">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Find order (ID)" aria-label="Search" aria-describedby="button-search">
+            <input #idInput type="text" class="form-control" placeholder="FIND ORDER (BY ID)" aria-label="Search" aria-describedby="button-search">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary search-button" type="button" id="button-search">
+              <button class="btn btn-outline-secondary search-button" type="submit" id="button-search">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -33,23 +48,30 @@
     <div class="line-decoration-inner"></div>
   </div>
 
+  <div *ngIf="!ordersExist" class="no-orders">
+    No such orders...
+  </div>
 
-  <div class="orders-container container">
-    <div class="row">
-      <div class="col-lg-6 orders-col">
+  <app-loader *ngIf="orders.length != tours.length && orders.length != users.length && !ordersAll.length && ordersExist"></app-loader>
+
+  <div *ngIf="orders.length && ordersExist && (orders.length == tours.length && orders.length == users.length || ordersAll.length)" class="orders-container container">
+    <div class="row" >
+      <div *ngFor="let order of orders; let i = index;" class="col-lg-6 orders-col">
         <div class="order-container">
-          <div class="number-buttons">
-            <div class="number">
-              №123abc11
-            </div>
-            <div class="buttons">
-              <button type="button" class="confirm" (click)="onConfirm()">
-                <i class="fas fa-check"></i>
-              </button>
+          <div class="number-buttons container-fluid">
+            <div class="row">
+              <div class="number col-sm-8 col-12">
+                №{{order._id}}
+              </div>
+              <div class="buttons col-sm-4 col-12">
+                <button *ngIf="!order.confirmed" type="button" class="confirm" (click)="onConfirm(order._id)">
+                  <i class="fas fa-check"></i>
+                </button>
 
-              <button type="button" class="delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+                <button type="button" class="delete" (click)="openDeleteModal(content, order._id, i)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -58,128 +80,29 @@
               <div class="col-sm-6">
                 <div class="tour-info">
                   <div class="tour-image">
-                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
+                    <img [src]="tours[i].images[0]" alt="">
                   </div>
                   <div class="tour-description">
-                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
-                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
+                    <div *ngIf="tours.length" class="title"><strong>Title:</strong> {{tours[i].title}}</div>
                   </div>
                 </div>
               </div>
               <div class="col-sm-6 right-col">
-                <div class="primary-info">
-                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
-                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
-                  <div class="user-number"><strong>Number:</strong> 2</div>
-                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
+                <div *ngIf="users.length" class="primary-info">
+                  <div class="user-name"><strong>Name:</strong> {{users[i].name}}</div>
+                  <div class="user-email"><strong>Email:</strong> {{users[i].email}}</div>
+                  <div class="user-number"><strong>Number:</strong> {{order.peopleNumber}}</div>
+                  <div class="order-date"><strong>Date:</strong>
+                    {{order.date.day | number: '2.0'}}/{{order.date.month | number: '2.0'}}/{{order.date.year}}
+                  </div>
                 </div>
                 <div class="order-confirm">
                   <strong>Confirmed: </strong>
-                  <i style="color:green" class="fas fa-check"></i>
+                  <i *ngIf="order.confirmed" style="color:green" class="fas fa-check"></i>
+                  <i *ngIf="!order.confirmed" style="color:red" class="fas fa-times"></i>
                 </div>
                 <div class="cost">
-                  <div class="cost-inner">$1200</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-lg-6 orders-col">
-        <div class="order-container">
-          <div class="number-buttons">
-            <div class="number">
-              №123abc11
-            </div>
-            <div class="buttons">
-              <button type="button" class="confirm" (click)="onConfirm()">
-                <i class="fas fa-check"></i>
-              </button>
-
-              <button type="button" class="delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="order-info-container container-fluid">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="tour-info">
-                  <div class="tour-image">
-                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
-                  </div>
-                  <div class="tour-description">
-                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
-                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 right-col">
-                <div class="primary-info">
-                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
-                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
-                  <div class="user-number"><strong>Number:</strong> 2</div>
-                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
-                </div>
-                <div class="order-confirm">
-                  <strong>Confirmed: </strong>
-                  <i style="color:green" class="fas fa-check"></i>
-                </div>
-                <div class="cost">
-                  <div class="cost-inner">$1200</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 orders-col">
-        <div class="order-container">
-          <div class="number-buttons">
-            <div class="number">
-              №123abc11
-            </div>
-            <div class="buttons">
-              <button type="button" class="confirm" (click)="onConfirm()">
-                <i class="fas fa-check"></i>
-              </button>
-
-              <button type="button" class="delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="order-info-container container-fluid">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="tour-info">
-                  <div class="tour-image">
-                    <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
-                  </div>
-                  <div class="tour-description">
-                    <div class="tour-id"><strong>Tour ID:</strong> 255jkg14</div>
-                    <div class="title"><strong>Title:</strong> Japaneeese Boat Trip</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 right-col">
-                <div class="primary-info">
-                  <div class="user-name"><strong>Name:</strong> Calcu Lator</div>
-                  <div class="user-email"><strong>Email:</strong> calc@mail.ru</div>
-                  <div class="user-number"><strong>Number:</strong> 2</div>
-                  <div class="order-date"><strong>Date:</strong> 12/12/2020</div>
-                </div>
-                <div class="order-confirm">
-                  <strong>Confirmed: </strong>
-                  <i style="color:green" class="fas fa-check"></i>
-                </div>
-                <div class="cost">
-                  <div class="cost-inner">$1200</div>
+                  <div class="cost-inner">$ {{order.cost}}</div>
                 </div>
               </div>
             </div>
@@ -187,150 +110,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-<!--
-
-
-  <div class="orders-container">
-    <div class="backdrop" #bd></div>
-
-    <ul>
-      <li *ngFor="let item of list; let i = index">
-        <div class="checkbox-number-container">
-          <div class="edit">
-            <i class="fas fa-edit"></i>
-          </div>
-          <div class="checkbox-order d-flex flex-column justify-content-center">
-            <input class="mr-3" type="checkbox" [(ngModel)]="item.checked">
-          </div>
-          <div class="number">№ 1234567eeee44</div>
-        </div>
-
-        <div class="order-info-container">
-            <div class="order-info-container container-fluid">
-              <div class="row">
-                <div class="user-info-container col-md-4 col-12">
-                <div class="item-title">Tour info</div>
-                  <div class="item-content">
-                    <div class="item-image">
-                      <img src="https://images.unsplash.com/photo-1465778893808-9b3d1b443be4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1054&q=80" alt="">
-                    </div>
-                    <div class="item-info">
-                      <div class="name"><strong>Title:</strong> Milk Shake</div>
-                      <div class="email"><strong>ID:</strong>123sdsd123</div>
-                    </div>
-                  </div>
-              </div>
-
-              <div class="user-info-container col-md-4 col-12">
-                <div class="item-title">User info</div>
-                <div class="item-content">
-                  <div class="item-image">
-                    <img src="https://images.unsplash.com/photo-1562246229-37b3aca47e18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="">
-                  </div>
-                  <div class="item-info">
-                    <div class="name"><strong>Name:</strong> Milk Shake</div>
-                    <div class="email"><strong>Email:</strong> milk@mail.ru</div>
-                  </div>
-                </div>
-              </div>
-
-                <div class="col-md-4">
-                  <div class="cost r-item">
-                    <div class="item-title">people number</div>
-                    2
-                  </div>
-
-                  <div class="cost r-item">
-                    <div class="item-title">cost</div>
-                    $200
-                  </div>
-
-                  <div class="cost r-item">
-                    <div class="item-title">date</div>
-                    11/11/2020
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          <div class="isconfirmed">
-            confirmed
-          </div>
-        </div>
-&lt;!&ndash;        <div class="order d-flex">
-
-              <div class="checkbox-order d-flex flex-column justify-content-center">
-                <input class="mr-3" type="checkbox" [(ngModel)]="item.checked">
-              </div>
-
-              <div class="order-info container-fluid">
-                  <div class="row">
-                    <div class="info col-md-10 p-2">
-
-                      <div class="container-fluid">
-                        <div class="row">
-&lt;!&ndash;                          <div class="order-id col-md-8">
-                            <div class="subtitle">Order id:</div>
-                            <div class="val">{{item._id}}</div>
-                          </div>
-
-                          <div class="order-cost col-md-2">
-                            <div class="subtitle">cost:</div>
-                            <div class="val">{{item.cost}}</div>
-                          </div>
-
-                          <div class="confirmed col-md-2">
-                            <div *ngIf="item.confirmed">
-                              <div class="subtitle conf">confirmed</div>
-                            </div>
-                          </div>&ndash;&gt;
-                          <div class="order-number">№ 123123yh3123</div>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="btns-view-edit col-md-2 d-flex flex-column">
-                      <button type="button" class="edit btn btn-primary">edit</button>
-                      <button type="button" class="view btn btn-info" (click)="showDialog(item)">view</button>
-                    </div>
-                  </div>
-
-              </div>
-        </div>&ndash;&gt;
-      </li>
-    </ul>
-  </div>
-
-  <ng-container #vc></ng-container>
-
-  <ng-template #modal_1>
-    &lt;!&ndash; Modal &ndash;&gt;
-    <div class="modal open" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document" >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            date: {{modalInfo.date.day}}/{{modalInfo.date.month}}/{{modalInfo.date.year}}<br>
-            people: {{modalInfo.peopleNumber}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeDialog()">Close </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </ng-template>-->
-
-
-
+</div>
 </div>

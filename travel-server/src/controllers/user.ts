@@ -4,11 +4,17 @@ import generateToken from "../utils/generateToken";
 import bcrypt from "bcryptjs"
 
 async function update(req:any, res:any) {
+    let requestData = req.body;
+
+    if(req.file) {
+      requestData.avatar = req.file.path;
+    }
+
     try {
 /*        const user = await User.findOne({_id: req.user._id});*/
         const user = await User.findOneAndUpdate(
             {_id: req.user._id},
-            {$set: req.body},
+            {$set: requestData},
             {new: true}
         );
 

@@ -35,6 +35,10 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: 'customer'
+    },
+    avatar: {
+        type: String,
+        default: ''
     }
 });
 

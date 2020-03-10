@@ -19,6 +19,28 @@ export class OrderService {
     return this.http.get<Order[]>('/api/order', httpOptions );
   }
 
+  getOrderById(orderId): Observable<Order>  {
+    return this.http.get<Order>('/api/order/' + orderId);
+  }
+
+  deleteOrderById(orderId): Observable<Order>  {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.delete<Order>('/api/order/' + orderId, httpOptions);
+  }
+
+  confirmOrder(orderId): Observable<Order>  {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.put<Order>('/api/order/' + orderId, JSON.stringify({confirmed: true}), httpOptions);
+  }
+
   getOrdersByUserId(userId): Observable<Order[]> {
     const httpOptions  = {
       headers: new HttpHeaders()

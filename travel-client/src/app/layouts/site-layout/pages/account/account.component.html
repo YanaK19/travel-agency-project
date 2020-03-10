@@ -6,7 +6,8 @@
       <div class="additional col-md-3">
         <div class="d-flex flex-column">
           <div class="profile-icon">
-            <img class="d-block" src="../../../../../assets/images/default-account-img.png">
+            <img *ngIf="userData && userData.avatar.length" [src]="userData.avatar">
+            <img *ngIf="!userData.avatar.length" class="d-block" src="../../../../../assets/images/default-account-img.png">
           </div>
 
           <div *ngIf="userData" class="additional_user-name additional_item">
@@ -18,6 +19,12 @@
           </div>
           <div *ngIf="!isMyAccount && alreadySubscribed" (click)="deleteAccountFromMySubscriptions()" class="user-unsubscribe additional_item">
             <div class="additional_item-title">Unsubscribe</div>
+          </div>
+
+          <div *ngIf="isMyAccount" class="user-avatar additional_item">
+            <input #inputFile
+                   type="file" (change)="onFileUpload($event)">
+            <div class="additional_item-title">change avatar</div>
           </div>
 
           <div class="reviews additional_item">

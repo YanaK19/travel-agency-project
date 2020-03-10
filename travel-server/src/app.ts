@@ -30,6 +30,8 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 passportUse(passport);
 
+app.use('/uploads', express.static('uploads'));
+
 app.use('/api/tour', tourRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/review', reviewRoutes);

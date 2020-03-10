@@ -847,7 +847,7 @@ $color_lightSea: #1cbbb4;
   position: relative;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
     position: absolute;
     top: 0;
     left: 0;
@@ -944,6 +944,29 @@ $color_lightSea: #1cbbb4;
 
   &:hover {
     background: rgba(230, 7, 7, 0.95);
+    cursor: pointer;
+  }
+}
+
+.user-avatar {
+  background: rgba(86, 182, 201, 0.69);
+  color: #fff;
+  text-align: center;
+  transition: 0.5s;
+  position: relative;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+  }
+
+  &:hover {
+    background: rgb(86, 182, 201);
     cursor: pointer;
   }
 }

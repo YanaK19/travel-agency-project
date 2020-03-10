@@ -1,13 +1,22 @@
 import errorHandler from '../utils/errorHandler';
 import Order from "../models/Order";
+import Range from '../models/Range';
+import User from '../models/User';
 
 async function create(req:any, res:any) {
+    const today = new Date();
+    const currDate = {
+        day: today.getDate(),
+        month: today.getMonth() + 1,
+        year: today.getFullYear()
+    };
+
     const order = new Order({
         userId: req.body.userId,
         tourId:  req.body.tourId,
         cost:  req.body.cost,
         peopleNumber: req.body.peopleNumber,
-        date: req.body.date,
+        date: currDate,
         confirmed:  req.body.confirmed,
     });
 
@@ -66,15 +75,38 @@ async function getOrders(req:any, res:any) {
     }
 }
 
+async function getOrderById(req:any, res:any) {
+    try {
+        const order = await Order.findById(req.params.id);
+        res.status(200).json(order)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function remove(req:any, res:any) {
     try {
-        await Order.deleteOne({_id: req.params.id})
+        await Order.deleteOne({_id: req.params.id});
         res.status(200).json({
-            message: 'Order deleted'
+            message: 'Order was deleted'
         })
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
-export {create, getOrders, remove}
+async function update(req:any, res:any) {
+    try {
+        const order = await Order.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        );
+
+        res.status(200).json(order)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {create, getOrders, getOrderById, remove, update}

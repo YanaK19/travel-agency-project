@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UserData} from '../../../../interfaces/user/userData.interface';
@@ -25,6 +25,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   orderedToursRight = [];
   iter = 1;
   alreadySubscribed = false;
+  image: any = '';
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -68,7 +69,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   loadPageData() {
-    console.log(this.userData);
+
     this.subscribtionsData = [];
     this.userData.subscriptions.forEach((userId) => {
       this.userService.getUserById(userId).subscribe((data => {
@@ -113,7 +114,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   renderUserAccountPage(userAccount) {
-    console.log(userAccount)
+    console.log(userAccount);
     this.router.navigate(['/account/' + userAccount._id]);
   }
 
@@ -129,5 +130,25 @@ export class AccountComponent implements OnInit, OnDestroy {
       console.log(updatedUser);
       this.alreadySubscribed = false;
     });
+  }
+
+  onFileUpload(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file;
+
+      this.userService.uploadAvatar(file).subscribe(updatedUser => {
+        this.userData = updatedUser;
+        localStorage.setItem('userData', JSON.stringify(updatedUser));
+      });
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.image = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 }

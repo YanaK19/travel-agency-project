@@ -46,4 +46,17 @@ export class UserService {
     const putData = {'subscriptions': myUserData.subscriptions};
     return this.http.put<any>('/api/user', JSON.stringify(putData), httpOptions);
   }
+
+  uploadAvatar(image): Observable<any> {
+    const fd = new FormData();
+    fd.append('image', image, image.name);
+
+    const httpOptions  = {
+      headers: new HttpHeaders({
+        'Authorization': this.auth.getToken()
+      })
+    };
+
+    return this.http.put<any>('/api/user', fd, httpOptions);
+  }
 }
