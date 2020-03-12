@@ -1,74 +1,208 @@
+$lightBlack: rgba(0, 0, 0, 0.6);
+$blue: #007bff;
+$green: #acd43f;
+$white: #ffffffc9;
+$font1: 'Exo', sans-serif;
+
 .page {
+  font-family: $font1;
   z-index: 1;
-  background: rgb(152, 165, 171);
-  background: linear-gradient(180deg, rgba(152, 165, 171, 1) 4%, rgba(43, 57, 62, 1) 100%);
-  color: #fff;
+  color: $lightBlack;
   min-height: 100vh;
+  background: url(https://cdn.pixabay.com/photo/2014/05/03/01/01/leaves-336694_1280.jpg);
 }
 
 .main-title {
   padding: 25px 11px;
   font-size: 1.5rem;
-  color: #fff;
-  border-bottom: 2px solid #ffffff42;
-}
-
-.management {
-  border-bottom: 2px solid #ffffff47;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  .form-container {
-    padding: 25px;
-  }
-
-  form {
-    background: #ffffff5e;
-    padding: 10px;
-
-    .button-sort-filter-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-}
-
-.right-container {
-  margin: 25px;
-
-  form {
-    background: #ffffff5e;
-    padding: 28px 21px;
-  }
-
-  .add-container {
-    margin: 25px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .btn {
-      padding: 8px 15px;
-    }
-  }
+  background: $white;
+  border-bottom: 3px solid #fff;
 }
 
 .line-decoration {
   width: 100%;
-  height: 8px;
+  height: 5px;
   display: flex;
   justify-content: center;
   padding-bottom: 17px;
 
   .line-decoration-inner {
     width: 50%;
-    height: 8px;
-    background: #bfbfbf;
+    height: 5px;
+    background: $blue;
   }
 }
+
+.management {
+  border-bottom: 2px solid #ffffff47;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ededed;
+
+  .left-container {
+    padding: 25px;
+
+    form {
+      background: $white;
+      padding: 10px;
+
+      label {
+        color: $lightBlack;
+      }
+
+      input[type="text"]::placeholder {
+        font-size: 0.9rem;
+        color: $lightBlack;
+      }
+
+      .form-control:focus,
+      .calendar:focus,
+      .calendar:active {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      .calendar,
+      #sort {
+        background: $blue !important;
+        color: #fff !important;
+      }
+
+      .input-group-text {
+        width: 44px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+      }
+
+      .button-sort-filter-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .right-container {
+    padding: 25px 5px;
+
+    form {
+      background: rgba(0, 0, 0, 0.07);
+      padding: 28px 21px;
+
+      .id-serch-input {
+        background: $white;
+      }
+
+      .id-search-button {
+        background: $blue;
+        border: none;
+        color: #fff;
+        font-size: 1.1rem;
+      }
+    }
+
+    .add-container {
+      margin: 25px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .btn {
+        padding: 8px 15px;
+        font-size: 1.1rem;
+        background: #8aab30;
+        border: none;
+        border-radius: 0;
+        transition: 0.2s;
+
+        &:hover {
+          background: #9dbe31;
+          cursor: pointer;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  input {
+    border-radius: 0;
+  }
+}
+
+////// modal ///////
+.modal-dialog {
+  width: 75% !important;
+}
+
+.modal-header {
+  font-family: $font1;
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    width: 90% !important;
+  }
+}
+
+.modal-body-content {
+  min-height: 200px;
+  font-family: $font1;
+
+  .close:focus {
+    outline: none;
+  }
+
+  textarea {
+    height: 20vh !important;
+  }
+
+  .form-group {
+    padding: 10px;
+    margin-bottom: 0;
+  }
+
+  input[name="title"] {
+    width: 95%;
+  }
+
+  .add-date {
+    text-align: center;
+  }
+
+  .date-container {
+    border-bottom: 1px solid gray;
+    display: flex;
+    margin-bottom: 12px;
+  }
+
+  .dates-container {
+    background: #eee;
+  }
+
+  .dates-title {
+    margin-bottom: 12px;
+  }
+
+  .delete-date {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+
+  .rest-types {
+    li {
+      list-style-type: none;
+    }
+  }
+}
+
+////// end modal //////
 
 ////////////
 .tours-container {
@@ -77,75 +211,100 @@
   }
 
   .tour-container {
-    background: rgba(255, 255, 255, 0.4);
     min-height: 350px;
+    background: $white;
+    height: 100%;
   }
 
-  .number-buttons {
+  .number {
+    position: absolute;
+    top: 25px;
+    width: 80%;
+    left: 12%;
+    height: 45px;
     display: flex;
-    padding: 15px;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 5px solid #626277;
+    justify-content: center;
+    background: #007bffe0;
+    color: #fff;
 
-    .number {
-      font-size: 1.2rem;
-      color: #434748;
-      font-weight: bold;
+    span {
+      font-size: 1.3rem;
+      margin-right: 7px;
     }
   }
 
-  .edit,
-  .confirm,
-  .delete {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    margin-left: 10px;
-    transition: .3s;
+  .buttons {
+    position: absolute;
+    right: 25px;
+    top: 250px;
+
+    button {
+      margin-left: 5px;
+      width: 45px;
+      height: 45px;
+      background: $white;
+      border: none;
+    }
 
     i {
-      color: #fff;
       font-size: 1rem;
-      transition: .3s;
+      transition: 0.2s;
     }
 
-    &:hover {
-      background: #f50707;
-      /* box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.33); */
+    button:hover i {
+      font-size: 1.5rem;
+    }
+  }
 
-      i {
-        font-size: 1.2rem;
+  .statistic-info {
+    position: absolute;
+    top: 190px;
+    padding: 10px;
+    left: 17px;
+
+    .viewed,
+    .booked {
+      background: rgba(237, 237, 237, 0.91);
+      padding: 10px;
+    }
+
+    .booked {
+      margin: 5px 0;
+    }
+
+    i {
+      font-size: 1.1rem;
+      margin-right: 5px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      top: 143px;
+
+      button {
+        margin-top: 5px;
       }
     }
   }
 
-  .edit {
-    background: rgba(71, 140, 158, 0.74);
-
-    &:hover {
-      background: rgba(86, 182, 201, 0.89);
-    }
-  }
-
-  .confirm {
-    background: rgba(28, 158, 50, 0.74);
-
-    &:hover {
-      background: rgba(36, 206, 67, 0.89);
-    }
-  }
-
-  .delete {
-    background: #e74c3c;
+  .tour-title {
+    background: $green;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
   }
 
   .tour-image {
     width: 100%;
     height: 280px;
-    /*    background: cadetblue;*/
     margin-top: 10px;
     position: relative;
 
@@ -159,302 +318,35 @@
     }
   }
 
-  .right-col {
-    padding: 10px;
-  }
-
-  .tour-title {
-    margin: 11px 0 22px;
-    /* background: #ffffff36; */
-    padding: 8px;
-    font-size: 1.2rem;
-    color: #434748;
-    font-weight: bold;
-  }
-
-  .dates-info,
-  .location-info,
-  .transport-info {
-    background: #ffffff36;
+  @media (max-width: 576px) {
+    .tour-title {
+      font-size: 1rem;
+    }
   }
 
   .dates-info,
   .location-info,
   .transport-info,
-  .rest-info,
-  .cost-info,
-  .statistic-info {
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-
   .rest-info {
-    background: #b3d7ff8c;
+    margin: 10px 5px 0;
 
-    .rest {
-      display: flex;
-      align-items: center;
-    }
-
-    .rest-name {
-      margin: 4px 5px;
-      width: 63px;
-      text-align: center;
-      background: cadetblue;
-      padding: 5px 10px;
-    }
-
-    .rest-title {
-      margin-right: 10px;
+    span {
       font-weight: bold;
     }
   }
 
-  strong {
-    margin-right: 5px;
-  }
-
-  .statistic-info,
-  .cost-info {
+  .cost-container {
     display: flex;
+    align-items: flex-end;
 
     .discount {
-      background: #dc3545a6;
-    }
-  }
-
-  .viewed {
-    padding: 5px 10px;
-    background: #00000087;
-  }
-
-  .booked {
-    padding: 5px 10px;
-    background: #007bff;
-    margin-left: 15px;
-  }
-
-  .discount {
-    padding: 5px 10px;
-  }
-
-  .cost {
-    padding: 5px 10px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #dc3545;
-    margin-left: 15px;
-  }
-}
-
-////// modal ///////
-.modal-dialog {
-  width: 75% !important;
-}
-
-@media (max-width: 576px) {
-  .modal-dialog {
-    width: 90% !important;
-  }
-}
-
-.modal-body-content {
-  min-height: 200px;
-
-  textarea {
-    height: 20vh !important;
-  }
-
-  .form-group {
-    background: antiquewhite;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
-
-  input[name="title"] {
-    width: 95%;
-  }
-
-  .from-input,
-  .to-input {
-    display: flex;
-
-    span {
-      margin: 0 5px;
-      font-size: 1.2rem;
-    }
-  }
-
-  .day,
-  .month {
-    width: 45px;
-  }
-
-  .year {
-    width: 60px;
-  }
-
-
-  .departure-container,
-  .destination-container,
-  .one-row {
-    display: flex;
-  }
-
-  .departure-country,
-  .destination-country {
-    margin-right: 10px;
-  }
-
-  .country,
-  .town {
-    max-width: 250px;
-  }
-
-  .input-title {
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-}
-
-////////////////////
-/*
-.buttons button{
-  margin: 10px;
-  width: 70px;
-  padding: 5px;
-}
-
-.orders-container{
-  input[type=checkbox] {
-    font-size: 30px;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #ddd;
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    font-family:fontawesome;
-
-    &:checked{
-      background: #5cb85c;
+      color: #0a69cc;
     }
 
-    &:checked:after{
-      position: absolute;
-      content: "\F00C";
-      color:#fff;
-      left: 3px;
-      top:0px;
-      font-size:18px;
-    }
-  }
-
-  ul{
-    list-style-type: none;
-  }
-
-  li{
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.08);
-    border-radius: 3px;
-    padding: 15px;
-  }
-}
-
-.form-filters{
-  background-color: rgba(0, 0, 0, 0.26);
-  padding: 18px;
-  border-radius: 10px;
-  margin : 5px;
-
-  .container-submit{
-    margin-top: 20px;
-    text-align: center;
-
-    select{
-      max-width: 200px;
+    .cost {
+      text-align: end;
+      font-size: 2.5rem;
+      color: #061f3a;
     }
   }
 }
-////////
-
-.buttons-edit button{
-  margin: 10px;
-  width: 70px;
-  padding: 5px;
-}
-
-.tours-container{
-  input[type=checkbox] {
-    font-size: 30px;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #ddd;
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    font-family:fontawesome;
-
-    &:checked{
-      background: #5cb85c;
-    }
-
-    &:checked:after{
-      position: absolute;
-      content: "\F00C";
-      color:#fff;
-      left: 3px;
-      top:0px;
-      font-size:18px;
-    }
-  }
-
-  ul{
-    list-style-type: none;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  li{
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.08);
-    border-radius: 3px;
-    padding: 15px;
-  }
-}
-
-.btns-view-edit{
-  button{
-    margin: 2px;
-  }
-}
-
-@media (max-width: 768px) {
-  .btns-view-edit{
-    flex-direction: row !important;
-    justify-content: center;
-    margin-top: 10px;
-
-    button{
-      width: 80px;
-    }
-  }
-}
-
-.btns-menu{
-  position: sticky;
-  top: 0;
-  padding-top: 10px;
-  z-index: 1000;
-
-  background-color: rgba(0, 0, 0, 0.64);
-} */

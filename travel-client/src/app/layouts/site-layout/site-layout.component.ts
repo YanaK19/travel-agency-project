@@ -29,6 +29,12 @@ export class SiteLayoutComponent implements OnInit {
   }
 
   gotoAccountPage() {
-    this.router.navigate(['/account/' + this.userService.getUserData()._id]);
+    let userRole = JSON.parse(localStorage.getItem('userData')).role;
+
+    if (userRole == 'admin') {
+      this.router.navigate(['/admin'])
+    } else {
+      this.router.navigate(['/account/' + this.userService.getUserData()._id]);
+    }
   }
 }

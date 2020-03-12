@@ -4,6 +4,7 @@ import {ToursService} from '../../../../services/tours.service';
 import {UserService} from '../../../../services/user.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Order} from '../../../../interfaces/order/order.interface';
+import {RangeService} from '../../../../services/range.service';
 
 @Component({
   selector: 'app-orders-page',
@@ -32,7 +33,8 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService: OrderService,
               private tourService: ToursService,
               private userService: UserService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private rangeService: RangeService) { }
 
   ngOnInit() {
     this.orderService.getOrders().subscribe((orders) => {
