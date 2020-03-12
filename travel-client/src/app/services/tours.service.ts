@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Tour} from '../interfaces/tour/tour.interface';
 import {map} from 'rxjs/operators';
+import {Order} from '../interfaces/order/order.interface';
+import {AuthorizationService} from './authorization.service';
 
 @Injectable({providedIn: 'root'})
 export class ToursService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private auth: AuthorizationService) {
   }
 
   getTours(params?: string): Observable<Tour[]> {
@@ -40,5 +43,23 @@ export class ToursService {
           return data[0];
         })
       );
+  }
+
+  deleteTourById(tourId): Observable<Tour>  {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.delete<Tour>('/api/tour/' + tourId, httpOptions);
+  }
+
+  updateTour(updatedTour): Observable<Tour> {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.put<Tour>('/api/tour/' + updatedTour._id, updatedTour, httpOptions);
   }
 }

@@ -82,7 +82,7 @@
 
                 <div class="col-sm-6">
                   <div class="rest-type d-flex flex-column">
-                    <label>Rest type:</label>
+                    <label>Transport type:</label>
                     <div class="input-group mb-3">
                       <select *ngIf="rangeTransports" formControlName="transportType" class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
                         <option value=""></option>
@@ -99,7 +99,7 @@
 
                 <div class="col-sm-6">
                   <div class="transport-type d-flex flex-column">
-                    <label>Transport type:</label>
+                    <label>Rest type:</label>
                     <div class="input-group mb-3">
                       <select *ngIf="rangeTourTypes" formControlName="restType" class="custom-select" id="inputGroupSelect04"  aria-describedby="rest">
                         <option value=""></option>
@@ -120,7 +120,7 @@
                   <div class="transport-type d-flex flex-column">
                     <label>SORT BY:</label>
                     <div class="input-group mb-3">
-                      <select  formControlName="sort" class="custom-select" id="inputGroupSelect05"  aria-describedby="sort">
+                      <select  formControlName="sortBy" class="custom-select" id="inputGroupSelect05"  aria-describedby="sort">
                         <option selected>Price</option>
                         <option value="1">Discount</option>
                         <option value="2">Views</option>
@@ -151,11 +151,12 @@
         <div class="right-container">
 
           <div class="find-by-id-container">
-            <form action="">
+            <form (ngSubmit)="findTourById(idInput.value)">
+              <div *ngIf="!tourExist" class="no-tour">Tour doesn't exist</div>
               <div class="input-group">
-                <input type="text" class="id-serch-input form-control" placeholder="Find tour (ID)" aria-label="Search" aria-describedby="button-search">
+                <input #idInput type="text" class="id-serch-input form-control" placeholder="Find tour (ID)" aria-label="Search" aria-describedby="button-search">
                 <div class="input-group-append">
-                  <button class="id-search-button btn btn-outline-secondary search-button" type="button" id="button-search">
+                  <button class="id-search-button btn btn-outline-secondary search-button" type="submit" id="button-search">
                     <i class="fas fa-search"></i>
                   </button>
                 </div>
@@ -362,6 +363,24 @@
   </ng-template>
   <!-- modal end -->
 
+  <!-- ondelete modal -->
+  <ng-template #sure let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Delete order</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="deleteTour()">Delete</button>
+    </div>
+  </ng-template>
+  <!-- end ondelete modal-->
+
   <!-- tours -->
    <div *ngIf="tours.length" class="tours-container container">
      <div class="row">
@@ -379,10 +398,10 @@
                <button type="button" class="edit" (click)="openModal(content, tour)">
                  <i class="fas fa-edit"></i>
                </button>
-               <button type="button" class="confirm" (click)="onConfirm()">
+<!--               <button type="button" class="confirm" (click)="onConfirm()">
                  <i class="fas fa-check"></i>
-               </button>
-               <button type="button" class="delete">
+               </button>-->
+               <button type="button" class="delete" (click)="openDeleteModal(sure, tour)">
                  <i class="fas fa-trash-alt"></i>
                </button>
              </div>

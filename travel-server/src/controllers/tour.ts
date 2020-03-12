@@ -1,5 +1,6 @@
 import Tour from "../models/Tour";
 import errorHandler from '../utils/errorHandler';
+import Review from '../models/Review';
 
 async function create(req:any, res:any) {
     const tour = new Tour({
@@ -28,7 +29,8 @@ async function create(req:any, res:any) {
 
 async function remove(req:any, res:any) {
     try {
-        await Tour.deleteOne({_id: req.params.id})
+        await Review.deleteOne({tourId: req.params.id});
+        await Tour.deleteOne({_id: req.params.id});
         res.status(200).json({
             message: 'Tour deleted'
         })
