@@ -355,13 +355,13 @@
             </div>
           </div>
 
-          <div *ngIf="!isNewTour" class="input-files-container">
+          <div class="input-files-container">
             <input #inputFiles type="file" multiple (change)="onImagesUpload($event)">
           </div>
 
-          <div *ngIf="isNewTour" class="tip">
+<!--          <div *ngIf="isNewTour" class="tip">
             After create this tour, edit it to add some photos.
-          </div>
+          </div>-->
 
           <div class="images-container container-fluid">
             <div class="row" id="images">
@@ -369,6 +369,13 @@
                 <i class="fas fa-trash-alt" (click)="onImageDelete(i)"></i>
                 <img [src]="img">
               </div>
+
+              <ng-container *ngIf="previewImages.length">
+                <div *ngFor="let previewImage of previewImages; let p=index" class="col-sm-6 image">
+                  <i class="fas fa-trash-alt" (click)="onNewImageDelete(p)"></i>
+                  <img [src]="previewImage">
+                </div>
+              </ng-container>
             </div>
           </div>
 

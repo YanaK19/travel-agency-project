@@ -26,7 +26,8 @@ export class EditingComponent implements OnInit {
   dateFromFilter: TourDate;
   tourExist = true;
   invalidForm = false;
-/*  newTourImages;*/
+  newTourImages = [];
+  previewImages = [];
   @ViewChild("content", {static: false}) content: ElementRef;
 
   addRestType;
@@ -76,6 +77,7 @@ export class EditingComponent implements OnInit {
   openModal(content, tour) {
     this.tour = tour;
     this.isNewTour = false;
+    this.invalidForm = false;
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
 
   }
@@ -109,29 +111,41 @@ export class EditingComponent implements OnInit {
   editTour() {
     this.invalidForm = false;
     if(!this.isNewTour) {
-      this.toursService.updateTour(this.tour).subscribe(updatedTour => {
-        console.log(updatedTour)
+      const newImagesCopy = this.newTourImages.slice();
+      this.toursService.updateTour(this.tour).subscribe(tour => {
+        this.toursService.uploadImages(newImagesCopy, tour).subscribe(updatedTour => {
+          this.tour = updatedTour;
+          this.tours.forEach((tour, i) => {
+            if (tour._id == updatedTour._id) {
+              this.tours[i] = updatedTour;
+            }
+          })
+        });
       });
     } else {
       for(let val in this.tour){
-        if (val == 'route') {
+        if (val === 'route') {
           if(!this.tour.route.fromCountry
             || !this.tour.route.fromTown
             || !this.tour.route.toCountry
             || !this.tour.route.toTown) {
             this.invalidForm = true;
           }
-        } else if (val == 'dates' && !this.tour.dates.length || val == 'restType' && !this.tour.restType.length) {
+        } else if (val === 'dates' && !this.tour.dates.length || val === 'restType' && !this.tour.restType.length) {
           this.invalidForm = true;
-        } else if (this.tour[val] == 0 && val != 'views' && val != 'images' && val != 'discount' && val != 'booked') {
+        } else if (this.tour[val] === 0 && val != 'views' && val !== 'images' && val !== 'discount' && val !== 'booked') {
           this.invalidForm = true;
         }
       }
 
       if (!this.invalidForm) {
+        const newImagesCopy = this.newTourImages.slice();
+
         this.toursService.createTour(this.tour).subscribe(createdTour => {
-          this.tours.push(createdTour);
-          console.log(createdTour)
+          this.toursService.uploadImages(newImagesCopy, createdTour).subscribe(updatedTour => {
+            this.tours.push(updatedTour);
+            this.invalidForm = false;
+          });
         });
         this.modalService.dismissAll();
       }
@@ -142,6 +156,9 @@ export class EditingComponent implements OnInit {
     if (!this.invalidForm) {
       this.modalService.dismissAll();
     }
+
+    this.previewImages = [];
+    this.newTourImages = [];
   }
 
   Search() {
@@ -259,23 +276,31 @@ export class EditingComponent implements OnInit {
 
   onImagesUpload(event) {
     if (event.target.files.length > 0) {
-/*console.log(this.newImages)*/
-      if (!this.isNewTour) {
-        this.toursService.uploadImages(event.target.files, this.tour).subscribe(updatedTour => {
-          this.tour = updatedTour;
-          this.tours.forEach((tour, i) => {
-            if (tour._id == updatedTour._id) {
-              this.tours[i] = updatedTour;
-            }
-          })
-        });
+      /*this.newTourImages.push(event.target.files);*/
+      for(let file of event.target.files) {
+        this.newTourImages.push(file);
+      }
+
+      console.log(this.newTourImages)
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        let reader = new FileReader();
+        reader.onload = this.imageIsLoaded.bind(this);
+        reader.readAsDataURL(event.target.files[i]);
       }
     }
   }
 
+  imageIsLoaded(e) {
+    this.previewImages.push(e.target.result);
+  };
+
   onImageDelete(imageIndex) {
     this.tour.images = this.tour.images.filter((image, i) => i != imageIndex);
-    this.toursService.updateTour(this.tour).subscribe(updatedTour => {
-    });
+  }
+
+  onNewImageDelete(imageIndex) {
+    this.newTourImages = this.newTourImages.filter((image, i) => i != imageIndex);
+    this.previewImages = this.previewImages.filter((image, i) => i != imageIndex);
   }
 }

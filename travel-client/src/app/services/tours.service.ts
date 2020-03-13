@@ -72,12 +72,17 @@ export class ToursService {
     return this.http.post('/api/tour', newTour, httpOptions);
   }
 
-  uploadImages(images, tour): Observable<any> {
+  uploadImages(filesArr, tour): Observable<any> {
     const fd = new FormData();
+    console.log(filesArr)
+    filesArr.forEach(file => {
+      console.log(file)
+      fd.append('images', file, file.name);
+    });
 
-    for(let image of images) {
+/*    for(let image of images) {
       fd.append('images', image, image.name);
-    }
+    }*/
 
 /*    const httpOptions  = {
       headers: new HttpHeaders({
