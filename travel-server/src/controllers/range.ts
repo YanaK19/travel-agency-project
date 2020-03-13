@@ -1,5 +1,6 @@
 import errorHandler from '../utils/errorHandler';
 import Range from "../models/Range";
+import Tour from '../models/Tour';
 
 async function create(req:any, res:any) {
     const range = new Range({
@@ -44,4 +45,17 @@ async function remove(req:any, res:any) {
     }
 }
 
-export {create, remove, getRangeById, getRanges}
+async function update(req:any, res:any) {
+    try {
+        const range = await Range.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        );
+        res.status(200).json(range)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {create, remove, getRangeById, getRanges, update}

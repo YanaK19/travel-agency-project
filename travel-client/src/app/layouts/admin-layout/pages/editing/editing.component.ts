@@ -20,9 +20,13 @@ export class EditingComponent implements OnInit {
   tour: Tour;
   rangeTransports: any;
   rangeTourTypes: any;
+  rangeTransportsTypesLength: number;
+  rangeTourTypesLength: any;
   filterForm: FormGroup;
   dateFromFilter: TourDate;
   tourExist = true;
+  invalidForm = false;
+/*  newTourImages;*/
   @ViewChild("content", {static: false}) content: ElementRef;
 
   addRestType;
@@ -31,6 +35,7 @@ export class EditingComponent implements OnInit {
   addDateFrom;
   addDateTo;
   isNewTour;
+  editForm;
 
   constructor(private modalService: NgbModal,
               private toursService: ToursService,
@@ -51,17 +56,18 @@ export class EditingComponent implements OnInit {
     this.toursService.getTours().subscribe(tours => {
       this.tours = tours;
       this.tour = tours[0];
-     /* this.modalService.open(this.content, {backdropClass: 'light-blue-backdrop'});*/
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
       ranges.forEach(range => {
-        if (range.category === 'transport') {
+        if (range.category == 'transport') {
           this.rangeTransports = range;
+          this.rangeTransportsTypesLength = range.types.length;
         }
 
-        if (range.category === 'rest') {
+        if (range.category == 'rest') {
           this.rangeTourTypes = range;
+          this.rangeTourTypesLength = range.types.length;
         }
       });
     });
@@ -75,6 +81,7 @@ export class EditingComponent implements OnInit {
   }
 
   onAdd(content) {
+    this.invalidForm = false;
     this.tour = {
       title: "",
       route: {
@@ -87,12 +94,12 @@ export class EditingComponent implements OnInit {
     images: [],
     discount: null,
     transportType: "",
-    cost: null,
+    cost: 0,
     moreInfo: "",
     dates: [],
-    bookedMax: null,
-    booked: null,
-    views: null
+    bookedMax: 0,
+    booked: 0,
+    views: 0
     };
 
     this.isNewTour = true;
@@ -100,14 +107,41 @@ export class EditingComponent implements OnInit {
   }
 
   editTour() {
+    this.invalidForm = false;
     if(!this.isNewTour) {
       this.toursService.updateTour(this.tour).subscribe(updatedTour => {
         console.log(updatedTour)
       });
     } else {
+      for(let val in this.tour){
+        if (val == 'route') {
+          if(!this.tour.route.fromCountry
+            || !this.tour.route.fromTown
+            || !this.tour.route.toCountry
+            || !this.tour.route.toTown) {
+            this.invalidForm = true;
+          }
+        } else if (val == 'dates' && !this.tour.dates.length || val == 'restType' && !this.tour.restType.length) {
+          this.invalidForm = true;
+        } else if (this.tour[val] == 0 && val != 'views' && val != 'images' && val != 'discount' && val != 'booked') {
+          this.invalidForm = true;
+        }
+      }
 
+      if (!this.invalidForm) {
+        this.toursService.createTour(this.tour).subscribe(createdTour => {
+          this.tours.push(createdTour);
+          console.log(createdTour)
+        });
+        this.modalService.dismissAll();
+      }
+
+      console.log(this.invalidForm)
     }
-    /* this.modalService.dismissAll();*/
+
+    if (!this.invalidForm) {
+      this.modalService.dismissAll();
+    }
   }
 
   Search() {
@@ -179,14 +213,18 @@ export class EditingComponent implements OnInit {
     this.rangeTourTypes.types.push(this.addNewRestType);
     this.tour.restType.push(this.addNewRestType);
 
-    /* put request to ranges */
+    this.rangeService.updateRange(this.rangeTourTypes).subscribe(updatedRange => {
+      console.log(updatedRange)
+    });
   }
 
   addNewTransport() {
     this.rangeTransports.types.push(this.addNewTransportType);
     this.tour.transportType = this.addNewTransportType;
 
-    /* put req to ranges */
+    this.rangeService.updateRange(this.rangeTransports).subscribe(updatedRange => {
+      console.log(updatedRange)
+    });
   }
 
   findTourById(tourId) {
@@ -217,5 +255,27 @@ export class EditingComponent implements OnInit {
     });
 
     this.modalService.dismissAll();
+  }
+
+  onImagesUpload(event) {
+    if (event.target.files.length > 0) {
+/*console.log(this.newImages)*/
+      if (!this.isNewTour) {
+        this.toursService.uploadImages(event.target.files, this.tour).subscribe(updatedTour => {
+          this.tour = updatedTour;
+          this.tours.forEach((tour, i) => {
+            if (tour._id == updatedTour._id) {
+              this.tours[i] = updatedTour;
+            }
+          })
+        });
+      }
+    }
+  }
+
+  onImageDelete(imageIndex) {
+    this.tour.images = this.tour.images.filter((image, i) => i != imageIndex);
+    this.toursService.updateTour(this.tour).subscribe(updatedTour => {
+    });
   }
 }

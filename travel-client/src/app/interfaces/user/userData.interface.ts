@@ -9,6 +9,7 @@ export interface UserData {
   languages?: string[];
   location?: UserLocation;
   about?: string;
+  avatar?: string;
   favouriteTourIds?: string[];
 }
 

@@ -223,13 +223,14 @@
                 </div>
               </div>
 
+
               <div class="form-group dt">
                 <div class="input-group">
                   <input placeholder="Date To" class="form-control"
-                         name="dp" ngbDatepicker #d="ngbDatepicker"
+                         name="dp" ngbDatepicker #dd="ngbDatepicker"
                          [(ngModel)]="addDateTo">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                    <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
                   </div>
                 </div>
               </div>
@@ -353,6 +354,27 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="!isNewTour" class="input-files-container">
+            <input #inputFiles type="file" multiple (change)="onImagesUpload($event)">
+          </div>
+
+          <div *ngIf="isNewTour" class="tip">
+            After create this tour, edit it to add some photos.
+          </div>
+
+          <div class="images-container container-fluid">
+            <div class="row" id="images">
+              <div *ngFor="let img of tour.images; let i=index" class="col-sm-6 image">
+                <i class="fas fa-trash-alt" (click)="onImageDelete(i)"></i>
+                <img [src]="img">
+              </div>
+            </div>
+          </div>
+
+          <div class="invalid" *ngIf="invalidForm">
+            * Please, fill all fields at first.
+          </div>
         </form>
       </div>
     </div>
@@ -387,7 +409,7 @@
        <div *ngFor="let tour of tours" class="col-lg-6 tours-col">
          <div class="tour-container">
            <div class="tour-image">
-             <img [src]="tour.images[0]">
+             <img *ngIf="tour.images.length" [src]="tour.images[0]">
            </div>
 
            <div class="number-buttons">

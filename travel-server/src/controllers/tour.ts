@@ -10,13 +10,12 @@ async function create(req:any, res:any) {
         cost: req.body.cost,
         route: req.body.route,
         moreInfo: req.body.moreInfo,
-        images: req.body.images,
+        images: req.body.images ? req.body.image : [],
         dates: req.body.dates,
         discount: req.body.discount,
         bookedMax: req.body.bookedMax,
         booked: req.body.booked,
         views: req.body.views,
-       /* image: req.body.image ? req.body.image : ''*/
     });
 
     try {
@@ -40,10 +39,20 @@ async function remove(req:any, res:any) {
 }
 
 async function update(req:any, res:any) {
+    let requestData = req.body;
+
+    if(req.files) {
+        const files = req.files.map((file: any) => file.path);
+        const t: any = await Tour.findById(req.params.id);
+        t.images = t.images.concat(files);
+        requestData = t;
+    }
+
+
     try {
         const tour = await Tour.findOneAndUpdate(
             {_id: req.params.id},
-            {$set: req.body},
+            {$set: requestData},
             {new: true}
         );
         res.status(200).json(tour)

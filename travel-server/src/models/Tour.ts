@@ -14,8 +14,7 @@ const tourSchema = new Schema({
     },
     moreInfo: {type: String},
     images: {
-        type: [String],
-        default: ''
+        type: [String]
     },
     dates: [{
         dateFrom: {

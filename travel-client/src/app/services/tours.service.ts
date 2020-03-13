@@ -62,4 +62,29 @@ export class ToursService {
 
     return this.http.put<Tour>('/api/tour/' + updatedTour._id, updatedTour, httpOptions);
   }
+
+  createTour(newTour: Tour): Observable<any> {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
+
+    return this.http.post('/api/tour', newTour, httpOptions);
+  }
+
+  uploadImages(images, tour): Observable<any> {
+    const fd = new FormData();
+
+    for(let image of images) {
+      fd.append('images', image, image.name);
+    }
+
+/*    const httpOptions  = {
+      headers: new HttpHeaders({
+        'Authorization': this.auth.getToken()
+      })
+    };*/
+    console.log(fd)
+    return this.http.put<any>('/api/tour/' + tour._id, fd);
+  }
 }
