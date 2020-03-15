@@ -7,11 +7,9 @@
   <div class="head-container container-fluid">
     <div class="row">
       <div class="head-container-left col-md-8">
-        <div class="header-name">JOY OF DISCOVERING</div>
+        <div class="header-name">{{'home.main_title.header' | translate}}</div>
         <div class="header-p">
-          Exploration is really the essence of the human spirit.
-          You'll never know until you go.
-          You have nothing to lose a world to see.
+          {{'home.main_title.subheader' | translate}}
         </div>
       </div>
 
@@ -19,15 +17,15 @@
         <div class="forms-wrapper">
           <div class="form-search">
             <div class="form-search-title">
-              <div class="wrapper-title">EXPLORE</div>
-             <div class="wrapper-subtitle">Hey, what country would you like to visit?</div>
+              <div class="wrapper-title">{{'home.search_form.title' | translate}}</div>
+             <div class="wrapper-subtitle">{{'home.search_form.subtitle' | translate}}</div>
             </div>
 
-            <div class="custom-tooltip" *ngIf="!countryExist">No tours to such country!</div>
+            <div class="custom-tooltip" *ngIf="!countryExist">{{'home.search_form.error_message' | translate}}</div>
 
             <form (ngSubmit)="renderToursPageByCountry(countryInput.value)">
               <div class="input-group">
-                <input type="text" [ngbTypeahead]="search" class="form-control input-country" placeholder="COUNTRY NAME"
+                <input type="text" [ngbTypeahead]="search" class="form-control input-country" placeholder="{{'home.search_form.placeholder' | translate}}"
                        aria-label="country" aria-describedby="button-addon2" #countryInput
                 >
                 <div class="input-group-append btn-container">
@@ -42,10 +40,10 @@
           </div>
 
           <div class="register-wrapper">
-            <div class="register-wrapper-title wrapper-title">JOIN US</div>
-            <div class="wrapper-subtitle">Publish reviews and create your own travel map.</div>
+            <div class="register-wrapper-title wrapper-title">{{'home.sign_form.title' | translate}}</div>
+            <div class="wrapper-subtitle">{{'home.sign_form.subtitle' | translate}}</div>
             <button class="btn-reg" (click)="renderRegisterPage()">
-              <span>Sign UP</span>
+              <span>{{'home.sign_form.button' | translate}}</span>
             </button>
           </div>
         </div>
@@ -54,7 +52,7 @@
   </div>
 
   <div class="about-container" *ngIf="isLoaded()">
-    <div class="about-title">Why we are the best?</div>
+    <div class="about-title">{{'home.about_us.title' | translate}}</div>
     <div class="decoration"></div>
     <div class="about-container-inner container">
       <div class="row">
@@ -64,11 +62,9 @@
               <img src="../../../../../assets/images/money_bw.png" alt="">
             </div>
             <div class="about-info-container">
-              <div class="about-item-title">Reasonable prices</div>
+              <div class="about-item-title">{{'home.about_us.item1_title' | translate}}</div>
               <div class="about-item-info">
-                We find the most profitable tours for you,
-                helping to save your money
-                Daily there are some discounts apply.
+                {{'home.about_us.item1_info' | translate}}
               </div>
             </div>
           </div>
@@ -80,11 +76,9 @@
               <img src="../../../../../assets/images/earth_bw.png" alt="">
             </div>
             <div class="about-info-container">
-              <div class="about-item-title">Worldwide coverage</div>
+              <div class="about-item-title">{{'home.about_us.item2_title' | translate}}</div>
               <div class="about-item-info">
-                Wherever you are, you can order tours at any time,
-                without leaving home.
-                Explore the world!
+                {{'home.about_us.item2_info' | translate}}
               </div>
             </div>
           </div>
@@ -96,11 +90,9 @@
               <img src="../../../../../assets/images/tel_bw.png" alt="">
             </div>
             <div class="about-info-container">
-              <div class="about-item-title">24/7 support</div>
+              <div class="about-item-title">{{'home.about_us.item3_title' | translate}}</div>
               <div class="about-item-info">
-                We are ready to help you anytime.
-                Have any questions?
-                Why not write to us?
+                {{'home.about_us.item3_info' | translate}}
               </div>
             </div>
           </div>
@@ -114,7 +106,7 @@
 
   <div class="container-fluid block-views" *ngIf="isLoaded()">
     <div class="title-views">
-      <h2 class="text-center">Top 10 tours</h2>
+      <h2 class="text-center">{{'home.top10' | translate}}</h2>
     </div>
     <div class="reviews-container">
       <div class="box" [ngClass]="topToursClasses[indx]" *ngFor="let tour of topTours; let indx = index" (click)="renderTourPage(tour._id)">
@@ -138,10 +130,10 @@
       <div class="col-sm-6 offset-sm-6">
         <div class="discount-info">
           <div class="discount-title">
-            {{discoutTour.discount}}% OFF
+            {{discoutTour.discount}}% {{'home.discount.off' | translate}}
           </div>
           <div class="tour-title">
-           {{discoutTour.route.toCountry}}, {{discoutTour.route.toTown}} tour
+           {{discoutTour.route.toCountry}}, {{discoutTour.route.toTown}} {{'home.discount.tour' | translate}}
           </div>
           <div class="description">
             {{discoutTour.moreInfo}}
@@ -149,7 +141,7 @@
 
           <div class="read-more">
             <button class="btn-more" (click)="renderTourPage(discoutTour._id)">
-              <span>read more</span>
+              <span>{{'home.discount.button_more' | translate}}</span>
             </button>
           </div>
         </div>
@@ -162,8 +154,8 @@
     <div class="shadow-block"></div>
     <div class="types-block-inner">
       <div class="types-block-title">
-        <div class="subtitle">Find a tour by</div>
-        <div class="title">TOURS TYPE</div>
+        <div class="subtitle">{{'home.types.subtitle' | translate}}</div>
+        <div class="title">{{'home.types.title' | translate}}</div>
         <div class="line"></div>
         <div class="line-decoration">
           <div class="line-decoration-inner"></div>
@@ -180,7 +172,7 @@
                       <div class="type-icon">
                         <i class="fas fa-futbol"></i>
                       </div>
-                      <div class="type-name">Sport</div>
+                      <div class="type-name">{{'home.types.sport' | translate}}</div>
                     </div>
                   </div>
 
@@ -189,7 +181,7 @@
                       <div class="type-icon">
                         <i class="fas fa-address-card"></i>
                       </div>
-                      <div class="type-name">excursions</div>
+                      <div class="type-name">{{'home.types.excursions' | translate}}</div>
                     </div>
                   </div>
 
@@ -198,7 +190,7 @@
                       <div class="type-icon">
                         <i class="fas fa-child"></i>
                       </div>
-                      <div class="type-name">children</div>
+                      <div class="type-name">{{'home.types.children' | translate}}</div>
                     </div>
                   </div>
 
@@ -207,7 +199,7 @@
                       <div class="type-icon">
                         <i class="fas fa-campground"></i>
                       </div>
-                      <div class="type-name">exotic</div>
+                      <div class="type-name">{{'home.types.exotic' | translate}}</div>
                     </div>
                   </div>
 
@@ -226,7 +218,7 @@
                       <div class="type-icon">
                         <i class="fas fa-glass-cheers"></i>
                       </div>
-                      <div class="type-name">festivals</div>
+                      <div class="type-name">{{'home.types.festivals' | translate}}</div>
                     </div>
                   </div>
 
@@ -235,7 +227,7 @@
                       <div class="type-icon">
                         <i class="fas fa-graduation-cap"></i>
                       </div>
-                      <div class="type-name">education</div>
+                      <div class="type-name">{{'home.types.education' | translate}}</div>
                     </div>
                   </div>
 
@@ -244,7 +236,7 @@
                       <div class="type-icon">
                         <i class="fas fa-store"></i>
                       </div>
-                      <div class="type-name">shop</div>
+                      <div class="type-name">{{'home.types.shop' | translate}}</div>
                     </div>
                   </div>
 
@@ -253,7 +245,7 @@
                     <div class="type-icon">
                       <i class="fas fa-umbrella-beach"></i>
                     </div>
-                    <div class="type-name">beach</div>
+                    <div class="type-name">{{'home.types.beach' | translate}}</div>
                   </div>
                 </div>
 
@@ -286,7 +278,7 @@
 
   <div class="comments-block" *ngIf="isLoaded()">
     <div class="comments-title">
-      tour reviews
+      {{'home.reviews.title' | translate}}
     </div>
     <div class="container-fluid container-comments">
       <div class="row">
@@ -311,13 +303,13 @@
   <div class="newsletter-block">
     <div class="shadow-block">
       <div class="newsletter-container">
-        <div class="news-title">Join the newsletter</div>
-        <div class="news-subtitle">To receive our best monthly deals</div>
+        <div class="news-title">{{'home.newsletter.title' | translate}}</div>
+        <div class="news-subtitle">{{'home.newsletter.subtitle' | translate}}</div>
         <form action="">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter your email..." aria-label="Newsletter" aria-describedby="button-news">
+            <input type="text" class="form-control" [placeholder]="'home.newsletter.placeholder' | translate" aria-label="Newsletter" aria-describedby="button-news">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-news">subscribe</button>
+              <button class="btn btn-outline-secondary" type="button" id="button-news">{{'home.newsletter.button_subscribe' | translate}}</button>
             </div>
           </div>
         </form>

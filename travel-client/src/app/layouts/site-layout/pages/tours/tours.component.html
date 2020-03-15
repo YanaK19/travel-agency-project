@@ -18,16 +18,14 @@
     <div class="row">
       <div class="col-md-7 block0_left">
         <div class="block0_title">
-          Filter & sort tours
+          {{'tours.title' | translate}}
         </div>
       </div>
       <div class="col-md-5">
         <div class="block0_right">
-          <div class="block0_subtitle">How to search?</div>
+          <div class="block0_subtitle">{{'tours.subtitle' | translate}}</div>
           <div class="block0_text">
-            Fill in the fields you want. It is not necessary to fill them all.
-            You can also set the sorting of tours.
-            Click on the button to search.
+            {{'tours.text' | translate}}
           </div>
         </div>
       </div>
@@ -42,7 +40,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="input-group mb-3">
-                  <input type="text" formControlName="fromCountry" class="form-control" placeholder="Departure coutry" aria-label="Recipient's username" aria-describedby="from">
+                  <input type="text" formControlName="fromCountry" class="form-control" [placeholder]="'tours.filter_form.departure' | translate" aria-label="Recipient's username" aria-describedby="from">
                   <div class="input-group-append">
                     <span class="input-group-text w-43px" id="from">
                       <i class="fa fa-home fa-lg" aria-hidden="true"></i>
@@ -52,7 +50,7 @@
               </div>
               <div class="col-12">
                 <div class="input-group mb-3">
-                  <input type="text" formControlName="toCountry" class="form-control" placeholder="Destination country" aria-label="Recipient's username" aria-describedby="to">
+                  <input type="text" formControlName="toCountry" class="form-control" [placeholder]="'tours.filter_form.destination' | translate" aria-label="Recipient's username" aria-describedby="to">
                   <div class="input-group-append">
                     <span class="input-group-text" id="to">
                       <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
@@ -68,7 +66,7 @@
               <div class="col-12">
                 <div class="form-group dt">
                   <div class="input-group">
-                    <input formControlName="dateFrom" class="form-control" placeholder="Start Date"
+                    <input formControlName="dateFrom" class="form-control" [placeholder]="'tours.filter_form.start_date' | translate"
                            name="dp" ngbDatepicker #d="ngbDatepicker">
                     <div class="input-group-append">
                       <button style="background-color: #e9ecef;
@@ -84,7 +82,7 @@
               <div class="col-12 dt">
                 <div class="form-group">
                   <div class="input-group">
-                    <input  formControlName="dateTo" class="form-control" placeholder="End of Date"
+                    <input  formControlName="dateTo" class="form-control" [placeholder]="'tours.filter_form.end_date' | translate"
                            name="ddpp" ngbDatepicker #dd="ngbDatepicker">
                     <div class="input-group-append">
                       <button style="background-color: #e9ecef;
@@ -118,7 +116,7 @@
               <div class="col-12">
                 <button class="btn-search" (click)="Search()">
                   <span>
-                    <i class="fas fa-search pr-1"></i> search
+                    <i class="fas fa-search pr-1"></i> {{'tours.filter_form.button_search' | translate}}
                   </span>
                 </button>
               </div>
@@ -134,18 +132,18 @@
       <div class="sort-filter-container col-md-3 col-sm-4">
         <div class="sort-container">
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Sort by:</label>
+            <label for="exampleFormControlSelect1">{{'tours.sort.title' | translate}}:</label>
             <select class="form-control" id="exampleFormControlSelect1" #selectSort>
               <option></option>
-              <option>view</option>
-              <option>cost</option>
-              <option>discount</option>
+              <option>{{'tours.sort.view' | translate}}</option>
+              <option>{{'tours.sort.cost' | translate}}</option>
+              <option>{{'tours.sort.discount' | translate}}</option>
             </select>
           </div>
         </div>
 
         <div class="rest-filter-container">
-          <label>Categories: </label>
+          <label>{{'tours.categories.title' | translate}}: </label>
 
           <div class="rf" *ngIf="rangeTourTypes">
             <ul class="rest-type container">
@@ -163,13 +161,9 @@
                 <div class="carousel-caption d-md-block">
                   <div class="slide1-content">
                     <div class="title">
-                      Oh, hey!
+                      {{'tours.carousel.slide1_title' | translate}}
                     </div>
-                    <div class="content">
-                      Better to see something once than
-                      hear about it a thousand times.
-                      <br><br>
-                      So, I hope, you will find a wonderful tour for yourself. <br>
+                    <div class="content" [innerHTML]="'tours.carousel.slide1_content' | translate">
                       <img src="https://image.flaticon.com/icons/svg/2555/2555490.svg" alt="">
                     </div>
                   </div>
@@ -179,13 +173,11 @@
                 <div class="carousel-caption d-md-block">
                   <div class="slide2-content">
                     <div class="title">
-                      Are you still thinking about the trip?
+                      {{'tours.carousel.slide2_title' | translate}}
                     </div>
                     <div class="content">
-                     <span>SEE REVIEWS</span>
-                      <br>and
-                      <br>
-                      make your choise :)
+                     <span class="see-reviews">{{'tours.carousel.slide2_content1' | translate}}</span>
+                      <span [innerHTML]="'tours.carousel.slide2_content2' | translate"></span>
                     </div>
                     <img class="d-block w-100 mb-0 monkey-img" src="https://www.edselby.com/wp-content/uploads/2013/12/monkey.png">
                   </div>
@@ -195,13 +187,10 @@
                 <div class="carousel-caption d-md-block">
                   <div class="slide3-content">
                     <div class="title">
-                      Boom...!
+                      {{'tours.carousel.slide3_title' | translate}}
                     </div>
                     <div class="content">
-                      <b>HERE</b><br>
-                      might be<br>
-                      your<br>
-                      advertisement<br><br>
+                      <span [innerHTML]="'tours.carousel.slide3_content' | translate"></span>
                       <i class="fa fa-phone" aria-hidden="true"></i> +375-29-11-123
                     </div>
                   </div>

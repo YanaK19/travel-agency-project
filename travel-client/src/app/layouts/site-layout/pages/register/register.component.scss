@@ -104,18 +104,12 @@ section {
   font-weight: bold;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.list {
+  margin-bottom: 10px;
+}
 
-  div {
-    float: right;
-  }
-
-  li {
-    width: 100%;
-    padding-right: 0;
-  }
+.list-item {
+  justify-content: flex-end;
 }
 
 .more {

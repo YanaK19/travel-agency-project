@@ -1,0 +1,231 @@
+
+{
+  "slayout": {
+    "nav": {
+      "home": "home",
+      "tours": "tours",
+      "contact_us": "contact us",
+      "account": "account",
+      "profile": "profile",
+      "sign_out": "sign out",
+      "login": "log in"
+    },
+    "footer": {
+      "question": "Have any questions?",
+      "location": "Belarus, Minsk",
+      "faq1": "Maybe somebody have already asked this question. See",
+      "faq2": "Hope, it will help you",
+      "slogan": "All your concerns are included in our WORK!"
+    }
+  },
+  "home": {
+    "main_title": {
+      "header": "JOY OF DISCOVERING",
+      "subheader": "Exploration is really the essence of the human spirit.\n You'll never know until you go.\nYou have nothing to lose a world to see."
+    },
+    "search_form": {
+      "title": "EXPLORE",
+      "subtitle": "Hey, what country would you like to visit?",
+      "error_message": "No tours to such country!",
+      "placeholder": "COUNTRY NAME"
+    },
+    "sign_form": {
+      "title": "JOIN US",
+      "subtitle": "Publish reviews and create your own travel map.",
+      "button": "Sign UP"
+    },
+    "about_us": {
+      "title": "Why we are the best?",
+      "item1_title": "Reasonable prices",
+      "item1_info": "We find the most profitable tours for you, helping to save your money. Daily there are some discounts apply.",
+      "item2_title": "Worldwide coverage",
+      "item2_info": "Wherever you are, you can order tours at any time, without leaving home. Explore the world!",
+      "item3_title": "24/7 support",
+      "item3_info": "We are ready to help you anytime. Have any questions? Why not write to us?"
+    },
+    "top10": "Top 10 tours",
+    "discount": {
+      "off": "OFF",
+      "tour": "tour",
+      "button_more": "read more"
+    },
+    "types": {
+      "subtitle": "Find a tour by",
+      "title": "TOUR TYPE",
+      "sport": "sport",
+      "excursions": "excursions",
+      "children": "children",
+      "exotic": "exotic",
+      "festivals": "festivals",
+      "education": "education",
+      "shop": "shop",
+      "beach": "beach"
+    },
+    "reviews": {
+      "title": "tour reviews"
+    },
+    "newsletter": {
+      "title": "Join the newsletter",
+      "subtitle": "To receive our best monthly deals",
+      "placeholder": "Enter your email...",
+      "button_subscribe": "subscribe"
+    }
+  },
+  "contacts": {
+    "title": "Contact us",
+    "fname": "First name",
+    "lname": "Last name",
+    "email": "Email",
+    "mobile": "Mobile",
+    "textarea": "Type your message HERE...",
+    "button_send": "send"
+  },
+  "tours": {
+    "button_more": "READ MORE",
+    "title": "Filter & sort tours",
+    "subtitle": "How to search?",
+    "text": "Fill in the fields you want. It is not necessary to fill them all. You can also set the sorting of tours. Click on the button to search.",
+    "filter_form": {
+      "departure": "Departure coutry",
+      "destination": "Destination country",
+      "start_date": "Start Date" ,
+      "end_date": "End of Date",
+      "button_search": "search"
+    },
+    "sort": {
+      "title": "Sort by",
+      "view": "view",
+      "cost": "cost",
+      "discount": "discount"
+    },
+    "categories": {
+      "title": "Categories"
+    },
+    "carousel": {
+      "slide1_title": "Oh, hey!",
+      "slide1_content": "Better to see something once than hear about it a thousand times.<br><br>So, I hope, you will find a wonderful tour for yourself.<br>",
+      "slide2_title": "Are you still thinking about the trip?",
+      "slide2_content1": "SEE REVIEWS",
+      "slide2_content2": "<br>and<br>make your choise :)",
+      "slide3_title": "Boom...!",
+      "slide3_content": "<b>HERE</b><br>might be<br>your<br>advertisement<br><br>"
+    }
+  },
+  "login": {
+    "left": {
+      "title": "HI, nice to see you!",
+      "content": "Look at the catalog of our tours and choose your favorite. New tours are added daily, which means that new adventures are awaiting you right now. It will be forever-ever-the-best trip!<br><br>Have fun...",
+      "link_more": "Read more"
+    },
+    "form": {
+      "title": "Sign In",
+      "placeholder_email": "Your Email *",
+      "placeholder_password": "Your Password *",
+      "button_signin": "sign in",
+      "register_link": "Don't have an account?"
+    }
+  },
+  "register": {
+    "right": {
+      "title": "WELCOME TO THE CLUB",
+      "subtitle": "The world is a book, and those who do not travel read only one page.",
+      "list": "FOLLOW US AND:",
+      "item1": "Buy tickets quickly and easily",
+      "item2": "Add trips to your favorites",
+      "item3": "Publish your stories",
+      "link_more": "Read more"
+    },
+    "form": {
+      "title": "Sign Up",
+      "placeholder_email": "Your Email *",
+      "placeholder_password": "Your Password *",
+      "placeholder_nick": "Your Nickname *",
+      "placeholder_tel": "+*** (**) ****-**-**",
+      "button_register": "sign up",
+      "login_link": "Already have an account?"
+    }
+  },
+  "form_errors": {
+    "empty": "Fill this field",
+    "invalid_email": "Enter valid email",
+    "length1_password": "Password must contain more than",
+    "length1_name": "Name length must contain more than",
+    "length2": "symbols"
+  },
+  "tour": {
+    "subtitle": "Wow you are here! Look! What is it?... Wait a minute...Ohhh, yes, this is the best tour in your life!",
+    "details": {
+      "tab_title": "DETAILS",
+      "types": "rest types",
+      "days": "days",
+      "duration": "duration",
+      "location": "location",
+      "reviews": "reviews",
+      "statistic": "statistic"
+    },
+    "table": {
+      "route": "DEPARTURE/DESTINATION",
+      "duration": "DURATION",
+      "transport": "TRANSPORT TYPE",
+      "booked": "BOOKED"
+    },
+    "photos": "PHOTOS",
+    "reviews": {
+      "title": "Tour Reviews",
+      "comments": "comments"
+    },
+    "leave_review": {
+      "title": "Leave a Review",
+      "placeholder_text": "Your Review",
+      "placeholder_name": "Name",
+      "placeholder_email": "Email",
+      "button_submit": "submit"
+    },
+    "cost": "One tour per person",
+    "booking": {
+      "title": "Book the tour",
+      "placeholder_name": "Name",
+      "placeholder_email": "Email",
+      "button_book": "Book"
+    },
+    "ad": {
+      "text": "You have not ordered advertising on the site?"
+    },
+    "mailchimp": {
+      "title": "mailchimp signup form",
+      "placeholder_email": "Email",
+      "button_submit": "submit"
+    }
+  },
+  "account": {
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe",
+    "avatar": "change avatar",
+    "reviews": "Reviews",
+    "subscriptions": "Subscriptions",
+    "about_me": "About me",
+    "features": {
+      "title": "Share travel tips",
+      "write": "Write a review"
+    },
+    "map": {
+      "tab_title": "Travel map",
+      "title": "My travel map",
+      "empty_title": "Ooops...",
+      "empty_text1": "You have not traveled with us yet. <br> View ",
+      "empty_text_a": "our tours",
+      "empty_text2": " and create your own map of adventures."
+    },
+    "orders": {
+      "tab_title": "Orders",
+      "empty_title": "No ordered tours yet",
+      "number": "Number",
+      "price": "Price",
+      "date": "Date"
+    },
+    "favourites": {
+      "tab_title": "Favourites",
+      "empty_title": "No favourites tours"
+    }
+  }
+}

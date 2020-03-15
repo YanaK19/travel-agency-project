@@ -224,6 +224,7 @@
 
 .wrapper-subtitle {
   padding: 0 2px 12px;
+  text-align: center;
 }
 
 .register-wrapper {
@@ -487,10 +488,18 @@
 .block-views {
   margin-top: 400px;
   width: 100%;
-  padding-right: 0px !important;
-  padding-left: 0px !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
   padding-bottom: 0;
   margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    margin-top: 510px;
+  }
+
+  @media (max-width: 576px) {
+    margin-top: 400px;
+  }
 
   .title-views {
     color: white;

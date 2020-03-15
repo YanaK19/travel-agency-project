@@ -5,17 +5,17 @@
         <div class="col-md-6 login-container align-self-end">
 
           <div class="row justify-content-center">
-            <h2 class="text-center mt-3 col-12 p-3">Sign Up</h2>
+            <h2 class="text-center mt-3 col-12 p-3">{{'register.form.title' | translate}}</h2>
 
             <form class="col-9" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
                 <input type="text" id="emailField" formControlName="email"
                        [ngClass]="{invalid: registerForm.get('email').invalid && registerForm.get('email').touched}"
                        name="email" class="form-control"
-                       placeholder="Your Email *" value="" />
+                       [placeholder]="'register.form.placeholder_email' | translate" value="" />
                 <div *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched" class="invalid-tltp">
-                  <p *ngIf="registerForm.get('email').errors['required']">Fill this field</p>
-                  <p *ngIf="registerForm.get('email').errors['email']">Enter valid email</p>
+                  <p *ngIf="registerForm.get('email').errors['required']">{{'form_errors.empty' | translate}}</p>
+                  <p *ngIf="registerForm.get('email').errors['email']">{{'form_errors.invalid_email' | translate}}</p>
                 </div>
               </div>
 
@@ -23,11 +23,11 @@
                 <input type="password" id="passwordField" formControlName="password"
                        [ngClass]="{invalid: registerForm.get('password').invalid && registerForm.get('password').touched}"
                        name="password" class="form-control"
-                       placeholder="Your Password *" value="" />
+                       [placeholder]="'register.form.placeholder_password' | translate" value="" />
                 <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched" class="invalid-tltp">
-                  <p *ngIf="registerForm.get('password').errors['required']">Fill this field</p>
+                  <p *ngIf="registerForm.get('password').errors['required']">{{'form_errors.empty' | translate}}</p>
                   <p *ngIf="registerForm.get('password').errors['minlength']">
-                    Password length must contain more than {{registerForm.get('password').errors['minlength']['requiredLength']}} symbols
+                    {{'form_errors.length1_password' | translate}} {{registerForm.get('password').errors['minlength']['requiredLength']}} {{'form_errors.length2' | translate}}
                   </p>
                 </div>
               </div>
@@ -36,11 +36,11 @@
                 <input type="text" id="nicknameField" formControlName="nickname"
                        [ngClass]="{invalid: registerForm.get('nickname').invalid && registerForm.get('nickname').touched}"
                        name="nickname" class="form-control"
-                       placeholder="Your Nickname" value="" />
+                       [placeholder]="'register.form.placeholder_nick' | translate" value="" />
                 <div *ngIf="registerForm.get('nickname').invalid && registerForm.get('nickname').touched" class="invalid-tltp">
-                  <p *ngIf="registerForm.get('nickname').errors['required']">Fill this field</p>
+                  <p *ngIf="registerForm.get('nickname').errors['required']">{{'form_errors.empty' | translate}}</p>
                   <p *ngIf="registerForm.get('nickname').errors['minlength']">
-                    Name length must contain more than {{registerForm.get('nickname').errors['minlength']['requiredLength']}} symbols
+                    {{'form_errors.length1_name' | translate}} {{registerForm.get('nickname').errors['minlength']['requiredLength']}} {{'form_errors.length2' | translate}}
                   </p>
                 </div>
               </div>
@@ -49,19 +49,19 @@
                 <input type="text" id="telField" formControlName="tel"
                        [ngClass]="{invalid: registerForm.get('tel').invalid && registerForm.get('tel').touched}"
                        name="tel" class="form-control"
-                       placeholder="+*** (**) ****-**-**" value="" />
+                       [placeholder]="'register.form.placeholder_tel' | translate" value="" />
                 <div *ngIf="registerForm.get('tel').invalid && registerForm.get('tel').touched" class="invalid-tltp">
-                  <p *ngIf="registerForm.get('tel').errors['required']">Fill this field</p>
+                  <p *ngIf="registerForm.get('tel').errors['required']">{{'form_errors.empty' | translate}}</p>
                 </div>
               </div>
 
               <div class="form-group">
                 <button type='submit'
                         [disabled]="registerForm.invalid || registerForm.disabled"
-                >sign up</button>
+                >{{'register.form.button_register' | translate}}</button>
               </div>
               <div class="form-group">
-                <a routerLink="/login" class="ForgetPwd" value="Register">Already have an account?</a>
+                <a routerLink="/login" class="ForgetPwd" value="Register">{{'register.form.login_link' | translate}}</a>
               </div>
             </form>
           </div>
@@ -72,40 +72,29 @@
             <div class="info-content text-right d-flex flex-column">
 
               <div class="info-about">
-                <h3 class="mb-2">WELCOME TO THE CLUB</h3>
+                <h3 class="mb-2">{{'register.right.title' | translate}}</h3>
                 <div class="pb-5">
-                  Why travel? Because you can. Because you want to.
-                  Because it beats the alternative (staying home).
-                  Why not pick up your tickets and get the ball rolling!
+                  {{'register.right.subtitle' | translate}}
                 </div>
-                <div class="pb-2" style="font-weight: bold">
-                  FOLLOW US AND:
+                <div class="pb-2 list" style="font-weight: bold">
+                  {{'register.right.list' | translate}}
                 </div>
-                <ul class="mb-5">
-                  <li>
-                    <div class="d-flex">
-                      <p class="mr-2">Buy tickets quickly and easily</p>
-                      <img class="pb-2" style="width:35px;" src="https://image.flaticon.com/icons/svg/1721/1721647.svg">
-                    </div>
-                  </li>
-                  <li>
-                    <div class="d-flex">
-                      <p class="mr-2">Add trips to your favorites</p>
-                      <img class="pb-2" style="width:35px;" src="https://image.flaticon.com/icons/svg/1029/1029132.svg">
-                    </div>
-                  </li>
-                  <li>
-                    <div class="d-flex">
-                      <p class="mr-2">Publish your stories</p>
-                      <img class="pb-2" style="width:35px;" src="https://image.flaticon.com/icons/svg/1721/1721658.svg">
-                    </div>
-                  </li>
-                </ul>
-
+                <div class="list-item d-flex">
+                  <p class="mr-2">{{'register.right.item1' | translate}}</p>
+                  <i class="fas fa-check"></i>
+                </div>
+                <div class="list-item d-flex">
+                  <p class="mr-2">{{'register.right.item2' | translate}}</p>
+                  <i class="fas fa-check"></i>
+                </div>
+                <div class="list-item d-flex">
+                  <p class="mr-2">{{'register.right.item3' | translate}}</p>
+                  <i class="fas fa-check"></i>
+                </div>
               </div>
 
               <div class="more">
-                Read more
+                {{'register.right.link_more' | translate}}
               </div>
             </div>
           </div>

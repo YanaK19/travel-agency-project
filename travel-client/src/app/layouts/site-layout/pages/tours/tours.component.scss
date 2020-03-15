@@ -3,7 +3,7 @@ $color_lightSea: #1cbbb4;
 .page {
   background: #fff;
   padding-top: 12vh;
-  background:linear-gradient(180deg, rgb(76, 123, 140) 5%, #110f48 85%);
+  background: linear-gradient(180deg, rgb(76, 123, 140) 5%, #110f48 85%);
 }
 
 .block0 {
@@ -336,13 +336,13 @@ input {
     font-size: 1rem;
   }
 
-  span {
+  .see-reviews {
     color: #df084a;
     font-weight: bold;
     transition: 0.3s;
   }
 
-  span:hover {
+  .see-reviews:hover {
     text-decoration: underline;
     font-size: 1.05rem;
   }

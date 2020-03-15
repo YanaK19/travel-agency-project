@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { LoginComponent } from './layouts/site-layout/pages/login/login.component';
 import { RegisterComponent } from './layouts/site-layout/pages/register/register.component';
@@ -25,6 +25,11 @@ import { ContactUsComponent } from './layouts/site-layout/pages/contact-us/conta
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { ToursSectionComponent } from './layouts/site-layout/pages/tours/tours-section/tours-section.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader'
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -53,9 +58,19 @@ import { ToursSectionComponent } from './layouts/site-layout/pages/tours/tours-s
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    NgxBootstrapSliderModule
+    NgxBootstrapSliderModule,
+
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

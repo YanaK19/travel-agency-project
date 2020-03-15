@@ -3,9 +3,16 @@
 <div class="navigation" data-spy="scroll" data-target="#navResponsive">
   <nav class="fixed-top navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/">
-      <!--<img src="https://image.flaticon.com/icons/svg/614/614694.svg">-->
       <div class="main-label">Trip<span>Helper</span></div>
     </a>
+
+    <div class="navbar-lang">
+      <div>{{langSelect.value}}</div>
+      <select #langSelect (change)="changeLang(langSelect.value)">
+        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+      </select>
+    </div>
+
     <button class="navbar-toggler"
             type="button" data-toggle="collapse"
             data-target="#navResponsive">
@@ -15,29 +22,29 @@
     <div class="collapse navbar-collapse" id="navResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a routerLink="/" class="nav-link">home</a>
+          <a routerLink="/" class="nav-link">{{'slayout.nav.home' | translate }}</a>
         </li>
 
         <li class="nav-item">
-          <a routerLink="/tours" class="nav-link">tours</a>
+          <a routerLink="/tours" class="nav-link">{{'slayout.nav.tours' | translate}}</a>
         </li>
 
         <li class="nav-item">
-          <a routerLink="/contact" class="nav-link">contact us</a>
+          <a routerLink="/contact" class="nav-link">{{'slayout.nav.contact_us' | translate}}</a>
         </li>
 
         <li class="nav-item" *ngIf="!auth.isAuthenticated(); else elseBlock">
-          <a routerLink="/login" class="nav-link">log in<i class="fa fa-user"></i></a>
+          <a routerLink="/login" class="nav-link">{{'slayout.nav.login' | translate}} <i class="fa fa-user"></i></a>
         </li>
 
         <ng-template #elseBlock>
         <div class="dropdown">
           <button type="button" class="navbar btn btn-primary dropdown-toggle mt-1" data-toggle="dropdown">
-            account
+            {{'slayout.nav.account' | translate}}
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item ref-profile" (click)="gotoAccountPage()">profile</a>
-            <a class="dropdown-item" href="#" (click)="logout($event)">sign out</a>
+            <a class="dropdown-item ref-profile" (click)="gotoAccountPage()">{{'slayout.nav.profile' | translate}}</a>
+            <a class="dropdown-item" href="#" (click)="logout($event)">{{'slayout.nav.sign_out' | translate}}</a>
           </div>
         </div>
         </ng-template>
@@ -57,11 +64,11 @@
 
         <div class="col-sm-6 footer-item">
           <div class="question">
-            Have any questions?
+            {{'slayout.footer.question' | translate}}
           </div>
           <div class="question-item">
             <i class="fas fa-map-marker-alt"></i>
-            <span>Belarus, Minsk</span>
+            <span>{{'slayout.footer.location' | translate}}</span>
           </div>
           <div class="question-item">
             <i class="fas fa-phone-alt"></i>
@@ -73,8 +80,7 @@
           </div>
           <div class="question-item">
             <div class="faq-question">
-              Maybe somebody have already asked this question. <br>
-              See <strong>FAQ</strong> page. Hope, it will help you
+              {{'slayout.footer.faq1' | translate}} <strong>FAQ</strong>.<br>{{'slayout.footer.faq2' | translate}}
             </div>
           </div>
         </div>
@@ -82,7 +88,8 @@
         <div class="col-sm-6 footer-item">
           <div class="label">T<span>H</span></div>
           <div class="slogan">
-            All your concerns are included in our WORK!</div>
+            {{'slayout.footer.slogan' | translate}}
+          </div>
           <div class="socials">
             <ul>
               <li><a href=""><i class="fab fa-facebook-f"></i></a></li>

@@ -15,24 +15,24 @@
           </div>
 
           <div *ngIf="!isMyAccount && !alreadySubscribed && userData" (click)="addAccountToMySubscriptions()" class="user-subscribe additional_item">
-            <div class="additional_item-title">Subscribe</div>
+            <div class="additional_item-title">{{'account.subscribe' | translate}}</div>
           </div>
           <div *ngIf="!isMyAccount && alreadySubscribed" (click)="deleteAccountFromMySubscriptions()" class="user-unsubscribe additional_item">
-            <div class="additional_item-title">Unsubscribe</div>
+            <div class="additional_item-title">{{'account.unsubscribe' | translate}}</div>
           </div>
 
           <div *ngIf="isMyAccount" class="user-avatar additional_item">
             <input #inputFile
                    type="file" (change)="onFileUpload($event)">
-            <div class="additional_item-title">change avatar</div>
+            <div class="additional_item-title">{{'account.avatar' | translate}}</div>
           </div>
 
           <div class="reviews additional_item">
-            <div class="additional_item-title" *ngIf="reviewsData.length">Reviews: {{reviewsData.length}}</div>
-            <div class="additional_item-title" *ngIf="!reviewsData.length">Reviews: 0</div>
+            <div class="additional_item-title" *ngIf="reviewsData.length">{{'account.reviews' | translate}}: {{reviewsData.length}}</div>
+            <div class="additional_item-title" *ngIf="!reviewsData.length">{{'account.reviews' | translate}}: 0</div>
           </div>
           <div class="subscriptions additional_item">
-            <div class="additional_item-title" (click)="toggle()">Subscriptions: {{subscribtionsData.length}}</div>
+            <div class="additional_item-title" (click)="toggle()">{{'account.subscriptions' | translate}}: {{subscribtionsData.length}}</div>
 
             <div *ngIf="toggler && subscribtionsData.length">
 
@@ -48,7 +48,7 @@
 
           <div class="profile-about">
             <div class="title">
-              About me <!--<i class="fas fa-user-edit edit-icon"></i>-->
+              {{'account.about_me' | translate}} <!--<i class="fas fa-user-edit edit-icon"></i>-->
             </div>
 
             <div class="line"></div>
@@ -74,14 +74,14 @@
           </div>
           <div class="features">
             <div class="title">
-              Share travel tips
+              {{'account.features.title' | translate}}
             </div>
             <div class="line"></div>
             <div class="line-decoration">
               <div class="line-decoration-inner"></div>
             </div>
             <div class="write">
-              <i class="fas fa-pencil-alt"></i><a>Write a review</a>
+              <i class="fas fa-pencil-alt"></i><a>{{'account.features.write' | translate}}</a>
             </div>
           </div>
         </div>
@@ -91,11 +91,11 @@
         <div class="subnav">
           <ngb-tabset [destroyOnHide]="false">
             <ngb-tab>
-              <ng-template ngbTabTitle>Travel map</ng-template>
+              <ng-template ngbTabTitle>{{'account.map.tab_title' | translate}}</ng-template>
               <ng-template ngbTabContent>
                 <div *ngIf="orderedToursData.length" class="journal tabset-item tabset-item-map">
                   <div class="user-map-container">
-                    <div class="user-map-title">My travel map</div>
+                    <div class="user-map-title">{{'account.map.title' | translate}}</div>
                   </div>
                   <div  class="user-map">
 
@@ -171,24 +171,24 @@
                       <img src="../../assets/images/cat-simon.gif" alt="">
                     </div>
                     <div class="have-no-trips-text">
-                      <div class="text-title">Ooops...</div>
+                      <div class="text-title">{{'account.map.empty_title' | translate}}</div>
                       <div class="text-info">
-                        You have not traveled with us yet. <br>
-                        View <a>our tours</a> and create your own map of adventures.
+                        <span [innerHTML]="'account.map.empty_text1' | translate"></span>
+                        <a>{{'account.map.empty_text_a' | translate}}</a> {{'account.map.empty_text2' | translate}}
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="no-orders" *ngIf="!ordersData.length">
-                  No ordered tours yet
+                  {{'account.orders.empty_title' | translate}}
                 </div>
               </ng-template>
             </ngb-tab>
 
             <ng-container *ngIf="isMyAccount">
             <ngb-tab>
-              <ng-template ngbTabTitle>Orders</ng-template>
+              <ng-template ngbTabTitle>{{'account.orders.tab_title' | translate}}</ng-template>
               <ng-template ngbTabContent>
                 <div *ngIf="ordersData.length" class="tabset-item tabset-item-orders">
                   <div class="order-items">
@@ -205,9 +205,9 @@
                             <i class="fas fa-ellipsis-v"></i>
                           </div>
                           <div class="title">{{tour.title}}</div>
-                          <div class="number">Number: {{tour._id}}</div>
-                          <div class="price">Price: ${{ordersData[i].cost}}</div>
-                          <div class="date">Date: {{ordersData[i].date.day | number: '2.0'}}/{{ordersData[i].date.month | number: '2.0'}}/{{ordersData[i].date.year}}</div>
+                          <div class="number">{{'account.orders.number' | translate}}: {{tour._id}}</div>
+                          <div class="price">{{'account.orders.price' | translate}}: ${{ordersData[i].cost}}</div>
+                          <div class="date">{{'account.orders.date' | translate}}: {{ordersData[i].date.day | number: '2.0'}}/{{ordersData[i].date.month | number: '2.0'}}/{{ordersData[i].date.year}}</div>
                         </div>
                       </div>
                     </div>
@@ -216,21 +216,21 @@
                 </div>
 
                 <div class="no-orders" *ngIf="!ordersData.length">
-                  No ordered tours yet
+                  {{'account.orders.empty_title' | translate}}
                 </div>
               </ng-template>
             </ngb-tab>
             </ng-container>
 
             <ngb-tab>
-              <ng-template ngbTabTitle>Favourites</ng-template>
+              <ng-template ngbTabTitle>{{'account.favourites.tab_title' | translate}}</ng-template>
               <ng-template ngbTabContent>
 <!--                <div class="tabset-item">
                   <app-tours-section></app-tours-section>
                 </div>-->
 
                 <div class="no-favourites">
-                  No favourites tours
+                  {{'account.favourites.empty_title' | translate}}
                 </div>
               </ng-template>
             </ngb-tab>
