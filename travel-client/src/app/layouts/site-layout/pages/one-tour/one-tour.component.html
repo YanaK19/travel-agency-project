@@ -1,3 +1,8 @@
+<div *ngIf="!isLoaded()" class="loading">
+  <app-loader></app-loader>
+</div>
+
+
 <div class="page" *ngIf="isLoaded()">
 
   <!--////////////////////////-->
@@ -46,7 +51,7 @@
 
   <div class="container w-auto main-container">
     <div class="row">
-      <div class="col-md-9 main">
+      <div class="col-lg-9 main">
         <div class="tour-tabs">
         <ngb-tabset [destroyOnHide]="false">
           <ngb-tab>
@@ -219,7 +224,7 @@
         </div>
     </div>
 
-      <div class="col-md-3 sidebar">
+      <div class="col-lg-3 sidebar">
         <div class="price-block">
           <div class="price d-flex justify-content-center align-content-center">
             <div class="price-icon"><i class="fas fa-tags"></i></div>
@@ -228,48 +233,7 @@
           <div class="clarification">{{'tour.cost' | translate}}</div>
         </div>
 
-        <div class="form-booking">
-          <h4>{{'tour.booking.title' | translate}}</h4>
-          <form id="booking-form">
-            <div class="booking-form-item">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" [placeholder]="'tour.booking.placeholder_name' | translate" aria-label="Name" aria-describedby="name-item">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="name-item"><i class="fas fa-user"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="booking-form-item">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control"  [placeholder]="'tour.booking.placeholder_email' | translate" aria-label="Email" aria-describedby="email-item">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="email-item"><i class="fas fa-envelope"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="booking-form-item">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control"
-                       placeholder="11/11/1111"
-                       aria-label="Date" aria-describedby="date-item">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="date-item"><i class="fas fa-calendar-day"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="booking-form-item">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="number-item"><i class="fas fa-users"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="booking-form-item">
-              <button type="submit" class="btn">{{'tour.booking.button_book' | translate}}</button>
-            </div>
-          </form>
-        </div>
+        <book-block [tour]="tour"></book-block>
 
         <div class="advertisement">
           <div class="ad-image"><img src="../../../../../assets/images/picture6.png" alt=""></div>

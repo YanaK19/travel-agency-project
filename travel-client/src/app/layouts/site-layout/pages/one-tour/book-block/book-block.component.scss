@@ -1,0 +1,24 @@
+.form-booking {
+  background: #41aba3;
+  margin-top: 40px;
+  border-radius: 3px;
+  padding: 12px;
+
+  h4 {
+    color: #fff;
+    text-align: center;
+    margin: 20px;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+  }
+
+  button {
+    background: #0f5751;
+    color: #fff;
+    border: none;
+  }
+
+  .custom-select {
+    margin-bottom: 15px;
+  }
+}

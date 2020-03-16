@@ -7,7 +7,7 @@
         <div class="d-flex flex-column">
           <div class="profile-icon">
             <img *ngIf="userData && userData.avatar.length" [src]="userData.avatar">
-            <img *ngIf="!userData.avatar.length" class="d-block" src="../../../../../assets/images/default-account-img.png">
+            <img *ngIf="!userData.avatar.length" class="d-block" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80">
           </div>
 
           <div *ngIf="userData" class="additional_user-name additional_item">
@@ -38,7 +38,8 @@
 
               <div *ngFor="let subscribtionData of subscribtionsData" (click)="renderUserAccountPage(subscribtionData)" class="additional_item-content">
                   <div class="user-icon">
-                    <img src="https://images.unsplash.com/photo-1456327102063-fb5054efe647?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+                    <img *ngIf="subscribtionData.avatar" [src]="subscribtionData.avatar" alt="">
+                    <img *ngIf="!subscribtionData.avatar" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80">
                   </div>
                   <div class="user-name">{{subscribtionData.name}}</div>
               </div>
@@ -165,7 +166,7 @@
                   <div class="continue">...</div>
                 </div>
 
-                <div class="no-tours" *ngIf="!ordersData.length && isMyAccount">
+                <div class="no-tours" *ngIf="!orderedToursLeft.length && isMyAccount && isLoaded">
                   <div class="have-no-trips">
                     <div class="have-no-trips-picture">
                       <img src="../../assets/images/cat-simon.gif" alt="">
@@ -180,9 +181,14 @@
                   </div>
                 </div>
 
-                <div class="no-orders" *ngIf="!ordersData.length">
+                <div class="no-orders" *ngIf="!ordersData.length && isLoaded">
                   {{'account.orders.empty_title' | translate}}
                 </div>
+
+                <div class="no-orders" *ngIf="!isLoaded">
+                  <app-loader></app-loader>
+                </div>
+
               </ng-template>
             </ngb-tab>
 

@@ -46,6 +46,7 @@
                       [disabled]="loginForm.invalid || loginForm.disabled"
               >{{'login.form.button_signin' | translate}}</button>
             </div>
+              <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
               <div class="form-group">
                 <a routerLink="/register" class="ForgetPwd" value="Login">{{'login.form.register_link' | translate}}</a>
               </div>

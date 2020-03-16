@@ -93,7 +93,7 @@
     max-width: 300px;
     height: 50px;
     border-right: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #fff;
   }
 
@@ -108,33 +108,18 @@
     width: 53px;
   }
 
-  #s-circle {
-    position: relative;
-    top: -5px;
-    left: -3px;
-    width: 27px;
-    height: 27px;
-    margin-top: 0;
-    border: 5px solid #fff;
-    background-color: transparent;
-    border-radius: 50%;
-    transition: 0.5s ease all;
+  .i-search {
+    font-size: 1.2rem;
+    color: #fff;
+    transition: 0.3s;
+
+    &:hover {
+      font-size: 1.5rem;
+    }
   }
 
-  button span {
-    position: absolute;
-    top: 68px;
-    left: 43px;
-    display: block;
-    width: 45px;
-    height: 15px;
-    background-color: transparent;
-    border-radius: 10px;
-    transform: rotateZ(52deg);
-    transition: 0.5s ease all;
-  }
-
-  button span:before, button span:after {
+  button span:before,
+  button span:after {
     content: '';
     position: absolute;
     bottom: 6px;

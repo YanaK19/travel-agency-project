@@ -26,7 +26,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { ToursSectionComponent } from './layouts/site-layout/pages/tours/tours-section/tours-section.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader'
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { BookBlockComponent } from './layouts/site-layout/pages/one-tour/book-block/book-block.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -50,6 +51,7 @@ export function createTranslateLoader(http: HttpClient) {
     NotFoundComponent,
     ContactUsComponent,
     ToursSectionComponent,
+    BookBlockComponent,
    ],
   imports: [
     BrowserModule,

@@ -698,7 +698,6 @@ $color_lightSea: #1cbbb4;
   text-transform: uppercase;
 }
 
-
 .user-map-container {
   .line {
     width: 100%;
@@ -847,7 +846,7 @@ $color_lightSea: #1cbbb4;
   position: relative;
 
   img {
-    object-fit: contain;
+    object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;

@@ -9,7 +9,14 @@ $font1: 'Exo', sans-serif;
   z-index: 1;
   color: $lightBlack;
   min-height: 100vh;
-  background: url(https://cdn.pixabay.com/photo/2014/05/03/01/01/leaves-336694_1280.jpg);
+}
+
+.page_bgr {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
 }
 
 .main-title {

@@ -11,6 +11,12 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class SiteLayoutComponent implements OnInit {
   userId = '';
+  languages = {
+    'en': {name: 'eng', icon: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg"},
+    'ru': {name: 'рус', icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/320px-Flag_of_Russia.svg.png"}
+  };
+
+  selectedLang;
 
   constructor(private auth: AuthorizationService,
               private router: Router,
@@ -19,16 +25,19 @@ export class SiteLayoutComponent implements OnInit {
     translate.addLangs(['en', 'ru']);
     if (localStorage.getItem('locale')) {
       const browserLang = localStorage.getItem('locale');
+      this.selectedLang = this.languages[browserLang];
       translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
     } else {
       localStorage.setItem('locale', 'en');
       // this language will be used as a fallback when a translation isn't found in the current language
       translate.setDefaultLang('en');
+      this.selectedLang = this.languages['en'];
     }
   }
 
 
   changeLang(language: string) {
+    this.selectedLang = this.languages[language];
     localStorage.setItem('locale', language);
     this.translate.use(language);
   }

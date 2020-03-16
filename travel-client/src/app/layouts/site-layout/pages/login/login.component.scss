@@ -69,8 +69,11 @@ section {
 
 .invalid-tltp {
   font-size: 0.95rem;
-  color: rgba(179, 18, 18, 0.65);
-  font-weight: bold;
+  color: #d7370f;
+}
+
+.error-message {
+  color: #d7370f;
 }
 
 .more {

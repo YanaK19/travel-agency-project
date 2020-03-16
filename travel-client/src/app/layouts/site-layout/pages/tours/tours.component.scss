@@ -3,7 +3,7 @@ $color_lightSea: #1cbbb4;
 .page {
   background: #fff;
   padding-top: 12vh;
-  background: linear-gradient(180deg, rgb(76, 123, 140) 5%, #110f48 85%);
+  background: url("https://images.unsplash.com/photo-1527049979667-990f1d0d8e7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80");
 }
 
 .block0 {
@@ -27,7 +27,7 @@ $color_lightSea: #1cbbb4;
     padding: 10px 20px;
     color: #fff;
     text-align: end;
-    background: #110f4880;
+    background: #279ca1b8;
 
     .block0_subtitle {
       font-size: 1.2rem;
@@ -91,7 +91,7 @@ input {
   }
 
   i {
-    color: #3e617c;
+    color: #161616;
   }
 
   .btn-search span {
@@ -113,7 +113,7 @@ input {
     text-transform: uppercase;
     width: 210px;
     opacity: 1;
-    background-color: #110f4880;
+    background-color: #df084aa8;
     border: none;
     margin: 0 auto;
     height: 38px;
@@ -124,7 +124,7 @@ input {
 
     &:hover {
       animation: rotate 0.7s ease-in-out both;
-      background-color: rgba(6, 6, 29, 0.67);
+      background-color: rgba(223, 8, 74, 0.89);
 
       span {
         animation: storm 0.7s ease-in-out both;

@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   resultMessage: any = null;
   loginForm: FormGroup;
   subscription: Subscription;
+  errorMessage = "";
   constructor(private auth: AuthorizationService,
               private router: Router,
               private route: ActivatedRoute,
@@ -65,9 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       (err) => {
         this.loginForm.enable();
         console.log('err', err.error);
-        this.errorHandler.handleError(err);
-       // this.resultMessage = this.errorHandler.errorMessage;
-          // err.error.message;
+        this.errorMessage = err.error.message;
       }
     );
   }

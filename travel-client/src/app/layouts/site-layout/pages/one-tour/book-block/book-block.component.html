@@ -1,0 +1,45 @@
+<div class="form-booking">
+  <h4>{{'tour.booking.title' | translate}}</h4>
+  <form id="booking-form" [formGroup]="bookForm">
+    <div class="booking-form-item">
+      <div class="input-group mb-3">
+        <input formControlName="name" type="text" class="form-control" [placeholder]="'tour.booking.placeholder_name' | translate" aria-label="Name" aria-describedby="name-item">
+        <div class="input-group-append">
+          <span class="input-group-text" id="name-item"><i class="fas fa-user"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form-item">
+      <div class="input-group mb-3">
+        <input formControlName="email" type="text" class="form-control"  [placeholder]="'tour.booking.placeholder_email' | translate" aria-label="Email" aria-describedby="email-item">
+        <div class="input-group-append">
+          <span class="input-group-text" id="email-item"><i class="fas fa-envelope"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form-item">
+      <div class="input-group mb-3">
+        <input formControlName="amount" type="text" class="form-control" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
+        <div class="input-group-append">
+          <span class="input-group-text" id="number-item"><i class="fas fa-users"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form-item">
+      <select formControlName="dates" class="custom-select" id="inputGroupSelect01">
+        <option selected>
+          {{tour.dates[0].dateFrom.day  | number: '2.0'}}/{{tour.dates[0].dateFrom.month | number: '2.0'}}/{{tour.dates[0].dateFrom.year}},
+          {{tour.dates[0].dateTo.day | number: '2.0'}}/{{tour.dates[0].dateTo.month | number: '2.0'}}/{{tour.dates[0].dateTo.year}}
+        </option>
+        <option *ngFor="let date of tour.dates | slice:1; let indx = index;">
+          {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}},
+          {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}}
+        </option>
+      </select>
+    </div>
+    <div class="booking-form-item">
+      <button (click)="onBook()" type="submit" class="btn">{{'tour.booking.button_book' | translate}}</button>
+    </div>
+  </form>
+</div>
+

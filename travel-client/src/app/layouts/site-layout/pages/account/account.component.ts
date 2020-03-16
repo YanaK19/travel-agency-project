@@ -26,6 +26,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   iter = 1;
   alreadySubscribed = false;
   image: any = '';
+  isLoaded = false;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -69,12 +70,11 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   loadPageData() {
-
     this.subscribtionsData = [];
     this.userData.subscriptions.forEach((userId) => {
       this.userService.getUserById(userId).subscribe((data => {
         this.subscribtionsData.push(data);
-/*        console.log(this.subscribtionsData);*/
+        console.log(this.subscribtionsData);
       }));
     });
 
@@ -102,11 +102,15 @@ export class AccountComponent implements OnInit, OnDestroy {
                 this.orderedToursRight.push(tour);
               }
               this.iter++;
+              if (orders.length == this.orderedToursLeft.length + this.orderedToursRight.length) {
+                this.isLoaded = true;
+              }
             });
           });
+        } else {
+          this.isLoaded = true;
         }
       });
- /*   }*/
   }
 
   toggle() {

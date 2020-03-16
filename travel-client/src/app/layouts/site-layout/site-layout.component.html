@@ -7,10 +7,15 @@
     </a>
 
     <div class="navbar-lang">
-      <div>{{langSelect.value}}</div>
-      <select #langSelect (change)="changeLang(langSelect.value)">
-        <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-      </select>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle navbar" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-icon"><img [src]="selectedLang.icon"></span>
+          {{selectedLang.name}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a *ngFor="let lang of translate.getLangs(); let i=index" class="dropdown-item" (click)="changeLang(lang, i)">{{lang}}</a>>
+        </div>
+      </div>
     </div>
 
     <button class="navbar-toggler"

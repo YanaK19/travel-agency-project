@@ -30,8 +30,7 @@
                 >
                 <div class="input-group-append btn-container">
                   <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-                    <div id="s-circle"></div>
-                    <span></span>
+                    <i class="fas fa-search i-search"></i>
                   </button>
                 </div>
               </div>
@@ -51,7 +50,7 @@
     </div>
   </div>
 
-  <div class="about-container" *ngIf="isLoaded()">
+  <div class="about-container">
     <div class="about-title">{{'home.about_us.title' | translate}}</div>
     <div class="decoration"></div>
     <div class="about-container-inner container">
@@ -104,18 +103,20 @@
 
 <!--  //////////// top 10 ////////////-->
 
-  <div class="container-fluid block-views" *ngIf="isLoaded()">
-    <div class="title-views">
-      <h2 class="text-center">{{'home.top10' | translate}}</h2>
-    </div>
-    <div class="reviews-container">
-      <div class="box" [ngClass]="topToursClasses[indx]" *ngFor="let tour of topTours; let indx = index" (click)="renderTourPage(tour._id)">
-        <div class="imgBox">
-          <img [src]="tour.images[0]">
-        </div>
-        <div class="details">
-          <div class="content">
-            <h2>{{tour.title}}</h2>
+  <div class="container-fluid block-views">
+    <div *ngIf="isLoaded()">
+      <div class="title-views">
+        <h2 class="text-center">{{'home.top10' | translate}}</h2>
+      </div>
+      <div class="reviews-container">
+        <div class="box" [ngClass]="topToursClasses[indx]" *ngFor="let tour of topTours; let indx = index" (click)="renderTourPage(tour._id)">
+          <div class="imgBox">
+            <img [src]="tour.images[0]">
+          </div>
+          <div class="details">
+            <div class="content">
+              <h2>{{tour.title}}</h2>
+            </div>
           </div>
         </div>
       </div>
