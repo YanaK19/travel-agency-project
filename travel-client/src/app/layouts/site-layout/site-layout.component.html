@@ -13,7 +13,7 @@
           {{selectedLang.name}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a *ngFor="let lang of translate.getLangs(); let i=index" class="dropdown-item" (click)="changeLang(lang, i)">{{lang}}</a>>
+          <a *ngFor="let lang of translate.getLangs(); let i=index" class="dropdown-item" (click)="onChangeLang(lang, i)">{{lang}}</a>>
         </div>
       </div>
     </div>

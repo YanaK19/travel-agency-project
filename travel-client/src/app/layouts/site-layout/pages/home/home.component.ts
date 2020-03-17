@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as AOS from 'aos';
 import {ReviewService} from '../../../../services/review.service';
 import {Review} from '../../../../interfaces/review/review.interface';
@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {LocationService} from '../../../../services/location.service';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {LangService} from '../../../../services/lang.service';
 
 @Component({
   selector: 'app-home-page',
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   users: UserData[] = [];
   countries: string[] = [];
   countryExist: boolean = true;
+  lang: string;
 
   constructor(private toursService: ToursService,
               private reviewService: ReviewService,
@@ -100,8 +102,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  renderToursPageByRest(restType: string) {
-    this.router.navigate(['/tours'], {queryParams: {rest: restType}});
+  renderToursPageByRest(restType) {
+    this.router.navigate(['/tours'], {queryParams: {rest: restType.innerHTML}});
   }
 }
 

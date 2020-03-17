@@ -4,7 +4,7 @@ import authenticateJwt from "../middleware/authenticateJwt";
 import isAdmin from "../middleware/isAdmin";
 const rangeRoutes = express.Router();
 
-rangeRoutes.post('/', authenticateJwt, isAdmin, create);
+rangeRoutes.post('/',/* authenticateJwt, isAdmin,*/ create);
 rangeRoutes.put('/:id', authenticateJwt, isAdmin, update);
 rangeRoutes.get('/:id', getRangeById);
 rangeRoutes.get('/', getRanges);

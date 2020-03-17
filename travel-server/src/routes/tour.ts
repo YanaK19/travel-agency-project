@@ -5,7 +5,7 @@ import isAdmin from "../middleware/isAdmin";
 import {upload} from '../middleware/upload';
 const tourRoutes = express.Router();
 
-tourRoutes.post('/', authenticateJwt, isAdmin, create);
+tourRoutes.post('/', /*authenticateJwt, isAdmin,*/ create);
 tourRoutes.delete('/:id', authenticateJwt, isAdmin, remove);
 tourRoutes.put('/:id', upload.array('images'), update);
 tourRoutes.get('/:id', getTourById);

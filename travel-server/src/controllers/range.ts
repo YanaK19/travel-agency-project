@@ -4,8 +4,8 @@ import Tour from '../models/Tour';
 
 async function create(req:any, res:any) {
     const range = new Range({
-        category: req.body.category,
-        types:  req.body.types,
+        ru: req.body.ru,
+        en:  req.body.en,
     });
 
     try {
@@ -17,18 +17,25 @@ async function create(req:any, res:any) {
 }
 
 async function getRangeById(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     try {
-        const range = await Range.findById(req.params.id);
-        res.status(200).json(range)
+        const range:any = await Range.findById(req.params.id);
+        res.status(200).json(range[lang])
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
 async function getRanges(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     try {
         const ranges = await Range.find({});
-        res.status(200).json(ranges)
+        let resRanges: any = [];
+        ranges.forEach((range: any) => {
+            resRanges.push(range[lang]);
+        });
+
+        res.status(200).json(resRanges)
     } catch (e) {
         errorHandler(res, e)
     }

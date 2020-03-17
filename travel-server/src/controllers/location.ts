@@ -4,8 +4,8 @@ import Range from "../models/Range";
 
 async function create(req:any, res:any) {
     const location = new Location({
-        country: req.body.country,
-        towns: req.body.towns
+        ru: req.body.ru,
+        en: req.body.en
     });
 
     try {
@@ -17,9 +17,10 @@ async function create(req:any, res:any) {
 }
 
 async function getLocationById(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     try {
-        const location = await Location.findById(req.params.id);
-        res.status(200).json(location)
+        const location: any = await Location.findById(req.params.id);
+        res.status(200).json(location[lang]);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -40,9 +41,15 @@ console.log(country, town, {country, town})
 
 
 async function getLocations(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     try {
         const locations = await Location.find();
-        res.status(200).json(locations)
+        let resLocations: any = [];
+        locations.forEach((location: any) => {
+            resLocations.push(location[lang])
+        });
+
+        res.status(200).json(resLocations)
     } catch (e) {
         errorHandler(res, e)
     }

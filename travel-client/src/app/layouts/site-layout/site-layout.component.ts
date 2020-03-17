@@ -3,6 +3,7 @@ import {AuthorizationService} from '../../services/authorization.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {TranslateService} from '@ngx-translate/core';
+import {LangService} from '../../services/lang.service';
 
 @Component({
   selector: 'app-site-layout',
@@ -21,7 +22,8 @@ export class SiteLayoutComponent implements OnInit {
   constructor(private auth: AuthorizationService,
               private router: Router,
               private userService: UserService,
-              public translate: TranslateService) {
+              public translate: TranslateService,
+              private langService: LangService) {
     translate.addLangs(['en', 'ru']);
     if (localStorage.getItem('locale')) {
       const browserLang = localStorage.getItem('locale');
@@ -36,10 +38,10 @@ export class SiteLayoutComponent implements OnInit {
   }
 
 
-  changeLang(language: string) {
-    this.selectedLang = this.languages[language];
-    localStorage.setItem('locale', language);
-    this.translate.use(language);
+  onChangeLang(language: string) {
+    this.langService.changeLang(language);
+    this.selectedLang = this.languages[this.langService.getLang()];
+    this.refresh();
   }
 
   ngOnInit() {
@@ -62,5 +64,9 @@ export class SiteLayoutComponent implements OnInit {
     } else {
       this.router.navigate(['/account/' + this.userService.getUserData()._id]);
     }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

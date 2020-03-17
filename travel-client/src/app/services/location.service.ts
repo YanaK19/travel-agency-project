@@ -3,14 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TourLocation} from '../interfaces/tourLocation/tourLocation.interface';
 import {map} from 'rxjs/operators';
+import {LangService} from './lang.service';
 
 @Injectable({providedIn: 'root'})
 export class LocationService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private langService: LangService) {
   }
 
   getContries(): Observable<string[]> {
-    return this.http.get<TourLocation[]>('api/location')
+    return this.http.get<TourLocation[]>('api/location' + this.langService.setOnlyLangParam())
       .pipe(map((locations: any) => {
           return locations.map(location => location.country);
         })

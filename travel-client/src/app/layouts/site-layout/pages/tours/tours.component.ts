@@ -58,12 +58,13 @@ export class ToursComponent implements OnInit {
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
+      console.log(ranges)
       ranges.forEach(range => {
-        if (range.category == 'transport') {
+        if (range.category == 'transport' || range.category == 'транспорт') {
           this.rangeTransports = range;
         }
 
-        if (range.category === 'rest') {
+        if (range.category === 'rest' || range.category === 'отдых') {
           this.rangeTourTypes = range;
         }
       });
@@ -107,6 +108,12 @@ export class ToursComponent implements OnInit {
     });
 
     this.toursService.getToursByRestType(type).subscribe(tours => {
+      this.tours = tours;
+    });
+  }
+
+  reset() {
+    this.toursService.getTours().subscribe(tours => {
       this.tours = tours;
     });
   }

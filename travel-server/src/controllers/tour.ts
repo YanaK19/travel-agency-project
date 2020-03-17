@@ -1,17 +1,13 @@
 import Tour from "../models/Tour";
 import errorHandler from '../utils/errorHandler';
 import Review from '../models/Review';
-
 async function create(req:any, res:any) {
     const tour = new Tour({
-        title: req.body.title,
-        restType: req.body.restType,
-        transportType: req.body.transportType,
-        cost: req.body.cost,
-        route: req.body.route,
-        moreInfo: req.body.moreInfo,
-        images: req.body.images ? req.body.image : [],
+        ru: req.body.ru,
+        en: req.body.en,
+        images: req.body.images.length ? req.body.images : [],
         dates: req.body.dates,
+        cost: req.body.cost,
         discount: req.body.discount,
         bookedMax: req.body.bookedMax,
         booked: req.body.booked,
@@ -39,6 +35,7 @@ async function remove(req:any, res:any) {
 }
 
 async function update(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     let requestData = req.body;
 
     if(req.files) {
@@ -50,12 +47,29 @@ async function update(req:any, res:any) {
 
 
     try {
-        const tour = await Tour.findOneAndUpdate(
+        const tour: any = await Tour.findOneAndUpdate(
             {_id: req.params.id},
             {$set: requestData},
             {new: true}
         );
-        res.status(200).json(tour)
+
+        let resTour: any = {
+            _id: tour._id,
+            title: tour[lang].title,
+            restType: tour[lang].restType,
+            transportType: tour[lang].transportType,
+            route: tour[lang].route,
+            moreInfo: tour[lang].moreInfo,
+            images: tour.images,
+            dates: tour.dates,
+            cost: tour.cost,
+            discount: tour.discount,
+            bookedMax: tour.bookedMax,
+            booked: tour.booked,
+            views: tour.views
+        };
+
+        res.status(200).json(resTour)
     } catch (e) {
         errorHandler(res, e)
     }
@@ -64,14 +78,45 @@ async function update(req:any, res:any) {
 
 async function getTourById(req:any, res:any) {
     try {
-        const tour = await Tour.findById(req.params.id);
-        res.status(200).json(tour)
+        let resTour: any;
+        let lang: string = req.query.lang ? req.query.lang : 'en';
+        let fields: any = {
+            [lang]: 1,
+            cost: 1,
+            images:1,
+            dates: 1,
+            discount: 1,
+            bookedMax: 1,
+            booked: 1,
+            views: 1
+        };
+
+        const tour: any = await Tour.findById(req.params.id, fields);
+
+        resTour = {
+            _id: tour._id,
+            title: tour[lang].title,
+            restType: tour[lang].restType,
+            transportType: tour[lang].transportType,
+            route: tour[lang].route,
+            moreInfo: tour[lang].moreInfo,
+            images: tour.images,
+            dates: tour.dates,
+            cost: tour.cost,
+            discount: tour.discount,
+            bookedMax: tour.bookedMax,
+            booked: tour.booked,
+            views: tour.views
+        };
+        res.status(200).json(resTour);
     } catch (e) {
-        errorHandler(res, e)
+        errorHandler(res, e);
     }
 }
 
 async function getFilSortTours(req:any, res:any){
+    let lang: string = req.query.lang ? req.query.lang : 'en';
+
    //req.query - object
     try{
         const permFilters: string[] = ["restType", "transportType",
@@ -81,7 +126,18 @@ async function getFilSortTours(req:any, res:any){
                                       ];
 
         let filters: any = [];
+        let fields: any = {
+            [lang]: 1,
+            cost: 1,
+            images:1,
+            dates: 1,
+            discount: 1,
+            bookedMax: 1,
+            booked: 1,
+            views: 1
+        };
 
+        let field: string;
         for (let paramName in req.query){
             if(permFilters.indexOf( paramName) != -1){
                 if(paramName === "dateFrom" || paramName === "dateTo"){
@@ -149,14 +205,15 @@ async function getFilSortTours(req:any, res:any){
                 }
                 }else if(paramName === "discount"){
                     filters.push({discount: {$gt: 0}});
-                } else if (paramName === "toCountry"){
-                    filters.push({'route.toCountry': req.query[paramName]})
                 } else if (paramName === "fromCountry"){
-                    filters.push({'route.fromCountry': req.query[paramName]})
+                    field = lang + '.route.fromCountry';
+                    filters.push({[field]: req.query[paramName]});
+                } else if (paramName === "toCountry"){
+                    field = lang + '.route.toCountry';
+                    filters.push({[field]: req.query[paramName]})
                 } else{
-                    let query:any = {};
-                    query[paramName] = req.query[paramName];
-                    filters.push(query);
+                    field = lang + '.' + paramName;
+                    filters.push({ [field]: req.query[paramName]});
                 }
             }
         }
@@ -164,34 +221,53 @@ async function getFilSortTours(req:any, res:any){
         let tours:any;
         if(req.query.sortBy){
             let sortParam:any = {};
-            if(req.query.sortBy === "views"){
+            if(req.query.sortBy === "views" || req.query.sortBy === "просмотрам"){
                 sortParam.views = -1;
             }
-            if(req.query.sortBy === "cost"){
-                sortParam.cost = -1;
+            if(req.query.sortBy === "cost" || req.query.sortBy === "цене"){
+                sortParam.cost = 1;
             }
-            if(req.query.sortBy === "discount"){
+            if(req.query.sortBy === "discount" || req.query.sortBy === "скидке"){
                 sortParam.discount = -1;
             }
 
             if(filters.length){
                 // /tour?sortBy=...&restType=...&discount=...
-                tours = await Tour.find({ $and: filters}).sort(sortParam);
+                tours = await Tour.find({ $and: filters}, fields).sort(sortParam);
             }else {
                 // /tour?sortBy=...
-                tours = await Tour.find().sort(sortParam);
+                tours = await Tour.find({}, fields).sort(sortParam);
             }
         }else{
             if(filters.length){
                 // /tour?restType=...&discount=...
-                tours = await Tour.find({ $and: filters});
+                tours = await Tour.find({ $and: filters}, fields);
             }else {
                 // /tour
-                tours = await Tour.find();
+                tours = await Tour.find({}, fields);
             }
         }
 
-        res.status(200).json(tours);
+        let resTours:any = [];
+        tours.forEach((tour: any) => {
+            resTours.push({
+                _id: tour._id,
+                title: tour[lang].title,
+                restType: tour[lang].restType,
+                transportType: tour[lang].transportType,
+                route: tour[lang].route,
+                moreInfo: tour[lang].moreInfo,
+                images: tour.images,
+                dates: tour.dates,
+                cost: tour.cost,
+                discount: tour.discount,
+                bookedMax: tour.bookedMax,
+                booked: tour.booked,
+                views: tour.views
+            })
+        });
+
+        res.status(200).json(resTours);
     } catch (e) {
         errorHandler(res, e)
     }

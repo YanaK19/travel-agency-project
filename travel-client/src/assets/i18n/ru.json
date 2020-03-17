@@ -54,12 +54,12 @@
 
       "sport": "спорт",
       "excursions": "экскурсии",
-      "children": "с детьми",
+      "children": "дети",
       "exotic": "экзотика",
 
       "festivals": "фестивали",
       "education": "обучение",
-      "shop": "магазины",
+      "shopping": "шоппинг",
       "beach": "пляж"
     },
     "reviews": {
@@ -95,7 +95,7 @@
     },
     "sort": {
       "title": "Сортировать по",
-      "view": "просмотрам",
+      "views": "просмотрам",
       "cost": "цене",
       "discount": "скидке"
     },

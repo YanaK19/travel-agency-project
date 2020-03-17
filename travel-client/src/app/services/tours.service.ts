@@ -5,31 +5,33 @@ import {Tour} from '../interfaces/tour/tour.interface';
 import {map} from 'rxjs/operators';
 import {Order} from '../interfaces/order/order.interface';
 import {AuthorizationService} from './authorization.service';
+import {LangService} from './lang.service';
 
 @Injectable({providedIn: 'root'})
 export class ToursService {
   constructor(private http: HttpClient,
-              private auth: AuthorizationService) {
+              private auth: AuthorizationService,
+              private langService: LangService) {
   }
 
   getTours(params?: string): Observable<Tour[]> {
     if (params) {
-      return this.http.get<Tour[]>('api/tour' + params);
+      return this.http.get<Tour[]>('api/tour' + params + this.langService.setAndLangParam());
     } else {
-      return this.http.get<Tour[]>('api/tour');
+        return this.http.get<Tour[]>('api/tour' + this.langService.setOnlyLangParam());
     }
   }
 
   getOneTour(id: string): Observable<Tour> {
-    return this.http.get<Tour>('api/tour/' + id);
+      return this.http.get<Tour>('api/tour/' + id + this.langService.setOnlyLangParam());
   }
 
   getToursByRestType(type: string): Observable<Tour[]> {
-      return this.http.get<Tour[]>('api/tour?restType=' + type);
+      return this.http.get<Tour[]>('api/tour?restType=' + type + this.langService.setAndLangParam());
   }
 
   getTop10Tours(): Observable<Tour[]> {
-    return this.http.get<Tour[]>('api/tour?sortBy=views')
+    return this.http.get<Tour[]>('api/tour?sortBy=views' + this.langService.setAndLangParam())
       .pipe(map((data: any) => {
         data.splice(10);
         return data;
@@ -38,7 +40,7 @@ export class ToursService {
   }
 
   getBiggestDiscountTour(): Observable<Tour> {
-    return this.http.get<Tour>('api/tour?sortBy=discount')
+    return this.http.get<Tour>('api/tour?sortBy=discount' + this.langService.setAndLangParam())
       .pipe(map((data: any) => {
           return data[0];
         })
@@ -60,7 +62,7 @@ export class ToursService {
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.put<Tour>('/api/tour/' + updatedTour._id, updatedTour, httpOptions);
+    return this.http.put<Tour>('/api/tour/' + updatedTour._id + this.langService.setOnlyLangParam(), updatedTour, httpOptions);
   }
 
   createTour(newTour: Tour): Observable<any> {
@@ -69,7 +71,7 @@ export class ToursService {
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.post('/api/tour', newTour, httpOptions);
+    return this.http.post('/api/tour' + this.langService.setOnlyLangParam(), newTour, httpOptions);
   }
 
   uploadImages(filesArr, tour): Observable<any> {
@@ -90,6 +92,6 @@ export class ToursService {
       })
     };*/
     console.log(fd)
-    return this.http.put<any>('/api/tour/' + tour._id, fd);
+    return this.http.put<any>('/api/tour/' + tour._id + this.langService.setOnlyLangParam(), fd);
   }
 }

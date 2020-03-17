@@ -4,16 +4,18 @@ import {Observable} from 'rxjs';
 import {Range} from '../interfaces/range/range.interface';
 import {Tour} from '../interfaces/tour/tour.interface';
 import {AuthorizationService} from './authorization.service';
+import {LangService} from './lang.service';
 
 
 @Injectable({providedIn: 'root'})
 export class RangeService {
   constructor(private http: HttpClient,
-              private auth: AuthorizationService) {
+              private auth: AuthorizationService,
+              private langService: LangService) {
   }
 
   getRanges(): Observable<any> {
-    return this.http.get<Range[]>('api/range');
+    return this.http.get<Range[]>('api/range' +  this.langService.setOnlyLangParam());
   }
 
   updateRange(updatedRange): Observable<Range> {
@@ -22,6 +24,6 @@ export class RangeService {
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.put<Range>('/api/range/' + updatedRange._id, updatedRange, httpOptions);
+    return this.http.put<Range>('/api/range/' + updatedRange._id + this.langService.setOnlyLangParam(), updatedRange, httpOptions);
   }
 }

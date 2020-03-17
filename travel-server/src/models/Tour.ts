@@ -1,18 +1,22 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 
-const tourSchema = new Schema({
+const langTourSubschema = new Schema({
     title: {type: String},
     restType: {type: [String]},
     transportType: {type: String},
-    cost: {type: Number},
     route: {
         fromCountry: {type: String},
         fromTown: {type: String},
         toCountry: {type: String},
         toTown: {type: String}
     },
-    moreInfo: {type: String},
+    moreInfo: {type: String}
+}, { _id: false });
+
+const tourSchema = new Schema({
+    ru: langTourSubschema,
+    en: langTourSubschema,
     images: {
         type: [String]
     },
@@ -28,6 +32,7 @@ const tourSchema = new Schema({
             year: {type: Number}
         }
     }],
+    cost: {type: Number},
     discount: {type: Number, default: 0},
     bookedMax: {type: Number},
     booked: {type: Number},

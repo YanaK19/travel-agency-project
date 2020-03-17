@@ -39,6 +39,7 @@ export class OneTourComponent implements OnInit {
     });
 
     this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
+      console.log(reviews)
       this.reviews = reviews;
       if (reviews.length) {
         this.reviews.sort((a, b) => -this.dateService.compareDates(a.date, b.date));

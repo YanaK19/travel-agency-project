@@ -58,7 +58,7 @@
       "exotic": "exotic",
       "festivals": "festivals",
       "education": "education",
-      "shop": "shop",
+      "shopping": "shopping",
       "beach": "beach"
     },
     "reviews": {
@@ -94,7 +94,7 @@
     },
     "sort": {
       "title": "Sort by",
-      "view": "view",
+      "views": "views",
       "cost": "cost",
       "discount": "discount"
     },

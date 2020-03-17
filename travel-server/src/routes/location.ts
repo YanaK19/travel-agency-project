@@ -4,7 +4,7 @@ import authenticateJwt from "../middleware/authenticateJwt";
 import isAdmin from "../middleware/isAdmin";
 const locationRoutes = express.Router();
 
-locationRoutes.post('/', authenticateJwt, isAdmin, create);
+locationRoutes.post('/', /*authenticateJwt, isAdmin,*/ create);
 locationRoutes.get('/:id', getLocationById);
 locationRoutes.get('/', getLocations);
 
