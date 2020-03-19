@@ -15,15 +15,19 @@ export class RangeService {
   }
 
   getRanges(): Observable<any> {
-    return this.http.get<Range[]>('api/range' +  this.langService.setOnlyLangParam());
+    return this.http.get<Range[]>('api/range' + this.langService.setOnlyLangParam());
   }
 
-  updateRange(updatedRange): Observable<Range> {
-    const httpOptions  = {
+  updateRanges(updatedRanges): Observable<Range> {
+    const httpOptions = {
       headers: new HttpHeaders()
-        .set('Authorization',  this.auth.getToken())
+        .set('Authorization', this.auth.getToken())
     };
 
-    return this.http.put<Range>('/api/range/' + updatedRange._id + this.langService.setOnlyLangParam(), updatedRange, httpOptions);
+    return this.http.put<Range>('/api/range', updatedRanges, httpOptions);
+  }
+
+  getAllLangsRanges(): Observable<any> {
+    return this.http.get<Range[]>('api/range/allLangs/ranges');
   }
 }

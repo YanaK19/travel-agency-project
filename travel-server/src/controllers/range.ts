@@ -41,6 +41,15 @@ async function getRanges(req:any, res:any) {
     }
 }
 
+async function getAllLangRanges(req:any, res:any) {
+    try {
+        const ranges = await Range.find({});
+        res.status(200).json(ranges)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function remove(req:any, res:any) {
     try {
         await Range.deleteOne({_id: req.params.id})
@@ -54,15 +63,23 @@ async function remove(req:any, res:any) {
 
 async function update(req:any, res:any) {
     try {
-        const range = await Range.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: req.body},
+        const rangeRest = await Range.findOneAndUpdate(
+            {_id: req.body.rest._id},
+            {$set: req.body.rest},
             {new: true}
         );
-        res.status(200).json(range)
+
+        const rangeTransport = await Range.findOneAndUpdate(
+            {_id: req.body.transport._id},
+            {$set: req.body.transport},
+            {new: true}
+        );
+
+        const ranges = {rest: rangeRest, transport: rangeTransport};
+        res.status(200).json(ranges)
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
-export {create, remove, getRangeById, getRanges, update}
+export {create, remove, getRangeById, getRanges, update, getAllLangRanges}

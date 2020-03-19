@@ -6,6 +6,7 @@ import {RangeService} from '../../../../services/range.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 import {DateHandlerService} from '../../../../services/date-handler.service';
+import validate = WebAssembly.validate;
 
 @Component({
   selector: 'app-editing-page',
@@ -14,29 +15,34 @@ import {DateHandlerService} from '../../../../services/date-handler.service';
   styleUrls: ['./editing.component.scss']
 })
 export class EditingComponent implements OnInit {
-/*  list = [{title: 'info', checked: false}, {title: 'info', checked: false}];*/
-  tours: Tour[] = [];
-  allTours: Tour[] = [];
-  tour: Tour;
+  tours: any[] = [];
   rangeTransports: any;
   rangeTourTypes: any;
-  rangeTransportsTypesLength: number;
-  rangeTourTypesLength: any;
+  ranges_langs: any = {rest: {}, transport: {}};
+
   filterForm: FormGroup;
   dateFromFilter: TourDate;
   tourExist = true;
-  invalidForm = false;
-  newTourImages = [];
-  previewImages = [];
-  @ViewChild("content", {static: false}) content: ElementRef;
 
-  addRestType;
-  addNewRestType;
-  addNewTransportType;
+  selectedEditLang = 'en';
+  tour_langs: any;
+
   addDateFrom;
   addDateTo;
+  addRestType = { en: '', ru: ''};
+  addTransportType = { en: '', ru: ''};
+  delRestTypeInRange = { en: '', ru: ''};
+  delTransportInRange = { en: '', ru: ''};
+  previewImages = [];
+  newTourImages = [];
+
+  @ViewChild("content", {static: false}) content: ElementRef;
+  invalidForm = false;
+  invalidMessage = "";
   isNewTour;
-  editForm;
+
+
+  deletedTourId;
 
   constructor(private modalService: NgbModal,
               private toursService: ToursService,
@@ -56,109 +62,248 @@ export class EditingComponent implements OnInit {
 
     this.toursService.getTours().subscribe(tours => {
       this.tours = tours;
-      this.tour = tours[0];
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
       ranges.forEach(range => {
-        if (range.category == 'transport') {
+        if (range.category === 'transport' || range.category === 'транспорт') {
           this.rangeTransports = range;
-          this.rangeTransportsTypesLength = range.types.length;
         }
 
-        if (range.category == 'rest') {
+        if (range.category === 'rest' || range.category === 'отдых') {
           this.rangeTourTypes = range;
-          this.rangeTourTypesLength = range.types.length;
+        }
+      });
+    });
+
+    this.rangeService.getAllLangsRanges().subscribe(ranges => {
+      ranges.forEach(range => {
+        if (range.en.category === 'transport') {
+          this.ranges_langs.transport = range;
+        }
+
+        if (range.en.category === 'rest') {
+          this.ranges_langs.rest = range;
         }
       });
     });
   }
 
-  openModal(content, tour) {
-    this.tour = tour;
+  editTour() {
+    this.isValid();
+    if(this.invalidForm) {
+      return;
+    }
+  /*  console.log(this.ranges_langs, this.tour_langs)  */
+
+
+    this.rangeService.updateRanges(this.ranges_langs).subscribe(rangesLangs => {
+      this.ranges_langs = rangesLangs;
+
+      this.rangeService.getRanges().subscribe(ranges => {
+        ranges.forEach(range => {
+          if (range.category === 'transport' || range.category === 'транспорт') {
+            this.rangeTransports = range;
+          }
+
+          if (range.category === 'rest' || range.category === 'отдых') {
+            this.rangeTourTypes = range;
+          }
+        });
+      });
+    });
+/*
+    if (this.isNewTour) {
+      this.toursService.createTour(this.tour_langs).subscribe(newTour => {
+        this.toursService.uploadImages(this.newTourImages, newTour).subscribe(t => {
+          this.tours = t;
+          this.tours.push(newTour);
+          this.afterTourUpdate();
+        });
+      });
+    } else {
+      this.toursService.updateTour(this.tour_langs).subscribe(tours => {
+        this.toursService.uploadImages(this.newTourImages, this.tour_langs).subscribe(t => {
+          this.tours = t;
+          this.afterTourUpdate();
+        });
+      });
+    }*/
+  }
+
+  afterTourUpdate() {
+    this.previewImages = [];
+    this.newTourImages = [];
+    this.modalService.dismissAll();
+  }
+
+  isValid() {
+    this.invalidForm = false;
+    ["en", "ru"].forEach(lang => {
+      if (!this.tour_langs[lang].title
+        || !this.tour_langs[lang].transportType
+        || !this.tour_langs[lang].moreInfo
+        || !this.tour_langs[lang].route.fromCountry
+        || !this.tour_langs[lang].route.fromTown
+        || !this.tour_langs[lang].route.toCountry
+        || !this.tour_langs[lang].route.toTown
+        || !this.tour_langs[lang].restType.length
+      ) {
+        this.invalidForm = true;
+        this.invalidMessage = "* Please, fill all fields";
+      }
+    });
+
+    if (!this.tour_langs.cost
+      || !this.tour_langs.dates.length
+      || !this.tour_langs.bookedMax
+    ) {
+      this.invalidMessage = "* Please, fill all fields";
+    }
+
+    if (this.tour_langs.en.restType.length != this.tour_langs.ru.restType.length) {
+      this.invalidMessage = "* Data in different languages doesn't match";
+    }
+  }
+
+  openModal(content, tourId) {
     this.isNewTour = false;
     this.invalidForm = false;
-    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    this.toursService.getAllLangsTourById(tourId).subscribe((tour) => {
+      this.tour_langs = tour;
+      this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    });
+  }
 
+  addNewTourDate() {
+    this.tour_langs.dates.push({dateFrom: this.addDateFrom, dateTo: this.addDateTo});
+  }
+
+  deleteDateInTour(dateIndex) {
+    this.tour_langs.dates.splice(dateIndex, 1);
+  }
+
+  AddNewRestType(newTypeInput: HTMLInputElement, lang: string) {
+     this.tour_langs[lang].restType.push(newTypeInput.value);
+     this.ranges_langs.rest[lang].types.push(newTypeInput.value);
+  }
+
+  addRestTourType(lang) {
+      this.tour_langs[lang].restType.push(this.addRestType[lang]);
+  }
+
+  deleteRestTourType(index, lang) {
+    this.tour_langs[lang].restType.splice(index, 1);
+  }
+
+  deleteRestTypeFromRanges(lang) {
+    this.ranges_langs.rest[lang].types.splice(this.ranges_langs.rest[lang].types.indexOf(this.delRestTypeInRange[lang]), 1);
+
+    if(this.tour_langs[lang].restType.indexOf(this.delRestTypeInRange[lang]) !== -1) {
+      this.tour_langs[lang].restType.splice(this.tour_langs[lang].restType.indexOf(this.delRestTypeInRange[lang]), 1);
+    }
+
+    this.delRestTypeInRange[lang] = '';
+  }
+
+  addNewTransport(lang: string) {
+    this.ranges_langs.transport[lang].types.push(this.addTransportType[lang]);
+    this.tour_langs[lang].transportType = this.addTransportType[lang];
+  }
+
+  deleteTransportFromRanges(lang) {
+    this.ranges_langs.transport[lang].types.splice(this.ranges_langs.transport[lang].types.indexOf(this.delTransportInRange[lang]), 1);
+
+    if(this.tour_langs[lang].transportType === this.delTransportInRange[lang]) {
+      this.tour_langs[lang].transportType = '';
+    }
+
+    this.delTransportInRange[lang] = '';
+  }
+  onImagesUpload(event) {
+    if (event.target.files.length > 0) {
+      /*this.newTourImages.push(event.target.files);*/
+      for(let file of event.target.files) {
+        this.newTourImages.push(file);
+      }
+
+      console.log(this.newTourImages);
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        let reader = new FileReader();
+        reader.onload = this.imageIsLoaded.bind(this);
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+  }
+
+  imageIsLoaded(e) {
+    this.previewImages.push(e.target.result);
+  };
+
+  onImageDelete(imageIndex) {
+    this.tour_langs.images.splice(imageIndex, 1);
+  }
+
+  onNewImageDelete(imageIndex) {
+    this.newTourImages.splice(imageIndex, 1);
+    this.previewImages.splice(imageIndex, 1);
+    console.log(this.newTourImages, this.previewImages)
+  }
+
+  openDeleteModal(content, tourId) {
+    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    this.deletedTourId = tourId;
+  }
+
+  deleteTour() {
+    this.toursService.deleteTourById(this.deletedTourId).subscribe(toursAfterDel => {
+      this.tours = toursAfterDel;
+    });
+
+    this.modalService.dismissAll();
   }
 
   onAdd(content) {
+    this.isNewTour = true;
     this.invalidForm = false;
-    this.tour = {
-      title: "",
-      route: {
-        fromCountry: "",
-        fromTown: "",
-        toCountry: "",
-        toTown: ""
+
+    this.tour_langs = {
+      ru: {
+        title: "",
+        route: {
+          fromCountry: "",
+          fromTown: "",
+          toCountry: "",
+          toTown: ""
+        },
+        restType: [],
+        transportType: "",
+        moreInfo: ""
       },
-    restType: [],
-    images: [],
-    discount: null,
-    transportType: "",
-    cost: 0,
-    moreInfo: "",
-    dates: [],
-    bookedMax: 0,
-    booked: 0,
-    views: 0
+      en: {
+        title: "",
+        route: {
+          fromCountry: "",
+          fromTown: "",
+          toCountry: "",
+          toTown: ""
+        },
+        restType: [],
+        transportType: "",
+        moreInfo: ""
+      },
+      images: [],
+      discount: null,
+      cost: 0,
+      dates: [],
+      bookedMax: 0,
+      booked: 0,
+      views: 0
     };
 
     this.isNewTour = true;
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
-  }
-
-  editTour() {
-    this.invalidForm = false;
-    if(!this.isNewTour) {
-      const newImagesCopy = this.newTourImages.slice();
-      this.toursService.updateTour(this.tour).subscribe(tour => {
-        this.toursService.uploadImages(newImagesCopy, tour).subscribe(updatedTour => {
-          this.tour = updatedTour;
-          this.tours.forEach((tour, i) => {
-            if (tour._id == updatedTour._id) {
-              this.tours[i] = updatedTour;
-            }
-          })
-        });
-      });
-    } else {
-      for(let val in this.tour){
-        if (val === 'route') {
-          if(!this.tour.route.fromCountry
-            || !this.tour.route.fromTown
-            || !this.tour.route.toCountry
-            || !this.tour.route.toTown) {
-            this.invalidForm = true;
-          }
-        } else if (val === 'dates' && !this.tour.dates.length || val === 'restType' && !this.tour.restType.length) {
-          this.invalidForm = true;
-        } else if (this.tour[val] === 0 && val != 'views' && val !== 'images' && val !== 'discount' && val !== 'booked') {
-          this.invalidForm = true;
-        }
-      }
-
-      if (!this.invalidForm) {
-        const newImagesCopy = this.newTourImages.slice();
-
-        this.toursService.createTour(this.tour).subscribe(createdTour => {
-          this.toursService.uploadImages(newImagesCopy, createdTour).subscribe(updatedTour => {
-            this.tours.push(updatedTour);
-            this.invalidForm = false;
-          });
-        });
-        this.modalService.dismissAll();
-      }
-
-      console.log(this.invalidForm)
-    }
-
-    if (!this.invalidForm) {
-      this.modalService.dismissAll();
-    }
-
-    this.previewImages = [];
-    this.newTourImages = [];
   }
 
   Search() {
@@ -206,101 +351,26 @@ export class EditingComponent implements OnInit {
         }
       }
 
+      console.log(this.tours)
       this.tours = tours;
-    });
-  }
-
-  deleteDateInTour(dateIndex) {
-    this.tour.dates.splice(dateIndex, 1);
-  }
-
-  addNewTourDate() {
-    this.tour.dates.push({dateFrom: this.addDateFrom, dateTo: this.addDateTo});
-  }
-
-  deleteRestTourType(restIndex) {
-    this.tour.restType.splice(restIndex, 1);
-  }
-
-  addRestTourType() {
-    this.tour.restType.push(this.addRestType);
-  }
-
-  AddNewRestType() {
-    this.rangeTourTypes.types.push(this.addNewRestType);
-    this.tour.restType.push(this.addNewRestType);
-
-    this.rangeService.updateRange(this.rangeTourTypes).subscribe(updatedRange => {
-      console.log(updatedRange)
-    });
-  }
-
-  addNewTransport() {
-    this.rangeTransports.types.push(this.addNewTransportType);
-    this.tour.transportType = this.addNewTransportType;
-
-    this.rangeService.updateRange(this.rangeTransports).subscribe(updatedRange => {
-      console.log(updatedRange)
     });
   }
 
   findTourById(tourId) {
     if (!tourId){
-      this.tours = this.allTours;
+      this.tourExist = true;
+      this.toursService.getTours().subscribe(tours => {
+        this.tours = tours;
+      });
     } else {
-      this.allTours = this.tours;
       this.toursService.getOneTour(tourId).subscribe((tour) => {
         this.tours = [tour];
         this.tourExist = true;
       },(err) => {
+        this.tours = [];
         this.tourExist = false;
         console.log('error');
       });
     }
-  }
-
-  openDeleteModal(content, tour) {
-    this.tour = tour;
-    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
-  }
-
-  deleteTour() {
-    this.tours.splice(this.tours.indexOf(this.tour), 1);
-
-    this.toursService.deleteTourById(this.tour._id).subscribe(result => {
-      console.log(result)
-    });
-
-    this.modalService.dismissAll();
-  }
-
-  onImagesUpload(event) {
-    if (event.target.files.length > 0) {
-      /*this.newTourImages.push(event.target.files);*/
-      for(let file of event.target.files) {
-        this.newTourImages.push(file);
-      }
-
-      console.log(this.newTourImages)
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        let reader = new FileReader();
-        reader.onload = this.imageIsLoaded.bind(this);
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-  }
-
-  imageIsLoaded(e) {
-    this.previewImages.push(e.target.result);
-  };
-
-  onImageDelete(imageIndex) {
-    this.tour.images = this.tour.images.filter((image, i) => i != imageIndex);
-  }
-
-  onNewImageDelete(imageIndex) {
-    this.newTourImages = this.newTourImages.filter((image, i) => i != imageIndex);
-    this.previewImages = this.previewImages.filter((image, i) => i != imageIndex);
   }
 }

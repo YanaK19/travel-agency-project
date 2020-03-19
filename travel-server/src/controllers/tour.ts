@@ -2,7 +2,8 @@ import Tour from "../models/Tour";
 import errorHandler from '../utils/errorHandler';
 import Review from '../models/Review';
 async function create(req:any, res:any) {
-    const tour = new Tour({
+    let lang: string = req.query.lang ? req.query.lang : 'en';
+    const tour: any = new Tour({
         ru: req.body.ru,
         en: req.body.en,
         images: req.body.images.length ? req.body.images : [],
@@ -16,19 +17,55 @@ async function create(req:any, res:any) {
 
     try {
         await tour.save();
-        res.status(201).json(tour);
+
+        let resTour = {
+            _id: tour._id,
+            title: tour[lang].title,
+            restType: tour[lang].restType,
+            transportType: tour[lang].transportType,
+            route: tour[lang].route,
+            moreInfo: tour[lang].moreInfo,
+            images: tour.images,
+            dates: tour.dates,
+            cost: tour.cost,
+            discount: tour.discount,
+            bookedMax: tour.bookedMax,
+            booked: tour.booked,
+            views: tour.views
+        };
+
+        res.status(201).json(resTour);
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
 async function remove(req:any, res:any) {
+    let lang: string = req.query.lang ? req.query.lang : 'en';
     try {
         await Review.deleteOne({tourId: req.params.id});
         await Tour.deleteOne({_id: req.params.id});
-        res.status(200).json({
-            message: 'Tour deleted'
-        })
+        let tours = await Tour.find({});
+
+        let resTours:any = [];
+        tours.forEach((tour: any) => {
+            resTours.push({
+                _id: tour._id,
+                title: tour[lang].title,
+                restType: tour[lang].restType,
+                transportType: tour[lang].transportType,
+                route: tour[lang].route,
+                moreInfo: tour[lang].moreInfo,
+                images: tour.images,
+                dates: tour.dates,
+                cost: tour.cost,
+                discount: tour.discount,
+                bookedMax: tour.bookedMax,
+                booked: tour.booked,
+                views: tour.views
+            })
+        });
+        res.status(200).json(resTours);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -53,23 +90,27 @@ async function update(req:any, res:any) {
             {new: true}
         );
 
-        let resTour: any = {
-            _id: tour._id,
-            title: tour[lang].title,
-            restType: tour[lang].restType,
-            transportType: tour[lang].transportType,
-            route: tour[lang].route,
-            moreInfo: tour[lang].moreInfo,
-            images: tour.images,
-            dates: tour.dates,
-            cost: tour.cost,
-            discount: tour.discount,
-            bookedMax: tour.bookedMax,
-            booked: tour.booked,
-            views: tour.views
-        };
+        let tours = await Tour.find({});
+        let resTours:any = [];
+        tours.forEach((tour: any) => {
+            resTours.push({
+                _id: tour._id,
+                title: tour[lang].title,
+                restType: tour[lang].restType,
+                transportType: tour[lang].transportType,
+                route: tour[lang].route,
+                moreInfo: tour[lang].moreInfo,
+                images: tour.images,
+                dates: tour.dates,
+                cost: tour.cost,
+                discount: tour.discount,
+                bookedMax: tour.bookedMax,
+                booked: tour.booked,
+                views: tour.views
+            });
+        });
 
-        res.status(200).json(resTour)
+        res.status(200).json(resTours);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -269,10 +310,28 @@ async function getFilSortTours(req:any, res:any){
 
         res.status(200).json(resTours);
     } catch (e) {
+        console.log('here')
         errorHandler(res, e)
     }
 }
 
+async function getAllLangsTours(req:any, res:any) {
+    try{
+        const tours = await Tour.find({});
+        res.status(200).json(tours);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+}
+
+async function getAllLangsToursById(req:any, res:any) {
+    try{
+        const tour = await Tour.findById(req.params.id);
+        res.status(200).json(tour);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+}
 
 
-export {create, remove, update, getTourById, getFilSortTours}
+export {create, remove, update, getTourById, getFilSortTours, getAllLangsTours, getAllLangsToursById}

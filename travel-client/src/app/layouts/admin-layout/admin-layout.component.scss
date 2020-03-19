@@ -2,9 +2,20 @@ button {
   outline: none;
 
   &:hover {
-    background: #fefff9;
+    background: #787974;
   }
 }
 
+.dropdown-item {
+  color: #111111;
+  padding: 0.8rem;
+  font-weight: bold;
+}
 
-
+.dropdown-menu {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  background-color: rgba(188, 188, 188, 0.36) !important;
+}

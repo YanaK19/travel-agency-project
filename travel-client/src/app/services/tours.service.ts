@@ -47,22 +47,22 @@ export class ToursService {
       );
   }
 
-  deleteTourById(tourId): Observable<Tour>  {
+  deleteTourById(tourId): Observable<any>  {
     const httpOptions  = {
       headers: new HttpHeaders()
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.delete<Tour>('/api/tour/' + tourId, httpOptions);
+    return this.http.delete<any>('/api/tour/' + tourId, httpOptions);
   }
 
-  updateTour(updatedTour): Observable<Tour> {
+  updateTour(updatedTour): Observable<any> {
     const httpOptions  = {
       headers: new HttpHeaders()
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.put<Tour>('/api/tour/' + updatedTour._id + this.langService.setOnlyLangParam(), updatedTour, httpOptions);
+    return this.http.put<any>('/api/tour/' + updatedTour._id + this.langService.setOnlyLangParam(), updatedTour, httpOptions);
   }
 
   createTour(newTour: Tour): Observable<any> {
@@ -93,5 +93,13 @@ export class ToursService {
     };*/
     console.log(fd)
     return this.http.put<any>('/api/tour/' + tour._id + this.langService.setOnlyLangParam(), fd);
+  }
+
+  getAllLangsTours(params?: string): Observable<any[]> {
+      return this.http.get<any[]>('api/tour/allLangs/tours');
+  }
+
+  getAllLangsTourById(tourId): Observable<any> {
+    return this.http.get<any>('api/tour/allLangs/' + tourId);
   }
 }

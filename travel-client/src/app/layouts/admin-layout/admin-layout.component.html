@@ -2,6 +2,19 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a routerLink="/admin/statistic" class="navbar-brand">Admin</a>
 
+
+  <div class="navbar-lang">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle navbar" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!--<span class="lang-icon"><img [src]="selectedLang.icon"></span>-->
+        {{selectedLang.name}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a *ngFor="let lang of translate.getLangs(); let i=index" class="dropdown-item" (click)="onChangeLang(lang, i)">{{lang}}</a>>
+      </div>
+    </div>
+  </div>
+
   <button class="navbar-toggler" data-toggle="collapse" data-target="#navMenu">
     <span class="navbar-toggler-icon"></span>
   </button>
