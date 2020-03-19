@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorizationService} from '../../services/authorization.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
 import {TranslateService} from '@ngx-translate/core';
 import {LangService} from '../../services/lang.service';
@@ -49,6 +49,13 @@ export class SiteLayoutComponent implements OnInit {
       this.userId = JSON.parse(localStorage.getItem('userData'))._id;
       console.log(this.userId);
     }
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
   }
 
   logout(event: Event) {

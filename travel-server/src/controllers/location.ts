@@ -1,12 +1,16 @@
 import errorHandler from '../utils/errorHandler';
 import Location from "../models/Location";
 import Range from "../models/Range";
+import Review from '../models/Review';
 
 async function create(req:any, res:any) {
+    console.log(req.body)
     const location = new Location({
         ru: req.body.ru,
         en: req.body.en
     });
+
+    console.log(location)
 
     try {
         await location.save();
@@ -55,4 +59,40 @@ async function getLocations(req:any, res:any) {
     }
 }
 
-export {create, getLocationById/*, isExist*/, getLocations}
+async function getAllLangsLocations(req:any, res:any) {
+    try {
+        const locations = await Location.find({});
+
+        res.status(200).json(locations)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function updateLocationById(req:any, res:any) {
+    try {
+        console.log(req.body)
+        const location = await Location.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        );
+
+        res.status(200).json(location)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function deleteLocationById(req:any, res:any) {
+    try {
+        await Location.deleteOne({_id: req.params.id})
+        res.status(200).json({
+            message: 'Location deleted'
+        })
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {create, getLocationById/*, isExist*/, getLocations, getAllLangsLocations, updateLocationById, deleteLocationById}

@@ -225,6 +225,21 @@
                <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.en.route.toTown">
              </div>
            </div>
+
+           <div class="input-title mb-2 mt-3">Destination:</div>
+           <div class="destination-container">
+             <div class="destination-country">
+               <div>Country</div>
+               <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.en.route.toCountry">
+             </div>
+
+             <div class="destination-town">
+               <div>Town</div>
+               <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.en.route.toTown">
+             </div>
+           </div>
+
+           <button class="btn btn-lg btn-outline-primary" (click)="openEditLocationsModal(editLocationsModal)">Add/Delete Location</button>
          </div>
 
          <div class="rest-container">
@@ -542,6 +557,57 @@
    </div>
  </ng-template>
 
+  <!-- modal edit locations -->
+
+  <ng-template #editLocationsModal let-modal>
+    <div class="modal-header modal-location-header">
+      <h4 class="modal-title">Edit Locations</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="lang-container">
+          <div class="lang-container_title">
+            <div class="lang-title">en</div>
+          </div>
+          <div class="lang-container_input-title">Country</div>
+          <input class="form-control" type="text"  name="countryEn" [(ngModel)]="locationForm.en.country">
+          <div class="lang-container_input-title">Town</div>
+          <input class="form-control" type="text" name="townEn" [(ngModel)]="locationForm.en.town">
+        </div>
+
+        <div class="lang-container">
+          <div class="lang-container_title">
+            <div class="lang-title">ru</div>
+          </div>
+          <div class="lang-container_input-title">Country</div>
+          <input class="form-control" type="text" name="countryRu" [(ngModel)]="locationForm.ru.country">
+          <div class="lang-container_input-title">Town</div>
+          <input class="form-control" type="text" name="townRu" [(ngModel)]="locationForm.ru.town">
+        </div>
+      </form>
+
+      <button type="button" class="btn btn-success" (click)="addNewLocation()">Add</button>
+      <div>! Button for delete country and all towns ! <br>
+            Fill only country en name
+      </div>
+      <button type="button" class="btn btn-danger" (click)="deleteLocation()">Delete location</button>
+
+      <div class="invalid" *ngIf="invalidForm">
+        {{invalidMessage}}
+      </div>
+
+      <div class="success" *ngIf="successMessage">
+        {{successMessage}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cancel</button>
+    </div>
+  </ng-template>
+  <!-- end modal edit locations -->
 
   <!-- ondelete modal -->
   <ng-template #sure let-modal>

@@ -1,12 +1,13 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {ToursService} from '../../../../services/tours.service';
 import {RangeService} from '../../../../services/range.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 import {DateHandlerService} from '../../../../services/date-handler.service';
 import validate = WebAssembly.validate;
+import {LocationService} from '../../../../services/location.service';
 
 @Component({
   selector: 'app-editing-page',
@@ -19,6 +20,8 @@ export class EditingComponent implements OnInit {
   rangeTransports: any;
   rangeTourTypes: any;
   ranges_langs: any = {rest: {}, transport: {}};
+  locations;
+  locationForm = {en: {country: '', town: ''}, ru: {country: '', town: ''}};
 
   filterForm: FormGroup;
   dateFromFilter: TourDate;
@@ -36,9 +39,10 @@ export class EditingComponent implements OnInit {
   previewImages = [];
   newTourImages = [];
 
-  @ViewChild("content", {static: false}) content: ElementRef;
+  @ViewChild('editLocationsModal', {static: false}) editLocationsModal: TemplateRef<any>;
   invalidForm = false;
   invalidMessage = "";
+  successMessage = "";
   isNewTour;
 
 
@@ -47,7 +51,8 @@ export class EditingComponent implements OnInit {
   constructor(private modalService: NgbModal,
               private toursService: ToursService,
               private rangeService: RangeService,
-              private dateService: DateHandlerService) {}
+              private dateService: DateHandlerService,
+              private locationService: LocationService) {}
 
   ngOnInit() {
     this.filterForm = new FormGroup({
@@ -62,6 +67,7 @@ export class EditingComponent implements OnInit {
 
     this.toursService.getTours().subscribe(tours => {
       this.tours = tours;
+      this.modalService.open(this.editLocationsModal, {backdropClass: 'light-blue-backdrop'});
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
@@ -86,6 +92,11 @@ export class EditingComponent implements OnInit {
           this.ranges_langs.rest = range;
         }
       });
+    });
+
+    this.locationService.getAllLangsLocations().subscribe(locations => {
+      this.locations = locations;
+      console.log(locations)
     });
   }
 
@@ -112,7 +123,6 @@ export class EditingComponent implements OnInit {
         });
       });
     });
-/*
     if (this.isNewTour) {
       this.toursService.createTour(this.tour_langs).subscribe(newTour => {
         this.toursService.uploadImages(this.newTourImages, newTour).subscribe(t => {
@@ -128,7 +138,7 @@ export class EditingComponent implements OnInit {
           this.afterTourUpdate();
         });
       });
-    }*/
+    }
   }
 
   afterTourUpdate() {
@@ -158,10 +168,12 @@ export class EditingComponent implements OnInit {
       || !this.tour_langs.dates.length
       || !this.tour_langs.bookedMax
     ) {
+      this.invalidForm = true;
       this.invalidMessage = "* Please, fill all fields";
     }
 
     if (this.tour_langs.en.restType.length != this.tour_langs.ru.restType.length) {
+      this.invalidForm = true;
       this.invalidMessage = "* Data in different languages doesn't match";
     }
   }
@@ -173,6 +185,79 @@ export class EditingComponent implements OnInit {
       this.tour_langs = tour;
       this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
     });
+  }
+
+  addNewLocation() {
+    let countryExist = false;
+    this.invalidForm = false;
+    this.successMessage = "";
+
+    if(!this.locationForm.en.country || !this.locationForm.en.town
+      || !this.locationForm.ru.country || !this.locationForm.ru.town) {
+      this.invalidForm = true;
+      this.invalidMessage = 'You must fill all fields';
+      return;
+    }
+
+    this.locations.forEach((location, index) => {
+      const countryEn = this.locationForm.en.country;
+      const townEn = this.locationForm.en.town;
+      if (location.en.country === countryEn) {
+        if (location.en.towns.indexOf(townEn) == -1) {
+          this.locations[index].en.towns.push(townEn);
+          this.locations[index].ru.towns.push(this.locationForm.ru.town);
+          console.log(this.locations[index])
+          this.locationService.updateLocationById(this.locations[index]).subscribe(updatedLocation => {
+            this.successMessage = "Town added to DB";
+          })
+        } else {
+          this.invalidMessage = "This country and town already exist";
+          this.invalidForm = true;
+        }
+/*        this.locations[index].en.towns.push(townEn);
+        this.locations[index].ru.towns.push(this.locationForm.ru.town);*/
+/*        console.log(this.locations)*/
+        countryExist = true;
+        return;
+      }
+    });
+
+    if (!countryExist) {
+      this.locationService.createLocation(this.locationForm).subscribe(newLocation => {
+        this.locations.push(newLocation);
+        this.successMessage = "Country&Town added to DB";
+      })
+    }
+  }
+
+  deleteLocation() {
+    this.successMessage = "";
+    this.invalidForm = false;
+    let locationId = '';
+
+    if (!this.locationForm.en.country) {
+      this.invalidForm = true;
+      this.invalidMessage = "Fill country field";
+      return;
+    }
+
+    this.locations.forEach((location, index) => {
+      if (location.en.country === this.locationForm.en.country) {
+        locationId = location._id;
+        this.locations.splice(index, 1);
+        this.successMessage = "Successfuly deleted";
+      }
+    });
+
+    if (locationId) {
+      this.locationService.deleteLocationById(locationId).subscribe(message => {
+      });
+    }
+  }
+
+  openEditLocationsModal(content) {
+    this.successMessage = "";
+    this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
   }
 
   addNewTourDate() {

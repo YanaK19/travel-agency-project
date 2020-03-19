@@ -18,4 +18,22 @@ export class LocationService {
         })
       );
   }
+
+  getAllLangsLocations(): Observable<any> {
+    return this.http.get<any>('api/location/allLangs/locations');
+  }
+
+  createLocation(newLocation): Observable<any> {
+    let location = {en: {country: newLocation.en.country, towns: [newLocation.en.town]},
+                    ru: {country: newLocation.ru.country, towns: [newLocation.ru.town]}};
+    return this.http.post<any>('api/location', location);
+  }
+
+  updateLocationById(updatedLocation): Observable<any> {
+    return this.http.put<any>('api/location/' + updatedLocation._id, updatedLocation);
+  }
+
+  deleteLocationById(locationId): Observable<any> {
+    return this.http.delete<any>('api/location/' + locationId);
+  }
 }
