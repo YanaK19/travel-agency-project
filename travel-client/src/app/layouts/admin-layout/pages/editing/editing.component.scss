@@ -287,6 +287,95 @@ $font1: 'Exo', sans-serif;
   }
 }
 
+.modal-footer {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000091;
+  z-index: 10;
+  margin: 0;
+}
+
+.loader-container {
+  position: absolute;
+  bottom: 6%;
+  left: 40%;
+}
+
+.loader-inner {
+  width: 100px;
+  position: relative;
+  height: 100px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: rotate1 0.9s linear 0s infinite;
+}
+
+.loader-inner .container {
+  position: relative;
+  width: 80%;
+  height: 80%;
+}
+
+.loader-inner .line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  width: 50%;
+  border-radius: 100% 0 0 0;
+  border-top: 7px solid aqua;
+  border-left: 7px solid aqua;
+}
+
+.loader-inner .line2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50%;
+  width: 50%;
+  border-radius: 0 100% 0 0;
+  border-top: 7px solid aqua;
+}
+
+@keyframes rotate1 {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    filter: hue-rotate(180deg);
+  }
+
+  100% {
+    filter: hue-rotate(0deg);
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.modal-content {
+  box-sizing: unset;
+}
+
 ////// end modal //////
 
 ////////////

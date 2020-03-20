@@ -188,6 +188,15 @@
      <div class="modal-body-content">
       <div class="bgr-image">
       </div>
+       <div *ngIf="loader" class="loader">
+         <div class="loader-container">
+           <div class="loader-inner">
+             <div class="container"></div>
+             <div class="line"></div>
+             <div class="line2"></div>
+           </div>
+         </div>
+       </div>
 
        <div class="modal-body">
          <select [(ngModel)]="selectedEditLang" name="transportType" class="custom-select form-control" aria-describedby="rest">
@@ -548,6 +557,7 @@
      </div>
    </div>
    <div class="modal-footer">
+     <div *ngIf="loader" class="loader"></div>
      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
      <button type="button" class="btn btn-success" (click)="editTour()">OK</button>
    </div>

@@ -46,8 +46,9 @@ export class EditingComponent implements OnInit {
   successMessage = "";
   isNewTour;
 
-
   deletedTourId;
+
+  loader = false;
 
   constructor(private modalService: NgbModal,
               private toursService: ToursService,
@@ -107,6 +108,8 @@ export class EditingComponent implements OnInit {
       return;
     }
 
+    this.loader = true;
+
     this.rangeService.updateRanges(this.ranges_langs).subscribe(rangesLangs => {
       this.ranges_langs = rangesLangs;
 
@@ -145,6 +148,7 @@ export class EditingComponent implements OnInit {
     this.newTourImages = [];
     this.modalService.dismissAll();
     this.invalidFields = [];
+    this.loader = false;
   }
 
   isValid() {
