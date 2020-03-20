@@ -87,6 +87,8 @@ input {
       justify-content: center;
       align-items: center;
       z-index: 1;
+      background: #df084aa8;
+      border: none;
     }
   }
 
@@ -175,6 +177,22 @@ input {
     100% {
       transform: translate3d(0, 0, 0) translateZ(0)
     }
+  }
+}
+
+.reset-container {
+  background: #fdde7dd4;
+  color: #fff;
+  padding-top: 10px;
+  width: 100%;
+  padding-bottom: 15px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  transition: 0.3s;
+
+  &:hover {
+    background: rgba(253, 222, 125, 0.94);
   }
 }
 

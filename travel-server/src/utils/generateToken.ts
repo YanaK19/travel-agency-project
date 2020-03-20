@@ -6,7 +6,7 @@ export default (user:any) => {
         email: user.email,
         role: user.role,
         userId: user._id
-    }, keys.jwt, {expiresIn: '3h'});
+    }, keys.jwt);
 
     return token;
 }

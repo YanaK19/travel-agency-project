@@ -10,7 +10,7 @@
 
 
         <div class="left-container">
-          <form  [formGroup]="filterForm">
+          <form [formGroup]="filterForm">
             <div class="form-inner container-fluid">
               <div class="row">
                 <div class="col-sm-6">
@@ -186,369 +186,365 @@
 
    <div class="modal-body">
      <div class="modal-body-content">
+      <div class="bgr-image">
+      </div>
 
-       <select [(ngModel)]="selectedEditLang" name="transportType" class="custom-select form-control" aria-describedby="rest">
-         <option value="en" selected>en</option>
-         <option value="ru">ru</option>
-       </select>
+       <div class="modal-body">
+         <select [(ngModel)]="selectedEditLang" name="transportType" class="custom-select form-control" aria-describedby="rest">
+           <option value="en" selected>en</option>
+           <option value="ru">ru</option>
+         </select>
 
-       <!-- en form -->
-       <form *ngIf="selectedEditLang === 'en'">
-         <div class="form-group title-container">
-           <label class="input-title">Title:</label>
-           <input type="text" class="form-control" name="title" [(ngModel)]="tour_langs.en.title">
-         </div>
+         <!-- en form -->
+         <form  class="edit-lang-form" *ngIf="selectedEditLang === 'en'">
+           <div class="form-group title-container">
+             <label  [ngClass]="{'invalid-field': isValidField('title_en')}" class="input-title">Title:</label>
+             <input type="text" class="form-control" name="title" [(ngModel)]="tour_langs.en.title">
+           </div>
 
-         <div class="form-group route-container">
-           <div class="input-title mb-2 mt-2">Departure:</div>
-           <div class="departure-container">
-             <div class="departure-country">
-               <div>Country</div>
-               <input type="text" class="form-control country" name="departure-country-from" [(ngModel)]="tour_langs.en.route.fromCountry">
+           <div class="form-group route-container">
+             <div class="input-title mb-2 mt-2">Departure:</div>
+             <div class="departure-container">
+               <div class="departure-country">
+                 <div [ngClass]="{'invalid-field': isValidField('fromCountry_en')}">Country</div>
+                 <input type="text" class="form-control country" name="departure-country-from" [(ngModel)]="tour_langs.en.route.fromCountry">
+               </div>
+
+               <div class="departure-town">
+                 <div  [ngClass]="{'invalid-field': isValidField('fromTown_en')}">Town</div>
+                 <input type="text" class="form-control town" name="departure-town-from" [(ngModel)]="tour_langs.en.route.fromTown">
+               </div>
              </div>
 
-             <div class="departure-town">
-               <div>Town</div>
-               <input type="text" class="form-control town" name="departure-town-from" [(ngModel)]="tour_langs.en.route.fromTown">
+             <div class="input-title mb-2 mt-3">Destination:</div>
+             <div class="destination-container">
+               <div class="destination-country">
+                 <div  [ngClass]="{'invalid-field': isValidField('toCountry_en')}">Country</div>
+                 <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.en.route.toCountry">
+               </div>
+
+               <div class="destination-town">
+                 <div [ngClass]="{'invalid-field': isValidField('toTown_en')}">Town</div>
+                 <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.en.route.toTown">
+               </div>
+             </div>
+
+             <div class="btn-location-modal">
+               <button class="btn btn-outline-primary" (click)="openEditLocationsModal(editLocationsModal)">Add/Delete Location</button>
              </div>
            </div>
 
-           <div class="input-title mb-2 mt-3">Destination:</div>
-           <div class="destination-container">
-             <div class="destination-country">
-               <div>Country</div>
-               <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.en.route.toCountry">
+           <div class="rest-container">
+             <div [ngClass]="{'invalid-field': isValidField('restType_en')}" class="input-title mt-3">Rest types:</div>
+             <div class="rest-container_list">
+               <ul class="rest-types">
+                 <li *ngFor="let restType of tour_langs.en.restType; let r=index;">
+                   {{restType}} <span (click)="deleteRestTourType(r, 'en')"><i class="fas fa-trash-alt"></i></span>
+                 </li>
+               </ul>
+             </div>
+             <div class="rest-container_add mb-2">
+               <span>Add rest type:</span>
+               <div class="input-group">
+                 <select [(ngModel)]="addRestType.en" name="restType" *ngIf="rangeTourTypes" class="custom-select" id="inputGroupSelect44"  aria-describedby="rest">
+                   <option value="..." selected>...</option>
+                   <option *ngFor="let rangeItem of ranges_langs.rest.en.types" [value]="rangeItem">{{rangeItem}}</option>
+                 </select>
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="addRestTourType('en')">add</button>
+                 </div>
+               </div>
              </div>
 
-             <div class="destination-town">
-               <div>Town</div>
-               <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.en.route.toTown">
+             <div class="rest-container_add-new">
+               <span>Add new rest type:</span>
+               <div class="input-group mb-3">
+                 <input #newRestType_en type="text" class="form-control" name="new-rest-type">
+
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_en, 'en')">add</button>
+                 </div>
+               </div>
              </div>
            </div>
 
-           <div class="input-title mb-2 mt-3">Destination:</div>
-           <div class="destination-container">
-             <div class="destination-country">
-               <div>Country</div>
-               <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.en.route.toCountry">
-             </div>
-
-             <div class="destination-town">
-               <div>Town</div>
-               <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.en.route.toTown">
-             </div>
-           </div>
-
-           <button class="btn btn-lg btn-outline-primary" (click)="openEditLocationsModal(editLocationsModal)">Add/Delete Location</button>
-         </div>
-
-         <div class="rest-container">
-           <div class="input-title mt-3">Rest types:</div>
-           <div class="rest-container_list">
-             <ul class="rest-types">
-               <li *ngFor="let restType of tour_langs.en.restType; let r=index;">
-                 {{restType}} <span (click)="deleteRestTourType(r, 'en')"><i class="fas fa-trash-alt"></i></span>
-               </li>
-             </ul>
-           </div>
            <div class="rest-container_add mb-2">
-             <span>Add rest type:</span>
+             <span>Delete rest type from ranges:</span>
              <div class="input-group">
-               <select [(ngModel)]="addRestType.en" name="restType" *ngIf="rangeTourTypes" class="custom-select" id="inputGroupSelect44"  aria-describedby="rest">
+               <select [(ngModel)]="delRestTypeInRange.en" name="restType" *ngIf="rangeTourTypes" class="custom-select" aria-describedby="rest">
                  <option value="..." selected>...</option>
                  <option *ngFor="let rangeItem of ranges_langs.rest.en.types" [value]="rangeItem">{{rangeItem}}</option>
                </select>
                <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="addRestTourType('en')">add</button>
+                 <button class="btn btn-outline-secondary" type="button" (click)="deleteRestTypeFromRanges('en')">del</button>
                </div>
              </div>
            </div>
 
-           <div class="rest-container_add-new">
-             <span>Add new rest type:</span>
-             <div class="input-group mb-3">
-               <input #newRestType_en type="text" class="form-control" name="new-rest-type">
-
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_en, 'en')">add</button>
-               </div>
-             </div>
-           </div>
-         </div>
-
-         <div class="rest-container_add mb-2">
-           <span>Delete rest type from ranges:</span>
-           <div class="input-group">
-             <select [(ngModel)]="delRestTypeInRange.en" name="restType" *ngIf="rangeTourTypes" class="custom-select" aria-describedby="rest">
-               <option value="..." selected>...</option>
-               <option *ngFor="let rangeItem of ranges_langs.rest.en.types" [value]="rangeItem">{{rangeItem}}</option>
+           <div class="form-group transport-container">
+             <label [ngClass]="{'invalid-field': isValidField('transportType_en')}" class="input-title">Transport type:</label>
+             <select [(ngModel)]="tour_langs.en.transportType" *ngIf="rangeTransports" name="transportType" class="custom-select form-control" aria-describedby="rest">
+               <option value="..." selected>{{tour_langs.en.transportType}}</option>
+               <option *ngFor="let rangeItem of ranges_langs.transport.en.types" [value]="rangeItem">{{rangeItem}}</option>
              </select>
-             <div class="input-group-append">
-               <button class="btn btn-outline-secondary" type="button" (click)="deleteRestTypeFromRanges('en')">del</button>
+
+             <div class="transport-container_add-new mt-1">
+               <span>Add new transport type:</span>
+               <div class="input-group mb-3">
+                 <input type="text" class="form-control" name="new-rest-type" [(ngModel)]="addTransportType.en">
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('en')">add</button>
+                 </div>
+               </div>
+             </div>
+
+             <div class="rest-container_add mb-2">
+               <span>Delete transport type from ranges:</span>
+               <div class="input-group">
+                 <select [(ngModel)]="delTransportInRange.en" name="restType" *ngIf="rangeTourTypes" class="custom-select"  aria-describedby="rest">
+                   <option value="..." selected>...</option>
+                   <option *ngFor="let rangeItem of ranges_langs.transport.en.types" [value]="rangeItem">{{rangeItem}}</option>
+                 </select>
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="deleteTransportFromRanges('en')">del</button>
+                 </div>
+               </div>
              </div>
            </div>
-         </div>
 
-         <div class="form-group transport-container">
-           <label class="input-title">Transport type:</label>
-           <select [(ngModel)]="tour_langs.en.transportType" *ngIf="rangeTransports" name="transportType" class="custom-select form-control" aria-describedby="rest">
-             <option value="..." selected>{{tour_langs.en.transportType}}</option>
-             <option *ngFor="let rangeItem of ranges_langs.transport.en.types" [value]="rangeItem">{{rangeItem}}</option>
-           </select>
+           <div class="form-group more-info-container">
+             <label [ngClass]="{'invalid-field': isValidField('moreInfo_en')}" class="input-title">Info:</label>
+             <textarea type="text" class="form-control" name="more-info" [(ngModel)]="tour_langs.en.moreInfo"></textarea>
+           </div>
 
-           <div class="transport-container_add-new mt-1">
-             <span>Add new transport type:</span>
-             <div class="input-group mb-3">
-               <input type="text" class="form-control" name="new-rest-type" [(ngModel)]="addTransportType.en">
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('en')">add</button>
+         </form>
+
+         <!-- ru form -->
+
+         <form *ngIf="selectedEditLang === 'ru'">
+           <div class="form-group title-container">
+             <label [ngClass]="{'invalid-field': isValidField('title_ru')}" class="input-title">Title:</label>
+             <input type="text" class="form-control" name="title" [(ngModel)]="tour_langs.ru.title">
+             <div>{{tour_langs.en.title}}</div>
+           </div>
+           <div class="form-group route-container">
+             <div class="input-title mb-2 mt-2">Departure:</div>
+             <div class="departure-container">
+               <div class="departure-country">
+                 <div [ngClass]="{'invalid-field': isValidField('fromCountry_ru')}">Country</div>
+                 <input type="text" class="form-control country" name="departure-country-from" [(ngModel)]="tour_langs.ru.route.fromCountry">
+               </div>
+
+               <div class="departure-town">
+                 <div [ngClass]="{'invalid-field': isValidField('fromTown_ru')}">Town</div>
+                 <input type="text" class="form-control town" name="departure-town-from" [(ngModel)]="tour_langs.ru.route.fromTown">
+               </div>
+             </div>
+
+             <div class="input-title mb-2 mt-3">Destination:</div>
+             <div class="destination-container">
+               <div class="destination-country">
+                 <div [ngClass]="{'invalid-field': isValidField('toCountry_ru')}">Country</div>
+                 <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.ru.route.toCountry">
+               </div>
+
+               <div class="destination-town">
+                 <div [ngClass]="{'invalid-field': isValidField('toTown_ru')}">Town</div>
+                 <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.ru.route.toTown">
+               </div>
+             </div>
+           </div>
+
+           <div class="rest-container">
+             <div [ngClass]="{'invalid-field': isValidField('restType_ru')}" class="input-title mt-3">Rest types:</div>
+             <div class="rest-container_list">
+               <ul class="rest-types">
+                 <li *ngFor="let restType of tour_langs.ru.restType; let r=index;">
+                   {{restType}} <span (click)="deleteRestTourType(r, 'ru')"><i class="fas fa-trash-alt"></i></span>
+                 </li>
+               </ul>
+             </div>
+             <div class="rest-container_add mb-2">
+               <span>Add rest type:</span>
+               <div class="input-group">
+                 <select [(ngModel)]="addRestType.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select" aria-describedby="rest">
+                   <option value="..." selected>...</option>
+                   <option *ngFor="let rangeItem of ranges_langs.rest.ru.types" [value]="rangeItem">{{rangeItem}}</option>
+                 </select>
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="addRestTourType('ru')">add</button>
+                 </div>
+               </div>
+             </div>
+
+             <div class="rest-container_add-new">
+               <span>Add new rest type:</span>
+               <div class="input-group mb-3">
+                 <input #newRestType_ru type="text" class="form-control" name="new-rest-type">
+
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_ru, 'ru')">add</button>
+                 </div>
                </div>
              </div>
            </div>
 
            <div class="rest-container_add mb-2">
-             <span>Delete transport type from ranges:</span>
+             <span>Delete rest type from ranges:</span>
              <div class="input-group">
-               <select [(ngModel)]="delTransportInRange.en" name="restType" *ngIf="rangeTourTypes" class="custom-select"  aria-describedby="rest">
-                 <option value="..." selected>...</option>
-                 <option *ngFor="let rangeItem of ranges_langs.transport.en.types" [value]="rangeItem">{{rangeItem}}</option>
-               </select>
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="deleteTransportFromRanges('en')">del</button>
-               </div>
-             </div>
-           </div>
-         </div>
-
-         <div class="form-group more-info-container">
-           <label class="input-title">Info:</label>
-           <textarea type="text" class="form-control" name="more-info" [(ngModel)]="tour_langs.en.moreInfo"></textarea>
-         </div>
-
-       </form>
-
-       <!-- ru form -->
-
-       <form *ngIf="selectedEditLang === 'ru'">
-         <div class="form-group title-container">
-           <label class="input-title">Title:</label>
-           <input type="text" class="form-control" name="title" [(ngModel)]="tour_langs.ru.title">
-           <div>{{tour_langs.en.title}}</div>
-         </div>
-         <div class="form-group route-container">
-           <div class="input-title mb-2 mt-2">Departure:</div>
-           <div class="departure-container">
-             <div class="departure-country">
-               <div>Country</div>
-               <input type="text" class="form-control country" name="departure-country-from" [(ngModel)]="tour_langs.ru.route.fromCountry">
-             </div>
-
-             <div class="departure-town">
-               <div>Town</div>
-               <input type="text" class="form-control town" name="departure-town-from" [(ngModel)]="tour_langs.ru.route.fromTown">
-             </div>
-           </div>
-
-           <div class="input-title mb-2 mt-3">Destination:</div>
-           <div class="destination-container">
-             <div class="destination-country">
-               <div>Country</div>
-               <input type="text" class="form-control country" name="destination-country-from" [(ngModel)]="tour_langs.ru.route.toCountry">
-             </div>
-
-             <div class="destination-town">
-               <div>Town</div>
-               <input type="text" class="form-control town" name="destination-town-from" [(ngModel)]="tour_langs.ru.route.toTown">
-             </div>
-           </div>
-         </div>
-
-         <div class="rest-container">
-           <div class="input-title mt-3">Rest types:</div>
-           <div class="rest-container_list">
-             <ul class="rest-types">
-               <li *ngFor="let restType of tour_langs.ru.restType; let r=index;">
-                 {{restType}} <span (click)="deleteRestTourType(r, 'ru')"><i class="fas fa-trash-alt"></i></span>
-               </li>
-             </ul>
-           </div>
-           <div class="rest-container_add mb-2">
-             <span>Add rest type:</span>
-             <div class="input-group">
-               <select [(ngModel)]="addRestType.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select" aria-describedby="rest">
+               <select [(ngModel)]="delRestTypeInRange.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select" id="inputGroupSelect44"  aria-describedby="rest">
                  <option value="..." selected>...</option>
                  <option *ngFor="let rangeItem of ranges_langs.rest.ru.types" [value]="rangeItem">{{rangeItem}}</option>
                </select>
                <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="addRestTourType('ru')">add</button>
+                 <button class="btn btn-outline-secondary" type="button" (click)="deleteRestTypeFromRanges('ru')">del</button>
                </div>
              </div>
            </div>
 
-           <div class="rest-container_add-new">
-             <span>Add new rest type:</span>
-             <div class="input-group mb-3">
-               <input #newRestType_ru type="text" class="form-control" name="new-rest-type">
-
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_ru, 'ru')">add</button>
-               </div>
-             </div>
-           </div>
-         </div>
-
-         <div class="rest-container_add mb-2">
-           <span>Delete rest type from ranges:</span>
-           <div class="input-group">
-             <select [(ngModel)]="delRestTypeInRange.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select" id="inputGroupSelect44"  aria-describedby="rest">
-               <option value="..." selected>...</option>
-               <option *ngFor="let rangeItem of ranges_langs.rest.ru.types" [value]="rangeItem">{{rangeItem}}</option>
+           <div class="form-group transport-container">
+             <label [ngClass]="{'invalid-field': isValidField('transportType_ru')}" class="input-title">Transport type:</label>
+             <select [(ngModel)]="tour_langs.ru.transportType" *ngIf="rangeTransports" name="transportType" class="custom-select form-control" aria-describedby="rest">
+               <option value="..." selected></option>
+               <option *ngFor="let rangeItem of ranges_langs.transport.ru.types" [value]="rangeItem">{{rangeItem}} <i class="fas fa-trash-alt"></i></option>
              </select>
-             <div class="input-group-append">
-               <button class="btn btn-outline-secondary" type="button" (click)="deleteRestTypeFromRanges('ru')">del</button>
+
+             <div class="transport-container_add-new mt-1">
+               <span>Add new transport type:</span>
+               <div class="input-group mb-3">
+                 <input type="text" class="form-control" name="new-rest-type" [(ngModel)]="addTransportType.ru">
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('ru')">add</button>
+                 </div>
+               </div>
              </div>
-           </div>
-         </div>
 
-         <div class="form-group transport-container">
-           <label class="input-title">Transport type:</label>
-           <select [(ngModel)]="tour_langs.ru.transportType" *ngIf="rangeTransports" name="transportType" class="custom-select form-control" aria-describedby="rest">
-             <option value="..." selected></option>
-             <option *ngFor="let rangeItem of ranges_langs.transport.ru.types" [value]="rangeItem">{{rangeItem}} <i class="fas fa-trash-alt"></i></option>
-           </select>
-
-           <div class="transport-container_add-new mt-1">
-             <span>Add new transport type:</span>
-             <div class="input-group mb-3">
-               <input type="text" class="form-control" name="new-rest-type" [(ngModel)]="addTransportType.ru">
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('ru')">add</button>
+             <div class="rest-container_add mb-2">
+               <span>Delete transport type from ranges:</span>
+               <div class="input-group">
+                 <select [(ngModel)]="delTransportInRange.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select"  aria-describedby="rest">
+                   <option value="..." selected>...</option>
+                   <option *ngFor="let rangeItem of ranges_langs.transport.ru.types" [value]="rangeItem">{{rangeItem}}</option>
+                 </select>
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary" type="button" (click)="deleteTransportFromRanges('ru')">del</button>
+                 </div>
                </div>
              </div>
            </div>
 
-           <div class="rest-container_add mb-2">
-             <span>Delete transport type from ranges:</span>
-             <div class="input-group">
-               <select [(ngModel)]="delTransportInRange.ru" name="restType" *ngIf="rangeTourTypes" class="custom-select"  aria-describedby="rest">
-                 <option value="..." selected>...</option>
-                 <option *ngFor="let rangeItem of ranges_langs.transport.ru.types" [value]="rangeItem">{{rangeItem}}</option>
-               </select>
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary" type="button" (click)="deleteTransportFromRanges('ru')">del</button>
+           <div class="form-group more-info-container">
+             <label [ngClass]="{'invalid-field': isValidField('moreInfo_ru')}" class="input-title">Info:</label>
+             <textarea type="text" class="form-control" name="more-info" [(ngModel)]="tour_langs.ru.moreInfo"></textarea>
+           </div>
+         </form>
+
+         <!--       shared           -->
+         <div class="form-group dates-container">
+           <div [ngClass]="{'invalid-field': isValidField('dates')}" class="input-title dates-title">Dates:</div>
+
+           <div *ngFor="let date of tour_langs.dates; let k=index;" class="date-container">
+             <div class="date-from-to">
+               <div class="date-from">
+                 <span class="input-title date-title">Date From:</span>
+                 {{date.dateFrom.day  | number: '2.0'}}/
+                 {{date.dateFrom.month  | number: '2.0'}}/
+                 {{date.dateFrom.year}}
+               </div>
+               <div class="date-to">
+                 <span class="input-title">Date To:</span>
+                 {{date.dateTo.day  | number: '2.0'}}/
+                 {{date.dateTo.month  | number: '2.0'}}/
+                 {{date.dateTo.year}}
                </div>
              </div>
+             <div class="delete-date"><span aria-hidden="true" (click)="deleteDateInTour(k)"><i class="fas fa-trash-alt"></i></span></div>
            </div>
-         </div>
 
-         <div class="form-group more-info-container">
-           <label class="input-title">Info:</label>
-           <textarea type="text" class="form-control" name="more-info" [(ngModel)]="tour_langs.ru.moreInfo"></textarea>
-         </div>
-       </form>
-
-       <!--       shared           -->
-       <div class="form-group dates-container">
-         <div class="input-title dates-title">Dates:</div>
-
-         <div *ngFor="let date of tour_langs.dates; let k=index;" class="date-container">
-           <div class="date-from-to">
-             <div class="date-from">
-               <span class="input-title date-title">Date From:</span>
-               {{date.dateFrom.day  | number: '2.0'}}/
-               {{date.dateFrom.month  | number: '2.0'}}/
-               {{date.dateFrom.year}}
-             </div>
-             <div class="date-to">
-               <span class="input-title">Date To:</span>
-               {{date.dateTo.day  | number: '2.0'}}/
-               {{date.dateTo.month  | number: '2.0'}}/
-               {{date.dateTo.year}}
-             </div>
-           </div>
-           <div class="delete-date"><span aria-hidden="true" (click)="deleteDateInTour(k)"><i class="fas fa-trash-alt"></i></span></div>
-         </div>
-
-         <div class="add-date">
-           <div class="form-group dt">
-             <div class="input-group">
-               <input placeholder="Date From" class="form-control"
-                      name="dp" ngbDatepicker #d="ngbDatepicker"
-                      [(ngModel)]="addDateFrom">
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+           <div class="add-date">
+             <div class="form-group dt">
+               <div class="input-group">
+                 <input placeholder="Date From" class="form-control"
+                        name="dp" ngbDatepicker #d="ngbDatepicker"
+                        [(ngModel)]="addDateFrom">
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                 </div>
                </div>
              </div>
-           </div>
 
 
-           <div class="form-group dt">
-             <div class="input-group">
-               <input placeholder="Date To" class="form-control"
-                      name="dp" ngbDatepicker #dd="ngbDatepicker"
-                      [(ngModel)]="addDateTo">
-               <div class="input-group-append">
-                 <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
+             <div class="form-group dt">
+               <div class="input-group">
+                 <input placeholder="Date To" class="form-control"
+                        name="dp" ngbDatepicker #dd="ngbDatepicker"
+                        [(ngModel)]="addDateTo">
+                 <div class="input-group-append">
+                   <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
+                 </div>
                </div>
              </div>
-           </div>
 
-           <button class="btn btn-outline-secondary" type="button" (click)="addNewTourDate()">add</button>
-         </div>
-       </div>
-
-       <div class="container-fluid">
-         <div class="row">
-           <div class="form-group booked-container col-sm-6">
-             <label class="input-title">Booked:</label>
-             <input type="number" class="form-control" name="booked" [(ngModel)]="tour_langs.booked">
-           </div>
-
-           <div class="form-group max-booked-container col-sm-6">
-             <label class="input-title">Max booked:</label>
-             <input type="number" class="form-control" name="max-booked" [(ngModel)]="tour_langs.bookedMax">
+             <button class="btn btn-outline-secondary" type="button" (click)="addNewTourDate()">add</button>
            </div>
          </div>
-       </div>
 
-       <div class="container-fluid">
-         <div class="row">
-           <div class="form-group discount-container col-sm-6">
-             <label class="input-title">Discount:</label>
-             <input type="number" class="form-control" name="discount" [(ngModel)]="tour_langs.discount">
-           </div>
-
-           <div class="form-group cost-container col-sm-6">
-             <label class="input-title">Cost:</label>
-             <input type="number" class="form-control" name="cost" [(ngModel)]="tour_langs.cost">
-           </div>
-         </div>
-       </div>
-
-       <div class="input-files-container">
-         <input type="file" multiple (change)="onImagesUpload($event)">
-       </div>
-
-       <div class="images-container container-fluid">
-         <div class="row" id="images">
-           <div *ngFor="let img of tour_langs.images; let i=index" class="col-sm-6 image">
-             <i class="fas fa-trash-alt" (click)="onImageDelete(i)"></i>
-             <img [src]="img">
-           </div>
-
-           <ng-container *ngIf="previewImages.length">
-             <div *ngFor="let previewImage of previewImages; let p=index" class="col-sm-6 image">
-               <i class="fas fa-trash-alt" (click)="onNewImageDelete(p)"></i>
-               <img [src]="previewImage">
+         <div class="container-fluid">
+           <div class="row">
+             <div class="form-group booked-container col-sm-6">
+               <label class="input-title">Booked:</label>
+               <input type="number" class="form-control" name="booked" [(ngModel)]="tour_langs.booked">
              </div>
-           </ng-container>
+
+             <div class="form-group max-booked-container col-sm-6">
+               <label [ngClass]="{'invalid-field': isValidField('bookedMax')}" class="input-title">Max booked:</label>
+               <input type="number" class="form-control" name="max-booked" [(ngModel)]="tour_langs.bookedMax">
+             </div>
+           </div>
+         </div>
+
+         <div class="container-fluid">
+           <div class="row">
+             <div class="form-group discount-container col-sm-6">
+               <label class="input-title">Discount:</label>
+               <input type="number" class="form-control" name="discount" [(ngModel)]="tour_langs.discount">
+             </div>
+
+             <div class="form-group cost-container col-sm-6">
+               <label [ngClass]="{'invalid-field': isValidField('cost')}" class="input-title">Cost:</label>
+               <input type="number" class="form-control" name="cost" [(ngModel)]="tour_langs.cost">
+             </div>
+           </div>
+         </div>
+
+
+         <label [ngClass]="{'invalid-field': isValidField('dates')}">Images</label>
+         <div class="input-files-container">
+           <input type="file" multiple (change)="onImagesUpload($event)">
+         </div>
+
+         <div class="images-container container-fluid">
+           <div class="row" id="images">
+             <div *ngFor="let img of tour_langs.images; let i=index" class="col-sm-6 image">
+               <i class="fas fa-trash-alt" (click)="onImageDelete(i)"></i>
+               <img [src]="img">
+             </div>
+
+             <ng-container *ngIf="previewImages.length">
+               <div *ngFor="let previewImage of previewImages; let p=index" class="col-sm-6 image">
+                 <i class="fas fa-trash-alt" (click)="onNewImageDelete(p)"></i>
+                 <img [src]="previewImage">
+               </div>
+             </ng-container>
+           </div>
+         </div>
+
+
+         <div class="invalid" *ngIf="invalidForm">
+           {{invalidMessage}}
          </div>
        </div>
 
-
-       <div class="invalid" *ngIf="invalidForm">
-        {{invalidMessage}}
-       </div>
      </div>
    </div>
    <div class="modal-footer">
@@ -563,7 +559,7 @@
     <div class="modal-header modal-location-header">
       <h4 class="modal-title">Edit Locations</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true" style="font-size: 2.1rem; color: #fff;">&times;</span>
       </button>
     </div>
     <div class="modal-body">
@@ -578,7 +574,7 @@
           <input class="form-control" type="text" name="townEn" [(ngModel)]="locationForm.en.town">
         </div>
 
-        <div class="lang-container">
+        <div class="lang-container ru-container">
           <div class="lang-container_title">
             <div class="lang-title">ru</div>
           </div>
@@ -589,22 +585,23 @@
         </div>
       </form>
 
-      <button type="button" class="btn btn-success" (click)="addNewLocation()">Add</button>
-      <div>! Button for delete country and all towns ! <br>
-            Fill only country en name
-      </div>
-      <button type="button" class="btn btn-danger" (click)="deleteLocation()">Delete location</button>
+      <div class="lang-container_buttons">
+        <button type="button" class="lang-container_button-add btn btn-success" (click)="addNewLocation()">Add</button>
+        <div class="btn-danger-tip">! Button for delete country and all towns ! <br>
+          Fill only country en name
+        </div>
+        <div class="btn-danger-container">
+          <button type="button" class="btn btn-danger" (click)="deleteLocation()">Delete location</button>
+        </div>
+    </div>
 
-      <div class="invalid" *ngIf="invalidForm">
+      <div class="invalid" *ngIf="invalidLocation">
         {{invalidMessage}}
       </div>
 
       <div class="success" *ngIf="successMessage">
         {{successMessage}}
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cancel</button>
     </div>
   </ng-template>
   <!-- end modal edit locations -->

@@ -6,7 +6,6 @@ import {RangeService} from '../../../../services/range.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 import {DateHandlerService} from '../../../../services/date-handler.service';
-import validate = WebAssembly.validate;
 import {LocationService} from '../../../../services/location.service';
 
 @Component({
@@ -41,6 +40,8 @@ export class EditingComponent implements OnInit {
 
   @ViewChild('editLocationsModal', {static: false}) editLocationsModal: TemplateRef<any>;
   invalidForm = false;
+  invalidLocation = false;
+  invalidFields = [];
   invalidMessage = "";
   successMessage = "";
   isNewTour;
@@ -67,7 +68,7 @@ export class EditingComponent implements OnInit {
 
     this.toursService.getTours().subscribe(tours => {
       this.tours = tours;
-      this.modalService.open(this.editLocationsModal, {backdropClass: 'light-blue-backdrop'});
+   /*   this.modalService.open(this.editLocationsModal, {backdropClass: 'light-blue-backdrop'});*/
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
@@ -105,8 +106,6 @@ export class EditingComponent implements OnInit {
     if(this.invalidForm) {
       return;
     }
-  /*  console.log(this.ranges_langs, this.tour_langs)  */
-
 
     this.rangeService.updateRanges(this.ranges_langs).subscribe(rangesLangs => {
       this.ranges_langs = rangesLangs;
@@ -145,32 +144,44 @@ export class EditingComponent implements OnInit {
     this.previewImages = [];
     this.newTourImages = [];
     this.modalService.dismissAll();
+    this.invalidFields = [];
   }
 
   isValid() {
     this.invalidForm = false;
+    this.invalidFields = [];
     ["en", "ru"].forEach(lang => {
-      if (!this.tour_langs[lang].title
-        || !this.tour_langs[lang].transportType
-        || !this.tour_langs[lang].moreInfo
-        || !this.tour_langs[lang].route.fromCountry
-        || !this.tour_langs[lang].route.fromTown
-        || !this.tour_langs[lang].route.toCountry
-        || !this.tour_langs[lang].route.toTown
-        || !this.tour_langs[lang].restType.length
-      ) {
-        this.invalidForm = true;
-        this.invalidMessage = "* Please, fill all fields";
+      for (let key in this.tour_langs.en) {
+        if (key === 'route') {
+          for (let k in this.tour_langs[lang][key]) {
+            if (!this.tour_langs[lang][key][k].length) {
+              this.invalidFields.push(k + '_' + lang)
+              this.invalidForm = true;
+            }
+          }
+        } else if (!this.tour_langs[lang][key].length) {
+          this.invalidForm = true;
+          this.invalidMessage = "* Please, fill all fields";
+          this.invalidFields.push(key+ '_' + lang)
+        }
       }
     });
 
-    if (!this.tour_langs.cost
-      || !this.tour_langs.dates.length
-      || !this.tour_langs.bookedMax
-    ) {
-      this.invalidForm = true;
-      this.invalidMessage = "* Please, fill all fields";
+    for (let shared in this.tour_langs) {
+      if (shared !== 'en' && shared !== 'ru') {
+        if (shared === 'images' && !this.tour_langs[shared].length) {
+          this.invalidFields.push(shared)
+        } else if (shared === 'dates') {
+          if (!this.tour_langs[shared].length) {
+            this.invalidFields.push(shared);
+          }
+        } else if (!this.tour_langs[shared] && shared !== 'booked' && shared !== 'discount' && shared !== 'views') {
+          this.invalidFields.push(shared);
+        }
+      }
     }
+
+    console.log(this.invalidFields)
 
     if (this.tour_langs.en.restType.length != this.tour_langs.ru.restType.length) {
       this.invalidForm = true;
@@ -178,7 +189,15 @@ export class EditingComponent implements OnInit {
     }
   }
 
+  isValidField (field) {
+    if (this.invalidFields.indexOf(field) !== -1) {
+      return true;
+    }
+    return false;
+  }
+
   openModal(content, tourId) {
+    this.invalidFields = [];
     this.isNewTour = false;
     this.invalidForm = false;
     this.toursService.getAllLangsTourById(tourId).subscribe((tour) => {
@@ -189,12 +208,12 @@ export class EditingComponent implements OnInit {
 
   addNewLocation() {
     let countryExist = false;
-    this.invalidForm = false;
+    this.invalidLocation = false;
     this.successMessage = "";
 
     if(!this.locationForm.en.country || !this.locationForm.en.town
       || !this.locationForm.ru.country || !this.locationForm.ru.town) {
-      this.invalidForm = true;
+      this.invalidLocation = true;
       this.invalidMessage = 'You must fill all fields';
       return;
     }
@@ -212,7 +231,7 @@ export class EditingComponent implements OnInit {
           })
         } else {
           this.invalidMessage = "This country and town already exist";
-          this.invalidForm = true;
+          this.invalidLocation = true;
         }
 /*        this.locations[index].en.towns.push(townEn);
         this.locations[index].ru.towns.push(this.locationForm.ru.town);*/
@@ -232,11 +251,11 @@ export class EditingComponent implements OnInit {
 
   deleteLocation() {
     this.successMessage = "";
-    this.invalidForm = false;
+    this.invalidLocation = false;
     let locationId = '';
 
     if (!this.locationForm.en.country) {
-      this.invalidForm = true;
+      this.invalidLocation = true;
       this.invalidMessage = "Fill country field";
       return;
     }
@@ -352,6 +371,7 @@ export class EditingComponent implements OnInit {
   onAdd(content) {
     this.isNewTour = true;
     this.invalidForm = false;
+    this.invalidFields = [];
 
     this.tour_langs = {
       ru: {

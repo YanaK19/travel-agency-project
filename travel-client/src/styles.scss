@@ -6,3 +6,41 @@
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import url('https://fonts.googleapis.com/css?family=Hind+Siliguri&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Exo&display=swap');
+
+.btn.focus,
+.btn:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-secondary.dropdown-toggle:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.show > .btn-success.dropdown-toggle:focus,
+.btn-danger:not(:disabled):not(.disabled).active:focus,
+.btn-danger:not(:disabled):not(.disabled):active:focus,
+.show > .btn-danger.dropdown-toggle:focus,
+.form-control:focus,
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-outline-secondary.dropdown-toggle:focus,
+.custom-select:focus {
+  box-shadow: none;
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled).active,
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-secondary.dropdown-toggle {
+  background-color: inherit;
+  border-color: inherit;
+}
+
+body {
+  font-family: 'Exo', sans-serif;
+}

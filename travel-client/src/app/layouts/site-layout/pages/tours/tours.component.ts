@@ -114,6 +114,8 @@ export class ToursComponent implements OnInit {
 
   reset() {
     this.toursService.getTours().subscribe(tours => {
+      this.filterForm.reset();
+      this.selectSort.nativeElement.value = '';
       this.tours = tours;
     });
   }
