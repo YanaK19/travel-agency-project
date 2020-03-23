@@ -56,59 +56,72 @@
 
   <div *ngIf="orders.length && ordersExist && (orders.length == tours.length && orders.length == users.length || ordersAll.length)" class="orders-container container">
     <div class="row" >
+
       <div *ngFor="let order of orders; let i = index;" class="col-lg-6 orders-col">
         <div class="order-container">
-          <div class="number-buttons container-fluid">
-            <div class="row">
-              <div class="number col-sm-8 col-12">
-                №{{order._id}}
-              </div>
-              <div class="buttons col-sm-4 col-12">
-                <button *ngIf="!order.confirmed" type="button" class="confirm" (click)="onConfirm(order._id)">
-                  <i class="fas fa-check"></i>
-                </button>
+          <div class="order-image">
+            <img *ngIf="tours.length" [src]="tours[i].images[0]">
+          </div>
 
-                <button type="button" class="delete" (click)="openDeleteModal(content, order._id, i)">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </div>
+          <div class="number-buttons">
+            <div class="number">
+              <span>№</span>{{order._id}}
+            </div>
+            <div class="buttons">
+              <button *ngIf="!order.confirmed" type="button" class="confirm" (click)="onConfirm(order._id)">
+                confirm
+              </button>
+
+              <button type="button" class="delete" (click)="openDeleteModal(content, order._id, i)">
+                delete
+              </button>
             </div>
           </div>
 
-          <div class="order-info-container container-fluid">
+          <div *ngIf="tours.length" class="order-title">
+            <div>( № {{tours[i]._id}})</div>
+            <div>{{tours[i].title}}</div>
+          </div>
+
+          <div class="container-fluid">
             <div class="row">
               <div class="col-sm-6">
-                <div class="tour-info">
-                  <div class="tour-image">
-                    <img [src]="tours[i].images[0]" alt="">
+                <div class="user-info">
+                  <div class="user-info_title">User Info</div>
+                  <div class="info-item">
+                    <div class="name"><span>Name:</span> {{users[i].name}}</div>
                   </div>
-                  <div class="tour-description">
-                    <div *ngIf="tours.length" class="title"><strong>Title:</strong> {{tours[i].title}}</div>
+
+                  <div class="info-item">
+                    <div class="email"><span>Email:</span> {{users[i].email}}</div>
+                  </div>
+
+                  <div class="info-item">
+                    <div class="amount"><span>People Amount:</span> {{order.peopleNumber}}</div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 right-col">
-                <div *ngIf="users.length" class="primary-info">
-                  <div class="user-name"><strong>Name:</strong> {{users[i].name}}</div>
-                  <div class="user-email"><strong>Email:</strong> {{users[i].email}}</div>
-                  <div class="user-number"><strong>Number:</strong> {{order.peopleNumber}}</div>
-                  <div class="order-date"><strong>Date:</strong>
-                    {{order.date.day | number: '2.0'}}/{{order.date.month | number: '2.0'}}/{{order.date.year}}
+
+              <div class="col-sm-6">
+                <div class="order-info">
+                  <div class="info-item">
+                    <div class="order-date"><div>Order Date:</div>
+                      {{order.date.day | number: '2.0'}}/{{order.date.month | number: '2.0'}}/{{order.date.year}}
+                    </div>
+                  </div>
+
+                  <div class="info-item">
+                    <div class="cost">
+                      $ {{order.cost}}
+                    </div>
                   </div>
                 </div>
-                <div class="order-confirm">
-                  <strong>Confirmed: </strong>
-                  <i *ngIf="order.confirmed" style="color:green" class="fas fa-check"></i>
-                  <i *ngIf="!order.confirmed" style="color:red" class="fas fa-times"></i>
-                </div>
-                <div class="cost">
-                  <div class="cost-inner">$ {{order.cost}}</div>
-                </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-</div>
+  </div>
 </div>

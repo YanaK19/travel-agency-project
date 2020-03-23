@@ -1,6 +1,6 @@
 $lightBlack: rgba(0, 0, 0, 0.6);
 $blue: #007bff;
-$green: #acd43f;
+$green: #abd43f;
 $white: #ffffffc9;
 $font1: 'Exo', sans-serif;
 
@@ -99,7 +99,7 @@ $font1: 'Exo', sans-serif;
     padding: 25px 5px;
 
     form {
-      background: rgba(0, 0, 0, 0.07);
+      background: $white;
       padding: 28px 21px;
 
       .id-serch-input {
@@ -448,8 +448,10 @@ $font1: 'Exo', sans-serif;
     }
 
     i {
-      font-size: 1.1rem;
       margin-right: 5px;
+      font-size: 1.2rem;
+      color: #000000ad;
+      font-weight: bold;
     }
   }
 

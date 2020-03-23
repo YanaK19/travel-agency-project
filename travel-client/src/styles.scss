@@ -17,6 +17,10 @@ button:focus {
   outline: none;
 }
 
+.form-control:focus, .custom-select:focus {
+  border: 1px solid #ced4da;
+}
+
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-secondary.dropdown-toggle:focus,

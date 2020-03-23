@@ -6,6 +6,16 @@ button {
   }
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: #fffffffa !important
+}
+
+.menu {
+  display: flex;
+}
+
 .dropdown-item {
   color: #111111;
   padding: 0.8rem;
@@ -18,4 +28,10 @@ button {
   font-weight: bold;
   letter-spacing: 0.1rem;
   background-color: rgba(188, 188, 188, 0.36) !important;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+  text-transform: uppercase;
+  flex-grow: unset;
 }
