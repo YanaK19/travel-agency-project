@@ -15,6 +15,7 @@ import {InternalServerComponent} from './error-pages/internal-server/internal-se
 import {NotFoundComponent} from './error-pages/not-found/not-found.component';
 import {AccountComponent} from './layouts/site-layout/pages/account/account.component';
 import {ContactUsComponent} from './layouts/site-layout/pages/contact-us/contact-us.component';
+import {BookComponent} from './layouts/site-layout/pages/book/book.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       {path: 'tours', component: ToursComponent},
       {path: 'one-tour/:id', component: OneTourComponent},
       {path: 'home', component: HomeComponent},
+      {path: 'book/:id', component: BookComponent},
     ],
   },
   {

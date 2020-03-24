@@ -78,14 +78,17 @@
             </div>
           </div>
 
-          <div *ngIf="tours.length" class="order-title">
-            <div>( № {{tours[i]._id}})</div>
-            <div>{{tours[i].title}}</div>
-          </div>
-
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-6">
+                <div class="tour-info">
+                  <div class="tour-info_title">Tour Info</div>
+                  <div *ngIf="tours.length" class="tour-title">
+                    <div>( № {{tours[i]._id}})</div>
+                    <div>{{tours[i].title}}</div>
+                  </div>
+                </div>
+
                 <div class="user-info">
                   <div class="user-info_title">User Info</div>
                   <div class="info-item">

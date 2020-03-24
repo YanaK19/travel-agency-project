@@ -66,8 +66,11 @@ export class OneTourComponent implements OnInit {
     this.imgActive = 'url';
   }
 
-  exitGallery() {
-    this.imgActive = '';
+  exitGallery(event) {
+    const element = event.target as HTMLElement;
+    if(element.classList.contains('full-window-gallery') || element.classList.contains('exit-icon')) {
+      this.imgActive = '';
+    }
   }
 
 /*  sortActualDates() {

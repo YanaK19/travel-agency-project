@@ -1,10 +1,30 @@
+$color_CuriousBlue: rgba(59, 137, 181);
+$color_LightSeaGreen: #1ebba3;
+$color_SkyBlue: #76cff1;
+
+.main-label {
+  text-align: center;
+  font-size: 2rem;
+  padding: 10px 0 11px;
+  border-bottom: 2px solid #76cff1;
+
+  span {
+    color: $color_SkyBlue;
+    font-weight: bold;
+  }
+}
+
+.active-form-title {
+  background: $color_SkyBlue;
+}
+
 .form-booking {
   background: #41aba3;
   margin-top: 40px;
   border-radius: 3px;
   padding: 12px;
 
-  h4 {
+/*  h4 {
     color: #fff;
     text-align: center;
     margin: 20px;
@@ -28,5 +48,82 @@
     text-align: center;
     display: flex;
     justify-content: center;
+  }*/
+}
+
+.modal {
+  padding-right: 0 !important;
+}
+
+.modal-content {
+  border-radius: unset !important;
+}
+
+.modal-body {
+  border-radius: unset;
+
+  .title-register-login {
+    display: flex;
+    justify-content: center;
+
+    h2 {
+      padding: 10px 20px;
+      color: #3b434c;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+  }
+
+  .login-container {
+    background: #fff;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      color: #fff;
+      transition: 0.5s;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 15px;
+      margin-top: 10px;
+
+      &:not(:disabled) {
+        background: $color_CuriousBlue;
+      }
+
+      &:not(:disabled):hover {
+        background-color: #1c9e32;
+        border: none;
+      }
+
+      &:disabled {
+        background-color: rgba(131, 121, 121, 0.5);
+      }
+    }
+
+    .info-content {
+      color: #fff;
+    }
+
+    .invalid-tltp {
+      font-size: 0.95rem;
+      color: #d7370f;
+    }
+
+    .error-message {
+      color: #d7370f;
+    }
+
+    .more {
+      color: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
 }
+/*
+@media (max-width: 768px) {
+
+}*/

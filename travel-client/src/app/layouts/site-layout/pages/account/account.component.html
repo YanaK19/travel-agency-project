@@ -175,13 +175,13 @@
                       <div class="text-title">{{'account.map.empty_title' | translate}}</div>
                       <div class="text-info">
                         <span [innerHTML]="'account.map.empty_text1' | translate"></span>
-                        <a>{{'account.map.empty_text_a' | translate}}</a> {{'account.map.empty_text2' | translate}}
+                        <a routerLink="/tours">{{'account.map.empty_text_a' | translate}}</a> {{'account.map.empty_text2' | translate}}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="no-orders" *ngIf="!ordersData.length && isLoaded">
+                <div class="no-orders" *ngIf="!isMyAccount &&  !ordersData.length && isLoaded">
                   {{'account.orders.empty_title' | translate}}
                 </div>
 

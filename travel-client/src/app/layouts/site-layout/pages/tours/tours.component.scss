@@ -79,7 +79,8 @@ $color_lightSea: #1cbbb4;
     margin-bottom: 5px;
   }
 
-  input:hover {
+  .form_transport select,
+  .sort-container select {
     cursor: pointer;
   }
 

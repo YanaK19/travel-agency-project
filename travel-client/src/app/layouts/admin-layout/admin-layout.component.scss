@@ -9,7 +9,10 @@ button {
 .navbar {
   display: flex;
   justify-content: space-between;
-  background: #fffffffa !important
+  border: none;
+  background: #55585bc7;
+  border-radius: unset;
+  text-transform: uppercase;
 }
 
 .menu {
@@ -17,9 +20,13 @@ button {
 }
 
 .dropdown-item {
-  color: #111111;
+  color: #fff;
   padding: 0.8rem;
   font-weight: bold;
+
+  &:hover {
+    background: #ffffff69;
+  }
 }
 
 .dropdown-menu {
@@ -27,7 +34,9 @@ button {
   font-size: 0.9rem;
   font-weight: bold;
   letter-spacing: 0.1rem;
-  background-color: rgba(188, 188, 188, 0.36) !important;
+  background-color: rgba(23, 23, 23, 0.67) !important;
+  color: #fff;
+  border-radius: unset;
 }
 
 .navbar-collapse {

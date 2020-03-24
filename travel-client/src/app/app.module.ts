@@ -28,6 +28,8 @@ import { ToursSectionComponent } from './layouts/site-layout/pages/tours/tours-s
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { BookBlockComponent } from './layouts/site-layout/pages/one-tour/book-block/book-block.component';
+import { PlaneLoaderComponent } from './plane-loader/plane-loader.component';
+import { BookComponent } from './layouts/site-layout/pages/book/book.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -52,6 +54,8 @@ export function createTranslateLoader(http: HttpClient) {
     ContactUsComponent,
     ToursSectionComponent,
     BookBlockComponent,
+    PlaneLoaderComponent,
+    BookComponent,
    ],
   imports: [
     BrowserModule,

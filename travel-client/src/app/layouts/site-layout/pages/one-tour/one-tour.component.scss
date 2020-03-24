@@ -53,6 +53,10 @@ $color_lightSea: #1cbbb4;
   }
 }
 
+.tour-title h1 {
+  font-size: 2.5rem;
+}
+
 @media (max-width: 992px) {
   .tour-title h1 {
     font-size: 1.7rem;
@@ -187,8 +191,24 @@ $color_lightSea: #1cbbb4;
       width: 110px;
       height: 110px;
       border-radius: 50%;
-      background: url("https://images.unsplash.com/photo-1517352551702-336dda93455e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjIxMTIzfQ&auto=format&fit=crop&w=375&q=80 ") no-repeat bottom center / cover;
-      box-shadow: 1px -1px 1px 1px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+
+      img {
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s;
+      }
+    }
+
+    .photo:hover img {
+      transform: scale(1.1) rotate(-10deg);
     }
 
     .nick {
@@ -196,6 +216,7 @@ $color_lightSea: #1cbbb4;
       color: $color_lightSea;
       font-weight: bold;
       font-size: 1.1rem;
+      cursor: pointer;
     }
   }
 
@@ -553,16 +574,16 @@ $color_lightSea: #1cbbb4;
 ///////////////////////
 .full-window-gallery {
   position: absolute;
-  background: rgba(0, 0, 0, 0.62);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 1000011;
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  padding-top: 300px;
+  padding-top: 30vh;
 
   .exit {
     position: fixed;
-    margin-top: -30vh;
+    margin-top: -20vh;
     height: 60px;
     width: 100%;
     z-index: 100000001;
@@ -572,7 +593,12 @@ $color_lightSea: #1cbbb4;
 
     i {
       font-size: 2rem;
-      color: rgba(255, 255, 255, 0.64);
+      color: #ffffffb8;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
     }
   }
 
@@ -581,12 +607,17 @@ $color_lightSea: #1cbbb4;
     background: rgba(0, 0, 0, 0.45);
     margin-top: -20vh;
     height: 600px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
   }
 
   .carousel-control-next,
   .carousel-control-prev {
     position: fixed;
-    top: -40vh;
+    top: 2vh;
+    height: 5vh;
+    margin-top: 47vh;
   }
 
   .contain {

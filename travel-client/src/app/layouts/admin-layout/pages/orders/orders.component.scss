@@ -5,7 +5,7 @@ $white: #ffffffc9;
 
 .page {
   z-index: 1;
-  background: url("https://images.pexels.com/photos/1527828/pexels-photo-1527828.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background: url(https://i.pinimg.com/564x/10/a0/7a/10a07abecdd0b7e8f5b1de55ba3496a6.jpg);
   min-height: 100vh;
   color: #fff;
 }
@@ -14,8 +14,8 @@ $white: #ffffffc9;
   padding: 25px 11px;
   font-size: 1.5rem;
   color: #fff;
-  border-bottom: 2px solid #ffffff42;
-  background: #3f2b064f;
+  border-bottom: 2px solid #55585b;
+  background: #3d3d3e96;
 }
 
 .confirm-filter-container {
@@ -36,17 +36,13 @@ $white: #ffffffc9;
   appearance: none;
   width: 50px;
   height: 25px;
-  background: #ddd;
+  background: #c7c9cc;
   border-radius: 3em;
   position: relative;
   cursor: pointer;
   outline: none;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   vertical-align: middle;
-
-  &:checked {
-    background: #5cb85c;
-  }
 
   &:after {
     position: absolute;
@@ -67,11 +63,11 @@ $white: #ffffffc9;
 }
 
 .search-filter-container {
-  border-bottom: 2px solid #ffffff42;
+  border-bottom: 2px solid #55585b;
   width: 100%;
   margin: 0;
   max-width: 100%;
-  background: #3f2b064f;
+  background: #3d3d3e96;
 }
 
 .search-container {
@@ -132,7 +128,7 @@ $white: #ffffffc9;
   .line-decoration-inner {
     width: 50%;
     height: 8px;
-    background: #0d0c40;
+    background: #0000009e;
   }
 }
 
@@ -161,9 +157,10 @@ $white: #ffffffc9;
   }
 
   .order-container {
-    background: rgba(63, 43, 6, 0.59);
+    background: #ffffff4f;
     min-height: 350px;
     height: 100%;
+    color: #4a3725;
   }
 
   .number {
@@ -201,7 +198,7 @@ $white: #ffffffc9;
       border: none;
       height: 35px;
       width: 120px;
-      background: #ff1e1e9c;
+      background: #0000009e;
       color: #fff;
       text-transform: uppercase;
       transition: 0.3s;
@@ -212,16 +209,17 @@ $white: #ffffffc9;
     }
 
     .confirm {
-      background: rgba(28, 158, 50, 0.71);
+      background: rgba(255, 255, 255, 0.58);
     }
   }
 
   .order-title {
-    background: #0000009e;
+    background: #3d3d3e;
     color: #fff;
     padding: 10px;
     text-align: center;
     font-size: 1.2rem;
+    border-bottom: 2px solid #e0e8f0;
   }
 
   .order-image {
@@ -241,8 +239,9 @@ $white: #ffffffc9;
   }
 
   .user-info,
-  .order-info {
-    padding: 20px 10px 10px;
+  .order-info,
+  .tour-info {
+    padding: 15px 10px 10px;
   }
 
   .order-info {
@@ -253,103 +252,5 @@ $white: #ffffffc9;
     font-size: 2.5rem;
     margin-top: 20px;
   }
-
- /* .confirm,
-  .delete {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    margin-left: 10px;
-    transition: .3s;
-
-    i {
-      color: #fff;
-      font-size: 1rem;
-      transition: .3s;
-    }
-
-    &:hover {
-      background: #f50707;
-      !* box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.33); *!
-
-      i {
-        font-size: 1.2rem;
-      }
-    }
-  }
-
-  .confirm {
-    background: rgba(28, 158, 50, 0.74);
-
-    &:hover {
-      background: rgba(36, 206, 67, 0.89);
-    }
-  }
-
-  .delete {
-    background: #e74c3c;
-  }
-
-  .tour-image {
-    width: 100%;
-    height: 200px;
-    !* background: cadetblue; *!
-    margin-top: 10px;
-    position: relative;
-
-    img {
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .tour-description {
-    margin: 11px 0 22px;
-    background: #ffffff36;
-    padding: 8px;
-  }
-
-  .primary-info {
-    margin: 10px 0;
-    background: #ffffff45;
-    padding: 8px;
-  }
-
-  .order-confirm {
-    !* background: #307a9eb3; *!
-    margin-bottom: 10px;
-    background: #ffffff45;
-    padding: 10px;
-
-    i {
-      color: #39974e;
-      font-size: 1.5rem;
-    }
-  }
-
-  .cost {
-    margin-bottom: 10px;
-    !*  padding: 10px; *!
-    height: 95px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-
-    .cost-inner {
-      width: 100px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      background: #d82311ad;
-    }
-  }*/
 }
 

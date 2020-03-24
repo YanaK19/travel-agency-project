@@ -146,8 +146,6 @@ $color_lightSea: #1cbbb4;
 
   .settings {
     position: absolute;
-    right: 20px;
-    top: 10px;
     font-size: 2.5rem;
     transition: 0.3s;
     right: 24px;
@@ -448,7 +446,7 @@ $color_lightSea: #1cbbb4;
 
       a:hover {
         text-decoration: underline;
-        font-size: 1.3rem;
+        cursor: pointer;
       }
     }
   }
@@ -467,7 +465,7 @@ $color_lightSea: #1cbbb4;
       }
 
       .have-no-trips-text {
-        font-size: .9rem;
+        font-size: 0.9rem;
         text-align: center;
         width: 70%;
         margin-bottom: 20px;
