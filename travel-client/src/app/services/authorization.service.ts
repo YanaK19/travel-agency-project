@@ -23,7 +23,9 @@ export class AuthorizationService {
   }
 
   logout() {
+    const lang = localStorage.getItem('locale');
     localStorage.clear();
+    localStorage.setItem('locale', lang);
     this.router.navigate(['/home']);
   }
 
