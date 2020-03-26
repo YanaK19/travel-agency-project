@@ -22,13 +22,17 @@ export class BookBlockComponent implements OnInit {
   subscriptions: Subscription[] = [];
   resultMessage: any = null;
   activeForm = 'login';
+  id: string;
 
   @Input() tour: Tour;
   constructor(private auth: AuthorizationService,
               private router: Router,
               private modalService: NgbModal,
               private route: ActivatedRoute,
-              private errorHandler: ErrorHandlerService) { }
+              private errorHandler: ErrorHandlerService,
+              private activatedRoute: ActivatedRoute) {
+    this.id = activatedRoute.snapshot.params.id;
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -102,7 +106,7 @@ export class BookBlockComponent implements OnInit {
 
   onBook(content) {
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/book', 123]);
+      this.router.navigate(['/book', this.id]);
     } else {
       this.modalService.open(content, { centered: true });
     }

@@ -2,7 +2,7 @@ $color_lightSea: #1cbbb4;
 
 .page {
   padding-top: 12vh;
-  background: rgb(224, 232, 240);
+  background: linear-gradient(0deg, #020024 6%, rgba(9, 9, 121, 0.8556373233) 28%, #1cbbb4 100%);
 }
 
 .bgr-image {
@@ -12,7 +12,7 @@ $color_lightSea: #1cbbb4;
   left: 0;
   width: 100%;
   height: 90vh;
-  background: url("https://images.unsplash.com/photo-1472586662442-3eec04b9dbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80") no-repeat center center/cover;
+  background: url("https://images.pexels.com/photos/1089194/pexels-photo-1089194.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") no-repeat center center/cover;
 }
 
 .bgr-image-side {
@@ -22,7 +22,7 @@ $color_lightSea: #1cbbb4;
   left: 0;
   width: 40%;
   height: 90vh;
-  background: #1cbbb4a3;
+  background: rgba(28, 187, 180, 0.76);
   color: #395261;
 
   &::before {
@@ -30,7 +30,7 @@ $color_lightSea: #1cbbb4;
     position: absolute;
     display: block;
     border-right: 145px solid transparent;
-    border-bottom: 90vh solid #1cbbb4a3;
+    border-bottom: 90vh solid rgba(28, 187, 180, 0.76);
     height: 100%;
     left: 100%;
     width: 10%;
@@ -47,14 +47,20 @@ $color_lightSea: #1cbbb4;
   text-align: end;
   padding: 4vh 3vh 5vh 11vh;
   font-size: 1.1rem;
-  color: #05635f;
-  font-weight: bold;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .block0_title {
     font-size: 2.6rem;
     text-transform: uppercase;
     margin-top: 6vh;
     margin-bottom: 5vw;
+  }
+
+  .block0_subtitle {
+    font-style: oblique;
   }
 }
 
@@ -67,7 +73,6 @@ $color_lightSea: #1cbbb4;
 .block1_form {
   width: 45%;
   padding-left: 5vw;
-  font-weight: bold;
 
   .form-item {
     margin-bottom: 5vh;
@@ -75,7 +80,7 @@ $color_lightSea: #1cbbb4;
   }
 
   .form-item_title {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-bottom: 5px;
   }
 
@@ -98,15 +103,18 @@ $color_lightSea: #1cbbb4;
 
     input {
       border-radius: unset;
-      max-width: 350px;
+      max-width: 260px;
     }
   }
 
   .calendar {
-    border-left: none;
     background: #fff !important;
     border-radius: unset;
-    border-left: none !important;
+    margin-top: 1px;
+    width: 44px;
+    color: #495057;
+    border: none !important;
+    height: 36px !important;
   }
 
   .btn-search span {
@@ -127,17 +135,19 @@ $color_lightSea: #1cbbb4;
     cursor: pointer;
     text-transform: uppercase;
     opacity: 1;
-    background-color: #df084aa8;
-    border: none;
-    margin: 0 auto;
-    height: 38px;
+    background-color: rgba(223, 8, 74, 0.6);
     color: #fff;
+    transition: 0.2s;
+    max-width: 140px;
+    border: 2px solid #ffffffba;
+    height: 42px;
+    width: 160px;
 
     i {
       color: #fff;
     }
 
-    &:hover {
+/*    &:hover {
       animation: rotate 0.7s ease-in-out both;
       background-color: rgba(223, 8, 74, 0.89);
 
@@ -145,7 +155,7 @@ $color_lightSea: #1cbbb4;
         animation: storm 0.7s ease-in-out both;
         animation-delay: 0.06s;
       }
-    }
+    }*/
   }
 
   .form_buttons {
@@ -153,13 +163,20 @@ $color_lightSea: #1cbbb4;
     display: flex;
 
     .btn-search {
-      width: 60%;
+      color: #fff;
+      background-color: #e75b857d;
+      margin-right: 10px;
+
+      &:hover {
+        background: rgba(223, 8, 74, 0.85);
+      }
     }
 
     .btn-reset {
-      width: 35%;
       font-size: 1.1rem;
       background: #001c258c;
+      margin-left: 5px;
+      transform: rotate(-12deg);
 
       &:hover {
         background: rgba(0, 28, 37, 0.76);
@@ -312,7 +329,8 @@ $color_lightSea: #1cbbb4;
       padding-top: 10px;
       width: 100%;
       padding-bottom: 15px;
-      background: $color_lightSea;
+      /*background: $color_lightSea;*/
+      background: rgba(230, 0, 77, 0.58);
       font-size: 1.2rem;
     }
 
@@ -447,11 +465,6 @@ $color_lightSea: #1cbbb4;
     font-weight: bold;
     transition: 0.3s;
   }
-
-  .see-reviews:hover {
-    text-decoration: underline;
-    font-size: 1.05rem;
-  }
 }
 
 .slide3-content {
@@ -487,4 +500,9 @@ $color_lightSea: #1cbbb4;
   color: #fff;
   font-size: 1.5rem;
   margin: 20px 0;
+}
+
+input,
+select {
+  border-color: transparent !important;
 }

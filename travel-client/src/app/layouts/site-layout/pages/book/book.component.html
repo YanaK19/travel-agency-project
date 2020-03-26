@@ -1,1 +1,91 @@
-<p>book works!</p>
+<div class="page">
+  <div *ngIf="tour" class="shadow"></div>
+
+  <div *ngIf="tour" class="book-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7 info-container">
+
+          <div class="user-info">
+            <div class="info_title">Customer</div>
+            <div class="user-name">{{user.name}}</div>
+            <div class="user-email">{{user.email}}</div>
+            <div class="user-tel">
+              <div class="iser-tel_title">Telephone for Contact</div>
+              {{user.telephone}}</div>
+          </div>
+
+          <div class="tour-info">
+            <div class="info_title">About This Tour</div>
+            <div class="tour-title">{{tour.title}}</div>
+            <div class="tour-route">
+              <div class="place">
+                <div class="country">{{tour.route.fromCountry}}</div>
+                <div class="town">{{tour.route.fromTown}}</div>
+              </div>
+
+              <div class="route-img-container">
+                <i class="fas fa-car-side"></i>
+              </div>
+
+              <div class="place">
+                <div class="country">{{tour.route.toCountry}}</div>
+                <div class="town">{{tour.route.toTown}}</div>
+              </div>
+              <div class="title"></div>
+              <div class="title"></div>
+            </div>
+
+            <div class="tour-info_title">Rest Types</div>
+            <div class="tour_rest">
+              <div *ngFor="let restType of tour.restType; let r=index;">
+                {{restType}}
+              </div>
+            </div>
+
+            <div class="tour-info_title">Transport</div>
+            <div class="tour-transport">{{tour.transportType}}</div>
+          </div>
+        </div>
+
+        <div class="col-md-5 form-container">
+          <div class="form-container_inner">
+            <form [formGroup]="bookForm">
+              <div class="dates-container">
+                <div class="title">Dates</div>
+                <select formControlName="dates" class="custom-select dates-select" id="inputGroupSelect01">
+                  <option selected>
+                    {{tour.dates[0].dateFrom.day  | number: '2.0'}}/{{tour.dates[0].dateFrom.month | number: '2.0'}}/{{tour.dates[0].dateFrom.year}},
+                    {{tour.dates[0].dateTo.day | number: '2.0'}}/{{tour.dates[0].dateTo.month | number: '2.0'}}/{{tour.dates[0].dateTo.year}}
+                  </option>
+                  <option *ngFor="let date of tour.dates | slice:1; let indx = index;">
+                    {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}},
+                    {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="amount-container">
+                <div class="title amount-title">Tickets Amount</div>
+                <input [(ngModel)]="amount" formControlName="amount" type="number" min="1" class="form-control amount-input" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
+              </div>
+           </form>
+
+            <div class="title price-title">Summary Price</div>
+            <div class="price">${{tour.cost*amount}}</div>
+          </div>
+
+          <div class="btn-book">
+            <div class="btn-book_tip">
+              After placing the order, you should receive a notification in the mail.
+              We will contact you by phone.
+              Have a good trip!
+            </div>
+
+            <button (click)="onBook()">Book Tour</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

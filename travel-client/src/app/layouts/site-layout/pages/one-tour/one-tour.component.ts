@@ -63,7 +63,7 @@ export class OneTourComponent implements OnInit {
   }
 
   showGallery(event) {
-    this.imgActive = 'url';
+    this.imgActive = event.target.src;
   }
 
   exitGallery(event) {

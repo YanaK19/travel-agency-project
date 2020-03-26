@@ -1,0 +1,161 @@
+.page {
+  min-height: 100vh;
+  background: url("https://images.unsplash.com/photo-1513265472937-50d3e680377c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80") no-repeat bottom center / cover;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.shadow {
+  position: absolute;
+  background: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(12, 10, 59));
+  height: 110vh;
+  width: 100%;
+  z-index: 0 !important;
+}
+
+.book-container {
+  position: relative;
+  z-index: 10;
+  padding-top: 10vh;
+  color: #fff;
+}
+
+.info-container {
+  padding: 5vh 4vw;
+  padding-right: 1vw;
+
+  .user-info,
+  .tour-info {
+    background: #ffffff66;
+    padding: 3vw;
+    background: url(https://images.unsplash.com/photo-1513265472937-50d3e680377c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80) no-repeat bottom center/cover;
+    box-shadow: inset 48px 15px 164px 0px #000000;
+  }
+
+  .tour-info {
+    margin-top: 15px;
+    background: url(https://images.unsplash.com/photo-1513265472937-50d3e680377c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80) no-repeat bottom center/cover;
+    box-shadow: inset 48px 15px 164px 0 #000;
+  }
+
+  .info_title {
+    font-size: 1.5rem;
+    font-style: italic;
+    padding-bottom: 10px;
+  }
+
+  .iser-tel_title {
+    font-size: 1.2rem;
+    font-style: italic;
+    padding-top: 8px;
+    padding-bottom: 5px;
+  }
+
+  .route-img-container {
+    width: 65%;
+    padding: 0 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.74);
+    border-bottom-style: dashed;
+  }
+
+  .route-img-container i {
+    color: #fff;
+    font-size: 2rem;
+    margin-left: 5%;
+    animation: go-left-right 3s linear 2s infinite alternate;
+  }
+
+  @keyframes go-left-right {
+    from {
+      margin-left: 5%;
+    }
+
+    to {
+      margin-left: 80%;
+    }
+  }
+
+  .tour-route {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+
+  .country {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .place {
+    padding: 0 10px;
+  }
+
+  .tour-info_title {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-top: 3px;
+  }
+}
+
+.form-control {
+  border: 1px solid transparent;
+}
+
+.form-container {
+  padding: 5vh 2vw;
+  padding-left: 1vw;
+
+  .form-container_inner {
+    padding: 3vw;
+    background: rgba(163, 59, 42, 0.67);
+    box-shadow: inset 14px 15px 164px 0px #000;
+  }
+
+  .form-control,
+  .custom-select {
+    border-radius: unset;
+  }
+
+  .title {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-top: 3px;
+  }
+
+  .amount-input {
+    width: 55px;
+  }
+
+  .dates-select {
+    max-width: fit-content;
+  }
+
+  .price {
+    font-size: 2.5rem;
+  }
+
+  .price-title {
+    margin-top: 15px;
+  }
+}
+
+.btn-book {
+  margin: 10px 0;
+  background: #0c0a3be0;
+  padding: 3vw;
+
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background: rgba(163, 59, 42, 0.67);
+    border: 2px solid rgba(238, 231, 229, 0.67);
+    font-size: 1.5rem;
+    color: #fff;
+
+    &:hover {
+      background: rgba(187, 67, 48, 0.83);
+    }
+  }
+}

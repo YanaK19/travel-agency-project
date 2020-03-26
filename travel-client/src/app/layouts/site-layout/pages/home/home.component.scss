@@ -471,15 +471,19 @@
 
 ///////////// views //////////////
 .block-views {
-  margin-top: 400px;
+  margin-top: 310px;
   width: 100%;
   padding-right: 0 !important;
   padding-left: 0 !important;
   padding-bottom: 0;
-  margin-bottom: 50px;
+  margin-bottom: 7px;
+
+  @media (max-width: 992px) {
+    margin-top: 415px;
+  }
 
   @media (max-width: 768px) {
-    margin-top: 510px;
+    margin-top: 415px;
   }
 
   @media (max-width: 576px) {
@@ -505,6 +509,7 @@
     .box {
       position: relative;
       background: rgba(107, 122, 132, 0.57);
+      cursor: pointer;
     }
 
     .a {
@@ -627,7 +632,7 @@
 
 @media (max-width: 576px) {
   .block-views {
-    margin-top: 800px;
+    margin-top: 765px;
   }
 
   .title-views h2 {
@@ -647,7 +652,7 @@
 ///////////// discount ////////////
 
 .discount-block {
-  margin-bottom: 50px;
+  margin-bottom: 7px;
   padding-left: 0;
   padding-right: 0;
   width: 100%;
@@ -820,7 +825,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: .5s;
+    transition: 0.5s;
+    cursor: pointer;
 
     .type-icon {
       color: #fff;

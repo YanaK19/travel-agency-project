@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UserData} from '../../../../interfaces/user/userData.interface';
@@ -6,6 +6,7 @@ import {ReviewService} from '../../../../services/review.service';
 import {OrderService} from '../../../../services/order.service';
 import {ToursService} from '../../../../services/tours.service';
 import {Subscription} from 'rxjs';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-account-page',
@@ -27,13 +28,15 @@ export class AccountComponent implements OnInit, OnDestroy {
   alreadySubscribed = false;
   image: any = '';
   isLoaded = false;
+  reviewTourId = '';
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private reviewService: ReviewService,
               private  orderService: OrderService,
               private tourService: ToursService,
-              private router: Router) { }
+              private router: Router,
+              private modalService: NgbModal) { }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -154,5 +157,18 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  openReviewModal(content) {
+    this.reviewTourId = '';
+    this.modalService.open(content, { centered: true });
+  }
+
+  showFields(tourId) {
+    this.reviewTourId = tourId;
+  }
+
+  openEditProfileModal(content) {
+    this.modalService.open(content, { centered: true });
   }
 }

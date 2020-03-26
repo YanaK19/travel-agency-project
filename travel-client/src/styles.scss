@@ -34,7 +34,10 @@ button:focus {
 .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-outline-secondary.dropdown-toggle:focus,
-.custom-select:focus {
+.custom-select:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
 

@@ -1,10 +1,10 @@
 $color_lightSea: #1cbbb4;
 
 .page {
-  background: rgba(59, 67, 76, 0.11);
   min-height: 100vh;
   top: 0;
   padding-top: 85px;
+  background: linear-gradient(0deg, #020024 6%, rgba(9, 9, 121, 0.8556373233) 28%, #1cbbb4 100%);
 }
 
 .content {
@@ -312,9 +312,35 @@ $color_lightSea: #1cbbb4;
   padding-right: 25px;
   padding-left: 25px;
 
+  .fa-edit {
+    margin: 0;
+  }
+
   .profile-about,
   .features {
     background: #fff;
+    position: relative;
+
+    .edit-about {
+      position: absolute;
+      right: 10px;
+      background: #a2224d;
+      border-radius: 50%;
+      display: flex;
+      width: 45px;
+      height: 45px;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+      color: #fff;
+      top: 12px;
+      transition: 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        background: #8353a2;
+      }
+    }
 
     .line {
       width: 100%;
@@ -332,7 +358,7 @@ $color_lightSea: #1cbbb4;
       .line-decoration-inner {
         width: 50%;
         height: 4px;
-        background: #0f5751;
+        background: #202267;
       }
     }
 
@@ -356,39 +382,29 @@ $color_lightSea: #1cbbb4;
 
   .title {
     text-align: center;
-    padding: 12px 2px;
+    padding: 20px 2px;
     font-size: 1.2rem;
     font-weight: bold;
+    color: #202267;
   }
 
   .features {
     margin-top: 10px;
     margin-bottom: 15px;
 
-    .line {
-      background: $color_lightSea;
-    }
-
-    .line-decoration {
-      background: $color_lightSea;
-    }
-
     .write {
-      background: $color_lightSea;
+      background: rgb(162, 34, 77);
       color: #fff;
-      padding: 1px 20px 17px;
+      padding: 20px 17px;
       display: flex;
       justify-content: center;
+      transition: 0.2s;
+      border: 2px solid #ffffff78;
+      border-top: unset;
 
-      a {
-        transition: .3s;
-      }
-
-      a:hover {
-        text-decoration: underline;
-        font-weight: bold;
-        color: #0f5751;
-        font-size: 1.1rem;
+      &:hover {
+        background: rgba(188, 40, 93, 0.97);
+        cursor: pointer;
       }
     }
   }
@@ -727,15 +743,16 @@ $color_lightSea: #1cbbb4;
 
 .tabset-item-map {
   padding: 0;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 6%, rgba(9, 9, 121, 0.8556373232886905) 28%, rgba(28, 187, 180, 1) 100%);
+  background: #00000045;
 }
 
-
 .tabset-item-orders {
+  background: transparent;
+  color: #fff !important;
+
   .row-order-item {
     padding: 10px;
-    background-color: rgba(28, 187, 180, 0.4);
+    background-color: #00000045;
     min-height: 200px;
     margin-bottom: 10px;
   }
@@ -745,34 +762,11 @@ $color_lightSea: #1cbbb4;
     top: -8px;
     right: 0;
     font-size: 1.6rem;
-    color: rgb(28, 74, 72);
-    transition: .2s;
+    color: rgba(255, 255, 255, 0.53);
+    transition: 0.2s;
 
     &:hover {
-      font-size: 1.8rem;
-      animation: bounce .5s ease-in-out;
-    }
-
-    @keyframes bounce {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      25% {
-        transform: rotate(-20deg);
-      }
-
-      50% {
-        transform: rotate(0deg);
-      }
-
-      75% {
-        transform: rotate(20deg);
-      }
-
-      50% {
-        transform: rotate(0deg);
-      }
+      color: rgba(255, 255, 255, 0.77);
     }
   }
 
@@ -786,8 +780,8 @@ $color_lightSea: #1cbbb4;
   }
 
   .title {
-    color: rgb(28, 74, 72);
     text-align: start;
+    color: #fff !important;
   }
 
   .info {
@@ -946,11 +940,16 @@ $color_lightSea: #1cbbb4;
 }
 
 .user-avatar {
-  background: rgba(86, 182, 201, 0.69);
   color: #fff;
   text-align: center;
   transition: 0.5s;
   position: relative;
+  background: #00000045;
+  border: 2px solid #ffffff91;
+
+  &:hover {
+    background: rgb(0, 18, 86) !important;
+  }
 
   input {
     opacity: 0;
@@ -960,10 +959,116 @@ $color_lightSea: #1cbbb4;
     z-index: 2;
     top: 0;
     left: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.review-container {
+  .tour-inner {
+    display: flex;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+
+    &:hover {
+      background: rgba(12, 10, 59, 0.31);
+      cursor: pointer;
+    }
   }
 
-  &:hover {
-    background: rgb(86, 182, 201);
-    cursor: pointer;
+  form {
+    margin-bottom: 28px;
+
+    input {
+      margin-bottom: 5px;
+    }
+  }
+
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #a2224d;
+  }
+
+  .btn-write {
+    margin-left: 10px;
+    transition: 2s;
+
+    img {
+      width: 30px;
+    }
+  }
+
+  .btn-container {
+    margin-top: 10px;
+    text-align: center;
+
+    .btn {
+      border-radius: unset;
+      background: #0c0a3ba6;
+      border: none;
+      text-transform: uppercase;
+      padding: 7px 61px;
+      font-size: 1.1rem;
+
+      &:hover {
+        background: rgba(12, 10, 59, 0.75);
+      }
+    }
+  }
+
+  .active-title {
+    background: #0c0a3ba6;
+    color: #fff;
+  }
+}
+
+.edit-container {
+  .title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #a2224d;
+  }
+
+  input {
+    margin-bottom: 5px;
+  }
+
+  .form_block {
+    margin-bottom: 10px;
+  }
+
+  .btn-container {
+    margin-top: 35px;
+    text-align: center;
+
+    .btn {
+      border-radius: unset;
+      background: rgba(12, 10, 59, 0.52);
+      border: none;
+      text-transform: uppercase;
+      padding: 7px 61px;
+      font-size: 1.1rem;
+
+      &:hover {
+        background: rgba(12, 10, 59, 0.75);
+      }
+    }
+
+    .btn-send {
+      margin-left: 10px;
+      background: #cd918a;
+
+      &:hover {
+        background: #dc8b85;
+      }
+    }
   }
 }

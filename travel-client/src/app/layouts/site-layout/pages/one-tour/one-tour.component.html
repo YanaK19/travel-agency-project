@@ -1,5 +1,5 @@
 <div *ngIf="!isLoaded()" class="loading">
-  <app-loader></app-loader>
+  <plane-loader></plane-loader>
 </div>
 
 
@@ -11,12 +11,7 @@
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="contain">
-            <img class="d-block" [src]="tour.images[0]">
-          </div>
-        </div>
-        <div class="carousel-item" *ngFor="let image of tour.images | slice:1;">
+        <div [ngClass]="{'active' : imgActive == image}" class="carousel-item" *ngFor="let image of tour.images">
             <div class="contain">
               <img class="d-block" [src]="image">
             </div>
@@ -36,6 +31,7 @@
 
 
   <div class="banner-container">
+    <div class="overlay"></div>
     <div class="banner-container_image">
       <img [src]="tour.images[0]">
     </div>

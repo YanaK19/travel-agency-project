@@ -48,6 +48,9 @@
           </div>
 
           <div class="profile-about">
+            <div class="edit-about" (click)="openEditProfileModal(editProfileModal)">
+              <i class="fas fa-edit"></i>
+            </div>
             <div class="title">
               {{'account.about_me' | translate}} <!--<i class="fas fa-user-edit edit-icon"></i>-->
             </div>
@@ -77,11 +80,7 @@
             <div class="title">
               {{'account.features.title' | translate}}
             </div>
-            <div class="line"></div>
-            <div class="line-decoration">
-              <div class="line-decoration-inner"></div>
-            </div>
-            <div class="write">
+            <div class="write" (click)="openReviewModal(reviewModal)">
               <i class="fas fa-pencil-alt"></i><a>{{'account.features.write' | translate}}</a>
             </div>
           </div>
@@ -92,7 +91,7 @@
         <div class="subnav">
           <ngb-tabset [destroyOnHide]="false">
             <ngb-tab>
-              <ng-template ngbTabTitle>{{'account.map.tab_title' | translate}}</ng-template>
+              <ng-template ngbTabTitle><div style="color: rgba(0, 15, 104, 0.69);font-weight: bold;">{{'account.map.tab_title' | translate}}</div></ng-template>
               <ng-template ngbTabContent>
                 <div *ngIf="orderedToursData.length" class="journal tabset-item tabset-item-map">
                   <div class="user-map-container">
@@ -194,7 +193,7 @@
 
             <ng-container *ngIf="isMyAccount">
             <ngb-tab>
-              <ng-template ngbTabTitle>{{'account.orders.tab_title' | translate}}</ng-template>
+              <ng-template ngbTabTitle><div style="color: rgba(0, 15, 104, 0.69);font-weight: bold;">{{'account.orders.tab_title' | translate}}</div></ng-template>
               <ng-template ngbTabContent>
                 <div *ngIf="ordersData.length" class="tabset-item tabset-item-orders">
                   <div class="order-items">
@@ -229,7 +228,7 @@
             </ng-container>
 
             <ngb-tab>
-              <ng-template ngbTabTitle>{{'account.favourites.tab_title' | translate}}</ng-template>
+              <ng-template ngbTabTitle><div style="color: rgba(0, 15, 104, 0.69);font-weight: bold;">{{'account.favourites.tab_title' | translate}}</div></ng-template>
               <ng-template ngbTabContent>
 <!--                <div class="tabset-item">
                   <app-tours-section></app-tours-section>
@@ -248,3 +247,87 @@
     </div>
   </div>
 </div>
+
+<ng-template #reviewModal let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="review-container">
+          <div class="title">
+            Leave your Tour Review
+          </div>
+
+          <div class="tours">
+            <div class="tour" (click)="showFields(orderedTour._id)" *ngFor="let orderedTour of orderedToursData;">
+              <div class="tour-inner" [ngClass]="{'active-title' : orderedTour._id == reviewTourId}">
+                <div class="tour-title">
+                  {{orderedTour.title}}
+                </div>
+                <div *ngIf="orderedTour._id != reviewTourId" class="btn-write">
+                  <img src="https://image.flaticon.com/icons/svg/813/813419.svg" alt="">
+                </div>
+              </div>
+
+              <form *ngIf="orderedTour._id == reviewTourId" class="review">
+                <input type="text" placeholder="Review Title" class="form-control" name="review-input">
+                <textarea type="text" placeholder="Type your thoughts HERE..." class="form-control" name="review-textarea"></textarea>
+                <div class="btn-container">
+                  <button class="btn btn-primary">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editProfileModal let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="edit-container">
+          <div class="title">
+            Edit Page Info
+          </div>
+
+          <form>
+            <div class="form_block">
+              <div class="field-label">Where Are U Living?</div>
+              <input type="text" placeholder="Country" class="form-control" name="">
+              <input type="text" placeholder="Town" class="form-control" name="">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">What languages​do you speak?</div>
+              <input type="text" placeholder="Add Language" class="form-control" name="">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">How about writing some information about yourself?</div>
+              <textarea type="text" placeholder="I'm ..." class="form-control" name=""></textarea>
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">My Phone</div>
+              <input type="text" class="form-control" name="" [value]="userData.telephone">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">My Email</div>
+              <input type="text" class="form-control" name="" [value]="userData.email">
+            </div>
+
+            <div class="btn-container">
+              <button class="btn btn-primary">Close</button>
+              <button class="btn btn-primary btn-send">Send</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
