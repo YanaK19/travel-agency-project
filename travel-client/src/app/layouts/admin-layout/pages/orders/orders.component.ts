@@ -5,6 +5,7 @@ import {UserService} from '../../../../services/user.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Order} from '../../../../interfaces/order/order.interface';
 import {RangeService} from '../../../../services/range.service';
+import {EmailService} from '../../../../services/email.service';
 
 @Component({
   selector: 'app-orders-page',
@@ -34,7 +35,8 @@ export class OrdersComponent implements OnInit {
               private tourService: ToursService,
               private userService: UserService,
               private modalService: NgbModal,
-              private rangeService: RangeService) { }
+              private rangeService: RangeService,
+              private emailService: EmailService) { }
 
   ngOnInit() {
     this.orderService.getOrders().subscribe((orders) => {
@@ -75,11 +77,15 @@ export class OrdersComponent implements OnInit {
   }
 
   onConfirm(orderId) {
-    this.orderService.confirmOrder(orderId).subscribe(updatedOrder => {
+/*    this.orderService.confirmOrder(orderId).subscribe(updatedOrder => {
     });
 
     const index = this.orders.findIndex(order => order._id == orderId);
-    this.orders[index].confirmed = true;
+    this.orders[index].confirmed = true;*/
+
+    this.emailService.sendOrderConfirmedEmail("123").subscribe(data => {
+      console.log(data)
+    })
   }
 
   openDeleteModal(content, orderId, i) {

@@ -333,5 +333,4 @@ async function getAllLangsToursById(req:any, res:any) {
     }
 }
 
-
 export {create, remove, update, getTourById, getFilSortTours, getAllLangsTours, getAllLangsToursById}

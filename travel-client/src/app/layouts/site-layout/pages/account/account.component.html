@@ -230,11 +230,14 @@
             <ngb-tab>
               <ng-template ngbTabTitle><div style="color: rgba(0, 15, 104, 0.69);font-weight: bold;">{{'account.favourites.tab_title' | translate}}</div></ng-template>
               <ng-template ngbTabContent>
-<!--                <div class="tabset-item">
-                  <app-tours-section></app-tours-section>
-                </div>-->
 
-                <div class="no-favourites">
+                <div class="favourites-items" *ngIf="favouriteTours.length">
+                  <section>
+                    <app-tours-section [toursList]="favouriteTours" [parentComponent]="componentName"></app-tours-section>
+                  </section>
+                </div>
+
+                <div *ngIf="!userData.favouriteTourIds.length" class="no-favourites">
                   {{'account.favourites.empty_title' | translate}}
                 </div>
               </ng-template>

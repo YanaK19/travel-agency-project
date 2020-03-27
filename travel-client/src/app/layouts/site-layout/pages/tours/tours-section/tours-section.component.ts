@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Tour} from '../../../../../interfaces/tour/tour.interface';
 import {Router} from '@angular/router';
+import {UserService} from '../../../../../services/user.service';
+import {AuthorizationService} from '../../../../../services/authorization.service';
 
 @Component({
   selector: 'app-tours-section',
@@ -9,14 +11,46 @@ import {Router} from '@angular/router';
 })
 export class ToursSectionComponent implements OnInit {
 @Input() toursList: Tour[];
+@Input() parentComponent: string;
+  isAuthenticated = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private userService: UserService,
+              private auth: AuthorizationService) { }
 
   ngOnInit() {
     console.log(this.toursList);
+    this.isAuthenticated = this.auth.isAuthenticated()
   }
 
   renderTourPage(tourId) {
+
     this.router.navigate(['/one-tour', tourId]);
+  }
+
+  onAddToFavourites(tourId){
+    this.userService.addToFavourites(tourId).subscribe(updatedUser => {
+      console.log(updatedUser)
+    })
+  }
+
+  isTourExistInFavourites(tourId) {
+    let favourites = JSON.parse(localStorage.getItem('userData')).favouriteTourIds;
+    if(favourites.indexOf(tourId) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onDeleteFromFavourites(tourId) {
+    if (this.parentComponent === 'account') {
+      const index = this.toursList.findIndex(tour => tour._id === tourId);
+      this.toursList.splice(index, 1);
+    }
+
+    this.userService.deleteFromFavourites(tourId).subscribe(updatedUser => {
+      console.log(updatedUser)
+    });
   }
 }

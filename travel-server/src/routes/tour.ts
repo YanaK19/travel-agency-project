@@ -1,5 +1,13 @@
 import express from 'express';
-import {create, remove, update, getTourById, getFilSortTours, getAllLangsTours, getAllLangsToursById} from '../controllers/tour';
+import {
+    create,
+    remove,
+    update,
+    getTourById,
+    getFilSortTours,
+    getAllLangsTours,
+    getAllLangsToursById
+} from '../controllers/tour';
 import authenticateJwt from "../middleware/authenticateJwt";
 import isAdmin from "../middleware/isAdmin";
 import {upload} from '../middleware/upload';

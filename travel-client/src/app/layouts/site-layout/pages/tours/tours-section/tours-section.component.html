@@ -2,8 +2,13 @@
   <div class="row">
     <div class="col-md-6" *ngFor="let tour of toursList">
       <div class="tour-item">
+        <div class="favourite" *ngIf="isAuthenticated">
+          <i *ngIf="isTourExistInFavourites(tour._id)" class="fas fa-heart in-favourites" (click)="onDeleteFromFavourites(tour._id)"></i>
+          <i *ngIf="!isTourExistInFavourites(tour._id)" class="fas fa-heart not-in-favourites" (click)="onAddToFavourites(tour._id)"></i>
+        </div>
+
         <div class="tour-item_image">
-          <img [src]="tour.images[0]" alt="">
+          <img [src]="tour.images[0]" alt="" (click)="renderTourPage(tour._id)">
         </div>
         <div class="info">
           <div class="location-date-price d-flex
@@ -18,12 +23,14 @@
             </div>
             <div class="price">${{tour.cost}}</div>
           </div>
-          <div class="additional d-flex justify-content-between">
+          <div class="additional">
             <div class="additional-rest-type">
-              <span *ngFor="let type of tour.restType" mr-1>{{type}}</span>
+              <span *ngFor="let type of tour.restType">{{type}}</span>
             </div>
             <div class="additional-statistic d-flex">
-              <div class="additional-likes"><i class="fas fa-eye"></i> {{tour.views}}</div>
+              <div class="additional-likes">
+                <i class="fas fa-eye"></i> {{tour.views}}
+              </div>
             </div>
           </div>
           <button class="read-more" (click)="renderTourPage(tour._id)">{{'tours.button_more' | translate}}</button>

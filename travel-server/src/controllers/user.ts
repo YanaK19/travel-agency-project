@@ -10,6 +10,7 @@ async function update(req:any, res:any) {
       requestData.avatar = req.file.path;
     }
 
+    console.log(req.body)
     try {
 /*        const user = await User.findOne({_id: req.user._id});*/
         const user = await User.findOneAndUpdate(
@@ -18,7 +19,9 @@ async function update(req:any, res:any) {
             {new: true}
         );
 
+/*
         const customer: any = await User.findById(req.user._id, {password: 0});
+*/
 
         res.status(200).json(user)
     } catch (e) {

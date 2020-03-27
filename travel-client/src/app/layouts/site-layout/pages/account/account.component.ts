@@ -24,16 +24,18 @@ export class AccountComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   orderedToursLeft = [];
   orderedToursRight = [];
+  favouriteTours = [];
   iter = 1;
   alreadySubscribed = false;
   image: any = '';
   isLoaded = false;
   reviewTourId = '';
+  componentName = 'account';
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private reviewService: ReviewService,
-              private  orderService: OrderService,
+              private orderService: OrderService,
               private tourService: ToursService,
               private router: Router,
               private modalService: NgbModal) { }
@@ -43,6 +45,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
     this.subscribtionsData = [];
     this.reviewsData = [];
+    this.favouriteTours = [];
   }
 
   ngOnInit() {
@@ -86,7 +89,6 @@ export class AccountComponent implements OnInit, OnDestroy {
     /*  console.log(this.reviewsData);*/
     });
 
-/*    if (this.isMyAccount) {*/
       this.orderService.getOrdersByUserId(this.userData._id).subscribe(orders => {
         this.ordersData = orders;
 
@@ -114,6 +116,15 @@ export class AccountComponent implements OnInit, OnDestroy {
           this.isLoaded = true;
         }
       });
+
+      if (this.userData.favouriteTourIds.length) {
+        this.userData.favouriteTourIds.forEach(tourId => {
+          this.tourService.getOneTour(tourId).subscribe(tour => {
+            this.favouriteTours.push(tour);
+            console.log(this.favouriteTours)
+          })
+        })
+      }
   }
 
   toggle() {

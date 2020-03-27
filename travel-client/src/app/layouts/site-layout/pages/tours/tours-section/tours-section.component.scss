@@ -14,12 +14,16 @@
     left: 0;
     width: 100%;
     height: 100%;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
 .info {
   position: absolute;
-  height: 150px;
+  height: 145px;
   width: 100%;
   bottom: 0;
   text-align: center;
@@ -28,8 +32,8 @@
   transition: 0.5s;
 }
 
-.tour-item:hover .info {
-  height: 100%;
+.info:hover {
+  height: 85%;
 }
 
 .location-date-price {
@@ -60,22 +64,28 @@
 }
 
 .additional {
-  height: 49px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 6px;
 
   .additional-rest-type {
     display: flex;
+    flex-wrap: wrap;
+    margin-right: 10px;
   }
 
   .additional-rest-type span {
     background: rgba(230, 0, 77, 0.58);
-    margin-left: 10px;
     padding: 8px;
     height: 33px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
+    margin-left: 4px;
+    margin-bottom: 2px;
+    margin-top: 2px;
   }
 
   @media (max-width: 992px) {
@@ -88,6 +98,7 @@
 
   .additional-statistic {
     margin-right: 10px;
+    align-self: flex-start;
 
     .additional-review {
       margin-left: 10px;
@@ -95,6 +106,52 @@
   }
 
   border-bottom: 1px solid #fff;
+
+  .additional-likes {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-right: 4px;
+    }
+  }
+}
+
+.favourite {
+  position: absolute;
+  z-index: 10;
+  transition: 0.5s;
+  right: 7px;
+  top: 7px;
+  font-size: 1.5rem;
+  background: #ffffffd9;
+  padding: 3px;
+  height: 37px;
+  width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  .not-in-favourites {
+    color: rgba(151, 151, 151, 0.48);
+    transition: 0.3s;
+
+    &:hover {
+      color: rgba(151, 151, 151, 0.76);
+      cursor: pointer;
+    }
+  }
+
+  .in-favourites {
+    transition: 0.3s;
+    color: #943872;
+
+    &:hover {
+      color: #b8448d;
+      cursor: pointer;
+    }
+  }
 }
 
 .read-more {
