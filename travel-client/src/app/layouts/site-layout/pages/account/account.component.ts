@@ -118,6 +118,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       });
 
       if (this.userData.favouriteTourIds.length) {
+        this.favouriteTours = [];
         this.userData.favouriteTourIds.forEach(tourId => {
           this.tourService.getOneTour(tourId).subscribe(tour => {
             this.favouriteTours.push(tour);
