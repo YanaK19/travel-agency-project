@@ -286,7 +286,7 @@
 
         <div class="col-lg-4 comments-item" *ngFor="let review3 of reviews3; let indx = index;">
           <div class="item-inner">
-              <div class="imgBox">
+              <div class="imgBox" (click)="renderProfilePage(users[indx])">
                 <img [src]="users[indx].avatar" *ngIf="users[indx].avatar">
                 <img src="../../../../../assets/images/default-account-img.png" *ngIf="!users[indx].avatar">
               </div>

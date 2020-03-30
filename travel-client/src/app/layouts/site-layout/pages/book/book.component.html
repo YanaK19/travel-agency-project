@@ -54,25 +54,21 @@
               <div class="dates-container">
                 <div class="title">Dates</div>
                 <select formControlName="dates" class="custom-select dates-select" id="inputGroupSelect01">
-                  <option selected>
-                    {{tour.dates[0].dateFrom.day  | number: '2.0'}}/{{tour.dates[0].dateFrom.month | number: '2.0'}}/{{tour.dates[0].dateFrom.year}},
-                    {{tour.dates[0].dateTo.day | number: '2.0'}}/{{tour.dates[0].dateTo.month | number: '2.0'}}/{{tour.dates[0].dateTo.year}}
-                  </option>
-                  <option *ngFor="let date of tour.dates | slice:1; let indx = index;">
+                  <option *ngFor="let date of tour.dates; let indx = index;" [value]="indx">
                     {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}},
-                    {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}}
+                    {{date.dateTo.day | number: '2.0'}}/{{date.dateTo.month | number: '2.0'}}/{{date.dateTo.year}}
                   </option>
                 </select>
               </div>
 
               <div class="amount-container">
                 <div class="title amount-title">Tickets Amount</div>
-                <input [(ngModel)]="amount" formControlName="amount" type="number" min="1" class="form-control amount-input" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
+                <input value="1" formControlName="amount" type="number" min="1" class="form-control amount-input" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
               </div>
            </form>
 
             <div class="title price-title">Summary Price</div>
-            <div class="price">${{tour.cost*amount}}</div>
+            <div class="price">${{tour.cost*bookForm.value.amount}}</div>
           </div>
 
           <div class="btn-book">
@@ -83,6 +79,7 @@
             </div>
 
             <button (click)="onBook()">Book Tour</button>
+            <div *ngIf="errorMesage.length" class="error">{{ errorMesage }}</div>
           </div>
         </div>
       </div>

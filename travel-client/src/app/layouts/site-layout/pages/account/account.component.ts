@@ -8,6 +8,8 @@ import {ToursService} from '../../../../services/tours.service';
 import {Subscription} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DateHandlerService} from '../../../../services/date-handler.service';
+import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 
 @Component({
   selector: 'app-account-page',
@@ -15,12 +17,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit, OnDestroy {
-   userData: any;
-   toggler = true;
+  userData: any;
+  toggler = true;
   isMyAccount = false;
   subscribtionsData = [];
   reviewsData = [];
-  ordersData = [];
+  ordersData: any = [];
   orderedToursData = [];
   subscriptions: Subscription = new Subscription();
   orderedToursLeft = [];
@@ -34,13 +36,17 @@ export class AccountComponent implements OnInit, OnDestroy {
   componentName = 'account';
   reviewForm: FormGroup;
 
+  visitedTourOrders = [];
+  visitedTours = [];
+
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private reviewService: ReviewService,
               private orderService: OrderService,
               private tourService: ToursService,
               private router: Router,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private dateService: DateHandlerService) { }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -109,14 +115,34 @@ export class AccountComponent implements OnInit, OnDestroy {
           orders.forEach(order => {
             this.tourService.getOneTour(order.tourId).subscribe(tour => {
               this.orderedToursData.push(tour);
-              if (this.iter % 2 === 0) {
-                this.orderedToursLeft.push(tour);
-              } else {
-                this.orderedToursRight.push(tour);
-              }
-              this.iter++;
-              if (orders.length == this.orderedToursLeft.length + this.orderedToursRight.length) {
+              if (orders.length == this.orderedToursData.length) {
                 this.isLoaded = true;
+
+                const today = new Date();
+                const currDate: TourDate = {
+                  day: today.getDate(),
+                  month: today.getMonth() + 1,
+                  year: today.getFullYear()
+                };
+
+                //orders of tours, that user has already visited, sort by tourDate
+                this.visitedTourOrders = this.ordersData.filter(order =>
+                  this.dateService.compareDates(order.tourDate.dateFrom, currDate) == -1 && order.confirmed
+                ).sort((a, b) => -this.dateService.compareDates(a.tourDate.dateFrom, currDate));
+
+                //sorted tours ids that user has already visited
+                const visitedToursIds = this.visitedTourOrders.map(order => order.tourId);
+
+                //find tours by sorted ids
+                visitedToursIds.forEach((tourId, i) => {
+                  let tour = this.orderedToursData.find(tour => tour._id === tourId);
+                  this.visitedTours.push(tour);
+                  if (i % 2 === 0) {
+                    this.orderedToursLeft.push({tour, orderIndex: i});
+                  } else {
+                    this.orderedToursRight.push({tour, orderIndex: i});
+                  }
+                });
               }
             });
           });
@@ -207,5 +233,9 @@ export class AccountComponent implements OnInit, OnDestroy {
       console.log(newReview);
       setTimeout(() => this.modalService.dismissAll(), 2000);
     });
+  }
+
+  renderTourPage(tourId: string) {
+    this.router.navigate(['/one-tour', tourId]);
   }
 }

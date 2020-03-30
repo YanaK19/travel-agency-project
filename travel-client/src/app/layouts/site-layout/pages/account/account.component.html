@@ -6,8 +6,8 @@
       <div class="additional col-md-3">
         <div class="d-flex flex-column">
           <div class="profile-icon">
-            <img *ngIf="userData && userData.avatar.length" [src]="userData.avatar">
-            <img *ngIf="!userData.avatar.length" class="d-block" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80">
+            <img *ngIf="userData?.avatar.length" [src]="userData.avatar">
+            <img *ngIf="!userData?.avatar.length" class="d-block" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80">
           </div>
 
           <div *ngIf="userData" class="additional_user-name additional_item">
@@ -48,7 +48,7 @@
           </div>
 
           <div class="profile-about">
-            <div class="edit-about" (click)="openEditProfileModal(editProfileModal)">
+            <div *ngIf="isMyAccount" class="edit-about" (click)="openEditProfileModal(editProfileModal)">
               <i class="fas fa-edit"></i>
             </div>
             <div class="title">
@@ -76,7 +76,7 @@
               </div>
             </div>
           </div>
-          <div class="features">
+          <div class="features" *ngIf="isMyAccount">
             <div class="title">
               {{'account.features.title' | translate}}
             </div>
@@ -99,20 +99,22 @@
                   </div>
                   <div  class="user-map">
 
-                    <div *ngFor="let tourLeft of orderedToursLeft" class="items-left">
-                      <div class="item-left container-fluid">
+                    <div class="items-left">
+                      <div *ngFor="let tourLeft of orderedToursLeft" class="item-left container-fluid">
                         <div class="row">
                           <div class="item-info col-10">
                             <div class="container-fluid info-container-fl">
                               <div class="row">
                                 <div class="item-info-text col-lg-6">
-                                  <div class="trip-name">{{tourLeft.title}}</div>
-                                  <div class="trip-date">12/12/2020</div>
+                                  <div class="trip-name">{{tourLeft.tour.title}}</div>
+                                  <div class="trip-date">
+                                    {{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.day | number: '2.0'}}/{{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.month | number: '2.0'}}/{{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.year }}
+                                  </div>
                                 </div>
 
                                 <div class="item-info-image col-lg-6">
-                                  <div class="info-image">
-                                    <img [src]="tourLeft.images[0]" alt="">
+                                  <div class="info-image" (click)="renderTourPage(tourLeft.tour._id)">
+                                    <img [src]="tourLeft.tour.images[0]" alt="">
                                   </div>
                                 </div>
                               </div>
@@ -141,14 +143,16 @@
                             <div class="container-fluid info-container-fl">
                               <div class="row">
                                 <div class="item-info-image col-lg-6 col-12">
-                                  <div class="info-image">
-                                    <img  [src]="tourRight.images[0]">
+                                  <div class="info-image" (click)="renderTourPage(tourRight.tour._id)">
+                                    <img  [src]="tourRight.tour.images[0]">
                                   </div>
                                 </div>
 
                                 <div class="item-info-text col-lg-6 col-12">
-                                  <div class="trip-name">{{tourRight.title}}</div>
-                                  <div class="trip-date">12/12/2020</div>
+                                  <div class="trip-name">{{tourRight.tour.title}}</div>
+                                  <div class="trip-date">
+                                    {{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.day | number: '2.0'}}/{{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.month | number: '2.0'}}/{{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.year }}
+                                  </div>
                                 </div>
 
                               </div>
@@ -200,15 +204,17 @@
 
                     <div *ngFor="let tour of orderedToursData; let i = index;" class="order-item container-fluid">
                       <div class="row row-order-item">
+                        <div *ngIf="!ordersData[i].confirmed" class="order-not-confirmed">not confirmed</div>
+
                         <div class="order-item-image col-md-5">
                           <div class="img-container">
                             <img [src]="tour.images[0]" alt="">
                           </div>
                         </div>
                         <div class="info col-md-7">
-                          <div class="order-item-bar">
+  <!--                        <div class="order-item-bar">
                             <i class="fas fa-ellipsis-v"></i>
-                          </div>
+                          </div>-->
                           <div class="title">{{tour.title}}</div>
                           <div class="number">{{'account.orders.number' | translate}}: {{tour._id}}</div>
                           <div class="price">{{'account.orders.price' | translate}}: ${{ordersData[i].cost}}</div>
@@ -237,7 +243,7 @@
                   </section>
                 </div>
 
-                <div *ngIf="!userData.favouriteTourIds.length" class="no-favourites">
+                <div *ngIf="!userData?.favouriteTourIds.length" class="no-favourites">
                   {{'account.favourites.empty_title' | translate}}
                 </div>
               </ng-template>
@@ -260,8 +266,8 @@
             Leave your Tour Review
           </div>
 
-          <div class="tours" *ngIf="ordersData.length; else noOrders">
-            <div class="tour" (click)="showFields(orderedTour._id)" *ngFor="let orderedTour of orderedToursData;">
+          <div class="tours" *ngIf="visitedTours.length; else noOrders">
+            <div class="tour" (click)="showFields(orderedTour._id)" *ngFor="let orderedTour of visitedTours;">
               <div class="tour-inner" [ngClass]="{'active-title' : orderedTour._id == reviewTourId}">
                 <div class="tour-title">
                   {{orderedTour.title}}
@@ -334,12 +340,12 @@
 
             <div class="form_block">
               <div class="field-label">My Phone</div>
-              <input type="text" class="form-control" name="" [value]="userData.telephone">
+              <input type="text" class="form-control" name="" [value]="userData?.telephone">
             </div>
 
             <div class="form_block">
               <div class="field-label">My Email</div>
-              <input type="text" class="form-control" name="" [value]="userData.email">
+              <input type="text" class="form-control" name="" [value]="userData?.email">
             </div>
 
             <div class="btn-container">

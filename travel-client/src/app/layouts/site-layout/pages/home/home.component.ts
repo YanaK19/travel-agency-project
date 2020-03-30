@@ -105,5 +105,9 @@ export class HomeComponent implements OnInit {
   renderToursPageByRest(restType) {
     this.router.navigate(['/tours'], {queryParams: {rest: restType.innerHTML}});
   }
+
+  renderProfilePage(user: UserData) {
+    this.router.navigate(['/account', user._id]);
+  }
 }
 

@@ -618,6 +618,12 @@ $color_lightSea: #1cbbb4;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: 0.3s;
+
+      &:hover {
+        transform: scale(1.1) rotate(-10deg);
+        cursor: pointer;
+      }
     }
   }
 
@@ -773,6 +779,23 @@ $color_lightSea: #1cbbb4;
     background-color: #00000045;
     min-height: 200px;
     margin-bottom: 10px;
+    position: relative;
+
+    .order-not-confirmed {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+      padding: 9px 16px;
+      background: #0000009e;
+      bottom: 12px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .order-not-confirmed {
+      bottom: auto;
+      right: auto;
+    }
   }
 
   .order-item-bar {

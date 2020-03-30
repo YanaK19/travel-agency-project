@@ -53,5 +53,9 @@ export class OrderService {
   getFullOrderInfo(orderId): Observable<Order[]> {
     return this.http.get<Order[]>('/api/order/fullInfo/' + orderId);
   }
+
+  createOrder(order): Observable<any> {
+    return this.http.post<any>('api/order', order);
+  }
 }
 

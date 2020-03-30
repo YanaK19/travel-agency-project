@@ -77,15 +77,15 @@ export class OrdersComponent implements OnInit {
   }
 
   onConfirm(orderId) {
-/*    this.orderService.confirmOrder(orderId).subscribe(updatedOrder => {
+    this.orderService.confirmOrder(orderId).subscribe(updatedOrder => {
     });
 
     const index = this.orders.findIndex(order => order._id == orderId);
-    this.orders[index].confirmed = true;*/
+    this.orders[index].confirmed = true;
 
-    this.emailService.sendOrderConfirmedEmail("123").subscribe(data => {
+/*    this.emailService.sendOrderConfirmedEmail("123").subscribe(data => {
       console.log(data)
-    })
+    })*/
   }
 
   openDeleteModal(content, orderId, i) {
