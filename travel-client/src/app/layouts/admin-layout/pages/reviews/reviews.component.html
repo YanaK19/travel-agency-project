@@ -1,0 +1,33 @@
+<div class="page">
+  <div class="main-title text-center">
+    Review management
+  </div>
+
+  <app-loader *ngIf="!reviews.length"></app-loader>
+
+  <div *ngIf="reviews.length" class="container-fluid">
+    <div class="row">
+      <div *ngFor="let review of reviews; let i = index;" class="col-lg-6 review-container">
+        <div class="review">
+          <div class="title">
+            {{review.title}}
+          </div>
+
+          <div class="info">
+            {{review.info}}
+          </div>
+
+          <div class="date">
+            {{review.date.day  | number: '2.0'}}/{{review.date.month | number: '2.0'}}/{{review.date.year}}
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="delete" (click)="onDelete(review._id, i)">delete</button>
+          <button *ngIf="!review.confirmed" class="confirm" (click)="onConfirm(review._id, i)">confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

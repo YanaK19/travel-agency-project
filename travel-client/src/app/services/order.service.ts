@@ -49,5 +49,9 @@ export class OrderService {
 
     return this.http.get<Order[]>('/api/order?userId=' + userId, httpOptions );
   }
+
+  getFullOrderInfo(orderId): Observable<Order[]> {
+    return this.http.get<Order[]>('/api/order/fullInfo/' + orderId);
+  }
 }
 

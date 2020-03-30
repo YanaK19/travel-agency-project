@@ -4,12 +4,19 @@ import Range from "../models/Range";
 import Tour from "../models/Tour";
 
 async function create(req:any, res:any) {
+    const today = new Date();
+    const currDate = {
+        day: today.getDate(),
+        month: today.getMonth() + 1,
+        year: today.getFullYear()
+    };
+
     const review = new Review({
         title: req.body.title,
         info:  req.body.info,
         img:  req.body.img,
-        date: req.body.date,
-        confirmed:  req.body.confirmed,
+        date: currDate,
+        confirmed:  false,
         userId:  req.body.userId,
         tourId: req.body.tourId
     });
@@ -81,12 +88,12 @@ async function getReviewById(req:any, res:any) {
 
 async function update(req:any, res:any) {
     try {
-        const tour = await Tour.findOneAndUpdate(
+        const review = await Review.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},
             {new: true}
         );
-        res.status(200).json(tour)
+        res.status(200).json(review)
     } catch (e) {
         errorHandler(res, e)
     }
@@ -94,7 +101,7 @@ async function update(req:any, res:any) {
 
 async function remove(req:any, res:any) {
     try {
-        await Review.deleteOne({_id: req.params.id})
+        await Review.deleteOne({_id: req.params.id});
         res.status(200).json({
             message: 'Review deleted'
         })

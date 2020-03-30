@@ -17,6 +17,18 @@ const orderSchema = new Schema({
         month: {type: Number},
         year: {type: Number}
     },
+    tourDate: {
+        dateFrom: {
+            day: {type: Number},
+            month: {type: Number},
+            year: {type: Number}
+        },
+        dateTo: {
+            day: {type: Number},
+            month: {type: Number},
+            year: {type: Number}
+        }
+    },
     confirmed: {
         type: Boolean
     }

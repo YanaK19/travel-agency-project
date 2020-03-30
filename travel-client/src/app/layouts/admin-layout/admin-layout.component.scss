@@ -1,5 +1,6 @@
 button {
   outline: none;
+  margin-right: 15px;
 
   &:hover {
     background: #787974;
@@ -43,4 +44,9 @@ button {
   justify-content: flex-end;
   text-transform: uppercase;
   flex-grow: unset;
+}
+
+.nav-item:hover {
+  cursor: pointer;
+  color: rgba(16, 16, 16, 0.85);
 }

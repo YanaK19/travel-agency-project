@@ -12,6 +12,7 @@ import {AuthorizationService} from '../../../../../services/authorization.servic
 export class ToursSectionComponent implements OnInit {
 @Input() toursList: Tour[];
 @Input() parentComponent: string;
+@Input() isMyAccount: string;
   isAuthenticated = false;
 
   constructor(private router: Router,
@@ -44,7 +45,7 @@ export class ToursSectionComponent implements OnInit {
   }
 
   onDeleteFromFavourites(tourId) {
-    if (this.parentComponent === 'account') {
+    if (this.parentComponent === 'account' && this.isMyAccount) {
       const index = this.toursList.findIndex(tour => tour._id === tourId);
       this.toursList.splice(index, 1);
     }

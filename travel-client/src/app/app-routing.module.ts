@@ -16,6 +16,7 @@ import {NotFoundComponent} from './error-pages/not-found/not-found.component';
 import {AccountComponent} from './layouts/site-layout/pages/account/account.component';
 import {ContactUsComponent} from './layouts/site-layout/pages/contact-us/contact-us.component';
 import {BookComponent} from './layouts/site-layout/pages/book/book.component';
+import {ReviewsComponent} from './layouts/admin-layout/pages/reviews/reviews.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'statistic', pathMatch: 'full'},
       {path: 'statistic', component: StatisticComponent},
       {path: 'orders', component: OrdersComponent},
+      {path: 'reviews', component: ReviewsComponent},
       {path: 'editing', component: EditingComponent}
     ], canActivate: [AuthorizationGuard]
   },

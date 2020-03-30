@@ -7,6 +7,7 @@ import {OrderService} from '../../../../services/order.service';
 import {ToursService} from '../../../../services/tours.service';
 import {Subscription} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-account-page',
@@ -31,6 +32,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   isLoaded = false;
   reviewTourId = '';
   componentName = 'account';
+  reviewForm: FormGroup;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -49,6 +51,11 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.reviewForm = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      info: new FormControl(null, [Validators.required])
+    });
+
     this.subscriptions.add(this.route.params.subscribe((params: Params) => {
       const user = this.userService.getUserData();
 
@@ -91,6 +98,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       this.orderService.getOrdersByUserId(this.userData._id).subscribe(orders => {
         this.ordersData = orders;
+       /* this.ordersData = []*/;
 
         this.orderedToursData= [];
         this.orderedToursLeft= [];
@@ -182,5 +190,22 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   openEditProfileModal(content) {
     this.modalService.open(content, { centered: true });
+  }
+
+  createReview(msgModal) {
+    const review = {
+      title: this.reviewForm.value.title,
+      info: this.reviewForm.value.info,
+      userId: this.userData._id,
+      tourId: this.reviewTourId
+    };
+
+    this.modalService.dismissAll();
+    this.modalService.open(msgModal, { centered: true });
+
+    this.reviewService.createReview(review).subscribe(newReview => {
+      console.log(newReview);
+      setTimeout(() => this.modalService.dismissAll(), 2000);
+    });
   }
 }

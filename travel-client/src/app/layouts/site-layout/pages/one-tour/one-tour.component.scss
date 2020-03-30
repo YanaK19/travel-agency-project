@@ -197,7 +197,11 @@ $color_lightSea: #1cbbb4;
   .user-review {
     display: flex;
     border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-    margin-bottom: 37px;
+    margin-bottom: 10px;
+  }
+
+  .row {
+    width: 100%;
   }
 
   .user-photo {

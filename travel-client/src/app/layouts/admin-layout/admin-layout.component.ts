@@ -20,6 +20,7 @@ export class AdminLayoutComponent implements OnInit {
   links = [
     {url: '/admin/statistic', name: 'statistic'},
     {url: '/admin/orders', name: 'orders'},
+    {url: '/admin/reviews', name: 'reviews'},
     {url: '/admin/editing', name: 'editing'},
   ];
 

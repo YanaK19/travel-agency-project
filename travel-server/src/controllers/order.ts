@@ -2,6 +2,7 @@ import errorHandler from '../utils/errorHandler';
 import Order from "../models/Order";
 import Range from '../models/Range';
 import User from '../models/User';
+import Tour from '../models/Tour';
 
 async function create(req:any, res:any) {
     const today = new Date();
@@ -17,7 +18,8 @@ async function create(req:any, res:any) {
         cost:  req.body.cost,
         peopleNumber: req.body.peopleNumber,
         date: currDate,
-        confirmed:  req.body.confirmed,
+        tourDate: req.body.tourDate,
+        confirmed:  false,
     });
 
     try {
@@ -56,20 +58,6 @@ async function getOrders(req:any, res:any) {
         }
 
         res.status(200).json(orders)
-/*        let confirmedFilter: any = {};
-
-        if(req.query.confirmed === "false"){
-            // /order?confirmed=false
-            confirmedFilter.confirmed = false;
-        }
-
-        if(req.query.confirmed === "true"){
-            // /order?confirmed=false
-            confirmedFilter.confirmed = true;
-        }
-
-        const review = await Order.find(confirmedFilter);
-        res.status(200).json(review)*/
     } catch (e) {
         errorHandler(res, e)
     }
@@ -79,6 +67,20 @@ async function getOrderById(req:any, res:any) {
     try {
         const order = await Order.findById(req.params.id);
         res.status(200).json(order)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function getFullInfoByOrderId(req:any, res:any) {
+    try {
+        const order: any = await Order.findById(req.params.id);
+        const user = await User.findById(order.userId);
+        const tour = await Tour.findById(order.tourId);
+
+        const response = {order, user, tour};
+
+        res.status(200).json(response);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -109,4 +111,4 @@ async function update(req:any, res:any) {
     }
 }
 
-export {create, getOrders, getOrderById, remove, update}
+export {create, getOrders, getOrderById, remove, update, getFullInfoByOrderId}

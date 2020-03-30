@@ -184,11 +184,11 @@ $white: #ffffffc9;
   .buttons {
     position: absolute;
     right: 15px;
-    top: 210px;
+    top: 57px;
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 80px;
+    height: 253px;
     justify-content: flex-end;
     align-items: flex-end;
 
@@ -210,6 +210,10 @@ $white: #ffffffc9;
 
     .confirm {
       background: rgba(255, 255, 255, 0.58);
+    }
+
+    .delete {
+      margin-top: 146px;
     }
   }
 

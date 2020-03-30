@@ -233,7 +233,7 @@
 
                 <div class="favourites-items" *ngIf="favouriteTours.length">
                   <section>
-                    <app-tours-section [toursList]="favouriteTours" [parentComponent]="componentName"></app-tours-section>
+                    <app-tours-section [toursList]="favouriteTours" [parentComponent]="componentName" [isMyAccount]="isMyAccount"></app-tours-section>
                   </section>
                 </div>
 
@@ -260,7 +260,7 @@
             Leave your Tour Review
           </div>
 
-          <div class="tours">
+          <div class="tours" *ngIf="ordersData.length; else noOrders">
             <div class="tour" (click)="showFields(orderedTour._id)" *ngFor="let orderedTour of orderedToursData;">
               <div class="tour-inner" [ngClass]="{'active-title' : orderedTour._id == reviewTourId}">
                 <div class="tour-title">
@@ -271,15 +271,34 @@
                 </div>
               </div>
 
-              <form *ngIf="orderedTour._id == reviewTourId" class="review">
-                <input type="text" placeholder="Review Title" class="form-control" name="review-input">
-                <textarea type="text" placeholder="Type your thoughts HERE..." class="form-control" name="review-textarea"></textarea>
+              <form (ngSubmit)="createReview(msgModal)" [formGroup]="reviewForm" *ngIf="orderedTour._id == reviewTourId" class="review">
+                <input [ngClass]="{'invalid-field': reviewForm.get('title').invalid && reviewForm.get('title').touched}" formControlName="title" type="text" placeholder="Review Title" class="form-control" name="review-input">
+                <div class="invalid-tip"
+                     *ngIf="reviewForm.get('title').invalid && reviewForm.get('title').touched">
+                  Fill this field
+                </div>
+
+                <textarea [ngClass]="{'invalid-field': reviewForm.get('info').invalid && reviewForm.get('info').touched}" formControlName="info" type="text" placeholder="Type your thoughts HERE..." class="form-control" name="review-textarea"></textarea>
+                <div class="invalid-tip"
+                     *ngIf="reviewForm.get('info').invalid && reviewForm.get('info').touched">
+                  Fill this field
+                </div>
                 <div class="btn-container">
-                  <button class="btn btn-primary">Send</button>
+                  <button [disabled]="reviewForm.invalid || reviewForm.untouched" type="submit" class="btn btn-primary">Send</button>
                 </div>
               </form>
             </div>
           </div>
+
+          <ng-template #noOrders>
+            <div class="modal_no-orders">
+              You haven't travel with us yet...
+              You can write a review only after your trip.
+              <br>
+              See out tours <a routerLink="/tours" (click)="modal.dismiss('Cross click')">HERE</a>
+            </div>
+          </ng-template>
+
         </div>
 
       </div>
@@ -330,6 +349,18 @@
           </form>
         </div>
 
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #msgModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          Thanks for your feedback! 😃
+        </div>
       </div>
     </div>
   </div>
