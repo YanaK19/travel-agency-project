@@ -70,7 +70,7 @@ export class OrdersComponent implements OnInit {
   }
 
   establishRelationOrdersUsers() {
-    console.log(this.unorderedUsers)
+    console.log(this.unorderedUsers);
     this.orders.forEach(order => {
       this.users.push(this.unorderedUsers.find(user => user._id == order.userId));
     });
