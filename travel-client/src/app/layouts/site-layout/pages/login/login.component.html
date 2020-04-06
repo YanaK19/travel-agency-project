@@ -48,7 +48,9 @@
             </div>
               <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
               <div class="form-group">
-                <a routerLink="/register" class="ForgetPwd" value="Login">{{'login.form.register_link' | translate}}</a>
+                <a routerLink="/register" class="link" value="Login">{{'login.form.register_link' | translate}}</a>
+                <br>
+                <a (click)="onForgotPassword(modalInputEmail)" class="link forgot-psw" value="Login">{{'login.form.forget_psw_link' | translate}}</a>
               </div>
             </form>
             </div>
@@ -57,6 +59,56 @@
     </div>
   </section>
 </div>
+
+<ng-template #modalInputEmail let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="new-psw-container">
+      <h4>Reset Password ✉</h4>
+      <form (ngSubmit)="onResetPassword(email.value, modal, afterEmailSend)">
+        <input #email type="text" placeholder="Enter email" class="form-control">
+        <div class="error-message">{{errorEmail}}</div>
+        <button type="submit" class="btn btn-primary">Reset</button>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalPassword let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="new-psw-container">
+      <h4>New Password 🕵</h4>
+      <form (ngSubmit)="resetUserPasswordInDB(modal, newPassword.value)">
+        <input #newPassword type="text" placeholder="Enter new password" class="form-control">
+        <div class="error-message">{{errorResetPasswordMessage}}</div>
+        <button type="submit" class="btn btn-primary" (click)="resetUserPasswordInDB()">Done</button>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #afterEmailSend let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="new-psw-container">
+      <h4>Reset Password</h4>
+      <div>Please, check your email </div>
+    </div>
+  </div>
+</ng-template>
 
 
 

@@ -7,8 +7,7 @@ export class EmailService {
   constructor(private http: HttpClient) {
   }
 
-  sendOrderConfirmedEmail(userId: string):Observable<any> {
-    let user = "yana-03032017@mail.ru";
-    return this.http.post<any>('/api/email', {'email': user});
+  sendEmailResetPassword(email):Observable<any> {
+    return this.http.post<any>('/api/email', {email});
   }
 }

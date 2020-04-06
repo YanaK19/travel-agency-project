@@ -3,12 +3,13 @@
   background: url("https://images.unsplash.com/photo-1513265472937-50d3e680377c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80") no-repeat bottom center / cover;
   z-index: -1;
   overflow: hidden;
+  position: relative;
 }
 
 .shadow {
   position: absolute;
   background: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(12, 10, 59));
-  height: 110vh;
+  height: 100%;
   width: 100%;
   z-index: 0 !important;
 }
@@ -56,22 +57,23 @@
     padding: 0 15px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.74);
     border-bottom-style: dashed;
+    overflow: hidden;
   }
 
   .route-img-container i {
     color: #fff;
     font-size: 2rem;
     margin-left: 5%;
-    animation: go-left-right 3s linear 2s infinite alternate;
+    animation: go-left-right 3s linear 2s infinite;
   }
 
   @keyframes go-left-right {
     from {
-      margin-left: 5%;
+      margin-left: -10%;
     }
 
     to {
-      margin-left: 80%;
+      margin-left: 120%;
     }
   }
 

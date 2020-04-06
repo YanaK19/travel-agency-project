@@ -2,6 +2,7 @@ import User from "../models/User";
 import errorHandler from '../utils/errorHandler';
 import generateToken from "../utils/generateToken";
 import bcrypt from "bcryptjs"
+import {decrypt} from '../utils/encryption';
 
 async function update(req:any, res:any) {
     let requestData = req.body;
@@ -10,7 +11,6 @@ async function update(req:any, res:any) {
       requestData.avatar = req.file.path;
     }
 
-    console.log(req.body)
     try {
 /*        const user = await User.findOne({_id: req.user._id});*/
         const user = await User.findOneAndUpdate(
@@ -24,6 +24,27 @@ async function update(req:any, res:any) {
 */
 
         res.status(200).json(user)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function resetPasswordByEmail(req:any, res:any) {
+    const email = decrypt(req.body.encryptedEmail);
+    const salt = bcrypt.genSaltSync(10);
+    const password = req.body.password;
+
+    console.log(email, password)
+
+    try {
+        const user = await User.findOneAndUpdate(
+            {email},
+            {password: bcrypt.hashSync(password, salt)},
+            {projection: {password: 0}}
+        );
+        const token:string = generateToken(user);
+
+        res.status(200).json({token: `Bearer ${token}`, user})
     } catch (e) {
         errorHandler(res, e)
     }
@@ -120,5 +141,17 @@ async function getUserById(req:any, res:any) {
     }
 }
 
+async function checkIsExistByEmail(req:any, res:any) {
+    try {
+        const user: any = await User.findOne({email: req.query.email}, {password: 0});
+        if(user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({message: 'user not registered'});
+        }
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
-export {create, login, register, getUserById, update}
+export {create, login, register, getUserById, update, checkIsExistByEmail, resetPasswordByEmail}

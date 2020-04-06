@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {UserData} from '../interfaces/user/userData.interface';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthorizationService} from './authorization.service';
+import {map} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -86,5 +87,20 @@ export class UserService {
     };
 
     return this.http.put<any>('/api/user', fd, httpOptions);
+  }
+
+  checkUserByEmail(email: string) {
+    return this.http.get<any>('/api/user/check/users?email=' + email);
+  }
+
+  resetUserPasswordByEmail(password: string, encryptedEmail: string): Observable<any> {
+    return this.http.put<any>('/api/user/reset/password', {password, encryptedEmail})
+      .pipe(map((data: any) => {
+        localStorage.setItem('token', data.token);
+        console.log(data.user);
+        localStorage.setItem('userData', JSON.stringify(data.user));
+        return data.user;
+      })
+    );
   }
 }

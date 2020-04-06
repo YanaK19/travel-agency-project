@@ -122,7 +122,8 @@
       "placeholder_email": "Your Email *",
       "placeholder_password": "Your Password *",
       "button_signin": "sign in",
-      "register_link": "Don't have an account?"
+      "register_link": "Don't have an account?",
+      "forget_psw_link": "Forgot password?"
     }
   },
   "register": {

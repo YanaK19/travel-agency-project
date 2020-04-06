@@ -123,7 +123,8 @@
       "placeholder_email": "Ваш Email *",
       "placeholder_password": "Ваш Пароль *",
       "button_signin": "войти",
-      "register_link": "Еще не зарегестрированы?"
+      "register_link": "Еще не зарегестрированы?",
+      "forget_psw_link": "Забыли пароль?"
     }
   },
   "register": {
