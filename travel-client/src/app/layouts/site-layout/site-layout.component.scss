@@ -126,8 +126,8 @@ a:not([href]):not([tabindex]) {
     transition: 0.3s;
 
     &:hover {
-      font-size: 1.2rem;
       text-decoration: underline;
+      cursor: pointer;
     }
   }
 
@@ -153,7 +153,7 @@ a:not([href]):not([tabindex]) {
 
   .faq-question {
     margin: 10px 0;
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: #fff;
   }
 

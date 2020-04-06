@@ -6,6 +6,7 @@ import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {UserService} from '../../../../services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OrderService} from '../../../../services/order.service';
+import {EmailService} from '../../../../services/email.service';
 
 @Component({
   selector: 'app-book',
@@ -18,12 +19,15 @@ export class BookComponent implements OnInit {
   user;
   bookForm: FormGroup;
   errorMesage = '';
+  tourDateIndex = 0;
+  amount = 1;
 
   constructor(private activatedRoute: ActivatedRoute,
               private toursService: ToursService,
               private dateService: DateHandlerService,
               private userService: UserService,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private emailService: EmailService) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
@@ -32,30 +36,39 @@ export class BookComponent implements OnInit {
       this.tour = data;
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
       this.user = this.userService.getUserData();
-    });
-
-    this.bookForm = new FormGroup({
-      amount: new FormControl(1, [Validators.required, Validators.email]),
-      dates: new FormControl(null, [Validators.required, Validators.min(1)])
+      console.log(data)
     });
   }
 
   onBook () {
     this.errorMesage = '';
-    if(!this.bookForm.value.dates){
-      this.errorMesage = 'You should select tour date';
-      return;
-    }
 
     const order = {
-      tourDate: this.tour.dates[this.bookForm.value.dates],
-      peopleNumber: this.bookForm.value.amount,
-      cost: this.tour.cost * this.bookForm.value.amount,
+      tourDate: this.tour.dates[this.tourDateIndex],
+      peopleNumber: this.amount,
+      cost: this.tour.cost * this.amount,
       userId: this.user._id,
       tourId: this.id
     };
 
-    this.orderService.createOrder(order).subscribe(order => {
-    });
+    /*this.orderService.createOrder(order).subscribe(order => {*/
+      this.emailService.sendEmailBooked(this.user.email, this.tour, order.tourDate).subscribe(result => {
+
+      });
+   /* });*/
+  }
+
+  increaseAmount() {
+    if (this.tour.bookedMax - this.tour.booked < this.amount + 1) {
+      return;
+    }
+    this.amount++;
+  }
+
+  decreaseAmount() {
+    if (this.amount == 1) {
+      return;
+    }
+    this.amount--;
   }
 }

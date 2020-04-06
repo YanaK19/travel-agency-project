@@ -8,6 +8,14 @@ export class EmailService {
   }
 
   sendEmailResetPassword(email):Observable<any> {
-    return this.http.post<any>('/api/email', {email});
+    return this.http.post<any>('/api/email?theme=password', {email});
+  }
+
+  sendEmailBooked(email, tour, tourDate):Observable<any> {
+    return this.http.post<any>('/api/email?theme=booked', {email, tour, tourDate});
+  }
+
+  sendEmailOrderConfirmed(email, order, tour):Observable<any> {
+    return this.http.post<any>('/api/email?theme=confirmed', {email, order, tour});
   }
 }

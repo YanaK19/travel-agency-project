@@ -98,6 +98,7 @@ async function remove(req:any, res:any) {
 }
 
 async function update(req:any, res:any) {
+    console.log(req.body)
     try {
         const order = await Order.findOneAndUpdate(
             {_id: req.params.id},

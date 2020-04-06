@@ -35,8 +35,7 @@ export class OrdersComponent implements OnInit {
               private tourService: ToursService,
               private userService: UserService,
               private modalService: NgbModal,
-/*              private rangeService: RangeService,
-              private emailService: EmailService*/) { }
+              private emailService: EmailService) { }
 
   ngOnInit() {
     this.orderService.getOrders().subscribe((orders) => {
@@ -83,9 +82,9 @@ export class OrdersComponent implements OnInit {
     const index = this.orders.findIndex(order => order._id == orderId);
     this.orders[index].confirmed = true;
 
-/*    this.emailService.sendOrderConfirmedEmail("123").subscribe(data => {
-      console.log(data)
-    })*/
+    this.emailService.sendEmailOrderConfirmed(this.users[index].email,this.orders[index], this.tours[index]).subscribe(result => {
+
+    })
   }
 
   openDeleteModal(content, orderId, i) {

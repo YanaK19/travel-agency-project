@@ -216,7 +216,7 @@
                             <i class="fas fa-ellipsis-v"></i>
                           </div>-->
                           <div class="title">{{tour.title}}</div>
-                          <div class="number">{{'account.orders.number' | translate}}: {{tour._id}}</div>
+                          <div class="number">{{'account.orders.number' | translate}}: {{ordersData[i]._id}}</div>
                           <div class="price">{{'account.orders.price' | translate}}: ${{ordersData[i].cost}}</div>
                           <div class="date">{{'account.orders.date' | translate}}: {{ordersData[i].date.day | number: '2.0'}}/{{ordersData[i].date.month | number: '2.0'}}/{{ordersData[i].date.year}}</div>
                         </div>

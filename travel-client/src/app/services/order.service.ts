@@ -38,7 +38,7 @@ export class OrderService {
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.put<Order>('/api/order/' + orderId, JSON.stringify({confirmed: true}), httpOptions);
+    return this.http.put<Order>('/api/order/' + orderId, {confirmed: true}, httpOptions);
   }
 
   getOrdersByUserId(userId): Observable<Order[]> {

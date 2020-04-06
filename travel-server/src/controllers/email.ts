@@ -4,8 +4,14 @@ import {decrypt, encrypt} from '../utils/encryption';
 
 async function sendEmail(req:any, res:any) {
     try{
-        const encryptedEmail = encrypt(req.body.email);
-        const htmlContent = `
+        let encryptedEmail;
+        let htmlContent = '';
+        let subjectText = '';
+
+        if(req.query.theme === 'password') {
+            encryptedEmail = encrypt(req.body.email);
+            subjectText = "Reset your TripHelper account password 🕵";
+            htmlContent = `
                 <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
                     <h4 style="font-size: 23px">
                         <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
@@ -19,6 +25,36 @@ async function sendEmail(req:any, res:any) {
                     </div>
                 </div>
             `;
+        }
+
+        if (req.query.theme === 'booked') {
+            subjectText = "Tour order";
+            htmlContent = `
+                <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
+                    <h4 style="font-size: 23px">
+                        <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
+                    </h4>
+                    <div style="padding-bottom: 15px">Thank you for order tour 
+                        <span style="font-size: 15px; color: rgb(104,172,206);">${req.body.tour.title}</span>
+                        ! 😊
+                    </div>
+                    <div style="padding-bottom: 15px">Departure: ${req.body.tourDate.dateFrom.day}/${req.body.tourDate.dateFrom.month}/${req.body.tourDate.dateFrom.year}</div>
+                    <div style="margin-bottom: 20px; background: #eebb3adb; padding: 16px; font-size: 15px;">We will call you soon and confirm your order 📞</div>
+                </div>
+            `;
+        }
+
+        if (req.query.theme === 'confirmed') {
+            subjectText = "Order Confirmed! 🎉🎉🎉";
+            htmlContent = `
+                <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
+                    <h4 style="font-size: 23px">
+                        <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
+                    </h4>
+                    <div style="margin-bottom: 20px; padding: 16px; font-size: 15px;">Your ordered tour ${req.body.tour.title}  has been confirmed 👌</div>
+                </div>
+            `;
+        }
 
         let info;
         if(req.body.email === 'yana-triphelper@mail.ru') {
@@ -54,7 +90,7 @@ async function sendEmail(req:any, res:any) {
             info = await transporter.sendMail({
                 from: '"TripHelper 🏝" <triphelper2020@mail.ru>', // sender address
                 to: "bar@example.com, baz@example.com", // list of receivers
-                subject: "Reset your TripHelper account password 🕵", // Subject line
+                subject: subjectText, // Subject line
                 text: "Hello world?", // plain text body
                 html: htmlContent // html body
             });

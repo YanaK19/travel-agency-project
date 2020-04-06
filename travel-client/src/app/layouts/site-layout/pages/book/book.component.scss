@@ -3,16 +3,17 @@
   background: url("https://images.unsplash.com/photo-1513265472937-50d3e680377c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80") no-repeat bottom center / cover;
   z-index: -1;
   overflow: hidden;
-  position: relative;
 }
 
+/*
 .shadow {
   position: absolute;
   background: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(12, 10, 59));
-  height: 100%;
+  height: 100px;
   width: 100%;
   z-index: 0 !important;
 }
+*/
 
 .book-container {
   position: relative;
@@ -112,6 +113,11 @@
     padding: 3vw;
     background: rgba(163, 59, 42, 0.67);
     box-shadow: inset 14px 15px 164px 0px #000;
+
+    .amount-container_inner {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .form-control,
@@ -126,7 +132,35 @@
   }
 
   .amount-input {
-    width: 55px;
+    background: none;
+    border: 2px solid #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+      cursor: unset;
+    }
+  }
+
+  .btn-amount {
+    background: none;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    color: #fff;
+    font-size: 1.4rem;
+    margin: 5px;
+    transition: 0.2s;
+
+    &:hover {
+      background: #4a231c;
+    }
   }
 
   .dates-select {

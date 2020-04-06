@@ -37,7 +37,6 @@ export class SiteLayoutComponent implements OnInit {
     }
   }
 
-
   onChangeLang(language: string) {
     this.langService.changeLang(language);
     this.selectedLang = this.languages[this.langService.getLang()];

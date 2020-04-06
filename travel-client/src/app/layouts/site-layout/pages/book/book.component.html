@@ -1,6 +1,4 @@
 <div class="page">
-  <div *ngIf="tour" class="shadow"></div>
-
   <div *ngIf="tour" class="book-container">
     <div class="container-fluid">
       <div class="row">
@@ -50,10 +48,10 @@
 
         <div class="col-md-5 form-container">
           <div class="form-container_inner">
-            <form [formGroup]="bookForm">
+            <form>
               <div class="dates-container">
                 <div class="title">Dates</div>
-                <select formControlName="dates" class="custom-select dates-select" id="inputGroupSelect01">
+                <select name="dates" [(ngModel)]="tourDateIndex" class="custom-select dates-select" id="inputGroupSelect01">
                   <option *ngFor="let date of tour.dates; let indx = index;" [value]="indx">
                     {{date.dateFrom.day | number: '2.0'}}/{{date.dateFrom.month | number: '2.0'}}/{{date.dateFrom.year}},
                     {{date.dateTo.day | number: '2.0'}}/{{date.dateTo.month | number: '2.0'}}/{{date.dateTo.year}}
@@ -63,12 +61,16 @@
 
               <div class="amount-container">
                 <div class="title amount-title">Tickets Amount</div>
-                <input value="1" formControlName="amount" type="number" min="1" class="form-control amount-input" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
+                <div class="amount-container_inner">
+                  <button class="btn-amount" (click)="decreaseAmount()">-</button>
+                  <input readonly name="amount" [value]="amount" class="form-control amount-input" placeholder="1" aria-label="PeopleNumber" aria-describedby="number-item">
+                  <button class="btn-amount" (click)="increaseAmount()">+</button>
+                </div>
               </div>
            </form>
 
             <div class="title price-title">Summary Price</div>
-            <div class="price">${{tour.cost*bookForm.value.amount}}</div>
+            <div class="price">${{tour.cost*amount}}</div>
           </div>
 
           <div class="btn-book">
