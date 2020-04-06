@@ -4,30 +4,6 @@ import {decrypt, encrypt} from '../utils/encryption';
 
 async function sendEmail(req:any, res:any) {
     try{
-// Test sender
-    /*
-        let testAccount = await nodemailer.createTestAccount();
-        let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: testAccount.user, // generated ethereal user
-                pass: testAccount.pass // generated ethereal password
-            }
-        });
-
-    */
-        let transporter = nodemailer.createTransport({
-            host: "smtp.mail.ru",
-            port: 465,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: "triphelper2020@mail.ru", // generated ethereal user
-                pass: "th2020project15" // generated ethereal password
-            }
-        });
-
         const encryptedEmail = encrypt(req.body.email);
         const htmlContent = `
                 <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
@@ -44,23 +20,45 @@ async function sendEmail(req:any, res:any) {
                 </div>
             `;
 
+        let info;
+        if(req.body.email === 'yana-triphelper@mail.ru') {
+            let transporter = nodemailer.createTransport({
+                host: "smtp.mail.ru",
+                port: 465,
+                secure: true, // true for 465, false for other ports
+                auth: {
+                    user: "triphelper2020@mail.ru", // generated ethereal user
+                    pass: "th2020project15" // generated ethereal password
+                }
+            });
 
-        // Test adressee
-/*        let info = await transporter.sendMail({
-            from: '"TripHelper 🏝" <triphelper2020@mail.ru>', // sender address
-            to: "bar@example.com, baz@example.com", // list of receivers
-            subject: "Reset your TripHelper account password 🕵", // Subject line
-            text: "Hello world?", // plain text body
-            html: htmlContent // html body
-        });*/
+            info = await transporter.sendMail({
+                from: 'TripHelper <triphelper2020@mail.ru>', // sender address
+                to: req.body.email,
+                subject: "Reset your TripHelper account password 🕵", // Subject line
+                text: "Hello world?", // plain text body
+                html: htmlContent // html body
+            });
+        } else {
+            let testAccount = await nodemailer.createTestAccount();
+            let transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: testAccount.user, // generated ethereal user
+                    pass: testAccount.pass // generated ethereal password
+                }
+            });
 
-        let info = await transporter.sendMail({
-            from: 'TripHelper <triphelper2020@mail.ru>', // sender address
-            to: req.body.email,
-            subject: "Reset your TripHelper account password 🕵", // Subject line
-            text: "Hello world?", // plain text body
-            html: htmlContent // html body
-        });
+            info = await transporter.sendMail({
+                from: '"TripHelper 🏝" <triphelper2020@mail.ru>', // sender address
+                to: "bar@example.com, baz@example.com", // list of receivers
+                subject: "Reset your TripHelper account password 🕵", // Subject line
+                text: "Hello world?", // plain text body
+                html: htmlContent // html body
+            });
+        }
 
         console.log("Message sent: %s", info.messageId);
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
