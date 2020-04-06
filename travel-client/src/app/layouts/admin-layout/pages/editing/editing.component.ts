@@ -185,8 +185,6 @@ export class EditingComponent implements OnInit {
       }
     }
 
-    console.log(this.invalidFields)
-
     if (this.tour_langs.en.restType.length != this.tour_langs.ru.restType.length) {
       this.invalidForm = true;
       this.invalidMessage = "* Data in different languages doesn't match";
@@ -229,7 +227,6 @@ export class EditingComponent implements OnInit {
         if (location.en.towns.indexOf(townEn) == -1) {
           this.locations[index].en.towns.push(townEn);
           this.locations[index].ru.towns.push(this.locationForm.ru.town);
-          console.log(this.locations[index])
           this.locationService.updateLocationById(this.locations[index]).subscribe(updatedLocation => {
             this.successMessage = "Town added to DB";
           })
@@ -330,7 +327,6 @@ export class EditingComponent implements OnInit {
   }
   onImagesUpload(event) {
     if (event.target.files.length > 0) {
-      /*this.newTourImages.push(event.target.files);*/
       for(let file of event.target.files) {
         this.newTourImages.push(file);
       }
@@ -356,7 +352,6 @@ export class EditingComponent implements OnInit {
   onNewImageDelete(imageIndex) {
     this.newTourImages.splice(imageIndex, 1);
     this.previewImages.splice(imageIndex, 1);
-    console.log(this.newTourImages, this.previewImages)
   }
 
   openDeleteModal(content, tourId) {
@@ -434,7 +429,6 @@ export class EditingComponent implements OnInit {
     }
 
     params = (params.slice(0, params.length - 1));
-    console.log(params);
     this.getToursByParams(params);
   }
 
@@ -459,8 +453,6 @@ export class EditingComponent implements OnInit {
           tours = tours.filter(tour => tour.dates.length);
         }
       }
-
-      console.log(this.tours)
       this.tours = tours;
     });
   }

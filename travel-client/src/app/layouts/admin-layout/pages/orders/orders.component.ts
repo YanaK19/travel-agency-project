@@ -35,13 +35,13 @@ export class OrdersComponent implements OnInit {
               private tourService: ToursService,
               private userService: UserService,
               private modalService: NgbModal,
-              private rangeService: RangeService,
-              private emailService: EmailService) { }
+/*              private rangeService: RangeService,
+              private emailService: EmailService*/) { }
 
   ngOnInit() {
     this.orderService.getOrders().subscribe((orders) => {
-        this.ordersNumber = orders.length;
-        this.orders = orders;
+      this.ordersNumber = orders.length;
+      this.orders = orders;
       console.log(this.orders);
       orders.forEach(order => {
         this.tourService.getOneTour(order.tourId).subscribe(tour => {
@@ -106,13 +106,12 @@ export class OrdersComponent implements OnInit {
     modal.close('Cross click');
   }
 
-  onFilterChange(eve: any) {
+  onFilterChange() {
     this.filter = !this.filter;
 
     if (this.filter) {
       this.ordersAll = this.orders;
       this.orders = this.orders.filter(order => !order.confirmed);
-
       if (!this.orders.length) {
         this.ordersExist = false;
       }

@@ -5,7 +5,6 @@ import * as xlsx from 'xlsx';
   providedIn: 'root'
 })
 export class ExportExcelService {
-
   constructor() { }
 
   exportToExcel(jsonData, fileName) {

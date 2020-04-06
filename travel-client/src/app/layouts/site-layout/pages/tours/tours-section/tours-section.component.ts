@@ -20,7 +20,6 @@ export class ToursSectionComponent implements OnInit {
               private auth: AuthorizationService) { }
 
   ngOnInit() {
-    console.log(this.toursList);
     this.isAuthenticated = this.auth.isAuthenticated()
   }
 
@@ -31,7 +30,6 @@ export class ToursSectionComponent implements OnInit {
 
   onAddToFavourites(tourId){
     this.userService.addToFavourites(tourId).subscribe(updatedUser => {
-      console.log(updatedUser)
     })
   }
 
@@ -51,7 +49,6 @@ export class ToursSectionComponent implements OnInit {
     }
 
     this.userService.deleteFromFavourites(tourId).subscribe(updatedUser => {
-      console.log(updatedUser)
     });
   }
 }

@@ -7,13 +7,10 @@ import {ErrorHandlerService} from '../../services/error-handler.service';
   styleUrls: ['./not-found.component.scss']
 })
 export class NotFoundComponent implements OnInit {
-  private errorMessage = '';
-
   constructor(private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit() {
-
   }
 
 }

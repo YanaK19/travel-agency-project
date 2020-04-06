@@ -248,10 +248,10 @@ async function getFilSortTours(req:any, res:any){
                     filters.push({discount: {$gt: 0}});
                 } else if (paramName === "fromCountry"){
                     field = lang + '.route.fromCountry';
-                    filters.push({[field]: req.query[paramName]});
+                    filters.push({[field]: {$regex: req.query[paramName], $options: 'i'}});
                 } else if (paramName === "toCountry"){
                     field = lang + '.route.toCountry';
-                    filters.push({[field]: req.query[paramName]})
+                    filters.push({[field]: {$regex: req.query[paramName], $options: 'i'}})
                 } else{
                     field = lang + '.' + paramName;
                     filters.push({ [field]: req.query[paramName]});

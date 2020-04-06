@@ -47,7 +47,6 @@ export class SiteLayoutComponent implements OnInit {
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
       this.userId = JSON.parse(localStorage.getItem('userData'))._id;
-      console.log(this.userId);
     }
 
     this.router.events.subscribe((evt) => {

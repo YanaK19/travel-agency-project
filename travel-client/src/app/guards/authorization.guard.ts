@@ -7,9 +7,7 @@ import {
   CanActivateChild,
   Router,
   RouterStateSnapshot,
-  UrlTree
 } from '@angular/router';
-
 
 @Injectable({providedIn: 'root'})
 export class AuthorizationGuard  implements CanActivate, CanActivateChild {

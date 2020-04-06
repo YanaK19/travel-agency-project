@@ -31,7 +31,6 @@ export class BookComponent implements OnInit {
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
-      console.log(this.tour);
       this.user = this.userService.getUserData();
     });
 
@@ -57,7 +56,6 @@ export class BookComponent implements OnInit {
     };
 
     this.orderService.createOrder(order).subscribe(order => {
-      console.log(order);
     });
   }
 }

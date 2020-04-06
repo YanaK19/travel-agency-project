@@ -99,12 +99,10 @@ export class AccountComponent implements OnInit, OnDestroy {
 
     this.reviewService.getReviewsByUserId(this.userData._id).subscribe(reviews => {
       this.reviewsData = reviews;
-    /*  console.log(this.reviewsData);*/
     });
 
       this.orderService.getOrdersByUserId(this.userData._id).subscribe(orders => {
         this.ordersData = orders;
-       /* this.ordersData = []*/;
 
         this.orderedToursData= [];
         this.orderedToursLeft= [];
@@ -156,7 +154,6 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.userData.favouriteTourIds.forEach(tourId => {
           this.tourService.getOneTour(tourId).subscribe(tour => {
             this.favouriteTours.push(tour);
-            console.log(this.favouriteTours)
           })
         })
       }
@@ -167,20 +164,17 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   renderUserAccountPage(userAccount) {
-    console.log(userAccount);
     this.router.navigate(['/account/' + userAccount._id]);
   }
 
   addAccountToMySubscriptions() {
     this.userService.addAccountToSubscriptions(this.userData._id).subscribe(updatedUser => {
-      console.log(updatedUser)
     });
     this.alreadySubscribed = true;
   }
 
   deleteAccountFromMySubscriptions() {
     this.userService.deleteAccountFromSubscriptions(this.userData._id).subscribe(updatedUser => {
-      console.log(updatedUser);
       this.alreadySubscribed = false;
     });
   }

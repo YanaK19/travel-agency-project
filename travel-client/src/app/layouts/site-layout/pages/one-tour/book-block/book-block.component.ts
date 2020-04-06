@@ -59,6 +59,7 @@ export class BookBlockComponent implements OnInit {
     this.subscription = this.auth.login(user).subscribe(
       (res) => {
         // res={role:..id..email..name..telephone..}
+        console.log(modal, typeof modal);
         modal.close('Cross click');
       },
       (err) => {

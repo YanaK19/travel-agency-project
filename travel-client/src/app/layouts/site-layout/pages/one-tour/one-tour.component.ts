@@ -35,15 +35,12 @@ export class OneTourComponent implements OnInit {
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
-      console.log(this.tour);
     });
 
     this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
-      console.log(reviews)
       this.reviews = reviews;
       if (reviews.length) {
         this.reviews.sort((a, b) => -this.dateService.compareDates(a.date, b.date));
-        console.log(this.reviews);
         this.reviews.forEach((review, index) => {
           this.userService.getUserById(review.userId).subscribe(user => {
               this.users.push(user);
@@ -72,31 +69,6 @@ export class OneTourComponent implements OnInit {
       this.imgActive = '';
     }
   }
-
-/*  sortActualDates() {
-    const today = new Date();
-    const currDate: TourDate = {
-        day: today.getDate(),
-        month: today.getMonth() + 1,
-        year: today.getFullYear()
-    };
-
-    this.tour.dates = this.tour.dates.filter((date) => {
-      return this.dateService.compareDates(date.dateTo, currDate) === 1;
-    });
-    this.tour.dates.sort((a, b) => this.dateService.compareDates(a.dateTo, b.dateTo));
-  }*/
-
-/*  compareDates(a: TourDate, b: TourDate) {
-      if ((a.year < b.year) ||
-          (a.month < b.month && a.year === b.year) ||
-          (a.day < b.day && a.month === b.month && a.year === b.year)
-          ) {
-        return -1;
-    } else {
-        return 1;
-    }
-  }*/
 
   renderProfilePage(user: UserData) {
     this.router.navigate(['/account', user._id]);

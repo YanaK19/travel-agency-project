@@ -76,22 +76,12 @@ export class ToursService {
 
   uploadImages(filesArr, tour): Observable<any> {
     const fd = new FormData();
-    console.log(filesArr)
+
     filesArr.forEach(file => {
-      console.log(file)
+
       fd.append('images', file, file.name);
     });
 
-/*    for(let image of images) {
-      fd.append('images', image, image.name);
-    }*/
-
-/*    const httpOptions  = {
-      headers: new HttpHeaders({
-        'Authorization': this.auth.getToken()
-      })
-    };*/
-    console.log(fd)
     return this.http.put<any>('/api/tour/' + tour._id + this.langService.setOnlyLangParam(), fd);
   }
 

@@ -42,12 +42,10 @@ export class HomeComponent implements OnInit {
 
     this.reviewService.getLimitReviews(3).subscribe(reviews => {
       this.reviews3 = reviews;
-      console.log(this.reviews3);
       this.reviews3.forEach((review, index) => {
         this.userService.getUserById(review.userId).subscribe((user: UserData) => {
             this.users.push(user);
-          }
-        );
+        });
       });
     });
 
@@ -89,7 +87,6 @@ export class HomeComponent implements OnInit {
 
     this.countries.forEach((countryDB, index) => {
       if (countryDB.toLowerCase() === country.toLowerCase()) {
-        console.log(countryDB);
         isExist = true;
         this.countryExist = true;
         this.router.navigate(['/tours'], {queryParams: {country: countryDB}});
@@ -98,7 +95,6 @@ export class HomeComponent implements OnInit {
 
     if (!isExist) {
       this.countryExist = false;
-      console.log('no such country');
     }
   }
 

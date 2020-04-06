@@ -58,7 +58,6 @@ export class ToursComponent implements OnInit {
     });
 
     this.rangeService.getRanges().subscribe(ranges => {
-      console.log(ranges)
       ranges.forEach(range => {
         if (range.category == 'transport' || range.category == 'транспорт') {
           this.rangeTransports = range;
@@ -75,7 +74,6 @@ export class ToursComponent implements OnInit {
     let params = '?';
     for (let filter in this.filterForm.value) {
       if (this.filterForm.value[filter]) {
-        console.log(this.filterForm.value[filter])
         if (filter == 'dateFrom' || filter == 'dateTo') {
           params += filter + '=' + this.filterForm.value[filter].day + '.' +
                                  + this.filterForm.value[filter].month + '.' +

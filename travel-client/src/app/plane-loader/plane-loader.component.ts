@@ -11,5 +11,4 @@ export class PlaneLoaderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
