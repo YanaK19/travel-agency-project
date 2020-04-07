@@ -3,7 +3,7 @@
       Order management
     </div>
 
-  <ng-template #content let-modal>
+  <ng-template #sureDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Delete order</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -33,10 +33,13 @@
       <div class="search-container col-md-6">
         <form (ngSubmit)="findOrderById(idInput.value)">
           <div class="input-group">
-            <input #idInput type="text" class="form-control" placeholder="FIND ORDER (BY ID)" aria-label="Search" aria-describedby="button-search">
+            <input name="idInput" [(ngModel)]="idInputValue" #idInput type="text" class="form-control" placeholder="FIND ORDER (BY ID)" aria-label="Search" aria-describedby="button-search">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary search-button" type="submit" id="button-search">
                 <i class="fas fa-search"></i>
+              </button>
+              <button class="btn btn-outline-secondary search-button" (click)="resetFilter(idInput)" type="button" id="button-reset">
+                <i class="fas fa-times"></i>
               </button>
             </div>
           </div>
@@ -52,27 +55,26 @@
     No such orders...
   </div>
 
-  <app-loader *ngIf="orders.length != tours.length && orders.length != users.length && !ordersAll.length && ordersExist"></app-loader>
+  <app-loader *ngIf="!orders.length && ordersExist"></app-loader>
 
-  <div *ngIf="orders.length && ordersExist && (orders.length == tours.length && orders.length == users.length || ordersAll.length)" class="orders-container container">
+  <div *ngIf="orders.length && ordersExist" class="orders-container container">
     <div class="row" >
-
-      <div *ngFor="let order of orders; let i = index;" class="col-lg-6 orders-col">
+      <div *ngFor="let orderFull of orders; let i = index;" class="col-lg-6 orders-col">
         <div class="order-container">
           <div class="order-image">
-            <img *ngIf="tours.length" [src]="tours[i].images[0]">
+            <img [src]="orderFull.tour.images[0]">
           </div>
 
           <div class="number-buttons">
             <div class="number">
-              <span>№</span>{{order._id}}
+              <span>№</span>{{orderFull.order._id}}
             </div>
             <div class="buttons">
-              <button *ngIf="!order.confirmed" type="button" class="confirm" (click)="onConfirm(order._id)">
+              <button *ngIf="!orderFull.order.confirmed" type="button" class="confirm" (click)="onConfirm(orderFull.order._id)">
                 confirm
               </button>
 
-              <button type="button" class="delete" (click)="openDeleteModal(content, order._id, i)">
+              <button type="button" class="delete" (click)="openDeleteModal(sureDelete, orderFull.order._id, i)">
                 delete
               </button>
             </div>
@@ -83,39 +85,38 @@
               <div class="col-sm-6">
                 <div class="tour-info">
                   <div class="tour-info_title">Tour Info</div>
-                  <div *ngIf="tours.length" class="tour-title">
-                    <div>( № {{tours[i]._id}})</div>
-                    <div>{{tours[i].title}}</div>
+                  <div class="tour-title">
+                    <div>( № {{orderFull.tour._id}})</div>
+                    <div>{{orderFull.tour.en.title}}</div>
                   </div>
                 </div>
 
                 <div class="user-info">
                   <div class="user-info_title">User Info</div>
                   <div class="info-item">
-                    <div class="name"><span>Name:</span> {{users[i].name}}</div>
+                    <div class="name"><span>Name:</span> {{orderFull.user.name}}</div>
                   </div>
 
                   <div class="info-item">
-                    <div class="email"><span>Email:</span> {{users[i].email}}</div>
+                    <div class="email"><span>Email:</span> {{orderFull.user.email}}</div>
                   </div>
 
                   <div class="info-item">
-                    <div class="amount"><span>People Amount:</span> {{order.peopleNumber}}</div>
+                    <div class="amount"><span>People Amount:</span> {{orderFull.order.peopleNumber}}</div>
                   </div>
                 </div>
               </div>
-
               <div class="col-sm-6">
                 <div class="order-info">
                   <div class="info-item">
                     <div class="order-date"><div>Order Date:</div>
-                      {{order.date.day | number: '2.0'}}/{{order.date.month | number: '2.0'}}/{{order.date.year}}
+                      {{orderFull.order.date.day | number: '2.0'}}/{{orderFull.order.date.month | number: '2.0'}}/{{orderFull.order.date.year}}
                     </div>
                   </div>
 
                   <div class="info-item">
                     <div class="cost">
-                      $ {{order.cost}}
+                      $ {{orderFull.order.cost}}
                     </div>
                   </div>
                 </div>

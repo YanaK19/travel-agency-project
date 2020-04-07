@@ -51,7 +51,7 @@ async function sendEmail(req:any, res:any) {
                     <h4 style="font-size: 23px">
                         <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
                     </h4>
-                    <div style="margin-bottom: 20px; padding: 16px; font-size: 15px;">Your ordered tour ${req.body.tour.title}  has been confirmed 👌</div>
+                    <div style="margin-bottom: 20px; padding: 16px; font-size: 15px;">Your order ${req.body.tour.en.title}  was confirmed 👌</div>
                 </div>
             `;
         }
@@ -71,7 +71,7 @@ async function sendEmail(req:any, res:any) {
             info = await transporter.sendMail({
                 from: 'TripHelper <triphelper2020@mail.ru>', // sender address
                 to: req.body.email,
-                subject: "Reset your TripHelper account password 🕵", // Subject line
+                subject: subjectText, // Subject line
                 text: "Hello world?", // plain text body
                 html: htmlContent // html body
             });

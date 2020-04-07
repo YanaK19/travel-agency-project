@@ -72,6 +72,24 @@ async function getOrderById(req:any, res:any) {
     }
 }
 
+async function getOrdersToursByUserId(req:any, res:any) {
+    let ordersTours = [];
+
+    try{
+        let orders: any = await Order.find({userId: req.params.id}).sort({"date.year": -1, "date.month": -1, "date.day": -1});
+
+        for(let i = 0; i < orders.length; i++) {
+            let order = orders[i];
+            let tour = await Tour.findOne({_id: order.tourId});
+            ordersTours.push({order, tour});
+        }
+
+        res.status(200).json(ordersTours);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function getFullInfoByOrderId(req:any, res:any) {
     try {
         const order: any = await Order.findById(req.params.id);
@@ -81,6 +99,26 @@ async function getFullInfoByOrderId(req:any, res:any) {
         const response = {order, user, tour};
 
         res.status(200).json(response);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function getAllOrdersFullInfo(req:any, res:any) {
+    let ordersFull: any = [];
+    let user;
+    let tour;
+
+    try {
+        const orders: any = await Order.find().sort({"date.year": -1, "date.month": -1, "date.day": -1});
+
+        for(let i=0; i < orders.length; i++) {
+            user = await User.findById(orders[i].userId);
+            tour = await Tour.findById(orders[i].tourId);
+            ordersFull.push({order: orders[i], user, tour});
+        }
+
+        res.status(200).json(ordersFull);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -112,4 +150,4 @@ async function update(req:any, res:any) {
     }
 }
 
-export {create, getOrders, getOrderById, remove, update, getFullInfoByOrderId}
+export {create, getOrders, getOrderById, remove, update, getFullInfoByOrderId, getAllOrdersFullInfo, getOrdersToursByUserId}

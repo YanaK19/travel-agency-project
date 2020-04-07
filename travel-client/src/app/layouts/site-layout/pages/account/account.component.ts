@@ -18,17 +18,15 @@ import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
 })
 export class AccountComponent implements OnInit, OnDestroy {
   userData: any;
+  updatedUserData: any;
   toggler = true;
   isMyAccount = false;
+  isILoggedIn = false;
   subscribtionsData = [];
   reviewsData = [];
   ordersData: any = [];
-  orderedToursData = [];
   subscriptions: Subscription = new Subscription();
-  orderedToursLeft = [];
-  orderedToursRight = [];
   favouriteTours = [];
-  iter = 1;
   alreadySubscribed = false;
   image: any = '';
   isLoaded = false;
@@ -37,7 +35,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   reviewForm: FormGroup;
 
   visitedTourOrders = [];
-  visitedTours = [];
+  visitedTourOrdersLeft = [];
+  visitedTourOrdersRight = [];
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -57,6 +56,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoaded = false;
     this.reviewForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       info: new FormControl(null, [Validators.required])
@@ -65,7 +65,11 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.route.params.subscribe((params: Params) => {
       const user = this.userService.getUserData();
 
-      if (user._id == params.id) {
+      if(user) {
+        this.isILoggedIn = true;
+      }
+
+      if (user && user._id == params.id) {
         this.isMyAccount = true;
         this.userData = user;
         console.log('my account', this.isMyAccount);
@@ -76,11 +80,13 @@ export class AccountComponent implements OnInit, OnDestroy {
           console.log('not my account');
           this.isMyAccount = false;
 
-          user.subscriptions.forEach(subscription => {
-            if (subscription == this.userData._id) {
-              this.alreadySubscribed = true;
-            }
-          });
+          if(this.isILoggedIn) {
+            user.subscriptions.forEach(subscription => {
+              if (subscription == this.userData._id) {
+                this.alreadySubscribed = true;
+              }
+            });
+          }
 
           this.loadPageData();
         }));
@@ -101,52 +107,34 @@ export class AccountComponent implements OnInit, OnDestroy {
       this.reviewsData = reviews;
     });
 
-      this.orderService.getOrdersByUserId(this.userData._id).subscribe(orders => {
+      this.orderService.getOrderTourByUserId(this.userData._id).subscribe(orders => {
         this.ordersData = orders;
 
-        this.orderedToursData= [];
-        this.orderedToursLeft= [];
-        this.orderedToursRight= [];
-        this.iter = 1;
+        this.visitedTourOrdersLeft= [];
+        this.visitedTourOrdersRight= [];
 
         if (orders.length) {
-          orders.forEach(order => {
-            this.tourService.getOneTour(order.tourId).subscribe(tour => {
-              this.orderedToursData.push(tour);
-              if (orders.length == this.orderedToursData.length) {
-                this.isLoaded = true;
+          const today = new Date();
+          const currDate: TourDate = {
+            day: today.getDate(),
+            month: today.getMonth() + 1,
+            year: today.getFullYear()
+          };
 
-                const today = new Date();
-                const currDate: TourDate = {
-                  day: today.getDate(),
-                  month: today.getMonth() + 1,
-                  year: today.getFullYear()
-                };
+          this.visitedTourOrders = this.ordersData.filter(orderTour =>
+            this.dateService.compareDates(orderTour.order.tourDate.dateFrom, currDate) == -1 && orderTour.order.confirmed
+          ).sort((a, b) => -this.dateService.compareDates(a.order.tourDate.dateFrom, currDate));
+console.log(this.visitedTourOrders)
 
-                //orders of tours, that user has already visited, sort by tourDate
-                this.visitedTourOrders = this.ordersData.filter(order =>
-                  this.dateService.compareDates(order.tourDate.dateFrom, currDate) == -1 && order.confirmed
-                ).sort((a, b) => -this.dateService.compareDates(a.tourDate.dateFrom, currDate));
-
-                //sorted tours ids that user has already visited
-                const visitedToursIds = this.visitedTourOrders.map(order => order.tourId);
-
-                //find tours by sorted ids
-                visitedToursIds.forEach((tourId, i) => {
-                  let tour = this.orderedToursData.find(tour => tour._id === tourId);
-                  this.visitedTours.push(tour);
-                  if (i % 2 === 0) {
-                    this.orderedToursLeft.push({tour, orderIndex: i});
-                  } else {
-                    this.orderedToursRight.push({tour, orderIndex: i});
-                  }
-                });
-              }
-            });
+          this.visitedTourOrders.forEach((orderTour, i) => {
+            if(i % 2 === 0) {
+              this.visitedTourOrdersLeft.push(orderTour);
+            } else {
+              this.visitedTourOrdersRight.push(orderTour);
+            }
           });
-        } else {
-          this.isLoaded = true;
         }
+          this.isLoaded = true;
       });
 
       if (this.userData.favouriteTourIds.length) {
@@ -209,6 +197,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   openEditProfileModal(content) {
+    this.updatedUserData = this.userData;
     this.modalService.open(content, { centered: true });
   }
 
@@ -231,5 +220,9 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   renderTourPage(tourId: string) {
     this.router.navigate(['/one-tour', tourId]);
+  }
+
+  updateUser() {
+    console.log(this.updatedUserData);
   }
 }

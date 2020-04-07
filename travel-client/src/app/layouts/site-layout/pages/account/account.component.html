@@ -7,17 +7,17 @@
         <div class="d-flex flex-column">
           <div class="profile-icon">
             <img *ngIf="userData?.avatar.length" [src]="userData.avatar">
-            <img *ngIf="!userData?.avatar.length" class="d-block" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80">
+            <img *ngIf="!userData?.avatar.length" class="d-block" src="../../../../../assets/images/user-default.png">
           </div>
 
           <div *ngIf="userData" class="additional_user-name additional_item">
             <div class="additional_item-title">{{userData.name}}</div>
           </div>
 
-          <div *ngIf="!isMyAccount && !alreadySubscribed && userData" (click)="addAccountToMySubscriptions()" class="user-subscribe additional_item">
+          <div *ngIf="isILoggedIn && !isMyAccount && !alreadySubscribed && userData" (click)="addAccountToMySubscriptions()" class="user-subscribe additional_item">
             <div class="additional_item-title">{{'account.subscribe' | translate}}</div>
           </div>
-          <div *ngIf="!isMyAccount && alreadySubscribed" (click)="deleteAccountFromMySubscriptions()" class="user-unsubscribe additional_item">
+          <div *ngIf="isILoggedIn && !isMyAccount && alreadySubscribed" (click)="deleteAccountFromMySubscriptions()" class="user-unsubscribe additional_item">
             <div class="additional_item-title">{{'account.unsubscribe' | translate}}</div>
           </div>
 
@@ -93,28 +93,31 @@
             <ngb-tab>
               <ng-template ngbTabTitle><div style="color: rgba(0, 15, 104, 0.69);font-weight: bold;">{{'account.map.tab_title' | translate}}</div></ng-template>
               <ng-template ngbTabContent>
-                <div *ngIf="orderedToursData.length" class="journal tabset-item tabset-item-map">
+                <div *ngIf="visitedTourOrders.length" class="journal tabset-item tabset-item-map">
                   <div class="user-map-container">
                     <div class="user-map-title">{{'account.map.title' | translate}}</div>
                   </div>
+                  <div class="continue">...</div>
                   <div  class="user-map">
 
                     <div class="items-left">
-                      <div *ngFor="let tourLeft of orderedToursLeft" class="item-left container-fluid">
+                      <div *ngFor="let orderTourLeft of visitedTourOrdersLeft" class="item-left container-fluid">
                         <div class="row">
                           <div class="item-info col-10">
                             <div class="container-fluid info-container-fl">
                               <div class="row">
                                 <div class="item-info-text col-lg-6">
-                                  <div class="trip-name">{{tourLeft.tour.title}}</div>
+                                  <div class="trip-name">{{orderTourLeft.tour.title}}</div>
                                   <div class="trip-date">
-                                    {{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.day | number: '2.0'}}/{{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.month | number: '2.0'}}/{{ this.visitedTourOrders[tourLeft.orderIndex].tourDate.dateFrom.year }}
+                                    {{ orderTourLeft.order.tourDate.dateFrom.day | number: '2.0'}}/{{ orderTourLeft.order.tourDate.dateFrom.month | number: '2.0'}}/{{ orderTourLeft.order.tourDate.dateFrom.year }}
+                                    <br>
+                                    {{ orderTourLeft.order.tourDate.dateTo.day | number: '2.0'}}/{{ orderTourLeft.order.tourDate.dateTo.month | number: '2.0'}}/{{ orderTourLeft.order.tourDate.dateTo.year }}
                                   </div>
                                 </div>
 
                                 <div class="item-info-image col-lg-6">
-                                  <div class="info-image" (click)="renderTourPage(tourLeft.tour._id)">
-                                    <img [src]="tourLeft.tour.images[0]" alt="">
+                                  <div class="info-image" (click)="renderTourPage(orderTourLeft.tour._id)">
+                                    <img [src]="orderTourLeft.tour.images[0]">
                                   </div>
                                 </div>
                               </div>
@@ -129,12 +132,12 @@
 
                     </div>
 
-                    <div *ngIf="!orderedToursLeft.length" class="items-left"></div>
+                    <div *ngIf="!visitedTourOrdersLeft.length" class="items-left"></div>
                     <div class="line-path"></div>
 
                     <div class="items-right">
 
-                      <div *ngFor="let tourRight of orderedToursRight" class="item-right container-fluid">
+                      <div *ngFor="let orderTourRight of visitedTourOrdersRight" class="item-right container-fluid">
                         <div class="row">
                           <div class="branch-container col-2">
                             <div class="branch"></div>
@@ -143,15 +146,17 @@
                             <div class="container-fluid info-container-fl">
                               <div class="row">
                                 <div class="item-info-image col-lg-6 col-12">
-                                  <div class="info-image" (click)="renderTourPage(tourRight.tour._id)">
-                                    <img  [src]="tourRight.tour.images[0]">
+                                  <div class="info-image" (click)="renderTourPage(orderTourRight.tour._id)">
+                                    <img  [src]="orderTourRight.tour.images[0]">
                                   </div>
                                 </div>
 
                                 <div class="item-info-text col-lg-6 col-12">
-                                  <div class="trip-name">{{tourRight.tour.title}}</div>
+                                  <div class="trip-name">{{orderTourRight.tour.title}}</div>
                                   <div class="trip-date">
-                                    {{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.day | number: '2.0'}}/{{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.month | number: '2.0'}}/{{ this.visitedTourOrders[tourRight.orderIndex].tourDate.dateFrom.year }}
+                                    {{ orderTourRight.order.tourDate.dateFrom.day | number: '2.0'}}/{{ orderTourRight.order.tourDate.dateFrom.month | number: '2.0'}}/{{ orderTourRight.order.tourDate.dateFrom.year }}
+                                    <br>
+                                    {{ orderTourRight.order.tourDate.dateTo.day | number: '2.0'}}/{{ orderTourRight.order.tourDate.dateTo.month | number: '2.0'}}/{{ orderTourRight.order.tourDate.dateTo.year }}
                                   </div>
                                 </div>
 
@@ -166,10 +171,10 @@
 
                   </div>
 
-                  <div class="continue">...</div>
+                  <div class="start">START</div>
                 </div>
 
-                <div class="no-tours" *ngIf="!orderedToursLeft.length && isMyAccount && isLoaded">
+                <div class="no-tours" *ngIf="!visitedTourOrders.length && isMyAccount && isLoaded">
                   <div class="have-no-trips">
                     <div class="have-no-trips-picture">
                       <img src="../../assets/images/cat-simon.gif" alt="">
@@ -184,7 +189,7 @@
                   </div>
                 </div>
 
-                <div class="no-orders" *ngIf="!isMyAccount &&  !ordersData.length && isLoaded">
+                <div class="no-orders" *ngIf="!isMyAccount &&  !visitedTourOrders.length && isLoaded">
                   {{'account.orders.empty_title' | translate}}
                 </div>
 
@@ -202,23 +207,23 @@
                 <div *ngIf="ordersData.length" class="tabset-item tabset-item-orders">
                   <div class="order-items">
 
-                    <div *ngFor="let tour of orderedToursData; let i = index;" class="order-item container-fluid">
+                    <div *ngFor="let orderTour of ordersData; let i = index;" class="order-item container-fluid">
                       <div class="row row-order-item">
-                        <div *ngIf="!ordersData[i].confirmed" class="order-not-confirmed">not confirmed</div>
+                        <div *ngIf="!orderTour.order.confirmed" class="order-not-confirmed">not confirmed</div>
 
                         <div class="order-item-image col-md-5">
                           <div class="img-container">
-                            <img [src]="tour.images[0]" alt="">
+                            <img [src]="orderTour.tour.images[0]" alt="">
                           </div>
                         </div>
                         <div class="info col-md-7">
   <!--                        <div class="order-item-bar">
                             <i class="fas fa-ellipsis-v"></i>
                           </div>-->
-                          <div class="title">{{tour.title}}</div>
-                          <div class="number">{{'account.orders.number' | translate}}: {{ordersData[i]._id}}</div>
-                          <div class="price">{{'account.orders.price' | translate}}: ${{ordersData[i].cost}}</div>
-                          <div class="date">{{'account.orders.date' | translate}}: {{ordersData[i].date.day | number: '2.0'}}/{{ordersData[i].date.month | number: '2.0'}}/{{ordersData[i].date.year}}</div>
+                          <div class="title">{{orderTour.tour.title}}</div>
+                          <div class="number">{{'account.orders.number' | translate}}: {{orderTour.order._id}}</div>
+                          <div class="price">{{'account.orders.price' | translate}}: ${{orderTour.order.cost}}</div>
+                          <div class="date">{{'account.orders.date' | translate}}: {{orderTour.order.date.day | number: '2.0'}}/{{orderTour.order.date.month | number: '2.0'}}/{{orderTour.order.date.year}}</div>
                         </div>
                       </div>
                     </div>
@@ -226,9 +231,11 @@
                   </div>
                 </div>
 
-                <div class="no-orders" *ngIf="!ordersData.length">
+                <div class="no-orders" *ngIf="!ordersData.length && isLoaded">
                   {{'account.orders.empty_title' | translate}}
                 </div>
+
+                <app-loader *ngIf="!ordersData.length && !isLoaded"></app-loader>
               </ng-template>
             </ngb-tab>
             </ng-container>
@@ -243,9 +250,11 @@
                   </section>
                 </div>
 
-                <div *ngIf="!userData?.favouriteTourIds.length" class="no-favourites">
+                <div *ngIf="!userData?.favouriteTourIds.length && isLoaded" class="no-favourites">
                   {{'account.favourites.empty_title' | translate}}
                 </div>
+
+                <app-loader *ngIf="!userData?.favouriteTourIds.length && !isLoaded"></app-loader>
               </ng-template>
             </ngb-tab>
 
@@ -257,6 +266,9 @@
   </div>
 </div>
 
+
+<!--  modals    -->
+
 <ng-template #reviewModal let-modal>
   <div>
     <div class="modal-content">
@@ -266,18 +278,18 @@
             Leave your Tour Review
           </div>
 
-          <div class="tours" *ngIf="visitedTours.length; else noOrders">
-            <div class="tour" (click)="showFields(orderedTour._id)" *ngFor="let orderedTour of visitedTours;">
-              <div class="tour-inner" [ngClass]="{'active-title' : orderedTour._id == reviewTourId}">
+          <div class="tours" *ngIf="visitedTourOrders.length; else noOrders">
+            <div class="tour" (click)="showFields(orderTour.tour._id)" *ngFor="let orderTour of visitedTourOrders;">
+              <div class="tour-inner" [ngClass]="{'active-title' : orderTour.tour._id == reviewTourId}">
                 <div class="tour-title">
-                  {{orderedTour.title}}
+                  {{orderTour.tour.en.title}}
                 </div>
-                <div *ngIf="orderedTour._id != reviewTourId" class="btn-write">
+                <div *ngIf="orderTour.tour._id != reviewTourId" class="btn-write">
                   <img src="https://image.flaticon.com/icons/svg/813/813419.svg" alt="">
                 </div>
               </div>
 
-              <form (ngSubmit)="createReview(msgModal)" [formGroup]="reviewForm" *ngIf="orderedTour._id == reviewTourId" class="review">
+              <form (ngSubmit)="createReview(msgModal)" [formGroup]="reviewForm" *ngIf="orderTour.tour._id == reviewTourId" class="review">
                 <input [ngClass]="{'invalid-field': reviewForm.get('title').invalid && reviewForm.get('title').touched}" formControlName="title" type="text" placeholder="Review Title" class="form-control" name="review-input">
                 <div class="invalid-tip"
                      *ngIf="reviewForm.get('title').invalid && reviewForm.get('title').touched">
@@ -293,6 +305,7 @@
                   <button [disabled]="reviewForm.invalid || reviewForm.untouched" type="submit" class="btn btn-primary">Send</button>
                 </div>
               </form>
+
             </div>
           </div>
 
@@ -312,54 +325,6 @@
   </div>
 </ng-template>
 
-<ng-template #editProfileModal let-modal>
-  <div>
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="edit-container">
-          <div class="title">
-            Edit Page Info
-          </div>
-
-          <form>
-            <div class="form_block">
-              <div class="field-label">Where Are U Living?</div>
-              <input type="text" placeholder="Country" class="form-control" name="">
-              <input type="text" placeholder="Town" class="form-control" name="">
-            </div>
-
-            <div class="form_block">
-              <div class="field-label">What languages​do you speak?</div>
-              <input type="text" placeholder="Add Language" class="form-control" name="">
-            </div>
-
-            <div class="form_block">
-              <div class="field-label">How about writing some information about yourself?</div>
-              <textarea type="text" placeholder="I'm ..." class="form-control" name=""></textarea>
-            </div>
-
-            <div class="form_block">
-              <div class="field-label">My Phone</div>
-              <input type="text" class="form-control" name="" [value]="userData?.telephone">
-            </div>
-
-            <div class="form_block">
-              <div class="field-label">My Email</div>
-              <input type="text" class="form-control" name="" [value]="userData?.email">
-            </div>
-
-            <div class="btn-container">
-              <button class="btn btn-primary">Close</button>
-              <button class="btn btn-primary btn-send">Send</button>
-            </div>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</ng-template>
-
 <ng-template #msgModal let-modal>
   <div class="msg-modal-container">
     <div class="modal-content">
@@ -371,3 +336,71 @@
     </div>
   </div>
 </ng-template>
+
+<ng-template #editProfileModal let-modal>
+  <div>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="edit-container">
+          <div class="title">
+            Edit Page Info
+          </div>
+
+          <form>
+            <div class="form_block">
+              <div class="field-label">Your NickName</div>
+              <input type="text" name="name" placeholder="Country" [(ngModel)]="updatedUserData.name" class="form-control">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">Where Are U Living?</div>
+              <input type="text" name="country" placeholder="Country" [(ngModel)]="updatedUserData.location.country" class="form-control">
+              <input type="text" name="town" placeholder="Town" [(ngModel)]="updatedUserData.location.town" class="form-control">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">What languages do you speak?</div>
+              <div class="rest-container_list">
+                <ul class="rest-types">
+                  <li *ngFor="let lang of updatedUserData.languages; let r=index;">
+                    {{lang}} <span (click)="deleteLang(r)"><i class="fas fa-trash-alt"></i></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="input-group">
+                <input type="text" placeholder="Add Language" class="form-control" name="addLang">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">add</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">How about writing some information about yourself?</div>
+              <textarea type="text" placeholder="I'm ..." class="form-control" name="info" [(ngModel)]="updatedUserData.info"></textarea>
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">My Phone</div>
+              <input type="text" class="form-control" name="tel" [(ngModel)]="updatedUserData.telephone">
+            </div>
+
+            <div class="form_block">
+              <div class="field-label">My Email</div>
+              <input type="text" class="form-control" name="email" [(ngModel)]="updatedUserData.email">
+            </div>
+
+            <div class="btn-container">
+              <button class="btn btn-primary">Close</button>
+              <button class="btn btn-primary btn-send" (click)="updateUser()">Send</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+

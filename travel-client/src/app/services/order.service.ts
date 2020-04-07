@@ -50,8 +50,16 @@ export class OrderService {
     return this.http.get<Order[]>('/api/order?userId=' + userId, httpOptions );
   }
 
-  getFullOrderInfo(orderId): Observable<Order[]> {
-    return this.http.get<Order[]>('/api/order/fullInfo/' + orderId);
+  getFullOrderInfo(orderId): Observable<any[]> {
+    return this.http.get<any[]>('/api/order/fullInfo/' + orderId);
+  }
+
+  getOrderTourByUserId(userId): Observable<any[]> {
+    return this.http.get<any[]>('/api/order/orderstoursByuserid/' + userId);
+  }
+
+  getFullOrdersInfo(): Observable<any[]> {
+    return this.http.get<any[]>('/api/order/allOrders/orders');
   }
 
   createOrder(order): Observable<any> {

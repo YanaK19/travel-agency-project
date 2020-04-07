@@ -21,8 +21,7 @@ export class HomeComponent implements OnInit {
   topTours: Tour[];
   discoutTour: Tour;
   topToursClasses: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
-  reviews3: Review[];
-  users: UserData[] = [];
+  reviews = [];
   countries: string[] = [];
   countryExist: boolean = true;
   lang: string;
@@ -40,13 +39,8 @@ export class HomeComponent implements OnInit {
       this.topTours = tours;
     });
 
-    this.reviewService.getLimitReviews(3).subscribe(reviews => {
-      this.reviews3 = reviews;
-      this.reviews3.forEach((review, index) => {
-        this.userService.getUserById(review.userId).subscribe((user: UserData) => {
-            this.users.push(user);
-        });
-      });
+    this.reviewService.getReviewsUsersLimit(3).subscribe(reviews => {
+      this.reviews = reviews;
     });
 
     this.toursService.getBiggestDiscountTour().subscribe(tour => {
@@ -59,7 +53,7 @@ export class HomeComponent implements OnInit {
   }
 
   isLoaded() {
-    if (this.topTours && this.reviews3 && this.discoutTour && this.users.length === 3) {
+    if (this.topTours && this.reviews.length && this.discoutTour) {
       return true;
     } else {
       return false;
@@ -102,8 +96,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/tours'], {queryParams: {rest: restType.innerHTML}});
   }
 
-  renderProfilePage(user: UserData) {
-    this.router.navigate(['/account', user._id]);
+  renderProfilePage(userId: string) {
+    this.router.navigate(['/account', userId]);
   }
 }
 

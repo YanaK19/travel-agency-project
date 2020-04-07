@@ -19,10 +19,19 @@ export class ReviewService {
   getReviewsByUserId(userId: string): Observable<Review[]> {
     return this.http.get<Review[]>('api/review?confirmed=true&userId=' + userId);
   }
-
+/*
   getLimitReviews(quantity: number): Observable<Review[]> {
     return this.http.get<Review[]>('api/review?confirmed=true&limit=' + quantity);
+  }*/
+
+  getReviewsUsersLimit(limit: number) {
+    return this.http.get<any[]>('api/review/reviewsusers/reviews?confirmed=true&limit=' + limit);
   }
+
+  getReviewsUsersByTourId(tourId){
+    return this.http.get<any[]>('api/review/reviewsusersBytourid/'+tourId);
+  }
+
 
   getReviews(): Observable<any> {
     return this.http.get<any>('api/review');

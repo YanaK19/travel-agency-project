@@ -18,9 +18,9 @@ import {DateHandlerService} from '../../../../services/date-handler.service';
 export class OneTourComponent implements OnInit {
   id: string;
   tour: Tour;
-  reviews: Review[];
-  users: UserData[] = [];
+  reviews = [];
   imgActive = '';
+  isReviewsLoaded = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -37,22 +37,15 @@ export class OneTourComponent implements OnInit {
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
     });
 
-    this.reviewService.getReviewsByTourId(this.id).subscribe((reviews) => {
+    this.reviewService.getReviewsUsersByTourId(this.id).subscribe((reviews) => {
       this.reviews = reviews;
-      if (reviews.length) {
-        this.reviews.sort((a, b) => -this.dateService.compareDates(a.date, b.date));
-        this.reviews.forEach((review, index) => {
-          this.userService.getUserById(review.userId).subscribe(user => {
-              this.users.push(user);
-            }
-          );
-        });
-      }
+      this.isReviewsLoaded = true;
+      console.log(reviews)
     });
   }
 
   isLoaded() {
-    if (this.tour && this.reviews && this.users.length === this.reviews.length) {
+    if (this.tour && this.isReviewsLoaded) {
       return true;
     } else {
       return false;

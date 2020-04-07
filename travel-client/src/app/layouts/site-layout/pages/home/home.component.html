@@ -284,15 +284,15 @@
     <div class="container-fluid container-comments">
       <div class="row">
 
-        <div class="col-lg-4 comments-item" *ngFor="let review3 of reviews3; let indx = index;">
+        <div class="col-lg-4 comments-item" *ngFor="let reviewUser of reviews; let indx = index;">
           <div class="item-inner">
-              <div class="imgBox" (click)="renderProfilePage(users[indx])">
-                <img [src]="users[indx].avatar" *ngIf="users[indx].avatar">
-                <img src="../../../../../assets/images/default-account-img.png" *ngIf="!users[indx].avatar">
+              <div class="imgBox" (click)="renderProfilePage(reviewUser.user._id)">
+                <img [src]="reviewUser.user.avatar" *ngIf="reviewUser.user.avatar">
+                <img src="../../../../../assets/images/user-default.png" *ngIf="!reviewUser.user.avatar">
               </div>
-              <p>{{review3.info}}</p>
-              <h4>{{review3.title}}<br>
-              <span>{{users[indx].name}}</span>
+              <p>{{reviewUser.review.info}}</p>
+              <h4>{{reviewUser.review.title}}<br>
+              <span>{{reviewUser.user.name}}</span>
               </h4>
           </div>
         </div>

@@ -51,11 +51,11 @@ export class BookComponent implements OnInit {
       tourId: this.id
     };
 
-    /*this.orderService.createOrder(order).subscribe(order => {*/
+    this.orderService.createOrder(order).subscribe(order => {
       this.emailService.sendEmailBooked(this.user.email, this.tour, order.tourDate).subscribe(result => {
 
       });
-   /* });*/
+    });
   }
 
   increaseAmount() {

@@ -178,23 +178,23 @@
             <i class="far fa-comment-dots"></i> <span class="mr-1">{{'tour.reviews.comments' | translate}}: </span> {{reviews.length}}
           </div>
 
-          <div class="user-review container-fluid" *ngFor="let review of reviews; let indx = index;">
+          <div class="user-review container-fluid" *ngFor="let reviewUser of reviews; let indx = index;">
             <div class="row">
               <div class="user-photo col-sm-3">
-                <div class="photo" (click)="renderProfilePage(users[indx])">
-                  <img *ngIf="users[indx].avatar" [src]="users[indx].avatar" alt="">
-                  <img *ngIf="!users[indx].avatar" src="https://images.unsplash.com/photo-1502920514313-52581002a659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80" alt="">
+                <div class="photo" (click)="renderProfilePage(reviewUser.user)">
+                  <img *ngIf="reviewUser.user.avatar" [src]="reviewUser.user.avatar" alt="">
+                  <img *ngIf="!reviewUser.user.avatar" src="../../../../../assets/images/user-default.png">
                 </div>
-                <div class="nick">{{users[indx].name}}</div>
+                <div class="nick">{{reviewUser.user.name}}</div>
               </div>
               <div class="user-comment col-sm-9">
                 <div class="date">
-                  {{review.date.day | number: '2.0'}}/
-                  {{review.date.month | number: '2.0'}}/
-                  {{review.date.year}}
+                  {{reviewUser.review.date.day | number: '2.0'}}/
+                  {{reviewUser.review.date.month | number: '2.0'}}/
+                  {{reviewUser.review.date.year}}
                 </div>
                 <div class="user-comment-text">
-                  {{review.info}}
+                  {{reviewUser.review.info}}
                 </div>
               </div>
             </div>

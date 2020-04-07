@@ -2,6 +2,7 @@ import errorHandler from '../utils/errorHandler';
 import Review from "../models/Review";
 import Range from "../models/Range";
 import Tour from "../models/Tour";
+import User from '../models/User';
 
 async function create(req:any, res:any) {
     const today = new Date();
@@ -86,6 +87,47 @@ async function getReviewById(req:any, res:any) {
     }
 }
 
+async function getReviewsUsers(req:any, res:any) {
+    let reviews: any;
+    let reviewsUsers = [];
+
+    try {
+        if(req.query.limit) {
+            reviews = await Review.find().sort({"date.year": -1, "date.month": -1, "date.day": -1}).limit(+req.query.limit);
+        } else {
+            reviews = await Review.find().sort({"date.year": -1, "date.month": -1, "date.day": -1});
+        }
+
+        for(let i = 0; i < reviews.length; i++) {
+            let review = reviews[i];
+            let user = await User.findOne({_id: review.userId});
+            reviewsUsers.push({review, user});
+        }
+
+        res.status(200).json(reviewsUsers);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function getReviewsUsersByTourId(req:any, res:any) {
+    let reviewsUsers = [];
+
+    try{
+    let reviews: any = await Review.find({tourId: req.params.id, confirmed: true}).sort({"date.year": -1, "date.month": -1, "date.day": -1});
+
+    for(let i = 0; i < reviews.length; i++) {
+        let review = reviews[i];
+        let user = await User.findOne({_id: review.userId});
+        reviewsUsers.push({review, user});
+    }
+
+        res.status(200).json(reviewsUsers);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function update(req:any, res:any) {
     try {
         const review = await Review.findOneAndUpdate(
@@ -110,5 +152,5 @@ async function remove(req:any, res:any) {
     }
 }
 
-export {create, getReviews, remove, getReviewById, update}
+export {create, getReviews, remove, getReviewById, update, getReviewsUsers, getReviewsUsersByTourId}
 
