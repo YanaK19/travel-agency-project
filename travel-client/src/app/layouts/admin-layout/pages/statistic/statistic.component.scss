@@ -1,16 +1,386 @@
-/*.diagram {
-  .view {
-    height: 350px;
-    background-color: rgba(159, 133, 84, 0.16);
+.page {
+  min-height: 100vh;
+
+  .page_bgr {
+    position: fixed;
+    z-index: -2;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
   }
 
-  .income {
-    height: 350px;
-    background-color: rgba(159, 133, 84, 0.16);
+  .shadow {
+    background: rgba(43, 46, 174, 0.37);
+    z-index: -1;
   }
-}*/
+}
 
-.diagrams-container {
-  background: rgba(18, 98, 91, 0.6);
-  height: 100px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  background: #0fb7db;
+  font-size: 1.4rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.block {
+  padding: 3px;
+  padding-top: 0;
+}
+
+.general-diagramm-container {
+  margin-left: 10px;
+
+  .general {
+    .general_tours,
+    .general_orders,
+    .general_followers {
+      margin-top: 10px;
+      padding: 0;
+    }
+
+    .general_inner {
+      padding: 5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .general-title {
+      font-size: 0.9rem;
+      color: #ffffffd9;
+      text-transform: uppercase;
+    }
+
+    .general-num {
+      font-size: 1.7rem;
+    }
+
+    .general_tours-inner {
+      background: rgba(246, 75, 113, 0.8);
+    }
+
+    .general_orders-inner {
+      background: rgba(245, 130, 14, 0.8);
+    }
+
+    .general_followers-inner {
+      background: rgba(21, 193, 148, 0.81);
+    }
+  }
+
+  .diagramm-monthly-income {
+    background: rgba(1, 7, 9, 0.34);
+  }
+}
+
+.diagramms-country-orders {
+  margin-bottom: 10vh;
+}
+
+.diagramms-title,
+.table-title {
+  color: #fff;
+  margin: 6vh 5vh 4vh;
+  font-size: 1.34rem;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.table-income-month {
+  table {
+    background: rgba(6, 5, 10, 0.43);
+    color: #fff;
+  }
+
+  .table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vw 2vw;
+    color: #fff;
+
+    .total-income {
+      font-size: 1.2rem;
+
+      span {
+        font-size: 1.7rem;
+        font-weight: bold;
+      }
+    }
+
+    .btn-download {
+      border-radius: unset;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .table-income-month {
+    overflow-x: scroll;
+  }
+}
+
+.sidebar-right-container {
+  padding: 10px;
+
+  .manager-container {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+    background: #ffffff2b;
+  }
+
+  .manager-contact {
+    position: absolute;
+    right: 0;
+    background: #042b3e;
+    width: 7vw;
+    height: 7vw;
+    border-bottom-left-radius: 110%;
+
+    i {
+      font-size: 2.4rem;
+      top: 11px;
+      position: absolute;
+      right: 13px;
+      color: #fff;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .manager-contact {
+      width: 11vw;
+      height: 11vw;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .manager-contact {
+      width: 22vw;
+      height: 22vw;
+    }
+  }
+
+  .photo-name {
+    display: flex;
+    margin-top: 42px;
+
+    .photo {
+      width: 10vw;
+      height: 10vw;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+
+      img {
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s;
+      }
+    }
+
+    .name {
+      margin-left: 17px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .manager-name {
+        font-size: 1.3rem;
+        color: #042b3e;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .manager-contacts {
+    margin-top: 33px;
+    color: #fff;
+  }
+
+  .sidebar_total,
+  .sidebar_month,
+  .sidebar_year {
+    margin: 12px 0 12px;
+    background: #fff;
+    padding: 8px;
+  }
+
+  .todo-container {
+    background: #042b3e;
+    padding: 10px;
+    color: #fff;
+    margin-top: 45px;
+
+    .input-task {
+      border-radius: 0;
+      border: 2px solid #fff;
+      background: #ffffff2e;
+      color: #fff;
+    }
+
+    .btn-add {
+      border: 2px solid #fff;
+      background: #fff;
+      height: 38px;
+      width: 38px;
+      text-align: center;
+    }
+
+    .todo_title {
+      margin: 5px 10px 12px;
+      font-size: 1.5rem;
+    }
+
+    .todo-container_inner {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="checkbox"] {
+      position: relative;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      visibility: hidden;
+      outline: none;
+      transition: 0.5s;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #fff;
+        transition: transform 0.5s;
+        visibility: visible;
+        cursor: pointer;
+      }
+    }
+
+    input:checked[type="checkbox"]:before {
+      border-left: none;
+      border-top: none;
+      width: 14px;
+      height: 25px;
+      border-color: #73ec0d;
+      transform: rotate(45deg) translate(5px, -10px);
+    }
+
+    .todo {
+      text-align: start;
+      margin-bottom: 5px;
+      margin-top: 4px;
+    }
+
+    .additional {
+      margin-top: 20px;
+
+      .delete:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .check,
+    .todo {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    i {
+      font-size: 1.3rem;
+      display: none;
+    }
+
+    .row:hover {
+      i {
+        display: unset;
+        cursor: pointer;
+      }
+    }
+
+    .i-add {
+      display: unset;
+      color: #042b3e;
+      transition: 0.1s;
+    }
+
+    .btn-add:hover .i-add {
+      font-size: 1.6rem;
+    }
+
+    .done {
+      color: #ffffff73;
+      text-decoration: line-through;
+    }
+  }
+
+  .sidebar_calculator {
+    margin-top: 15px;
+
+    .calculator {
+      position: relative;
+      display: grid;
+      color: #fff;
+      background: #0c2835;
+
+      .value {
+        grid-column: span 4;
+        height: 60px;
+        text-align: right;
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 18px;
+      }
+
+      span {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #0000004f;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      .c {
+        grid-column: span 2;
+        background: #ff3077;
+      }
+
+      .plus {
+        grid-row: span 2;
+        height: 140px;
+      }
+
+      .res {
+        background: #03b1ff;
+      }
+    }
+  }
 }

@@ -31,6 +31,9 @@ import { BookBlockComponent } from './layouts/site-layout/pages/one-tour/book-bl
 import { PlaneLoaderComponent } from './plane-loader/plane-loader.component';
 import { BookComponent } from './layouts/site-layout/pages/book/book.component';
 import { ReviewsComponent } from './layouts/admin-layout/pages/reviews/reviews.component';
+import { MonthlyIncomeComponent } from './layouts/admin-layout/pages/statistic/charts/monthly-income/monthly-income.component';
+import { CountriesOrdersComponent } from './layouts/admin-layout/pages/statistic/charts/countries-orders/countries-orders.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -58,6 +61,8 @@ export function createTranslateLoader(http: HttpClient) {
     PlaneLoaderComponent,
     BookComponent,
     ReviewsComponent,
+    MonthlyIncomeComponent,
+    CountriesOrdersComponent,
    ],
   imports: [
     BrowserModule,

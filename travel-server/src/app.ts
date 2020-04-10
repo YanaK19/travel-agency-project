@@ -10,6 +10,7 @@ import orderRoutes from "./routes/order";
 import rangeRoutes from "./routes/range";
 import locationRoutes from "./routes/location";
 import emailRoutes from './routes/email';
+import statisticRoutes from './routes/statistic';
 import passport from "passport";
 import passportUse from "./middleware/passportUse";
 
@@ -41,5 +42,6 @@ app.use('/api/order', orderRoutes);
 app.use('/api/range', rangeRoutes);
 app.use('/api/location', locationRoutes);
 app.use('/api/email', emailRoutes);
+app.use('/api/statistic', statisticRoutes);
 
 export {app}

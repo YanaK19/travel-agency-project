@@ -1,68 +1,141 @@
 <div class="page">
-  <button (click)="onExportExcel()" class="btn btn-success">Export To Excel</button>
-
-  <div class="diagrams-container">here will be diagramms</div>
-<!--  <div class="dashboard d-flex justify-content-between mt-4 ml-4 mr-4">
-    <div class="">
-      <h3 class="page-title">
-        Dashboard
-      </h3>
+  <img class="page_bgr" src="https://images.pexels.com/photos/669616/pexels-photo-669616.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260">
+  <div class="page_bgr shadow"></div>
+  <div class="page-inner">
+    <div class="header">
+      TripHelper Business Statistic
     </div>
 
-    <div class="right-title">
-      <div class="d-flex mt-10 justify-content-end">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="block col-lg-8">
+          <div class="general-diagramm-container">
+            <div class="general container-fluid">
+              <div class="row">
+                <div class="general_tours col-sm-4">
+                  <div class="general_tours-inner general_inner">
+                    <div class="general-num">10000</div>
+                    <div class="general-title">Tours</div>
+                  </div>
+                </div>
+                <div class="general_orders col-sm-4">
+                  <div class="general_orders-inner general_inner">
+                    <div class="general-num">100</div>
+                    <div class="general-title">Orders</div>
+                  </div>
+                </div>
+                <div class="general_followers col-sm-4">
+                  <div class="general_followers-inner general_inner">
+                    <div class="general-num">1000</div>
+                    <div class="general-title">Followers</div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div class="d-md-flex mr-20 ml-10">
-          <div class="chart-text mr-10">
-            <p class="mb-0 font-size-12">
-              THIS MONTH
-            </p>
-            <h4 class="my-0 text-primary">$200,50</h4>
-          </div>
-          <div class="chart">
-            <div class="this-month">
-              <img src="https://image.flaticon.com/icons/svg/478/478544.svg" style="width: 50px; height: 50px;">
+            <div *ngIf="incomeMonthly.length" class="diagramm-monthly-income">
+              <app-monthly-income [incomeMonthly]="incomeMonthly"></app-monthly-income>
+            </div>
+
+            <div *ngIf="countriesOrders.length" class="diagramms-country-orders">
+              <div class="diagramms-title">Most Popular Destinations</div>
+              <app-countries-orders [countriesOrders]="countriesOrders"></app-countries-orders>
+            </div>
+
+            <div *ngIf="ordersLastMonth.length" class="table-income-month">
+              <div class="table-title">Last Month Income (March)</div>
+              <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Day</th>
+                  <th scope="col">Tour</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Cost</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let order of ordersLastMonth">
+                  <th scope="row">{{order.day}}</th>
+                  <td>{{order.tour}}</td>
+                  <td>{{order.user}}</td>
+                  <td>{{order.cost}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div class="table-footer">
+                <div class="total-income">Total: <span>${{totalIncomeLastMonth}}</span></div>
+                <div class="table-download">
+                  <button (click)="onExportExcel()" type="button" class="btn btn-primary btn-download">Download <i class="fas fa-download"></i></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="d-md-flex ml-3">
-          <div class="chart-text mr-10">
-            <p class="mb-0 font-size-12">
-              THIS MONTH
-            </p>
-            <h4 class="my-0 text-danger">$200,50</h4>
-          </div>
-          <div class="chart">
-            <div class="this-month">
-              <img src="https://image.flaticon.com/icons/svg/478/478544.svg" style="width: 50px; height: 50px;">
+        <div class="block col-lg-4">
+          <div class="sidebar-right-container">
+            <div class="manager-container">
+              <div class="manager-contact">
+                <i class="fab fa-telegram-plane"></i>
+              </div>
+
+              <div class="photo-name container-fluid">
+                <div class="photo">
+                  <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                </div>
+                <div class="name">
+                  <div>Project Manager</div>
+                  <div class="manager-name">Name Surname</div>
+                </div>
+              </div>
+
+              <div class="todo-container">
+                <div class="todo_title">TODO List</div>
+                <form class="input-group" (ngSubmit)="addTask(taskInput.value)">
+                  <input #taskInput class="input-task form-control" type="text" placeholder="new task...">
+                  <div class="input-group-append">
+                    <button class="btn-add" type="submit"><i class="fas fa-plus i-add"></i></button>
+                  </div>
+                </form>
+
+                <div class="todo-container_inner container-fluid">
+                  <div class="todo row" *ngFor="let task of tasks; let i = index;">
+                    <div class="check col-2">
+                      <input type="checkbox" (click)="taskCheck(task._id)" [(ngModel)]="task.done">
+                    </div>
+                    <div class="todo col-9" [ngClass]="{done: task.done}">{{task.todo}}</div>
+                    <div class="todo col-1"><i (click)="deleteTask(task._id)" class="fas fa-trash"></i></div>
+                  </div>
+                </div>
+
+                <div class="additional">
+                  <div class="delete" (click)="deleteTasks()">Delete DONE task(s)</div>
+                </div>
+            </div>
+
+            <div class="sidebar_calculator">
+              <form name="calc" class="calculator">
+                <input [value]="expression" name="txt" class="value" type="text" readonly>
+                <span [ngClass]="{c: i == 0, plus: i == 10, res: i == 17}" *ngFor="let item of calcItems; let i = index;" class="num" (click)="calc(item)">{{item}}</span>
+              </form>
+            </div>
+
+            <div class="sidebar_statistic">
+              <div class="sidebar_total">
+                g
+              </div>
+              <div class="sidebar_month">d</div>
+              <div class="sidebar_year">d</div>
+            </div>
+
+            <div class="top-users-container">
+              Top Users
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <div class="diagram mt-4">
-    <div class="container">
-      <div class="row">
-
-        <div class="view-diagram col-md-6">
-          <div class="diagram-title font-weight-bold mt-4 p-3  text-center">Views: </div>
-          <div class="view">
-
-          </div>
-        </div>
-
-        <div class="income-diagram col-md-6">
-          <div class="diagram-title font-weight-bold mt-4 p-3 text-center">Income: </div>
-          <div class="income">
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>-->
 </div>
