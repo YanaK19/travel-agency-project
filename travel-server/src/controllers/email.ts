@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer'
 import {decrypt, encrypt} from '../utils/encryption';
+import Message from '../models/Message';
+import errorHandler from '../utils/errorHandler';
 
 
 async function sendEmail(req:any, res:any) {
@@ -114,4 +116,36 @@ async function sendEmail(req:any, res:any) {
     }
 }
 
-export {sendEmail}
+
+async function createUserMessage(req:any, res:any) {
+    const today = new Date();
+
+    const currDate = {
+        day: today.getDate(),
+        month: today.getMonth() + 1,
+        year: today.getFullYear()
+    };
+
+    const message = new Message({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        mobile: req.body.mobile,
+        message: req.body.message,
+        date: {
+            day: currDate.day,
+            month: currDate.month,
+            year: currDate.year
+        },
+        answered: false
+    });
+
+    try {
+        await message.save();
+        res.status(201).json(message)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {sendEmail, createUserMessage}

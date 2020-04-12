@@ -5,6 +5,7 @@ import {OrderService} from '../../../../services/order.service';
 import {UserService} from '../../../../services/user.service';
 import {ToursService} from '../../../../services/tours.service';
 import {StatisticService} from '../../../../services/statistic.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-statistic-page',
@@ -13,31 +14,40 @@ import {StatisticService} from '../../../../services/statistic.service';
 })
 export class StatisticComponent implements OnInit {
   orders:any = [];
-  tasks = [{_id: '1', todo: 'design new project', done: false},
-    {_id: '2', todo: 'design new project', done: true},
-    {_id: '3', todo: 'desigsdfd sfdsfssss ssssssssss sssssssssssssssss sss sssssssssss ssssssn new project', done: false}];
   countriesOrders: any[] = [];
-
+  generalStatistic;
   incomeMonthly: any[] = [];
 
   calcItems: any[] = ['c', '/', '*', 7, 8, 9, '-', 4, 5, 6, '+', 1,2, 3, 'x', 0, '.', '='];
   expression = '';
   ordersLastMonth = [];
   totalIncomeLastMonth;
+  mostActiveUsers = [];
+
+  todoList: any = [];
 
   constructor(private excelService: ExportExcelService,
               private orderService: OrderService,
               private userService: UserService,
               private toursService: ToursService,
-              private statisticService: StatisticService) { }
+              private statisticService: StatisticService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.orderService.getOrders().subscribe(orders => {
+/*    this.orderService.getOrders().subscribe(orders => {
       orders.forEach(order => {
         this.orderService.getFullOrderInfo(order._id).subscribe(order => {
           this.orders.push(order)
         });
       });
+    });*/
+
+    this.statisticService.getMostActiveUsers().subscribe(users => {
+      this.mostActiveUsers = users;
+    });
+
+    this.statisticService.getGeneralStatistic().subscribe(generalStatistic => {
+      this.generalStatistic = generalStatistic;
     });
 
     this.statisticService.getIncomeByMonth().subscribe(res => {
@@ -51,6 +61,10 @@ export class StatisticComponent implements OnInit {
     this.statisticService.getOrdersLastMonth().subscribe(res => {
       this.ordersLastMonth = res.orders;
       this.totalIncomeLastMonth = res.total;
+    });
+
+    this.statisticService.getTodoList().subscribe(list => {
+      this.todoList = list;
     });
   }
 
@@ -70,20 +84,27 @@ export class StatisticComponent implements OnInit {
     this.excelService.exportToExcel(table, "Last-Month Orders");
   }
 
-  taskCheck(taskId) {
-
+  taskCheck(todo) {
+    todo.done = !todo.done;
+    this.statisticService.updateTask(todo).subscribe(() => {});
   }
 
-  deleteTask(taskId) {
-    this.tasks = this.tasks.filter(task => task._id !== taskId)
+  deleteTask(todoId) {
+    this.todoList = this.todoList.filter(todo => todo._id !== todoId);
+    this.statisticService.deleteTask(todoId).subscribe(() => {});
   }
 
   deleteTasks() {
-    this.tasks = this.tasks.filter(task => !task.done)
+    let deleteTasks = this.todoList.filter(todo => todo.done);
+    this.todoList = this.todoList.filter(todo => !todo.done);
+
+    deleteTasks.forEach(todo => this.statisticService.deleteTask(todo._id).subscribe(() => {}));
   }
 
   addTask(task) {
-    this.tasks.push({_id: 'qeqweq123', todo: task, done: false});
+    this.statisticService.createTask(task).subscribe(todo => {
+      this.todoList.push(todo);
+    });
   }
 
   calc(item) {
@@ -99,5 +120,9 @@ export class StatisticComponent implements OnInit {
         break;
       default:  this.expression += item;
     }
+  }
+
+  renderProfilePage(userId) {
+    this.router.navigate(['/account', userId]);
   }
 }

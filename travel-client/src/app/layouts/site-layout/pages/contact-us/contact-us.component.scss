@@ -105,7 +105,7 @@
     }
   }
 
-  input[type="submit"] {
+  button {
     text-transform: uppercase;
     border: none;
     padding: 7px 35px;
@@ -140,7 +140,7 @@
       font-size: 15px !important;
     }
 
-    input[type="submit"] {
+    button {
       font-size: 15px;
     }
   }
@@ -152,4 +152,9 @@
   .page {
     background: url("https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260") no-repeat bottom center / cover;
   }
+}
+
+.error {
+  color: #ca0000;
+  margin-bottom: 5px;
 }

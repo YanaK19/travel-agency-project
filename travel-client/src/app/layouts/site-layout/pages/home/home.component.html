@@ -21,7 +21,7 @@
              <div class="wrapper-subtitle">{{'home.search_form.subtitle' | translate}}</div>
             </div>
 
-            <div class="custom-tooltip" *ngIf="!countryExist">{{'home.search_form.error_message' | translate}}</div>
+            <div class="custom-tooltip" *ngIf="!countryExist && prevInput == countryInput.value">{{'home.search_form.error_message' | translate}}</div>
 
             <form (ngSubmit)="renderToursPageByCountry(countryInput.value)">
               <div class="input-group">

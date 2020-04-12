@@ -124,6 +124,8 @@ a:not([href]):not([tabindex]) {
   strong {
     color: #007bff;
     transition: 0.3s;
+    text-transform: uppercase;
+    outline: none;
 
     &:hover {
       text-decoration: underline;

@@ -14,19 +14,19 @@
               <div class="row">
                 <div class="general_tours col-sm-4">
                   <div class="general_tours-inner general_inner">
-                    <div class="general-num">10000</div>
+                    <div class="general-num">{{generalStatistic?.tours}}</div>
                     <div class="general-title">Tours</div>
                   </div>
                 </div>
                 <div class="general_orders col-sm-4">
                   <div class="general_orders-inner general_inner">
-                    <div class="general-num">100</div>
+                    <div class="general-num">{{generalStatistic?.orders}}</div>
                     <div class="general-title">Orders</div>
                   </div>
                 </div>
                 <div class="general_followers col-sm-4">
                   <div class="general_followers-inner general_inner">
-                    <div class="general-num">1000</div>
+                    <div class="general-num">{{generalStatistic?.users}}</div>
                     <div class="general-title">Followers</div>
                   </div>
                 </div>
@@ -50,7 +50,7 @@
                   <th scope="col">Day</th>
                   <th scope="col">Tour</th>
                   <th scope="col">User</th>
-                  <th scope="col">Cost</th>
+                  <th scope="col">Cost, $</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -82,11 +82,11 @@
 
               <div class="photo-name container-fluid">
                 <div class="photo">
-                  <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+                  <img src="../../../../../assets/images/IMG_20190505_151419.jpg">
                 </div>
                 <div class="name">
                   <div>Project Manager</div>
-                  <div class="manager-name">Name Surname</div>
+                  <div class="manager-name">Yana Karcheuskaya</div>
                 </div>
               </div>
 
@@ -100,12 +100,12 @@
                 </form>
 
                 <div class="todo-container_inner container-fluid">
-                  <div class="todo row" *ngFor="let task of tasks; let i = index;">
+                  <div class="todo row" *ngFor="let todo of todoList; let i = index;">
                     <div class="check col-2">
-                      <input type="checkbox" (click)="taskCheck(task._id)" [(ngModel)]="task.done">
+                      <input type="checkbox" (click)="taskCheck(todo)" [(ngModel)]="todo.done">
                     </div>
-                    <div class="todo col-9" [ngClass]="{done: task.done}">{{task.todo}}</div>
-                    <div class="todo col-1"><i (click)="deleteTask(task._id)" class="fas fa-trash"></i></div>
+                    <div class="todo col-9" [ngClass]="{done: todo.done}">{{todo.task}}</div>
+                    <div class="todo col-1"><i (click)="deleteTask(todo._id)" class="fas fa-trash"></i></div>
                   </div>
                 </div>
 
@@ -121,16 +121,64 @@
               </form>
             </div>
 
-            <div class="sidebar_statistic">
+            <div *ngIf="generalStatistic" class="sidebar_statistic">
               <div class="sidebar_total">
-                g
+                <div class="total-income">${{generalStatistic?.income}}</div>
+                <div class="income-title">Total income</div>
               </div>
-              <div class="sidebar_month">d</div>
-              <div class="sidebar_year">d</div>
+              <div class="sidebar_month">
+                <div class="month-income">
+                  ${{generalStatistic?.income1MonthAgo}}
+                  <span  class="income-up" *ngIf="generalStatistic.income1MonthAgo > generalStatistic.income2MonthsAgo; else fallMonth">
+                    <span class="income-percent">{{(generalStatistic.income1MonthAgo -generalStatistic.income2MonthsAgo)*100/generalStatistic.income1MonthAgo | number: '.1'}}%</span>
+                    <i class="fad fa-angle-double-up"></i>
+                  </span>
+                </div>
+                <div class="income-title">Last Month</div>
+              </div>
+              <div class="sidebar_year">
+                <div class="year-income">
+                  ${{generalStatistic?.income1YearAgo}}
+                  <span class="income-up" *ngIf="generalStatistic.income1YearAgo > generalStatistic.income2YearsAgo; else fallYear">
+                    <span class="income-percent">{{(generalStatistic.income1YearAgo -generalStatistic.income2YearsAgo)*100/generalStatistic.income1YearAgo | number: '.1'}}%</span>
+                    <i class="fad fa-angle-double-up"></i>
+                  </span>
+                </div>
+                <div class="income-title">Last Year</div>
+              </div>
             </div>
 
-            <div class="top-users-container">
-              Top Users
+              <ng-template #fallMonth>
+                <span class="income-fall">
+                  <span class="income-percent">{{(generalStatistic.income2MonthsAgo - generalStatistic.income1MonthAgo)*100/generalStatistic.income2MonthsAgo | number: '.1'}}%</span>
+                  <i class="fad fa-angle-double-down"></i>
+                </span>
+              </ng-template>
+
+              <ng-template #fallYear>
+                <span class="income-fall">
+                  <span class="income-percent">{{(generalStatistic.income2YearsAgo - generalStatistic.income1YearAgo)*100/generalStatistic.income2YearsAgo | number: '.1'}}%</span>
+                  <i class="fad fa-angle-double-down"></i>
+                </span>
+              </ng-template>
+
+            <div class="active-users-container">
+              <div class="active-users_title">Top Users</div>
+              <div class="active-users">
+                <div class="active-user" *ngFor="let activeUser of mostActiveUsers">
+                  <div class="avatar" (click)="renderProfilePage(activeUser.user._id)">
+                    <img *ngIf="activeUser.user.avatar; else defaultAvatar" [src]="activeUser.user.avatar">
+                    <ng-template #defaultAvatar>
+                      <img src="../../../../../assets/images/user-default.png">
+                    </ng-template>
+                  </div>
+                  <div class="name-orders">
+                    <div class="name">{{activeUser.user.name}} <span class="crown-icon">👑</span></div>
+                    <div class="orders-amount">email: {{activeUser.user.email}}</div>
+                    <div class="orders-amount">orders amount: {{activeUser.ordersAmount}}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

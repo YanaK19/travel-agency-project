@@ -3,6 +3,8 @@ import Review from '../models/Review';
 import User from '../models/User';
 import Order from '../models/Order';
 import Tour from '../models/Tour';
+import Location from '../models/Location';
+import Todo from '../models/Todo';
 
 async function getMonthlyIncome(req:any, res:any) {
     const today = new Date();
@@ -89,31 +91,173 @@ async function getOrdersLastMonth(req:any, res:any) {
 
 async function getGeneralStatistic(req:any, res:any) {
     const today = new Date();
+
     const currDate = {
         day: today.getDate(),
         month: today.getMonth() + 1,
         year: today.getFullYear()
     };
-    let income = await Order.aggregate([
+
+    let income: any = await Order.aggregate([
         {
             $group: {
                 _id: null,
-                count: { $sum: "$cost" }
+                total_cost: { $sum: "$cost" }
             }
         }
-    ] );
+    ]);
 
-    income = income[0].count;
 
-    let tours = await Tour.find().countDocuments() *34;
-    let orders = await Order.find().countDocuments() *12;
-    let users = await User.find().countDocuments() *17;
+
+    let income2MonthsAgo: any = await Order.aggregate([
+        { $match: {"date.month": currDate.month-2? currDate.month-2:12, "date.year": currDate.month-2?currDate.year: currDate.year-1} },
+        {
+            $group: {
+                _id: null,
+                total_cost: { $sum: "$cost" }
+            }
+        }
+    ]);
+
+    let income1MonthAgo: any = await Order.aggregate([
+        { $match: {"date.month": currDate.month-1? currDate.month-1:12, "date.year": currDate.month-1?currDate.year: currDate.year-1}  },
+        {
+            $group: {
+                _id: null,
+                total_cost: { $sum: "$cost" }
+            }
+        }
+    ]);
+
+    let income2YearsAgo: any = await Order.aggregate([
+        { $match: {"date.year": currDate.year-2} },
+        {
+            $group: {
+                _id: null,
+                total_cost: { $sum: "$cost" }
+            }
+        }
+    ]);
+
+    let income1YearAgo: any = await Order.aggregate([
+        { $match: {"date.year": currDate.year-1}  },
+        {
+            $group: {
+                _id: null,
+                total_cost: { $sum: "$cost" }
+            }
+        }
+    ]);
+
+    const forMoreRealData = 17;
+
+    income2MonthsAgo = income2MonthsAgo.length? income2MonthsAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
+    income1MonthAgo = income1MonthAgo.length? income1MonthAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
+    income2YearsAgo = income2YearsAgo.length? income2YearsAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
+    income1YearAgo = income1YearAgo.length? income1YearAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
+
+    let tours = await Tour.find().countDocuments() * forMoreRealData;
+    let orders = await Order.find().countDocuments() *forMoreRealData;
+    let users = await User.find().countDocuments() * forMoreRealData;
 
     try {
-        res.status(200).json({tours, orders, users, income})
+        res.status(200).json({tours, orders, users, income: income[0].total_cost,
+            income2MonthsAgo, income1MonthAgo, income2YearsAgo, income1YearAgo})
     } catch (e) {
         errorHandler(res, e)
     }
 }
 
-export { getMonthlyIncome, getPopularDestnationsMonth, getOrdersLastMonth, getGeneralStatistic }
+async function createTask(req:any, res:any) {
+    const newTask = new Todo({
+        task: req.body.task,
+        done: "false"
+    });
+
+    try {
+        await newTask.save();
+        res.status(201).json(newTask);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function updateTask(req:any, res:any) {
+    try {
+        const updatedTask = await Todo.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        );
+
+        res.status(200).json(updatedTask)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function getTodoList(req:any, res:any) {
+    try {
+        const todoList: any = await Todo.find();
+
+        res.status(200).json(todoList)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function deleteTask(req:any, res:any) {
+    try {
+        await Todo.deleteOne({_id: req.params.id});
+        res.status(200).json({
+            message: 'Task was deleted'
+        })
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function getMostActiveUsers(req:any, res:any) {
+    const today = new Date();
+
+    const currDate = {
+        day: today.getDate(),
+        month: today.getMonth() + 1,
+        year: today.getFullYear()
+    };
+
+
+    try {
+        const countOrdersGroupByUsers: any = await Order.aggregate( [
+            {
+              $match: {
+                  confirmed: true
+              }
+            },
+            {
+                $group : {
+                _id : "$userId",
+                count: { $sum: 1 }
+                }
+            },
+            {
+                $sort : { count: -1 }
+            },
+            { $limit : 5 }
+        ]);
+
+        let mostActiveUsers = [];
+
+        for(let i=0; i < countOrdersGroupByUsers.length; i++) {
+            let user = await User.findById(countOrdersGroupByUsers[i]._id);
+            mostActiveUsers.push({user, ordersAmount: countOrdersGroupByUsers[i].count});
+        }
+
+        res.status(200).json(mostActiveUsers)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export { getMonthlyIncome, getPopularDestnationsMonth, getOrdersLastMonth, getGeneralStatistic,
+         createTask, getTodoList, deleteTask, updateTask, getMostActiveUsers }

@@ -2,12 +2,12 @@
   <div class="contact-container">
     <h2>{{'contacts.title' | translate}}</h2>
 
-    <form action="">
+    <form [formGroup]="contactForm" (ngSubmit)="sendMessage()">
     <div class="container">
       <div class="row">
         <div class="col col-md-6 col-sm-12">
           <div class="inputBox">
-            <input type="text" required>
+            <input formControlName="firstName" type="text" required>
             <span class="text">{{'contacts.fname' | translate}}</span>
             <span class="line"></span>
           </div>
@@ -15,7 +15,7 @@
 
         <div class="col col-md-6 col-sm-12">
           <div class="inputBox">
-            <input type="text" required>
+            <input formControlName="lastName" type="text" required>
             <span class="text">{{'contacts.lname' | translate}}</span>
             <span class="line"></span>
           </div>
@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col col-md-6 col-sm-12">
         <div class="inputBox">
-          <input type="text" required>
+          <input  formControlName="email" type="text" required>
           <span class="text">{{'contacts.email' | translate}}</span>
           <span class="line"></span>
         </div>
@@ -35,7 +35,7 @@
 
       <div class="col col-md-6 col-sm-12">
         <div class="inputBox">
-          <input type="text" required>
+          <input formControlName="mobile" type="text" required>
           <span class="text">{{'contacts.mobile' | translate}}</span>
           <span class="line"></span>
         </div>
@@ -47,7 +47,7 @@
       <div class="row">
         <div class="col">
           <div class="inputBox textarea">
-            <textarea required="required"></textarea>
+            <textarea  formControlName="message" required="required"></textarea>
             <span class="text">{{'contacts.textarea' | translate}}</span>
             <span class="line"></span>
           </div>
@@ -58,7 +58,8 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <input type="submit" [value]="'contacts.button_send' | translate">
+          <div class="error" *ngIf="isError">*Please, fill all fields and enter valid email.</div>
+          <button type="submit">{{'contacts.button_send' | translate}}</button>
         </div>
       </div>
     </div>

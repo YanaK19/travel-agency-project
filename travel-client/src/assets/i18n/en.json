@@ -13,7 +13,8 @@
     "footer": {
       "question": "Have any questions?",
       "location": "Belarus, Minsk",
-      "faq1": "Maybe somebody have already asked this question. See",
+      "faq1": "You also can ask all your questions here:",
+      "faq": "contact us",
       "faq2": "Hope, it will help you",
       "slogan": "All your concerns are included in our WORK!"
     }
@@ -115,7 +116,7 @@
     "left": {
       "title": "HI, nice to see you!",
       "content": "Look at the catalog of our tours and choose your favorite. New tours are added daily, which means that new adventures are awaiting you right now. It will be forever-ever-the-best trip!<br><br>Have fun...",
-      "link_more": "Read more"
+      "link_more": "our tours catalog"
     },
     "form": {
       "title": "Sign In",
@@ -134,7 +135,7 @@
       "item1": "Buy tickets quickly and easily",
       "item2": "Add trips to your favorites",
       "item3": "Publish your stories",
-      "link_more": "Read more"
+      "link_more": "*special deals for most active users"
     },
     "form": {
       "title": "Sign Up",

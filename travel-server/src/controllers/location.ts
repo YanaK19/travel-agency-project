@@ -1,7 +1,5 @@
 import errorHandler from '../utils/errorHandler';
 import Location from "../models/Location";
-import Range from "../models/Range";
-import Review from '../models/Review';
 
 async function create(req:any, res:any) {
     console.log(req.body)

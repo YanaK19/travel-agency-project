@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   countries: string[] = [];
   countryExist: boolean = true;
   lang: string;
+  prevInput: string;
 
   constructor(private toursService: ToursService,
               private reviewService: ReviewService,
@@ -68,28 +69,25 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
         : this.countries.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
+  };
 
   renderToursPageByCountry(country: string) {
-    let isExist: boolean = false;
-
+    this.prevInput = country;
     this.countries.forEach((countryDB, index) => {
       if (countryDB.toLowerCase() === country.toLowerCase()) {
-        isExist = true;
         this.countryExist = true;
         this.router.navigate(['/tours'], {queryParams: {country: countryDB}});
       }
     });
 
-    if (!isExist) {
-      this.countryExist = false;
-    }
+    this.countryExist = false;
   }
 
   renderToursPageByRest(restType) {

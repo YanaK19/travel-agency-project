@@ -8,6 +8,14 @@ export class StatisticService {
   constructor(private http: HttpClient) {
   }
 
+  getMostActiveUsers(): Observable<any> {
+    return this.http.get<any>('api/statistic/mostactive/users');
+  }
+
+  getGeneralStatistic(): Observable<any> {
+    return this.http.get<any>('api/statistic/general/tours-orders-followers-icome');
+  }
+
   getIncomeByMonth(): Observable<any> {
     return this.http.get<any>('api/statistic/income/monthly');
   }
@@ -18,6 +26,22 @@ export class StatisticService {
 
   getOrdersLastMonth(): Observable<any> {
     return this.http.get<any>('api/statistic/orders/lastmonth');
+  }
+
+  getTodoList(): Observable<any> {
+    return this.http.get<any>('api/statistic/todo');
+  }
+
+  updateTask(todo): Observable<any> {
+    return this.http.put<any>('api/statistic/todo/' + todo._id, todo);
+  }
+
+  deleteTask(todoId): Observable<any> {
+    return this.http.delete<any>('api/statistic/todo/' + todoId);
+  }
+
+  createTask(task): Observable<any> {
+    return this.http.post<any>('api/statistic/todo', {task});
   }
 }
 

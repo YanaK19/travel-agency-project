@@ -3,6 +3,7 @@ import errorHandler from '../utils/errorHandler';
 import generateToken from "../utils/generateToken";
 import bcrypt from "bcryptjs"
 import {decrypt} from '../utils/encryption';
+import Message from '../models/Message';
 
 async function update(req:any, res:any) {
     let requestData = req.body;

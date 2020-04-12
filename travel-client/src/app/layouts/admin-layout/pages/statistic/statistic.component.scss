@@ -1,5 +1,6 @@
 .page {
   min-height: 100vh;
+  padding-bottom: 1vh;
 
   .page_bgr {
     position: fixed;
@@ -381,6 +382,105 @@
       .res {
         background: #03b1ff;
       }
+    }
+  }
+
+  .sidebar_statistic {
+    color: #fff;
+
+    .sidebar_total,
+    .sidebar_month,
+    .sidebar_year {
+      background: rgba(6, 5, 10, 0.43);
+      font-size: 1.7rem;
+    }
+
+    .income-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .income-up {
+      color: #73ec0d;
+    }
+
+    .income-fall {
+      color: #ff2136;
+    }
+
+    .income-up i,
+    .income-fall i {
+      animation: blink 3s linear infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .income-percent {
+      font-size: 1.2rem;
+      padding: 0 5px 0 6px;
+    }
+  }
+
+  .active-users-container {
+    .active-users_title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+      padding: 15px;
+      background: rgb(12,40,53);
+      margin-bottom: 5px;
+    }
+
+    .active-user {
+      display: flex;
+      background: rgba(61, 34, 116, 0.57);
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .avatar {
+      width: 7vw;
+      height: 7vw;
+      margin: 10px;
+      margin-right: 15px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+
+      img {
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: 0.3s;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .avatar {
+        width: 17vw;
+        height: 17vw;
+      }
+    }
+
+    .name-orders {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .crown-icon {
+      margin-left: 3px;
+      font-size: 1.2rem;
     }
   }
 }
