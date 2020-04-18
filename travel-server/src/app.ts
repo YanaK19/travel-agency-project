@@ -13,9 +13,7 @@ import emailRoutes from './routes/email';
 import statisticRoutes from './routes/statistic';
 import passport from "passport";
 import passportUse from "./middleware/passportUse";
-
-
-
+/*import passportVK from "./middleware/passportVK";*/
 const app = express();
 
 mongoose.connect(keys.mongoURI,
@@ -32,6 +30,7 @@ app.use(bodyParser.json());
 
 app.use(passport.initialize());
 passportUse(passport);
+/*passportVK(passport);*/
 
 app.use('/uploads', express.static('uploads'));
 
@@ -43,5 +42,6 @@ app.use('/api/range', rangeRoutes);
 app.use('/api/location', locationRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/statistic', statisticRoutes);
+
 
 export {app}

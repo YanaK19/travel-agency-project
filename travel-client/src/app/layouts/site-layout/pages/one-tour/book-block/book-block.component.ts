@@ -61,6 +61,7 @@ export class BookBlockComponent implements OnInit {
         // res={role:..id..email..name..telephone..}
         console.log(modal, typeof modal);
         modal.close('Cross click');
+        this.router.navigate(['/book', this.id]);
       },
       (err) => {
         this.loginForm.enable();
@@ -88,6 +89,7 @@ export class BookBlockComponent implements OnInit {
               (res) => {
                 const userId: string = res._id;
                 modal.close('Cross click');
+                this.router.navigate(['/book', this.id]);
               },
               (err) => {
                 console.log('err', err.error);

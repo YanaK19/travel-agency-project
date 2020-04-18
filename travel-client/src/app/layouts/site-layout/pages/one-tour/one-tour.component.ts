@@ -9,6 +9,9 @@ import {ReviewService} from '../../../../services/review.service';
 import {UserData} from '../../../../interfaces/user/userData.interface';
 import {UserService} from '../../../../services/user.service';
 import {DateHandlerService} from '../../../../services/date-handler.service';
+import {EmailService} from '../../../../services/email.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-one-tour-page',
@@ -21,17 +24,28 @@ export class OneTourComponent implements OnInit {
   reviews = [];
   imgActive = '';
   isReviewsLoaded = false;
+  subscribeError = '';
+  load = false;
+  reviewForm: FormGroup;
+  reviewError = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private toursService: ToursService,
               private reviewService: ReviewService,
               private userService: UserService,
-              private dateService: DateHandlerService) {
+              private dateService: DateHandlerService,
+              private emailService: EmailService,
+              private modalService: NgbModal) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
   ngOnInit() {
+    this.reviewForm = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      info: new FormControl(null, [Validators.required])
+    });
+
     this.toursService.getOneTour(this.id).subscribe((data) => {
       this.tour = data;
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
@@ -65,5 +79,61 @@ export class OneTourComponent implements OnInit {
 
   renderProfilePage(user: UserData) {
     this.router.navigate(['/account', user._id]);
+  }
+
+
+  subscribeNews(email: string, successModal) {
+    this.subscribeError = '';
+
+    if(!email.trim().length) {
+      this.subscribeError = 'Enter your Email';
+      return;
+    }
+
+    this.emailService.addEmailInNewsletter(email).subscribe(
+      res => {
+        this.load = true;
+        this.emailService.sendEmailSubscribed(email).subscribe(
+          res => {
+            this.load = false;
+            this.modalService.open(successModal, { centered: true });
+          },
+          err => {
+            this.subscribeError = err.error.message;
+          })
+      },
+      err => {
+        this.subscribeError = err.error.message;
+        console.log(this.subscribeError)
+      }
+    );
+  }
+
+  createReview(msgModal) {
+    if(!this.userService.getUserData()) {
+      this.reviewError = '* To leave feedback u must be authorized';
+      return;
+    }
+
+    const review = {
+      title: this.reviewForm.value.title,
+      info: this.reviewForm.value.info,
+      userId: this.userService.getUserData()._id,
+      tourId: this.id
+    };
+
+/*    if(!review.title.length || !review.info.length) {
+      this.reviewError = '* Please, fill all fields...';
+      return;
+    }*/
+
+    console.log(review)
+
+    this.modalService.open(msgModal, { centered: true });
+
+    this.reviewService.createReview(review).subscribe(newReview => {
+      console.log(newReview);
+      setTimeout(() => this.modalService.dismissAll(), 2000);
+    });
   }
 }

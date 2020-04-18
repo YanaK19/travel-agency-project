@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserRegister} from '../../../../interfaces/user/userRegister.interface';
+import {EmailService} from '../../../../services/email.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-contact-us',
@@ -11,7 +13,8 @@ export class ContactUsComponent implements OnInit {
   contactForm: FormGroup;
   isError = false;
 
-  constructor() { }
+  constructor(private emailService: EmailService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     this.contactForm = new FormGroup({
@@ -23,7 +26,7 @@ export class ContactUsComponent implements OnInit {
     });
   }
 
-  sendMessage() {
+  sendMessage(successModal) {
     this.isError = false;
 
     if (this.contactForm.invalid) {
@@ -39,6 +42,9 @@ export class ContactUsComponent implements OnInit {
       message: this.contactForm.value.message
     };
 
-    console.log(message)
+    this.emailService.sendUserMessage(message).subscribe(() => {
+      this.contactForm.reset();
+      this.modalService.open(successModal, { centered: true });
+    })
   }
 }

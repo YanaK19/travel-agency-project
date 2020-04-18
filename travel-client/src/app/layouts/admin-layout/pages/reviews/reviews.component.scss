@@ -1,23 +1,37 @@
 .page {
-  background: url(https://i.pinimg.com/564x/10/a0/7a/10a07abecdd0b7e8f5b1de55ba3496a6.jpg);
   min-height: 100vh;
   color: #fff;
+}
+
+.page_bgr {
+  position: fixed;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.shadow {
+  background: rgba(43, 46, 174, 0.37);
+  z-index: -1;
 }
 
 .main-title {
   padding: 25px 11px;
   font-size: 1.5rem;
   color: #fff;
-  border-bottom: 2px solid #55585b;
-  background: #3d3d3e96;
+  background: #00000085;
 }
 
 .review-container {
   padding: 2vw;
 
   .review {
-    background: #3d3d3e96;
+    background: #0fabb1bf;
     padding: 20px;
+    color: #fff;
+    border-top-left-radius: 35px;
   }
 
   .title {
@@ -36,11 +50,13 @@
 }
 
 .buttons {
-  background: #3d3d3e96;
+  background: #00000085;
+  display: -webkit-box;
   display: flex;
+  -webkit-box-pack: justify;
   justify-content: space-between;
   padding: 10px;
-  border-top: 2px solid #A0AFC4;
+  border-top: 2px solid #ffffffd1;
 
   button {
     width: 111px;
@@ -49,20 +65,24 @@
     transition: 0.2s;
   }
 
-  .confirm {
-    background: #ffffffa6;
+  .confirm,
+  .delete {
+    background: none;
+    border: 2px solid #ffffffa1;
+    border-radius: 5px;
+    color: #fff;
+    text-transform: uppercase;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.89);
+      background: rgba(255, 255, 255, 0.19);
     }
   }
 
   .delete {
-    color: #fff;
-    background: rgba(14, 11, 81, 0.64);
+    background: #dd338e70;
 
     &:hover {
-      background: rgba(17, 14, 115, 0.91);
+      background: rgba(221, 51, 142, 0.66);
     }
   }
 }

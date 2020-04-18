@@ -18,4 +18,16 @@ export class EmailService {
   sendEmailOrderConfirmed(email, order, tour):Observable<any> {
     return this.http.post<any>('/api/email?theme=confirmed', {email, order, tour});
   }
+
+  sendEmailSubscribed(email: string) {
+    return this.http.post<any>('/api/email?theme=sibscribed', {email});
+  }
+
+  addEmailInNewsletter(email: string) {
+    return this.http.put<any>('/api/email/collection/newsletter', {email});
+  }
+
+  sendUserMessage(message) {
+    return this.http.post<any>('/api/email/contactus/message', message);
+  }
 }

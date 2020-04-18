@@ -7,6 +7,7 @@ import {UserService} from '../../../../services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OrderService} from '../../../../services/order.service';
 import {EmailService} from '../../../../services/email.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-book',
@@ -21,13 +22,15 @@ export class BookComponent implements OnInit {
   errorMesage = '';
   tourDateIndex = 0;
   amount = 1;
+  load=false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private toursService: ToursService,
               private dateService: DateHandlerService,
               private userService: UserService,
               private orderService: OrderService,
-              private emailService: EmailService) {
+              private emailService: EmailService,
+              private modalService: NgbModal) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
@@ -40,7 +43,7 @@ export class BookComponent implements OnInit {
     });
   }
 
-  onBook () {
+  onBook (successModal) {
     this.errorMesage = '';
 
     const order = {
@@ -51,9 +54,11 @@ export class BookComponent implements OnInit {
       tourId: this.id
     };
 
+    this.load = true;
     this.orderService.createOrder(order).subscribe(order => {
       this.emailService.sendEmailBooked(this.user.email, this.tour, order.tourDate).subscribe(result => {
-
+        this.load = false;
+        this.modalService.open(successModal, { centered: true });
       });
     });
   }

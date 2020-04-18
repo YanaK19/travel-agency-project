@@ -282,6 +282,7 @@ $color_lightSea: #1cbbb4;
     textarea {
       outline: none;
       resize: none;
+      height: 25vh;
     }
 
     .item-fifty .form-control {
@@ -427,7 +428,6 @@ $color_lightSea: #1cbbb4;
   }
 
   .mailchimp {
-    height: 230px;
     margin-top: 20px;
     background: #fff;
     border-radius: 3px;
@@ -653,4 +653,29 @@ $color_lightSea: #1cbbb4;
 
 .item-image-bgr {
   cursor: zoom-in !important;
+}
+
+.modal_message {
+  text-align: center;
+  padding: 5vh 0;
+}
+
+.btn-ok-container {
+  text-align: center;
+}
+
+.btn-ok {
+  border-radius: unset;
+  width: 180px;
+}
+
+.error-subscribe {
+  color: #f33a4b;
+  padding: 2px 10px;
+  margin-top: 5px;
+}
+
+.review-error {
+  margin: 15px 0px 5px;
+  color: #d01414c9;
 }

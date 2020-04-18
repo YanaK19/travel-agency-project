@@ -82,7 +82,7 @@ section {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .login-container {
     box-shadow: 0 -20px 15px rgba(0, 0, 0, .2);
   }
@@ -113,7 +113,6 @@ section {
 }
 
 .more {
-  font-weight: bold;
   text-transform: uppercase;
-  color: #0b1054;
+  color: #fff;
 }

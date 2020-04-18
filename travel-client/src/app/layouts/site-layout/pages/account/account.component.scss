@@ -440,6 +440,11 @@ $color_lightSea: #1cbbb4;
   padding: 10px 10px 10px 0;
 }
 
+.info-icon {
+  font-size: 1.2rem;
+  margin-right: 7px;
+}
+
 .tabset-item {
   background: #fff;
   min-height: 100px;
@@ -505,6 +510,14 @@ $color_lightSea: #1cbbb4;
         margin-bottom: 20px;
       }
     }
+  }
+}
+
+@media (max-width: 576px) {
+  .additional-tab {
+    padding-right: 0;
+    padding-left: 0;
+    font-size: 0.9rem;
   }
 }
 
@@ -1143,26 +1156,52 @@ $color_lightSea: #1cbbb4;
 
     .btn {
       border-radius: unset;
-      background: rgba(12, 10, 59, 0.52);
+      color: #fff;
       border: none;
       text-transform: uppercase;
       padding: 7px 61px;
       font-size: 1.1rem;
+      transition: 0.2s;
+    }
+
+    .btn-close {
+      border-radius: 5px;
+      background: rgba(32, 34, 103, 0.75);
 
       &:hover {
-        background: rgba(12, 10, 59, 0.75);
+        background: #202267;
       }
     }
 
     .btn-send {
+      border-radius: 5px;
       margin-left: 10px;
-      background: #cd918a;
+      background: #a2224dcc;
 
       &:hover {
-        background: #dc8b85;
+        background: rgba(162, 34, 77, 0.97);
       }
     }
   }
+
+  .delete-icon {
+    font-size: 1.1rem;
+    margin-left: 5px;
+    color: #202267;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .btn-add-lang {
+    height: fit-content;
+    background: #b54e718f;
+    color: #fff;
+    text-transform: uppercase;
+
+    &:hover {
+      background: rgba(181, 78, 113, 0.91);
+    }
+  }
 }
-
-

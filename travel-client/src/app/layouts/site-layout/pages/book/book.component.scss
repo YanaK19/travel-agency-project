@@ -5,16 +5,6 @@
   overflow: hidden;
 }
 
-/*
-.shadow {
-  position: absolute;
-  background: linear-gradient(to left, rgba(255, 0, 0, 0), rgb(12, 10, 59));
-  height: 100px;
-  width: 100%;
-  z-index: 0 !important;
-}
-*/
-
 .book-container {
   position: relative;
   z-index: 10;
@@ -202,4 +192,21 @@
   }
 }
 
+.modal_message {
+  text-align: center;
+  padding: 5vh 0;
 
+  b {
+    font-size: 1.2rem;
+    color: #28a745;
+  }
+}
+
+.btn-ok-container {
+  text-align: center;
+}
+
+.btn-ok {
+  border-radius: unset;
+  width: 180px;
+}

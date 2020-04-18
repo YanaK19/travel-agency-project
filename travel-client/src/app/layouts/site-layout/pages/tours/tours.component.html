@@ -1,116 +1,102 @@
-<!--
-
-<div class="page">
-  <div *ngIf="!loading" class="container">
-    <div  class="row mb-2" *ngFor="let tour of tours" (click)="renderOneTourPage(tour._id)">
-      <div class="col tour-container">{{tour.title}}</div>
-      <div class="col tour-container">{{tour.moreInfo}}</div>
-    </div>
-
-  </div>
-</div>
-
-<app-loader *ngIf="loading"></app-loader>
--->
-
 <div class="page d-flex flex-column">
-  <div class="bgr-image">
-    <div class="bgr-image-side"></div>
-  </div>
 
-  <div class="container-fluid block0">
-    <div class="block0_title">
+  <div class="block1">
+    <div class="block1_bgr-image-right"></div>
+    <div class="block1_bgr-left"></div>
+
+    <div class="block1_right-title">
       {{'tours.title' | translate}}
     </div>
 
-    <div class="block0_subtitle">
+    <div class="block1_right-subtitle">
       {{'tours.text' | translate}}
+    </div>
+
+    <div class="block1_left">
+      <form class="block1_form" [formGroup]="filterForm">
+        <div class="form-item">
+          <div class="form-item_title">Route</div>
+          <div class="input-group mb-1">
+            <input [ngbTypeahead]="searchCountry" type="text" formControlName="fromCountry" class="form-control" [placeholder]="'tours.filter_form.departure' | translate" aria-label="Recipient's username" aria-describedby="from">
+          </div>
+          <div class="input-group">
+            <input [ngbTypeahead]="searchCountry" type="text" formControlName="toCountry" class="form-control" [placeholder]="'tours.filter_form.destination' | translate" aria-label="Recipient's username" aria-describedby="to">
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-item_title">Dates</div>
+          <div class="form-group">
+            <div class="input-group">
+              <input formControlName="dateFrom" class="form-control calendar-input" [placeholder]="'tours.filter_form.start_date' | translate"
+                     name="dp" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button style="background-color: #e9ecef;
+                          width: 44px;
+                          border: 1px solid #ced4da;
+                          color: #495057;"
+                        class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <input formControlName="dateTo" class="form-control calendar-input" [placeholder]="'tours.filter_form.end_date' | translate"
+                      name="ddpp" ngbDatepicker #dd="ngbDatepicker">
+              <div class="input-group-append">
+                <button style="background-color: #e9ecef;
+                          width: 44px;
+                          border: 1px solid #ced4da;
+                          color: #495057;"
+                        class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid transport-sort-container">
+          <div class="row">
+            <div class="form-item form_transport col-md-6">
+              <div class="form-item_title">Transport</div>
+              <div class="input-group">
+                <select *ngIf="rangeTransports" formControlName="transportType" class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
+                  <option value=""></option>
+                  <option *ngFor="let transport of rangeTransports.types" [value]="transport">{{transport}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sort-container col-md-6">
+              <div class="form-group sort">
+                <div class="form-item_title form_sort">{{'tours.sort.title' | translate}}</div>
+                <select class="form-control" id="exampleFormControlSelect1" #selectSort>
+                  <option></option>
+                  <option>{{'tours.sort.views' | translate}}</option>
+                  <option>{{'tours.sort.cost' | translate}}</option>
+                  <option>{{'tours.sort.discount' | translate}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form_buttons">
+          <button class="btn-search" (click)="Search()">
+          <span>
+            <i class="fas fa-search pr-1"></i> {{'tours.filter_form.button_search' | translate}}
+          </span>
+          </button>
+
+          <button class="btn-reset" (click)="reset()">reset</button>
+        </div>
+
+      </form>
     </div>
   </div>
 
 
-  <div class="block1">
-    <form class="block1_form" [formGroup]="filterForm">
-      <div class="form-item">
-        <div class="form-item_title">Route</div>
-        <div class="input-group mb-1">
-          <input type="text" formControlName="fromCountry" class="form-control" [placeholder]="'tours.filter_form.departure' | translate" aria-label="Recipient's username" aria-describedby="from">
-        </div>
-        <div class="input-group">
-          <input type="text" formControlName="toCountry" class="form-control" [placeholder]="'tours.filter_form.destination' | translate" aria-label="Recipient's username" aria-describedby="to">
-        </div>
-      </div>
-
-      <div class="form-item">
-        <div class="form-item_title">Dates</div>
-        <div class="form-group">
-          <div class="input-group">
-            <input formControlName="dateFrom" class="form-control" [placeholder]="'tours.filter_form.start_date' | translate"
-                   name="dp" ngbDatepicker #d="ngbDatepicker">
-            <div class="input-group-append">
-              <button style="background-color: #e9ecef;
-                          width: 44px;
-                          border: 1px solid #ced4da;
-                          color: #495057;"
-                      class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="input-group">
-            <input  formControlName="dateTo" class="form-control" [placeholder]="'tours.filter_form.end_date' | translate"
-                    name="ddpp" ngbDatepicker #dd="ngbDatepicker">
-            <div class="input-group-append">
-              <button style="background-color: #e9ecef;
-                          width: 44px;
-                          border: 1px solid #ced4da;
-                          color: #495057;"
-                      class="btn btn-outline-secondary calendar fa fa-calendar" (click)="dd.toggle()" type="button"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container-fluid">
-        <div class="row">
-          <div class="form-item form_transport col-md-6">
-            <div class="form-item_title">Transport</div>
-            <div class="input-group">
-              <select *ngIf="rangeTransports" formControlName="transportType" class="custom-select" id="inputGroupSelect02"  aria-describedby="transport">
-                <option value=""></option>
-                <option *ngFor="let transport of rangeTransports.types" [value]="transport">{{transport}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="sort-container col-md-6">
-            <div class="form-group sort">
-              <div class="form-item_title form_sort">{{'tours.sort.title' | translate}}</div>
-              <select class="form-control" id="exampleFormControlSelect1" #selectSort>
-                <option></option>
-                <option>{{'tours.sort.views' | translate}}</option>
-                <option>{{'tours.sort.cost' | translate}}</option>
-                <option>{{'tours.sort.discount' | translate}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="form_buttons">
-        <button class="btn-search" (click)="Search()">
-          <span>
-            <i class="fas fa-search pr-1"></i> {{'tours.filter_form.button_search' | translate}}
-          </span>
-        </button>
-
-        <button class="btn-reset" (click)="reset()">reset</button>
-      </div>
-
-    </form>
-  </div>
 
 
   <!-- below filters -->
@@ -118,9 +104,6 @@
   <div class="block2 container-fluid">
     <div class="row text-center">
       <div class="sort-filter-container col-md-3 col-sm-4">
-
-
-
 
         <div class="rest-filter-container">
           <label>{{'tours.categories.title' | translate}}: </label>
@@ -156,7 +139,7 @@
                       {{'tours.carousel.slide2_title' | translate}}
                     </div>
                     <div class="content">
-                     <span class="see-reviews">{{'tours.carousel.slide2_content1' | translate}}</span>
+                     <span routerLink="/contact" class="contact-us">{{'tours.carousel.slide2_content1' | translate}}</span>
                       <span [innerHTML]="'tours.carousel.slide2_content2' | translate"></span>
                     </div>
                     <img class="d-block w-100 mb-0 monkey-img" src="https://www.edselby.com/wp-content/uploads/2013/12/monkey.png">
@@ -198,15 +181,4 @@
         </section>
       </div>
   </div>
-
-
-
-
-<!--
-
-  <pre>Model: {{ model | json }}</pre>
-
--->
 </div>
-
-

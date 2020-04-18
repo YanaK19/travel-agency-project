@@ -106,8 +106,8 @@
       "slide1_title": "Oh, hey!",
       "slide1_content": "Better to see something once than hear about it a thousand times.<br><br>So, I hope, you will find a wonderful tour for yourself.<br>",
       "slide2_title": "Are you still thinking about the trip?",
-      "slide2_content1": "SEE REVIEWS",
-      "slide2_content2": "<br>and<br>make your choise :)",
+      "slide2_content1": "CONTACT US",
+      "slide2_content2": "<br>and<br>will help with your choise :)",
       "slide3_title": "Boom...!",
       "slide3_content": "<b>HERE</b><br>might be<br>your<br>advertisement<br><br>"
     }
@@ -194,7 +194,7 @@
       "text": "You have not ordered advertising on the site?"
     },
     "mailchimp": {
-      "title": "mailchimp signup form",
+      "title": "newsletter",
       "placeholder_email": "Email",
       "button_submit": "submit"
     }

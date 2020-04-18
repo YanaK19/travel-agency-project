@@ -1,4 +1,6 @@
 <div class="page">
+  <app-shadow-loader *ngIf="load"></app-shadow-loader>
+
 <div class="video-container">
   <video preload="auto" autoplay type="video/mp4" src="../../../../../assets/video/sea.mp4" loop></video>
 </div>
@@ -306,17 +308,35 @@
       <div class="newsletter-container">
         <div class="news-title">{{'home.newsletter.title' | translate}}</div>
         <div class="news-subtitle">{{'home.newsletter.subtitle' | translate}}</div>
-        <form action="">
+        <form (ngSubmit)="subscribeNews(emailInput.value, successModal)">
           <div class="input-group">
-            <input type="text" class="form-control" [placeholder]="'home.newsletter.placeholder' | translate" aria-label="Newsletter" aria-describedby="button-news">
+            <input #emailInput type="text" class="form-control" [placeholder]="'home.newsletter.placeholder' | translate" aria-label="Newsletter" aria-describedby="button-news">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-news">{{'home.newsletter.button_subscribe' | translate}}</button>
+              <button class="btn btn-outline-secondary" type="submit" id="button-news">{{'home.newsletter.button_subscribe' | translate}}</button>
             </div>
           </div>
         </form>
+        <div class="error-subscribe" *ngIf="subscribeError">{{subscribeError}}</div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #successModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          You successfully subscribed for our NEWS! 😃 <br>
+          Check your email
+        </div>
+
+        <div class="btn-ok-container">
+          <button type="button" class="btn btn-success btn-ok" (click)="modal.close('Close click')">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 

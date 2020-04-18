@@ -2,6 +2,9 @@ import nodemailer from 'nodemailer'
 import {decrypt, encrypt} from '../utils/encryption';
 import Message from '../models/Message';
 import errorHandler from '../utils/errorHandler';
+import Todo from '../models/Todo';
+import Newsletter from '../models/Newsletter';
+import Review from '../models/Review';
 
 
 async function sendEmail(req:any, res:any) {
@@ -58,6 +61,36 @@ async function sendEmail(req:any, res:any) {
             `;
         }
 
+        if (req.query.theme === 'sibscribed') {
+            subjectText = "You've subscribed on our news! 📰";
+            htmlContent = `
+                <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
+                    <h4 style="font-size: 23px">
+                        <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
+                    </h4>
+                    <div style="margin-bottom: 20px; padding: 16px; font-size: 15px;">
+                        Thank u for following us! <br>
+                        + know about special offers 🎁<br>
+                        + tour discounts 👍 <br>
+                        + new popular tours 👀<br>
+                    </div>
+                </div>
+            `;
+        }
+
+        if( req.body.title || req.body.message) {
+            subjectText = req.body.title;
+            htmlContent = `
+                <div style="padding: 10px; text-align: center; background: rgba(128,128,128,0.16);">
+                    <h4 style="font-size: 23px">
+                        <span style="color: rgb(4,7,5)">Trip</span><span style="color: rgb(111,194,226)">Helper</span>
+                        <span style="color: rgb(4,7,5)">News</span>
+                    </h4>
+                    <div style="margin-bottom: 20px; padding: 16px; font-size: 15px; word-wrap: break-word;">${req.body.message}</div>
+                </div>
+            `;
+        }
+
         let info;
         if(req.body.email === 'yana-triphelper@mail.ru') {
             let transporter = nodemailer.createTransport({
@@ -102,16 +135,14 @@ async function sendEmail(req:any, res:any) {
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         res.status(250).json("Mail has been sent");
     } catch(err) {
+        console.log(err)
         if(err.responseCode == 550) {
             res.status(550).json({
                 success: false,
-                message: "Looks like you've sent not existing email"
+                message: "Looks like you've entered not existing email"
             })
         } else {
-            res.status(550).json({
-                success: false,
-                message: "Error occured while sending mail"
-            })
+            errorHandler(res, err);
         }
     }
 }
@@ -148,4 +179,40 @@ async function createUserMessage(req:any, res:any) {
     }
 }
 
-export {sendEmail, createUserMessage}
+async function createNewsletter(req:any, res:any) {
+    const newsletter = new Newsletter({
+        emails: []
+    });
+
+    try {
+        await newsletter.save();
+        res.status(201).json(newsletter);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+async function updateNewsletter(req:any, res:any) {
+    try {
+        let newsletter: any = await Newsletter.findById("5e941f902d391821309f87da");
+        let emails = newsletter.emails;
+        if (emails.indexOf(req.body.email) !== -1) {
+            res.status(409).json({
+                message: 'User with such email is already subscribed.' })
+        } else {
+            emails.push(req.body.email);
+
+            const updatedEmails = await Newsletter.findOneAndUpdate(
+                {_id: "5e941f902d391821309f87da"},
+                {$set: {emails}},
+                {new: true}
+            );
+
+            res.status(200).json(updatedEmails);
+        }
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+export {sendEmail, createUserMessage, createNewsletter, updateNewsletter}

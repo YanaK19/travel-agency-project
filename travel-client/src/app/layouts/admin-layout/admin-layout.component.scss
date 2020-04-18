@@ -7,13 +7,29 @@ button {
   }
 }
 
+.nav-link {
+  color: rgba(255, 255, 255, 0.61) !important;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   border: none;
-  background: #55585bc7;
   border-radius: unset;
   text-transform: uppercase;
+  background: #042b3e !important;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 3%;
+  top: 8px;
+  font-weight: bold;
+  color: rgb(15, 183, 219);
 }
 
 .menu {
@@ -50,3 +66,17 @@ button {
   cursor: pointer;
   color: rgba(16, 16, 16, 0.85);
 }
+
+.lang-button {
+  background: #0fb7dbbd !important;
+  border-radius: 10px;
+}
+
+.navbar-toggler {
+  background: #ffffffc9;
+
+  &:hover {
+    background: #ffffffc9;
+  }
+}
+

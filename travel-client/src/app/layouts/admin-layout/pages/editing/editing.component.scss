@@ -13,10 +13,16 @@ $font1: 'Exo', sans-serif;
 
 .page_bgr {
   position: fixed;
-  z-index: -1;
+  z-index: -2;
   top: 0;
   left: 0;
   min-width: 100vw;
+  min-height: 100vh;
+}
+
+.shadow {
+  background: rgba(0, 0, 0, 0.39);
+  z-index: -1;
 }
 
 .main-title {
@@ -417,8 +423,14 @@ $font1: 'Exo', sans-serif;
       margin-left: 5px;
       width: 45px;
       height: 45px;
-      background: $white;
-      border: none;
+      background: #abd43f96;
+      border: 2px solid #ffffffd9;
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    .delete {
+      background: #007bffa1;
     }
 
     i {
@@ -433,7 +445,7 @@ $font1: 'Exo', sans-serif;
 
   .statistic-info {
     position: absolute;
-    top: 190px;
+    top: 186px;
     padding: 10px;
     left: 17px;
 
@@ -441,6 +453,10 @@ $font1: 'Exo', sans-serif;
     .booked {
       background: rgba(237, 237, 237, 0.91);
       padding: 10px;
+      background: #2066b654;
+      border: 2px solid #ffffffd9;
+      border-radius: 5px;
+      color: #fff;
     }
 
     .booked {
@@ -450,7 +466,6 @@ $font1: 'Exo', sans-serif;
     i {
       margin-right: 5px;
       font-size: 1.2rem;
-      color: #000000ad;
       font-weight: bold;
     }
   }

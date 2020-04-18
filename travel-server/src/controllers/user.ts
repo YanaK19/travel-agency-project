@@ -4,6 +4,7 @@ import generateToken from "../utils/generateToken";
 import bcrypt from "bcryptjs"
 import {decrypt} from '../utils/encryption';
 import Message from '../models/Message';
+import fetch from 'node-fetch'
 
 async function update(req:any, res:any) {
     let requestData = req.body;
@@ -13,18 +14,15 @@ async function update(req:any, res:any) {
     }
 
     try {
-/*        const user = await User.findOne({_id: req.user._id});*/
-        const user = await User.findOneAndUpdate(
+        const updatedUser = await User.findOneAndUpdate(
             {_id: req.user._id},
             {$set: requestData},
             {new: true}
         );
 
-/*
-        const customer: any = await User.findById(req.user._id, {password: 0});
-*/
+        const token:string = generateToken(updatedUser);
 
-        res.status(200).json(user)
+        res.status(200).json({token: `Bearer ${token}`, user: updatedUser})
     } catch (e) {
         errorHandler(res, e)
     }

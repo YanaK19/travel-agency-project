@@ -11,6 +11,8 @@ import {LocationService} from '../../../../services/location.service';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {LangService} from '../../../../services/lang.service';
+import {EmailService} from '../../../../services/email.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home-page',
@@ -26,12 +28,16 @@ export class HomeComponent implements OnInit {
   countryExist: boolean = true;
   lang: string;
   prevInput: string;
+  subscribeError = '';
+  load = false;
 
   constructor(private toursService: ToursService,
               private reviewService: ReviewService,
               private userService: UserService,
               private locationService: LocationService,
-              private router: Router) { }
+              private router: Router,
+              private emailService: EmailService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
     AOS.init();
@@ -97,5 +103,31 @@ export class HomeComponent implements OnInit {
   renderProfilePage(userId: string) {
     this.router.navigate(['/account', userId]);
   }
-}
 
+  subscribeNews(email: string, successModal) {
+    this.subscribeError = '';
+
+    if(!email.trim().length) {
+      this.subscribeError = 'Enter your Email';
+      return;
+    }
+
+    this.emailService.addEmailInNewsletter(email).subscribe(
+      res => {
+        this.load = true;
+        this.emailService.sendEmailSubscribed(email).subscribe(
+          res => {
+            this.load = false;
+            this.modalService.open(successModal, { centered: true });
+          },
+          err => {
+            this.subscribeError = err.error.message;
+          })
+      },
+      err => {
+        this.subscribeError = err.error.message;
+        console.log(this.subscribeError)
+      }
+    );
+  }
+}

@@ -6,6 +6,9 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {RangeService} from '../../../../services/range.service';
 import {DateHandlerService} from '../../../../services/date-handler.service';
 import {TourDate} from '../../../../interfaces/tour/tourDate.interface';
+import {LocationService} from '../../../../services/location.service';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tours-page',
@@ -23,12 +26,14 @@ export class ToursComponent implements OnInit {
   @ViewChild('selectSort', {static: false})
   selectSort: ElementRef;
   dateFromFilter: TourDate;
+  countries;
 
   constructor(private toursService: ToursService,
               private rangeService: RangeService,
               private router: Router,
               private route: ActivatedRoute,
-              private dateService: DateHandlerService) { }
+              private dateService: DateHandlerService,
+              private locationService: LocationService) { }
 
   ngOnInit() {
     this.filterForm = new FormGroup({
@@ -68,7 +73,20 @@ export class ToursComponent implements OnInit {
         }
       });
     });
+
+    this.locationService.getContries().subscribe(countries => {
+      this.countries = countries;
+    });
   }
+
+  searchCountry = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term.length < 2 ? []
+        : this.countries.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
+  };
 
   Search() {
     let params = '?';

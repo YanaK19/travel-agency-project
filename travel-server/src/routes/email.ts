@@ -1,9 +1,11 @@
 import express from 'express';
-import {createUserMessage, sendEmail} from '../controllers/email';
+import {createUserMessage, sendEmail, createNewsletter, updateNewsletter} from '../controllers/email';
 import userRoutes from './user';
 const emailRoutes = express.Router();
 
 emailRoutes.post('/', sendEmail);
-userRoutes.post('/send/message', createUserMessage);
+emailRoutes.post('/collection/newsletter', createNewsletter);
+emailRoutes.put('/collection/newsletter', updateNewsletter);
+emailRoutes.post('/contactus/message', createUserMessage);
 
 export default emailRoutes;

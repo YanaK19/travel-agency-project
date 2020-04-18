@@ -33,6 +33,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   reviewTourId = '';
   componentName = 'account';
   reviewForm: FormGroup;
+  load = false;
 
   visitedTourOrders = [];
   visitedTourOrdersLeft = [];
@@ -197,8 +198,30 @@ console.log(this.visitedTourOrders)
   }
 
   openEditProfileModal(content) {
-    this.updatedUserData = this.userData;
+    this.updatedUserData = {
+      name: this.userData.name,
+      location: {
+        country: this.userData.location.country,
+        town: this.userData.location.town
+      },
+      languages: this.userData.languages.slice(),
+      about: this.userData.about,
+      telephone: this.userData.telephone,
+      email: this.userData.email
+    };
+
     this.modalService.open(content, { centered: true });
+  }
+
+  addLang(lang) {
+    if (lang.trim().length < 4) {
+      return;
+    }
+    this.updatedUserData.languages.push(lang);
+  }
+
+  deleteLang(index) {
+    this.updatedUserData.languages.splice(index, 1);
   }
 
   createReview(msgModal) {
@@ -222,7 +245,12 @@ console.log(this.visitedTourOrders)
     this.router.navigate(['/one-tour', tourId]);
   }
 
-  updateUser() {
-    console.log(this.updatedUserData);
+  updateUser(modal) {
+    this.load = true;
+    this.userService.updateUserProfileInfo(this.updatedUserData).subscribe(user => {
+      this.userData = user;
+      modal.close('Cross click');
+      this.load = false;
+    })
   }
 }

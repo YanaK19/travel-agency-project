@@ -156,9 +156,9 @@ async function getGeneralStatistic(req:any, res:any) {
     income2YearsAgo = income2YearsAgo.length? income2YearsAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
     income1YearAgo = income1YearAgo.length? income1YearAgo[0].total_cost + forMoreRealData: 0 + forMoreRealData;
 
-    let tours = await Tour.find().countDocuments() * forMoreRealData;
-    let orders = await Order.find().countDocuments() *forMoreRealData;
-    let users = await User.find().countDocuments() * forMoreRealData;
+    let tours = await Tour.find().countDocuments();
+    let orders = await Order.find().countDocuments();
+    let users = await User.find().countDocuments();
 
     try {
         res.status(200).json({tours, orders, users, income: income[0].total_cost,

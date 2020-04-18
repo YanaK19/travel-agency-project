@@ -110,6 +110,12 @@ a:not([href]):not([tabindex]) {
   }
 }
 
+@media (max-width: 576px) {
+  .main-label {
+    font-size: 80%;
+  }
+}
+
 .navbar-lang {
   display: flex;
 }

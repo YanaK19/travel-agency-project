@@ -158,3 +158,19 @@
   color: #ca0000;
   margin-bottom: 5px;
 }
+
+.modal_message {
+  text-align: center;
+  padding: 5vh 0;
+}
+
+.btn-ok-container {
+  text-align: center;
+}
+
+.btn-ok {
+  border-radius: unset;
+  color: #fff;
+  width: 180px;
+  background: rgba(17, 16, 83, 0.99);
+}

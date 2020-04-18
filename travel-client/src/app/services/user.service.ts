@@ -103,4 +103,21 @@ export class UserService {
       })
     );
   }
+
+  updateUserProfileInfo(updatedUser) {
+    const httpOptions  = {
+      headers: new HttpHeaders({
+        'Authorization': this.auth.getToken()
+      })
+    };
+
+    return this.http.put<any>('/api/user', updatedUser, httpOptions)
+      .pipe(map((data: any) => {
+          localStorage.setItem('token', data.token);
+          console.log(data.user);
+          localStorage.setItem('userData', JSON.stringify(data.user));
+          return data.user;
+        })
+      );
+  }
 }

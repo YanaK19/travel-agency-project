@@ -2,7 +2,7 @@
   <div class="contact-container">
     <h2>{{'contacts.title' | translate}}</h2>
 
-    <form [formGroup]="contactForm" (ngSubmit)="sendMessage()">
+    <form [formGroup]="contactForm" (ngSubmit)="sendMessage(successModal)">
     <div class="container">
       <div class="row">
         <div class="col col-md-6 col-sm-12">
@@ -63,7 +63,23 @@
         </div>
       </div>
     </div>
-
     </form>
   </div>
 </div>
+
+<ng-template #successModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          We will contact u soon! 🤗 <br>
+          Check your email
+        </div>
+
+        <div class="btn-ok-container">
+          <button type="button" class="btn btn-success btn-ok" (click)="modal.close('Close click')">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -33,6 +33,7 @@ import { BookComponent } from './layouts/site-layout/pages/book/book.component';
 import { ReviewsComponent } from './layouts/admin-layout/pages/reviews/reviews.component';
 import { MonthlyIncomeComponent } from './layouts/admin-layout/pages/statistic/charts/monthly-income/monthly-income.component';
 import { CountriesOrdersComponent } from './layouts/admin-layout/pages/statistic/charts/countries-orders/countries-orders.component';
+import { ShadowLoaderComponent } from './shadow-loader/shadow-loader.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,6 +64,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReviewsComponent,
     MonthlyIncomeComponent,
     CountriesOrdersComponent,
+    ShadowLoaderComponent,
    ],
   imports: [
     BrowserModule,

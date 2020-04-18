@@ -1109,7 +1109,8 @@
   .input-group {
     margin-top: 25px;
 
-    input, button {
+    input,
+    button {
       background: #23a59f5c;
       border: 2px solid #ffffffba;
     }
@@ -1133,13 +1134,20 @@
       padding: 5px 10px;
       text-transform: uppercase;
       color: #fff;
-      background: #0c0a3bc7;
-      transition: .3s;
+      background: rgba(12, 10, 59, 0.6);
+      transition: 0.3s;
 
       &:hover {
-        font-size: 1.2rem;
+        background: #0c0a3bfa;
       }
     }
+  }
+
+  .error-subscribe {
+    color: #fff;
+    padding: 2px 10px;
+    background: #dc354585;
+    margin-top: 5px;
   }
 
   @media (max-width: 576px) {
@@ -1179,4 +1187,18 @@
   background: #ff00185e;
   padding: 5px;
   text-align: center;
+}
+
+.modal_message {
+  text-align: center;
+  padding: 5vh 0;
+}
+
+.btn-ok-container {
+  text-align: center;
+}
+
+.btn-ok {
+  border-radius: unset;
+  width: 180px;
 }

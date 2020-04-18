@@ -1,4 +1,6 @@
 <div class="page">
+  <app-shadow-loader *ngIf="load"></app-shadow-loader>
+
   <div *ngIf="tour" class="book-container">
     <div class="container-fluid">
       <div class="row">
@@ -80,7 +82,7 @@
               Have a good trip!
             </div>
 
-            <button (click)="onBook()">Book Tour</button>
+            <button (click)="onBook(successModal)">Book Tour</button>
             <div *ngIf="errorMesage.length" class="error">{{ errorMesage }}</div>
           </div>
         </div>
@@ -88,3 +90,21 @@
     </div>
   </div>
 </div>
+
+<ng-template #successModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          <b>Thanks for your order!</b><br>
+          We will contact u soon 🤗 <br>
+          Check your email
+        </div>
+
+        <div class="btn-ok-container">
+          <button type="button" class="btn btn-success btn-ok" (click)="modal.close('Close click')">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

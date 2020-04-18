@@ -44,24 +44,27 @@
 
             <div *ngIf="ordersLastMonth.length" class="table-income-month">
               <div class="table-title">Last Month Income (March)</div>
-              <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Day</th>
-                  <th scope="col">Tour</th>
-                  <th scope="col">User</th>
-                  <th scope="col">Cost, $</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let order of ordersLastMonth">
-                  <th scope="row">{{order.day}}</th>
-                  <td>{{order.tour}}</td>
-                  <td>{{order.user}}</td>
-                  <td>{{order.cost}}</td>
-                </tr>
-                </tbody>
-              </table>
+
+              <div class="table-container">
+                <table class="table">
+                  <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Tour</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Cost, $</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let order of ordersLastMonth">
+                    <th scope="row">{{order.day}}</th>
+                    <td>{{order.tour}}</td>
+                    <td>{{order.user}}</td>
+                    <td>{{order.cost}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
 
               <div class="table-footer">
                 <div class="total-income">Total: <span>${{totalIncomeLastMonth}}</span></div>
@@ -76,10 +79,6 @@
         <div class="block col-lg-4">
           <div class="sidebar-right-container">
             <div class="manager-container">
-              <div class="manager-contact">
-                <i class="fab fa-telegram-plane"></i>
-              </div>
-
               <div class="photo-name container-fluid">
                 <div class="photo">
                   <img src="../../../../../assets/images/IMG_20190505_151419.jpg">

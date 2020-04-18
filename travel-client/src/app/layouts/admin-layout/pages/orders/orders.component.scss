@@ -5,16 +5,29 @@ $white: #ffffffc9;
 
 .page {
   z-index: 1;
-  background: url(https://i.pinimg.com/564x/10/a0/7a/10a07abecdd0b7e8f5b1de55ba3496a6.jpg);
   min-height: 100vh;
   color: #fff;
+}
+
+.page_bgr {
+  position: fixed;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.shadow {
+  background: rgba(0, 0, 0, 0.39);
+  z-index: -1;
 }
 
 .main-title {
   padding: 25px 11px;
   font-size: 1.5rem;
   color: #fff;
-  border-bottom: 2px solid #55585b;
+  border-bottom: 2px solid #ffffff8a;
   background: #3d3d3e96;
 }
 
@@ -67,7 +80,7 @@ $white: #ffffffc9;
 }
 
 .search-filter-container {
-  border-bottom: 2px solid #55585b;
+  border-bottom: 2px solid #ffffff8a;
   width: 100%;
   margin: 0;
   max-width: 100%;
@@ -104,7 +117,7 @@ $white: #ffffffc9;
 
   .search-button {
     border-left: none;
-    background: #362506;
+    background: #007fa9cc;
     width: 45px;
     border-color: transparent;
     border-left: none;
@@ -163,10 +176,10 @@ $white: #ffffffc9;
   }
 
   .order-container {
-    background: #ffffff4f;
+    background: #007fa9cc;
     min-height: 350px;
     height: 100%;
-    color: #4a3725;
+    color: #fff;
   }
 
   .number {
@@ -216,6 +229,7 @@ $white: #ffffffc9;
 
     .confirm {
       background: rgba(255, 255, 255, 0.58);
+      margin-bottom: -120px;
     }
 
     .delete {
@@ -229,7 +243,7 @@ $white: #ffffffc9;
     padding: 10px;
     text-align: center;
     font-size: 1.2rem;
-    border-bottom: 2px solid #e0e8f0;
+    border-bottom: 2px solid #ffffff8a;
   }
 
   .order-image {

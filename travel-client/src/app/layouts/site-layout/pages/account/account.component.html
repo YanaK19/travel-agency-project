@@ -1,9 +1,9 @@
-
 <div class="page">
+  <app-shadow-loader *ngIf="load"></app-shadow-loader>
   <div class="profile-block container-fluid max-width">
     <div class="row">
 
-      <div class="additional col-md-3">
+      <div class="additional col-lg-3">
         <div class="d-flex flex-column">
           <div class="profile-icon">
             <img *ngIf="userData?.avatar.length" [src]="userData.avatar">
@@ -62,13 +62,15 @@
 
             <div *ngIf="userData" class="about-me-info">
               <div *ngIf="userData.location.country" class="location about-me-info-item">
-                <i class="fas fa-home"></i> <span>{{userData.location.country}}, {{userData.location.town}}</span>
+                <span class="info-icon">🏠</span> <span>{{userData.location.country}}
+                <span *ngIf="userData.location.town.length">,</span>
+                {{userData.location.town}}</span>
               </div>
               <div *ngIf="userData.languages.length" class="languages about-me-info-item">
-                <i class="fas fa-comments"></i> <span>{{userData.languages}}</span>
+                <span class="info-icon">💬</span> <span>{{userData.languages}}</span>
               </div>
               <div class="email about-me-info-item">
-                <i class="fas fa-envelope"></i> <span>{{userData.email}}</span>
+                <span class="info-icon">💌</span> <span>{{userData.email}}</span>
               </div>
 
               <div class="about-me-description">
@@ -87,7 +89,7 @@
         </div>
       </div>
 
-      <div class="additional col-md-9">
+      <div class="additional col-lg-9 additional-tab">
         <div class="subnav">
           <ngb-tabset [destroyOnHide]="false">
             <ngb-tab>
@@ -346,7 +348,7 @@
             Edit Page Info
           </div>
 
-          <form>
+          <form class="edit-profile-form">
             <div class="form_block">
               <div class="field-label">Your NickName</div>
               <input type="text" name="name" placeholder="Country" [(ngModel)]="updatedUserData.name" class="form-control">
@@ -363,22 +365,22 @@
               <div class="rest-container_list">
                 <ul class="rest-types">
                   <li *ngFor="let lang of updatedUserData.languages; let r=index;">
-                    {{lang}} <span (click)="deleteLang(r)"><i class="fas fa-trash-alt"></i></span>
+                    {{lang}} <span (click)="deleteLang(r)"><i class="fas fa-trash delete-icon"></i></span>
                   </li>
                 </ul>
               </div>
 
               <div class="input-group">
-                <input type="text" placeholder="Add Language" class="form-control" name="addLang">
+                <input #langInput type="text" placeholder="Add Language" class="form-control" name="addLang">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">add</button>
+                  <button (click)="addLang(langInput.value)" class="btn btn-outline-secondary btn-add-lang" type="button">add</button>
                 </div>
               </div>
             </div>
 
             <div class="form_block">
               <div class="field-label">How about writing some information about yourself?</div>
-              <textarea type="text" placeholder="I'm ..." class="form-control" name="info" [(ngModel)]="updatedUserData.info"></textarea>
+              <textarea type="text" placeholder="I'm ..." class="form-control" name="info" [(ngModel)]="updatedUserData.about"></textarea>
             </div>
 
             <div class="form_block">
@@ -392,8 +394,8 @@
             </div>
 
             <div class="btn-container">
-              <button class="btn btn-primary">Close</button>
-              <button class="btn btn-primary btn-send" (click)="updateUser()">Send</button>
+              <button class="btn btn-primary btn-close" (click)="modal.close('Close click')">Close</button>
+              <button class="btn btn-primary btn-send" (click)="updateUser(modal)">Send</button>
             </div>
           </form>
         </div>

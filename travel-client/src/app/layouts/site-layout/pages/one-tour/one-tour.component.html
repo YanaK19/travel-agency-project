@@ -2,7 +2,7 @@
   <plane-loader></plane-loader>
 </div>
 
-
+<app-shadow-loader *ngIf="load"></app-shadow-loader>
 <div class="page" *ngIf="isLoaded()">
 
   <!--////////////////////////-->
@@ -205,16 +205,15 @@
         <div class="tour-leave-review">
           <h4 class="review-title">{{'tour.leave_review.title' | translate}}</h4>
 
-          <form class="review-form">
+          <form class="review-form" [formGroup]="reviewForm" (ngSubmit)="createReview(msgModal)">
+            <div class="review-form-item item-fifty">
+              <input formControlName="title" type="text" id="email" [placeholder]="'Review Title'" class="form-control">
+            </div>
             <div class="review-form-item">
-              <textarea name="comment" id="comment" [placeholder]="'tour.leave_review.placeholder_text' | translate" class="form-control"></textarea>
+              <textarea formControlName="info" name="info" id="info" [placeholder]="'tour.leave_review.placeholder_text' | translate" class="form-control"></textarea>
             </div>
-            <div class="review-form-item item-fifty">
-              <input type="text" id="name" [placeholder]="'tour.leave_review.placeholder_name' | translate" class="form-control">
-            </div>
-            <div class="review-form-item item-fifty">
-              <input type="email" id="email" [placeholder]="'tour.leave_review.placeholder_email' | translate" class="form-control">
-            </div>
+
+            <div class="review-error">{{reviewError}}</div>
 
             <div class="review-form-item">
               <button style="background: #0f5751;border:none;" type="submit" class="btn btn-primary" id="submit">{{'tour.leave_review.button_submit' | translate}}</button>
@@ -246,11 +245,11 @@
 
         <div class="mailchimp">
           <h4>{{'tour.mailchimp.title' | translate}}</h4>
-          <form class="mailchimp-form">
+          <form  (ngSubmit)="subscribeNews(emailInput.value, successModal)" class="mailchimp-form">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" [placeholder]="'tour.mailchimp.placeholder_email' | translate">
+              <input #emailInput type="text" class="form-control" [placeholder]="'tour.mailchimp.placeholder_email' | translate">
             </div>
-
+            <div class="error-subscribe" *ngIf="subscribeError">{{subscribeError}}</div>
             <button type="submit" class="btn">{{'tour.mailchimp.button_submit' | translate}}</button>
           </form>
         </div>
@@ -260,3 +259,31 @@
   </div>
 </div>
 
+<ng-template #successModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          You successfully subscribed for our NEWS! 😃 <br>
+          Check your email
+        </div>
+
+        <div class="btn-ok-container">
+          <button type="button" class="btn btn-success btn-ok" (click)="modal.close('Close click')">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #msgModal let-modal>
+  <div class="msg-modal-container">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal_message">
+          Thanks for your feedback! 😃
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
