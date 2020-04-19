@@ -21,7 +21,6 @@ export default (passport:any) => {
         new Strategy(options, async (payload, done) => {
             try {
                 const user = await User.findById(payload.userId).select('role email id');
-
                 if (user) {
                     done(null, user);
                 } else {

@@ -2,7 +2,7 @@ import Tour from "../models/Tour";
 import errorHandler from '../utils/errorHandler';
 import Review from '../models/Review';
 async function create(req:any, res:any) {
-    let lang: string = req.query.lang ? req.query.lang : 'en';
+    console.log(req.body)
     const tour: any = new Tour({
         ru: req.body.ru,
         en: req.body.en,
@@ -17,24 +17,7 @@ async function create(req:any, res:any) {
 
     try {
         await tour.save();
-
-        let resTour = {
-            _id: tour._id,
-            title: tour[lang].title,
-            restType: tour[lang].restType,
-            transportType: tour[lang].transportType,
-            route: tour[lang].route,
-            moreInfo: tour[lang].moreInfo,
-            images: tour.images,
-            dates: tour.dates,
-            cost: tour.cost,
-            discount: tour.discount,
-            bookedMax: tour.bookedMax,
-            booked: tour.booked,
-            views: tour.views
-        };
-
-        res.status(201).json(resTour);
+        res.status(201).json(tour);
     } catch (e) {
         errorHandler(res, e)
     }
@@ -72,45 +55,27 @@ async function remove(req:any, res:any) {
 }
 
 async function update(req:any, res:any) {
-    let lang: string = req.query.lang ? req.query.lang : 'en';
-    let requestData = req.body;
+    let requestData;
 
-    if(req.files) {
-        const files = req.files.map((file: any) => file.path);
-        const t: any = await Tour.findById(req.params.id);
-        t.images = t.images.concat(files);
-        requestData = t;
-    }
-
+    console.log(req.files)
 
     try {
+        if(req.files) {
+            const files = req.files.map((file: any) => file.path);
+            const t: any = await Tour.findById(req.params.id);
+            t.images = t.images.concat(files);
+            requestData = t;
+        } else {
+            requestData = req.body
+        }
+
         const tour: any = await Tour.findOneAndUpdate(
             {_id: req.params.id},
             {$set: requestData},
             {new: true}
         );
 
-        let tours = await Tour.find({});
-        let resTours:any = [];
-        tours.forEach((tour: any) => {
-            resTours.push({
-                _id: tour._id,
-                title: tour[lang].title,
-                restType: tour[lang].restType,
-                transportType: tour[lang].transportType,
-                route: tour[lang].route,
-                moreInfo: tour[lang].moreInfo,
-                images: tour.images,
-                dates: tour.dates,
-                cost: tour.cost,
-                discount: tour.discount,
-                bookedMax: tour.bookedMax,
-                booked: tour.booked,
-                views: tour.views
-            });
-        });
-
-        res.status(200).json(resTours);
+        res.status(200).json(tour);
     } catch (e) {
         errorHandler(res, e)
     }

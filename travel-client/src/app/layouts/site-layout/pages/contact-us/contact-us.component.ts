@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserRegister} from '../../../../interfaces/user/userRegister.interface';
 import {EmailService} from '../../../../services/email.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 

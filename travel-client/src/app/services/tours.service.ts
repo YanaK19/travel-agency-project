@@ -58,11 +58,12 @@ export class ToursService {
 
   updateTour(updatedTour): Observable<any> {
     const httpOptions  = {
-      headers: new HttpHeaders()
-        .set('Authorization',  this.auth.getToken())
+      headers: new HttpHeaders({
+        'Authorization': this.auth.getToken()
+      })
     };
 
-    return this.http.put<any>('/api/tour/' + updatedTour._id + this.langService.setOnlyLangParam(), updatedTour, httpOptions);
+    return this.http.put<any>('/api/tour/' + updatedTour._id, updatedTour, httpOptions);
   }
 
   createTour(newTour: Tour): Observable<any> {
@@ -71,10 +72,14 @@ export class ToursService {
         .set('Authorization',  this.auth.getToken())
     };
 
-    return this.http.post('/api/tour' + this.langService.setOnlyLangParam(), newTour, httpOptions);
+    return this.http.post('/api/tour', newTour, httpOptions);
   }
 
-  uploadImages(filesArr, tour): Observable<any> {
+  uploadImages(filesArr, tourId): Observable<any> {
+    const httpOptions  = {
+      headers: new HttpHeaders()
+        .set('Authorization',  this.auth.getToken())
+    };
     const fd = new FormData();
 
     filesArr.forEach(file => {
@@ -82,7 +87,7 @@ export class ToursService {
       fd.append('images', file, file.name);
     });
 
-    return this.http.put<any>('/api/tour/' + tour._id + this.langService.setOnlyLangParam(), fd);
+    return this.http.put<any>('/api/tour/' + tourId, fd, httpOptions);
   }
 
   getAllLangsTours(params?: string): Observable<any[]> {

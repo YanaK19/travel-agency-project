@@ -175,7 +175,7 @@
 
    <ng-template #content let-modal>
    <div class="modal-header">
-     <h4 class="modal-title">Tour Editing <i class="far fa-edit"></i></h4>
+     <h4 style="font-size: 1.2rem;" class="modal-title">Tour Editing <i class="far fa-edit"></i></h4>
      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
        <span aria-hidden="true">&times;</span>
      </button>
@@ -236,7 +236,7 @@
              </div>
 
              <div class="btn-location-modal">
-               <button class="btn btn-outline-primary" (click)="openEditLocationsModal(editLocationsModal)">Add/Delete Location</button>
+               <button type="button" class="btn btn-outline-primary" (click)="openEditLocationsModal(editLocationsModal)">Add/Delete Location</button>
              </div>
            </div>
 
@@ -271,6 +271,7 @@
                    <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_en, 'en')">add</button>
                  </div>
                </div>
+               <div *ngIf="invalidMessage === 'newRest'" class="error">This rest type is already exists</div>
              </div>
            </div>
 
@@ -302,6 +303,7 @@
                    <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('en')">add</button>
                  </div>
                </div>
+               <div *ngIf="invalidMessage === 'newTransport'" class="error">This transport type is already exists</div>
              </div>
 
              <div class="rest-container_add mb-2">
@@ -392,6 +394,7 @@
                    <button class="btn btn-outline-secondary" type="button" (click)="AddNewRestType(newRestType_ru, 'ru')">add</button>
                  </div>
                </div>
+               <div *ngIf="invalidMessage === 'newRest'" class="error">Этот тип отдыха уже существует</div>
              </div>
            </div>
 
@@ -423,6 +426,7 @@
                    <button class="btn btn-outline-secondary" type="button" (click)="addNewTransport('ru')">add</button>
                  </div>
                </div>
+               <div *ngIf="invalidMessage === 'newTransport'" class="error">Этот тип транспорта уже сущетвует</div>
              </div>
 
              <div class="rest-container_add mb-2">
@@ -564,7 +568,7 @@
 
   <ng-template #editLocationsModal let-modal>
     <div class="modal-header modal-location-header">
-      <h4 class="modal-title">Edit Locations</h4>
+      <h4  style="font-size: 1.2rem;" class="modal-title">Edit Locations</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true" style="font-size: 2.1rem; color: #fff;">&times;</span>
       </button>

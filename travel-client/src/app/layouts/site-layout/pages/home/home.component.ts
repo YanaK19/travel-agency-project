@@ -1,16 +1,13 @@
 import {Component, ElementRef, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as AOS from 'aos';
 import {ReviewService} from '../../../../services/review.service';
-import {Review} from '../../../../interfaces/review/review.interface';
 import {UserService} from '../../../../services/user.service';
-import {UserData} from '../../../../interfaces/user/userData.interface';
 import {ToursService} from '../../../../services/tours.service';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {Router} from '@angular/router';
 import {LocationService} from '../../../../services/location.service';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
-import {LangService} from '../../../../services/lang.service';
 import {EmailService} from '../../../../services/email.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 

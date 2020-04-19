@@ -115,19 +115,19 @@ export class OneTourComponent implements OnInit {
       return;
     }
 
+    if(!this.reviewForm.value.title || !this.reviewForm.value.info
+    ||  !String(this.reviewForm.value.title).trim().length
+    || !String(this.reviewForm.value.info).trim().length) {
+      this.reviewError = '* Please, fill all fields...';
+      return;
+    }
+
     const review = {
       title: this.reviewForm.value.title,
       info: this.reviewForm.value.info,
       userId: this.userService.getUserData()._id,
       tourId: this.id
     };
-
-/*    if(!review.title.length || !review.info.length) {
-      this.reviewError = '* Please, fill all fields...';
-      return;
-    }*/
-
-    console.log(review)
 
     this.modalService.open(msgModal, { centered: true });
 

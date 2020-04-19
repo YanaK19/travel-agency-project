@@ -127,28 +127,34 @@ export class EditingComponent implements OnInit {
     });
     if (this.isNewTour) {
       this.toursService.createTour(this.tour_langs).subscribe(newTour => {
-        this.toursService.uploadImages(this.newTourImages, newTour).subscribe(t => {
-          this.tours = t;
-          this.tours.push(newTour);
+        this.toursService.uploadImages(this.newTourImages, newTour._id).subscribe(t => {
           this.afterTourUpdate();
         });
       });
     } else {
-      this.toursService.updateTour(this.tour_langs).subscribe(tours => {
-        this.toursService.uploadImages(this.newTourImages, this.tour_langs).subscribe(t => {
-          this.tours = t;
+      this.toursService.updateTour(this.tour_langs).subscribe(tour => {
+        this.tour_langs = tour;
+
+        if(this.newTourImages.length) {
+          this.toursService.uploadImages(this.newTourImages, this.tour_langs._id).subscribe(tt => {
+            this.afterTourUpdate();
+          });
+        } else {
           this.afterTourUpdate();
-        });
+        }
       });
     }
   }
 
   afterTourUpdate() {
-    this.previewImages = [];
-    this.newTourImages = [];
-    this.modalService.dismissAll();
-    this.invalidFields = [];
-    this.loader = false;
+    this.toursService.getTours().subscribe(tours => {
+      this.tours = tours;
+      this.previewImages = [];
+      this.newTourImages = [];
+      this.modalService.dismissAll();
+      this.invalidFields = [];
+      this.loader = false;
+    });
   }
 
   isValid() {
@@ -234,9 +240,7 @@ export class EditingComponent implements OnInit {
           this.invalidMessage = "This country and town already exist";
           this.invalidLocation = true;
         }
-/*        this.locations[index].en.towns.push(townEn);
-        this.locations[index].ru.towns.push(this.locationForm.ru.town);*/
-/*        console.log(this.locations)*/
+
         countryExist = true;
         return;
       }
@@ -289,12 +293,24 @@ export class EditingComponent implements OnInit {
   }
 
   AddNewRestType(newTypeInput: HTMLInputElement, lang: string) {
+    if(this.isAlreadyExist(newTypeInput.value, this.ranges_langs.rest[lang].types)) {
+      this.invalidMessage = 'rest';
+      return;
+    }
+
+     this.invalidMessage = '';
      this.tour_langs[lang].restType.push(newTypeInput.value);
      this.ranges_langs.rest[lang].types.push(newTypeInput.value);
   }
 
   addRestTourType(lang) {
-      this.tour_langs[lang].restType.push(this.addRestType[lang]);
+    if(this.isAlreadyExist(this.addRestType[lang], this.tour_langs[lang].restType)) {
+      this.invalidMessage = 'newRest';
+      return;
+    }
+
+    this.invalidMessage = '';
+    this.tour_langs[lang].restType.push(this.addRestType[lang]);
   }
 
   deleteRestTourType(index, lang) {
@@ -312,6 +328,12 @@ export class EditingComponent implements OnInit {
   }
 
   addNewTransport(lang: string) {
+    if(this.isAlreadyExist(this.addTransportType[lang],  this.ranges_langs.transport[lang].types)) {
+      this.invalidMessage = 'newTransport';
+      return;
+    }
+
+    this.invalidMessage = '';
     this.ranges_langs.transport[lang].types.push(this.addTransportType[lang]);
     this.tour_langs[lang].transportType = this.addTransportType[lang];
   }
@@ -325,13 +347,20 @@ export class EditingComponent implements OnInit {
 
     this.delTransportInRange[lang] = '';
   }
+
+  isAlreadyExist(val, arr) {
+    if (arr.indexOf(val) === -1) {
+      return false;
+    }
+
+    return true;
+  }
+
   onImagesUpload(event) {
     if (event.target.files.length > 0) {
       for(let file of event.target.files) {
         this.newTourImages.push(file);
       }
-
-      console.log(this.newTourImages);
 
       for (let i = 0; i < event.target.files.length; i++) {
         let reader = new FileReader();

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToursService} from '../../../../services/tours.service';
 import {DateHandlerService} from '../../../../services/date-handler.service';
 import {Tour} from '../../../../interfaces/tour/tour.interface';
 import {UserService} from '../../../../services/user.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {OrderService} from '../../../../services/order.service';
 import {EmailService} from '../../../../services/email.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,8 @@ export class BookComponent implements OnInit {
               private userService: UserService,
               private orderService: OrderService,
               private emailService: EmailService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private router: Router) {
     this.id = activatedRoute.snapshot.params.id;
   }
 
@@ -39,7 +40,8 @@ export class BookComponent implements OnInit {
       this.tour = data;
       this.tour.dates = this.dateService.sortActualDates(this.tour.dates);
       this.user = this.userService.getUserData();
-      console.log(data)
+    } , (err) => {
+      this.router.navigate(['/error404']);
     });
   }
 

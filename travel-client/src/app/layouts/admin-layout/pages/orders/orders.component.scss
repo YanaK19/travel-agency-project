@@ -117,7 +117,7 @@ $white: #ffffffc9;
 
   .search-button {
     border-left: none;
-    background: #007fa9cc;
+    background: #28a745;
     width: 45px;
     border-color: transparent;
     border-left: none;
@@ -127,12 +127,16 @@ $white: #ffffffc9;
       color: #fff;
       font-size: 1rem;
       transition: 0.3s;
+    }
 
-      &:hover {
-        font-size: 1.2rem;
-      }
+    &:hover i {
+      font-size: 1.2rem;
     }
   }
+}
+
+.reset-button {
+  background: #007fa9cc !important;
 }
 
 .line-decoration {
@@ -228,7 +232,7 @@ $white: #ffffffc9;
     }
 
     .confirm {
-      background: rgba(255, 255, 255, 0.58);
+      background: #8aab30ed;
       margin-bottom: -120px;
     }
 

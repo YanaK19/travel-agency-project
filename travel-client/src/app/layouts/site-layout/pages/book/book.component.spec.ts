@@ -103,20 +103,4 @@ describe('BookComponent', () => {
     expect(form.controls.amount.errors.required).toBeFalsy();
     expect(form.controls.dates.errors.required).toBeTruthy();
   });
-
-  it('onBook', () => {
-    expect(bookComponent.tour).toBe(undefined);
-    spyOn(orderService, 'createOrder').and.callFake(() => EMPTY);
-
-    bookComponent.ngOnInit();
-    fixture.detectChanges();
-
-    expect(bookComponent.errorMesage).toEqual('');
-    bookComponent.onBook();
-    expect(bookComponent.errorMesage).toEqual('You should select tour date');
-
-    bookComponent.bookForm.controls.dates.setValue('11/11/1111 12/11/1111');
-    bookComponent.onBook();
-    expect(bookComponent.errorMesage).toEqual('');
-  });
 });

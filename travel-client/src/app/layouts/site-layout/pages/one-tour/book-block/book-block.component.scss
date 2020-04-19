@@ -4,9 +4,9 @@ $color_SkyBlue: #76cff1;
 
 .main-label {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.4rem;
   padding: 10px 0 11px;
-  border-bottom: 2px solid #76cff1;
+  border-bottom: 2px solid rgba(178, 25, 111, 0.86);
 
   span {
     color: $color_SkyBlue;
@@ -15,7 +15,8 @@ $color_SkyBlue: #76cff1;
 }
 
 .active-form-title {
-  background: $color_SkyBlue;
+  background: rgba(178, 25, 111, 0.86);
+  color: #fff !important;
 }
 
 .form-booking {
@@ -114,7 +115,4 @@ $color_SkyBlue: #76cff1;
     }
   }
 }
-/*
-@media (max-width: 768px) {
 
-}*/

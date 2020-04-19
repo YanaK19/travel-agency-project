@@ -6,28 +6,45 @@
     Review management
   </div>
 
-  <app-loader *ngIf="!reviews.length"></app-loader>
+  <app-loader *ngIf="!reviewsTours.length"></app-loader>
 
-  <div *ngIf="reviews.length" class="container-fluid">
+  <div *ngIf="reviewsTours.length" class="container-fluid">
     <div class="row">
-      <div *ngFor="let review of reviews; let i = index;" class="col-lg-6 review-container">
+      <div *ngFor="let reviewTour of reviewsTours; let i = index;" class="col-lg-6 review-container">
         <div class="review">
           <div class="title">
-            {{review.title}}
+            {{reviewTour.review.title}}
           </div>
 
           <div class="info">
-            {{review.info}}
+            {{reviewTour.review.info}}
           </div>
 
-          <div class="date">
-            {{review.date.day  | number: '2.0'}}/{{review.date.month | number: '2.0'}}/{{review.date.year}}
+          <div class="tour-container container-fluid">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="tour-title">
+                  {{reviewTour.tour.en.title}}
+                </div>
+                <div class="tour-id">
+                  {{reviewTour.tour._id}}
+                </div>
+                <div class="date">
+                  {{reviewTour.review.date.day  | number: '2.0'}}/{{reviewTour.review.date.month | number: '2.0'}}/{{reviewTour.review.date.year}}
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="tour-img">
+                  <img (click)="renderTourPage(reviewTour.tour._id)" [src]="reviewTour.tour.images[0]">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="buttons">
-          <button class="delete" (click)="onDelete(review._id, i)">delete</button>
-          <button *ngIf="!review.confirmed" class="confirm" (click)="onConfirm(review._id, i)">confirm</button>
+          <button class="delete" (click)="onDelete(reviewTour.review._id, i)">delete</button>
+          <button *ngIf="!reviewTour.review.confirmed" class="confirm" (click)="onConfirm(reviewTour.review._id, i)">confirm</button>
         </div>
       </div>
     </div>

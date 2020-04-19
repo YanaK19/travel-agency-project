@@ -90,8 +90,6 @@ describe('OrdersComponent', () => {
     ordersFixture = TestBed.createComponent(OrdersComponent);
     ordersComponent = ordersFixture.componentInstance;
     ordersComponent.orders = orders;
-    ordersComponent.users = users;
-    ordersComponent.tours = tours;
     orderService = TestBed.get(OrderService);
   });
 
@@ -176,33 +174,5 @@ describe('OrdersComponent', () => {
     ordersComponent.findOrderById('');
     expect(ordersComponent.orders.length).toBe(orders.length);
     expect(ordersComponent.ordersExist).toBeTruthy();
-  });
-
-  it('should establishRelationOrdersTours', () => {
-    const expextedToursOrder = [
-      {_id: "5e6f5081bf9aba08acf6c160"},
-      {_id: "5e6f862669d8452c184c9642"},
-      {_id: "5e6f8dcd4f9766291cef6d84"},
-    ];
-
-    ordersComponent.unorderedTours = tours;
-    ordersComponent.tours = [];
-
-    ordersComponent.establishRelationOrdersTours();
-    expect(ordersComponent.tours).toEqual(expextedToursOrder);
-  });
-
-  it('should establishRelationOrdersUsers', () => {
-    const expextedUsersOrder = [
-      {_id: "5e615a17e582c82864111ca1"},
-      {_id: "5e615a17e582c82864111ca1"},
-      {_id: "5e615a17e582c82864111ca1"}
-    ];
-
-    ordersComponent.unorderedUsers = users;
-    ordersComponent.users = [];
-
-    ordersComponent.establishRelationOrdersUsers();
-    expect(ordersComponent.users).toEqual(expextedUsersOrder);
   });
 });

@@ -58,7 +58,6 @@ describe('OneTourComponent (tour binding)', () => {
       views: 102020
     };
     comp.reviews = [];
-    comp.users = [];
 
     fixture.detectChanges();
     await fixture.whenStable();

@@ -13,8 +13,8 @@ import {LangService} from '../../services/lang.service';
 export class SiteLayoutComponent implements OnInit {
   userId = '';
   languages = {
-    'en': {name: 'eng', icon: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg"},
-    'ru': {name: 'рус', icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/320px-Flag_of_Russia.svg.png"}
+    'en': {name: 'eng', icon: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg'},
+    'ru': {name: 'рус', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/320px-Flag_of_Russia.svg.png'}
   };
 
   selectedLang;

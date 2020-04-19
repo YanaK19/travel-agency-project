@@ -110,6 +110,25 @@ async function getReviewsUsers(req:any, res:any) {
     }
 }
 
+async function getReviewsTours(req:any, res:any) {
+    let reviews: any;
+    let reviewsTours = [];
+
+    try {
+        reviews = await Review.find().sort({"date.year": -1, "date.month": -1, "date.day": -1});
+
+        for(let i = 0; i < reviews.length; i++) {
+            let review = reviews[i];
+            let tour = await Tour.findOne({_id: review.tourId});
+            reviewsTours.push({review, tour});
+        }
+
+        res.status(200).json(reviewsTours);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 async function getReviewsUsersByTourId(req:any, res:any) {
     let reviewsUsers = [];
 
@@ -152,5 +171,5 @@ async function remove(req:any, res:any) {
     }
 }
 
-export {create, getReviews, remove, getReviewById, update, getReviewsUsers, getReviewsUsersByTourId}
+export {create, getReviews, remove, getReviewById, update, getReviewsUsers, getReviewsUsersByTourId, getReviewsTours}
 

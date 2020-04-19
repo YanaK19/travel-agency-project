@@ -32,6 +32,10 @@ export class ReviewService {
     return this.http.get<any[]>('api/review/reviewsusersBytourid/'+tourId);
   }
 
+  getReviewsTours(){
+    return this.http.get<any[]>('api/review/reviewstours/reviews');
+  }
+
 
   getReviews(): Observable<any> {
     return this.http.get<any>('api/review');

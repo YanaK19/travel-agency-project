@@ -30,7 +30,7 @@ const routes: Routes = [
       {path: 'tours', component: ToursComponent},
       {path: 'one-tour/:id', component: OneTourComponent},
       {path: 'home', component: HomeComponent},
-      {path: 'book/:id', component: BookComponent},
+      {path: 'book/:id', component: BookComponent, canActivate: [AuthorizationGuard]},
     ],
   },
   {
