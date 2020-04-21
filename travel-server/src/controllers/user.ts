@@ -20,6 +20,8 @@ async function update(req:any, res:any) {
             {new: true}
         );
 
+        updatedUser._id = req.user._id;
+
         const token:string = generateToken(updatedUser);
 
         res.status(200).json({token: `Bearer ${token}`, user: updatedUser})

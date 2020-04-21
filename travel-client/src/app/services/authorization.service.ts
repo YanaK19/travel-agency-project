@@ -15,7 +15,6 @@ export class AuthorizationService {
     return this.http.post('api/user/login', user)
       .pipe(map((data: any) => {
           localStorage.setItem('token', data.token);
-          console.log(data.user);
           localStorage.setItem('userData', JSON.stringify(data.user));
           return data.user;
         })

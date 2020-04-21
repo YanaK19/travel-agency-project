@@ -54,7 +54,6 @@ export class OneTourComponent implements OnInit {
     this.reviewService.getReviewsUsersByTourId(this.id).subscribe((reviews) => {
       this.reviews = reviews;
       this.isReviewsLoaded = true;
-      console.log(reviews)
     });
   }
 
@@ -104,7 +103,6 @@ export class OneTourComponent implements OnInit {
       },
       err => {
         this.subscribeError = err.error.message;
-        console.log(this.subscribeError)
       }
     );
   }
@@ -132,7 +130,6 @@ export class OneTourComponent implements OnInit {
     this.modalService.open(msgModal, { centered: true });
 
     this.reviewService.createReview(review).subscribe(newReview => {
-      console.log(newReview);
       setTimeout(() => this.modalService.dismissAll(), 2000);
     });
   }

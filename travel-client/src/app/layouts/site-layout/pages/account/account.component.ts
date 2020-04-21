@@ -73,12 +73,10 @@ export class AccountComponent implements OnInit, OnDestroy {
       if (user && user._id == params.id) {
         this.isMyAccount = true;
         this.userData = user;
-        console.log('my account', this.isMyAccount);
         this.loadPageData();
       } else {
         this.userService.getUserById(params.id).subscribe((data => {
           this.userData = data;
-          console.log('not my account');
           this.isMyAccount = false;
 
           if(this.isILoggedIn) {
@@ -100,7 +98,6 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.userData.subscriptions.forEach((userId) => {
       this.userService.getUserById(userId).subscribe((data => {
         this.subscribtionsData.push(data);
-        console.log(this.subscribtionsData);
       }));
     });
 
@@ -125,7 +122,6 @@ export class AccountComponent implements OnInit, OnDestroy {
           this.visitedTourOrders = this.ordersData.filter(orderTour =>
             this.dateService.compareDates(orderTour.order.tourDate.dateFrom, currDate) == -1 && orderTour.order.confirmed
           ).sort((a, b) => -this.dateService.compareDates(a.order.tourDate.dateFrom, currDate));
-console.log(this.visitedTourOrders)
 
           this.visitedTourOrders.forEach((orderTour, i) => {
             if(i % 2 === 0) {
@@ -174,8 +170,8 @@ console.log(this.visitedTourOrders)
       this.image = file;
 
       this.userService.uploadAvatar(file).subscribe(updatedUser => {
-        this.userData = updatedUser;
-        localStorage.setItem('userData', JSON.stringify(updatedUser));
+        this.userData = updatedUser.user;
+        localStorage.setItem('userData', JSON.stringify(updatedUser.user));
       });
 
       const reader = new FileReader();
@@ -236,7 +232,6 @@ console.log(this.visitedTourOrders)
     this.modalService.open(msgModal, { centered: true });
 
     this.reviewService.createReview(review).subscribe(newReview => {
-      console.log(newReview);
       setTimeout(() => this.modalService.dismissAll(), 2000);
     });
   }

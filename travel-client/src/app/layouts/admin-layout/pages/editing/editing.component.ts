@@ -98,7 +98,6 @@ export class EditingComponent implements OnInit {
 
     this.locationService.getAllLangsLocations().subscribe(locations => {
       this.locations = locations;
-      console.log(locations)
     });
   }
 
